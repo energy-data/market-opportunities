@@ -20,7 +20,20 @@
     "serve": "gulp serve",
     "build": "NODE_ENV=production gulp",
     "lint": "eslint app/assets/scripts/ --ext .js",
-    "test": "ava test"
+    "test": "nyc ava test",
+    "report": "nyc report"
+  },
+  "ava": {
+    "require": ["babel-core/register"]
+  },
+  "babel": {
+    "presets": ["es2015"],
+    "ignore": "test",
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
   },
   "browserify": {
     "transform": [
@@ -71,6 +84,7 @@
     "node-bourbon": "^4.2.8",
     "node-notifier": "^4.5.0",
     "node-sass": "^3.7.0",
+    "nyc": "^6.4.4",
     "require-globify": "^1.3.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
