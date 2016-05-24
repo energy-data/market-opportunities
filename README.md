@@ -2,6 +2,19 @@
 
 ## Overview
 
+
+## Development environment
+To set up the development environment for this website, you'll need to install the following on your system:
+
+- Node (v4.2.x) & Npm ([nvm](https://github.com/creationix/nvm) usage is advised)
+
+> The versions mentioned are the ones used during development. It could work with newer ones.
+
+After these basic requirements are met, run the following commands in the website's folder:
+```
+$ npm install
+```
+
 ## Gulp for building
 
 There are two commands, both run via npm.
