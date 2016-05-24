@@ -1,0 +1,39 @@
+language: node_js
+node_js:
+  - "4"
+
+env:
+  global:
+  - CXX=g++-4.8
+  - DEPLOY_BRANCH=master
+  - secure: "" # GH_TOKEN
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
+cache:
+  apt: true
+  directories:
+    - node_modules
+
+before_install:
+- chmod +x ./.build_scripts/deploy.sh
+- chmod +x ./.build_scripts/lint.sh
+
+before_script:
+- ./.build_scripts/lint.sh
+- npm test
+
+script:
+- npm run build
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: .build_scripts/deploy.sh
+  on:
+    branch: ${DEPLOY_BRANCH}
