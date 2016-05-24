@@ -6,7 +6,7 @@ env:
   global:
   - CXX=g++-4.8
   - DEPLOY_BRANCH=master
-  - secure: "" # GH_TOKEN
+  - secure: "pl+snTjYTuXE4YbO/cg4p+OvGO4U9gome1natnFIQ2DO8FujHzDhctG3V/rPiC/xHtBI9yYfS3VHp0ZOk/A6sf7Kp81SIeoRK2WQtlZ5Wg0KaiKCJU9gD52b0GKIRcTaad+xnwXjpBE6/DuapYy4qj9TVcGo1X7Jhj8CqO2btgUAMT2H0EupJVRx1H4ccNGtCYJIjAuoGpzND4gDghek5B0DnjG1rUC8WIFqf0sUXczdguZi7a2AUbuuHtl+IQuQU3fOrwX01Bd6yk5cNP7VxhZXDwLQWu0BuHlK84fab2F8AyaAg41zA9CLGAotMdvAebmpzqXVdM0kJb76k+RV6k3UKtMkLp+Jn3lbEiOsGvo4ZQ/uvkwXwrcWg++uLusgWYquPfqccg85+P8DWpLPaWstoIx9tKpw8mBCiZDfVlMZ02m4iYseRH50R72q41g0j6l/kuxlA4e80/cJY2g3891wHLjeC5hFtUppWu4cAKk4FpbRr1ktNKPqRWx6jvgYZVHeWn4qQmmue/cX6LD3ZR7NoYATh89Y7tAaQ6O0LQWksmIGGp5TobroxYNFf4lLx34UKeLopCoOmhSj3sGOOUY2ljKjDbS4PZiIeP3ayi5muVngZJhN/kjAwVApYMeVKiFF1LYPZVKtD+zKlVsrRcwMfCBfeDdyvlyWIu1FJfI=" # GH_TOKEN
 
 addons:
   apt:
@@ -29,7 +29,7 @@ before_script:
 - npm test
 
 script:
-- npm run build
+- NODE_ENV=production npm run build
 
 deploy:
   provider: script
