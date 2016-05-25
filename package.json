@@ -105,6 +105,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "lodash.defaultsdeep": "^4.3.5",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
