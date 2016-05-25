@@ -11,6 +11,7 @@ To set up the development environment for this website, you'll need to install t
 > The versions mentioned are the ones used during development. It could work with newer ones.
 
 After these basic requirements are met, run the following commands in the website's folder:
+
 ```
 $ npm install
 ```
