@@ -7,6 +7,7 @@
  * https://github.com/necolas/idiomatic-css
  */
 
+
 /* Charset */
 
 @charset "UTF-8";
@@ -22,16 +23,26 @@
 
 @import "bourbon";
 
+/**
+ * Using Jeet, a grid system designed for humans:
+ * http://jeet.gs/
+ */
 
-/* Reboot
+@import "jeet/index";
+
+
+/* Normalize
    ========================================================================== */
 
+/**
+ * Normalize.css, a modern, HTML5-ready alternative to CSS resets:
+ * http://necolas.github.io/normalize.css/
+ */
+
 @import "normalize";
-@import "reset";
 
 /**
- * Using Kenneth Ormandy's OpenType features—ligatures, kerning, and
- * more—to Normalize.css:
+ * Kenneth Ormandy's OpenType features—ligatures, kerning, and more—to Normalize.css:
  * https://github.com/kennethormandy/normalize-opentype.css
  */
 
@@ -41,8 +52,33 @@
 /* Settings
    ========================================================================== */
 
+@import "variables";
+@import "functions";
+@import "mixins";
 
-/* Main
+
+/* Core
    ========================================================================== */
 
+@import "webfont-montserrat";
+@import "collecticons";
 @import "base";
+@import "typography";
+@import "media";
+@import "utilities";
+
+
+/* Components
+   ========================================================================== */
+
+@import "buttons";
+@import "forms";
+// @import "alerts";
+@import "panels";
+
+
+/* Structure & Content
+   ========================================================================== */
+
+@import "structure";
+@import "content";

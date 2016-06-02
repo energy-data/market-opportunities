@@ -1,36 +1,127 @@
-// IE < 10
-// Don't delete.
-.lt-ie10 {
-  #site-canvas {
-    display: none;
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+/* Reset the box-sizing */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Make viewport responsive on every browser */
+
+@at-root {
+  @-moz-viewport      { width: device-width; }
+  @-ms-viewport       { width: device-width; }
+  @-o-viewport        { width: device-width; }
+  @-webkit-viewport   { width: device-width; }
+  @viewport           { width: device-width; }
+}
+
+/* Reset HTML, body, etc */
+
+html {
+  font-size: $root-font-size;
+  // Changes the default tap highlight to be completely transparent in iOS.
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+  color: $base-font-color;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  font-family: $base-font-family;
+  font-weight: $base-font-weight;
+  font-style: $base-font-style;
+  min-width: $row-min-width;
+}
+
+
+/* Links
+   ========================================================================== */
+
+a {
+  cursor: pointer;
+  color: $link-color;
+  text-decoration: none;
+  transition: opacity 0.24s ease 0s;
+}
+
+a:visited {
+  color: $link-color;
+}
+
+a:hover {
+  opacity: 0.64;
+}
+
+a:active {
+  outline: none;
+  transform: translate(0, 1px);
+}
+
+
+/* Rows
+   ========================================================================== */
+
+.row {
+  @extend .clearfix;
+  padding-left: $global-spacing;
+  padding-right: $global-spacing;
+  @include media(small-up) {
+    padding-left: $global-spacing * 2;
+    padding-right: $global-spacing * 2;
   }
-  #nocando {
-    margin: 200px auto;
-    padding: 32px;
-    max-width: 440px;
-    background: #fff;
-    h1 {
-      font-size: 24px;
-      line-height: 1.1;
-      margin-bottom: 32px;
-    }
+  // @include media(xlarge-up) {
+  //   padding-left: $global-spacing * 4;
+  //   padding-right: $global-spacing * 4;
+  // }
+  &--centered {
+    max-width: $row-max-width;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
-// Scss starts here!
-.header {
-  padding: 256px 32px;
-  text-align: center;
-  font-size: 20px;
-  line-height: 1.5;
 
-  h1 {
-    margin-bottom: 32px;
-    > img {
-      width: auto;
-      height: 64px;
-      max-width: 100%;
-      vertical-align: top;
-    }
-  }
+/* Buttons
+   ========================================================================== */
+
+/**
+ * iOS "clickable elements" fix for role="button":
+ * https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
+ */
+
+[role="button"] {
+  cursor: pointer;
+}
+
+
+/* Forms
+   ========================================================================== */
+
+input, select, textarea {
+  font: inherit;
+  height: auto;
+  width: auto;
+  margin: 0;
+}
+
+
+/* Tables
+   ========================================================================== */
+
+/**
+ * Remove most spacing between table cells.
+ */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
