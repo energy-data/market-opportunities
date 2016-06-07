@@ -17,7 +17,8 @@ var classes = {
   'panel header': '.panel__header',
   'panel toggle': '.layers-menu a',
   'panel title': '.panel__title',
-  'panel subtitle': '.panel__subtitle'
+  'panel subtitle': '.panel__subtitle',
+  'results fold': '.fold'
 }
 
 Object.keys(classes).forEach(function (key) {

@@ -1,0 +1,16 @@
+/* ==========================================================================
+   Page: Explore / Map
+   ========================================================================== */
+
+#map {
+  position: absolute;
+  z-index: 1;
+  height: calc(100% - 10rem);
+  background: #fff;
+  text-align: center;
+
+  @include media(large-up) {
+    height: 100%;
+    width: calc(100% - 18rem);
+  }
+}

@@ -73,7 +73,6 @@
 
 @import "buttons";
 @import "forms";
-// @import "alerts";
 @import "panels";
 
 
@@ -81,10 +80,9 @@
    ========================================================================== */
 
 @import "structure";
-@import "content";
 
+/* Page: Explore */
 
-/* Element Specific
-   ========================================================================== */
-@import "side_panel";
-@import "map";
+@import "p-explore-control-panel";
+@import "p-explore-map";
+@import "p-explore-results-fold";

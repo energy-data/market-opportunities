@@ -75,7 +75,7 @@ ol {
 }
 
 dt {
-  @extend .heading-alt;
+  font-weight: $base-font-bold;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }

@@ -1,5 +1,15 @@
-#panel-layers {
-  bottom: 2rem;
+/* ==========================================================================
+   Page: Explore / Control Panel
+   ========================================================================== */
+
+#control-panel {
+  position: absolute;
+  top: $global-spacing;
+  left: $global-spacing;
+  bottom: $global-spacing;
+  z-index: 100;
+  width: 20rem;
+
   .panel__body {
     height: calc(100% - 10.75rem);
     overflow: auto;
@@ -7,6 +17,7 @@
       padding: 0;
     }
   }
+
   // temp work for functionality
   li {
     list-style: none;
@@ -28,5 +39,11 @@
         background-color: $primary-color;
       }
     }
+  }
+
+  @include media(xlarge-up) {
+    top: $global-spacing * 2;
+    left: $global-spacing * 2;
+    bottom: $global-spacing * 2;
   }
 }

@@ -9,7 +9,7 @@ import PanelIndicatorList from './panel-indicator-list'
 import PanelBaseLayerList from './panel-base-layer-list'
 import PanelFooter from './panel-footer'
 
-export const SidePanel = React.createClass({
+export const ControlPanel = React.createClass({
 
   propTypes: {
     layers: React.PropTypes.object,
@@ -35,7 +35,7 @@ export const SidePanel = React.createClass({
     />
 
     return (
-      <section className='panel' id='panel-layers'>
+      <section className='panel' id='control-panel'>
         <PanelTitle
           title='Tanzania'
           subtitle='Solar for rural areas'
@@ -89,4 +89,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(SidePanel)
+export default connect(mapStateToProps)(ControlPanel)

@@ -2,8 +2,8 @@ import React from 'react'
 
 import Header from '../components/header'
 import Map from '../components/map'
-import SidePanel from '../components/side-panel'
-import ResultsPanel from '../components/results-panel'
+import ControlPanel from '../components/control-panel'
+import ResultsFold from '../components/results-fold'
 
 const App = React.createClass({
 
@@ -23,13 +23,9 @@ const App = React.createClass({
               </header>
               <div className='layout__body'>
                 <div className='inner'>
-                  <div className='canvas canvas--map'>
-                    <Map />
-                  </div>
-                  <div className='canvas canvas--panels'>
-                    <SidePanel />
-                    <ResultsPanel />
-                  </div>
+                  <ControlPanel />
+                  <Map />
+                  <ResultsFold />
                 </div>
               </div>
             </section>

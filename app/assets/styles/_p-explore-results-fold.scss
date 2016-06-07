@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Page: Explore / Results Fold
+   ========================================================================== */
+
+#results-fold {
+  @extend .antialiased;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  height: 10rem;
+  width: 100%;
+  background: tint($base-color, 32%);
+  color: #fff;
+  padding: ($global-spacing * 2) $global-spacing;
+  overflow-y: scroll;
+
+  .fold__title {
+    @include heading(0.75rem);
+    text-transform: uppercase;
+  }
+
+  @include media(large-up) {
+    right: 0;
+    width: 18rem;
+    height: 100%;
+  }
+}
+
+.results-details {
+  @extend .clearfix;
+  dt, dd {
+    float: left;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-top: $global-spacing / 2;
+    padding-bottom: $global-spacing / 2;
+  }
+  dt {
+    position: relative;
+    width: 60%;
+    clear: left;
+    padding-right: $global-spacing / 2;
+    color: rgba(#fff, 0.48);
+    &:not(:first-child):before {
+      content: '';
+      height: 1px;
+      background: #fff;
+      width: calc(100vw);
+      position: absolute;
+      top: 0;
+      left: - $global-spacing;
+      opacity: 0.08;
+    }
+  }
+  dd {
+    width: 40%;
+    padding-left: $global-spacing / 2;
+    margin-bottom: 0;
+  }
+  dd + dd {
+    margin-left: 60%;
+  }
+}
