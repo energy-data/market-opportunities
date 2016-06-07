@@ -6,9 +6,12 @@
   position: absolute;
   z-index: 1;
   height: calc(100% - 10rem);
-  background: #fff;
-  text-align: center;
-
+  .temp-map-hover {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    z-index: 5;
+  }
   @include media(large-up) {
     height: 100%;
     width: calc(100% - 18rem);

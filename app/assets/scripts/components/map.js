@@ -1,10 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import mapboxgl from 'mapbox-gl'
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
 export const Map = React.createClass({
 
   propTypes: {
     layers: React.PropTypes.object
+  },
+
+  // for testing only
+  getInitialState: function () {
+    return {
+      zoom: 0
+    }
+  },
+
+  componentDidMount: function () {
+    const map = this._map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/light-v8'
+    })
+    map.on('moveend', () => this.setState({zoom: map.getZoom()}))
   },
 
   render: function () {
@@ -18,11 +35,14 @@ export const Map = React.createClass({
 
     return (
       <div className='map' id='map'>
-        <p>THE MAP</p>
-        <p>Visible Indicators: {visibleIndicators.join(', ')}</p>
-        <p>Visible Base Layers: {baseIndicators.join(', ')}</p>
-        <p>Layer Being Edited: {editLayer.map(layer => layer.name).join(', ')}</p>
-        <p>Edited Layer Filter: {JSON.stringify(editLayer.map(layer => layer.filter))}</p>
+        <div className='temp-map-hover'>
+          <p>THE MAP</p>
+          <p>Visible Indicators: {visibleIndicators.join(', ')}</p>
+          <p>Visible Base Layers: {baseIndicators.join(', ')}</p>
+          <p>Layer Being Edited: {editLayer.map(layer => layer.name).join(', ')}</p>
+          <p>Edited Layer Filter: {JSON.stringify(editLayer.map(layer => layer.filter))}</p>
+          <p>Zoom: {this.state.zoom}</p>
+        </div>
       </div>
     )
   }
