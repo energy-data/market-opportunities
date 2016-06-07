@@ -1,0 +1,32 @@
+#panel-layers {
+  bottom: 2rem;
+  .panel__body {
+    height: calc(100% - 10.75rem);
+    overflow: auto;
+    .panel__body-inner {
+      padding: 0;
+    }
+  }
+  // temp work for functionality
+  li {
+    list-style: none;
+  }
+  .group {
+    padding: 0.25rem 0.5rem;
+    background-color: $base-alpha-color;
+  }
+  .indicator, .base-layer {
+    & > div {
+      padding: 0.25rem;
+      border-bottom: 1px solid $primary-color;
+      h3, h5 { margin-bottom: 0.25rem; }
+    }
+    .slider-wrapper {
+      padding: 1.5rem;
+      padding-bottom: 3.5rem;
+      .noUi-connect {
+        background-color: $primary-color;
+      }
+    }
+  }
+}

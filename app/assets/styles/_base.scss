@@ -89,7 +89,6 @@ a:active {
   }
 }
 
-
 /* Buttons
    ========================================================================== */
 
@@ -124,4 +123,13 @@ input, select, textarea {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+
+#site-canvas {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
 }

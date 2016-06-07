@@ -10,9 +10,9 @@ $primary-color: #0da081;                                // Color name (Green)
 $secondary-color: #077c94;                              // Color name (Blue)
 
 $danger-color: #ea4f54;                                 // Mandy
-$success-color: $secondary-color;                       // 
+$success-color: $secondary-color;                       //
 $warning-color: #f6d55f;                                // Energy Yellow
-$info-color: $primary-color;                            // 
+$info-color: $primary-color;                            //
 
 $link-color: $primary-color;
 $base-alpha-color: rgba($base-color, 0.12);
@@ -72,5 +72,3 @@ $large-range: (992px, 1199px);
 $xlarge-range: (1200px);
 
 $screen: "only screen";
-
-

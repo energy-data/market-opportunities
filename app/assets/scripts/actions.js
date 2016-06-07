@@ -3,8 +3,15 @@
  */
 export const UPDATE_FOO = 'UPDATE_FOO'
 export const UPDATE_BAR = 'UPDATE_BAR'
-export const REDUCER_TO_DEFAULT = 'REDUCER_TO_DEFAULT'
+export const LAYERS_TO_DEFAULT = 'LAYERS_TO_DEFAULT'
+export const TEMP_FILTER_TO_DEFAULT = 'TEMP_FILTER_TO_DEFAULT'
 export const BAD_ACTION = 'BAD_ACTION'
+export const UPDATE_VISIBLE_LAYERS = 'UPDATE_VISIBLE_LAYERS'
+export const START_EDITING_LAYER = 'START_EDITING_LAYER'
+export const STOP_EDITING_LAYER = 'STOP_EDITING_LAYER'
+export const TOGGLE_LAYER_VISIBILITY = 'TOGGLE_LAYER_VISIBILITY'
+export const UPDATE_LAYER_FILTER = 'UPDATE_LAYER_FILTER'
+export const UPDATE_TEMP_FILTER = 'UPDATE_TEMP_FILTER'
 
 /*
  * bare action creators
@@ -29,9 +36,59 @@ export function updateBar (bar) {
  */
 export function resetState (portion) {
   switch (portion) {
-    case 'reducer':
-      return { type: REDUCER_TO_DEFAULT }
+    case 'layers':
+      return { type: LAYERS_TO_DEFAULT }
+    case 'tempFilter':
+      return { type: TEMP_FILTER_TO_DEFAULT }
     default:
       return { type: BAD_ACTION }
   }
+}
+
+/*
+ * Update the visible layers in the side panel
+ */
+
+export function updateVisibleLayers (visible) {
+  return { type: UPDATE_VISIBLE_LAYERS, data: visible }
+}
+
+/*
+ * Change the editing status of a layer to true
+ */
+
+export function startEditingLayer (id) {
+  return { type: START_EDITING_LAYER, data: id }
+}
+
+/*
+ * Change the editing status of a layer to false
+ */
+
+export function stopEditingLayer (id) {
+  return { type: STOP_EDITING_LAYER, data: id }
+}
+
+/*
+ * Toggle the visible status of a layer
+ */
+
+export function toggleLayerVisibility (id) {
+  return { type: TOGGLE_LAYER_VISIBILITY, data: id }
+}
+
+/*
+ * update the filter for a layer
+ */
+
+export function updateLayerFilter (id, filter) {
+  return { type: UPDATE_LAYER_FILTER, data: {id, filter} }
+}
+
+/**
+ * update the temporary filter (stored in case we cancel/reset)
+ */
+
+export function updateTempFilter (filter) {
+  return { type: UPDATE_TEMP_FILTER, data: filter }
 }
