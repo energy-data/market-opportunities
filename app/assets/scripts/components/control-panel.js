@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
-  toggleLayerVisibility, updateLayerFilter, updateTempFilter } from '../actions'
+  toggleLayerVisibility, updateLayerFilter, updateTempFilter,
+  toggleOpenGroup } from '../actions'
 
 import PanelTitle from './panel-title'
 import PanelIndicatorList from './panel-indicator-list'
@@ -14,20 +15,23 @@ export const ControlPanel = React.createClass({
   propTypes: {
     layers: React.PropTypes.object,
     tempFilter: React.PropTypes.object,
+    groups: React.PropTypes.object,
     dispatch: React.PropTypes.func
   },
 
   render: function () {
-    const { layers } = this.props
+    const { layers, groups } = this.props
 
     const PanelLayerList = (layers.visible === 'indicators')
     ? <PanelIndicatorList
       layers={layers[layers.visible]}
+      openGroups={groups.open}
       startEditing={this._startEditing}
       saveEdit={this._saveEdit}
       cancelEdit={this._cancelEdit}
       toggleLayerVisibility={this._toggleLayerVisibility}
       updateLayerFilter={this._updateLayerFilter}
+      toggleOpenGroup={this._toggleOpenGroup}
     />
     : <PanelBaseLayerList
       layers={layers[layers.visible]}
@@ -53,8 +57,7 @@ export const ControlPanel = React.createClass({
     this.props.dispatch(updateVisibleLayers(visible))
   },
 
-  _toggleLayerVisibility: function (e, id) {
-    e.preventDefault()
+  _toggleLayerVisibility: function (id) {
     this.props.dispatch(toggleLayerVisibility(id))
   },
 
@@ -79,13 +82,19 @@ export const ControlPanel = React.createClass({
     e.preventDefault()
     dispatch(stopEditingLayer(id))
     dispatch(updateLayerFilter(id, tempFilter.temp))
+  },
+
+  _toggleOpenGroup: function (e, group) {
+    e.preventDefault()
+    this.props.dispatch(toggleOpenGroup(group))
   }
 })
 
 function mapStateToProps (state) {
   return {
     layers: state.layers,
-    tempFilter: state.tempFilter
+    tempFilter: state.tempFilter,
+    groups: state.groups
   }
 }
 

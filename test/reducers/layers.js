@@ -3,7 +3,7 @@ import layers, { initial } from '../../app/assets/scripts/reducers/layers'
 import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
   toggleLayerVisibility, updateLayerFilter, resetState } from '../../app/assets/scripts/actions'
 
-test('reducer test', t => {
+test('layer reducer test', t => {
   const base = [{id: 'a'}]
   const indicators = [{id: 'b', editing: true}]
   const visible = 'base'

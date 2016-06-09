@@ -3,47 +3,374 @@
    ========================================================================== */
 
 #control-panel {
+  @include display(flex);
+  @include flex-direction(column);
   position: absolute;
   top: $global-spacing;
   left: $global-spacing;
-  bottom: $global-spacing;
   z-index: 100;
-  width: 20rem;
+  width: 18rem;
+  max-height: calc(100% - #{$global-spacing * 2}); // once max-height is reached, the body becomes scrollable
+
+  .panel__header {
+    @include flex(0 0 auto);
+  }
 
   .panel__body {
-    height: calc(100% - 10.75rem);
-    overflow: auto;
-    .panel__body-inner {
-      padding: 0;
+    @include flex(1 1 auto);
+    overflow-y: scroll;
+  }
+
+  .panel__body-inner {
+    padding: 0;
+    &:empty {
+      text-align: center;
+      padding: $global-spacing;
+      font-size: 0.75rem;
+      line-height: 1rem;
+      opacity: 0.48;
+      
+      &::after {
+        content: 'Nothing to show.';
+      }
     }
   }
 
-  // temp work for functionality
-  li {
-    list-style: none;
-  }
-  .group {
-    padding: 0.25rem 0.5rem;
-    background-color: $base-alpha-color;
-  }
-  .indicator, .base-layer {
-    & > div {
-      padding: 0.25rem;
-      border-bottom: 1px solid $primary-color;
-      h3, h5 { margin-bottom: 0.25rem; }
-    }
-    .slider-wrapper {
-      padding: 1.5rem;
-      padding-bottom: 3.5rem;
-      .noUi-connect {
-        background-color: $primary-color;
-      }
-    }
+  .panel__footer {
+    @include flex(0 0 auto);
+    text-align: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
 
   @include media(xlarge-up) {
     top: $global-spacing * 2;
     left: $global-spacing * 2;
-    bottom: $global-spacing * 2;
+    max-height: calc(100% - #{$global-spacing * 4});
   }
+}
+
+.button-export {
+  @extend .button, .button--achromic-unbounded;
+  &::before {
+    @extend %collecticon-download;
+  }
+}
+
+
+/* Layer group
+   ========================================================================== */
+
+.layer-group__header {
+  background: tint($base-color, 96%);
+  box-shadow: inset 0 -1px 0 0 $base-semi-alpha-color;
+}
+
+.layer-group__title,
+.layer-group__toggle {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 1rem;
+    line-height: 1;
+    width: 1rem;
+    text-align: center;
+  }
+}
+
+.layer-group__title {
+  position: relative;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: $base-font-bold;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgba($base-font-color, 0.64);
+}
+
+.layer-group__motif {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-size: 1rem;
+  line-height: 1;
+  width: 1rem;
+  text-align: center;
+  left: $global-spacing;
+  opacity: 0.48;
+  color: $base-color;
+
+  > * {
+    vertical-align: top;
+    display: inline-block;
+    line-height: inherit;
+  }
+}
+
+.layer-group__motif ~ .layer-group__title {
+  padding-left: 1.5rem;
+}
+
+.layer-group__toggle {
+  position: relative;
+  display: block;
+  padding: ($global-spacing / 2) ($global-spacing * 2) ($global-spacing / 2) $global-spacing;
+
+  &, &:visited {
+    color: inherit;
+  }
+
+  &::after {
+    @extend %collecticon-sm-chevron-down;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 1rem;
+    line-height: 1;
+    width: 1rem;
+    text-align: center;
+    right: $global-spacing;
+    color: rgba($base-color, 0.32);
+    transition: all 0.16s ease 0s;
+  }
+
+  /* Expanded layer-group state */
+  .layer-group--expanded & {
+    &::after {
+      transform: rotate(180deg) translate(0, 50%);
+    }
+  }
+}
+
+.layer-group__body {
+  /* Collapsed layer-group state */
+  overflow-y: hidden;
+  max-height: 0;            
+  transition: all 0.16s ease 0s;
+
+  /* Expanded layer-group state */
+  .layer-group--expanded & {
+    max-height: 120rem;
+    overflow: visible;
+  }
+}
+
+/* Layers
+   ========================================================================== */
+
+.layer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.layer-list__layer-wrapper {
+  display: block;
+}
+
+.layer {
+  background: #fff;
+  box-shadow: inset 0 -1px 0 0 $base-semi-alpha-color;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background: #fff;
+}
+
+.layer__header {
+  position: relative;
+  padding: ($global-spacing / 2) $global-spacing;
+}
+
+.layer__legend-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0.25rem;
+  background: transparent;
+  box-shadow: inset 0 -1px 0 0 $base-alpha-color,  inset 0 1px 0 0 $base-alpha-color;
+}
+
+.layer__headline,
+.layer__actions {
+  display: table-cell;
+  overflow: hidden;
+
+  &, > * {
+    vertical-align: middle;
+  }
+}
+
+.layer__headline {
+  width: 100%;
+}
+
+.layer__title {
+  margin: 0;
+  font-weight: $base-font-bold;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.layer__summary {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  opacity: 0.64;
+  margin: 0;
+}
+
+.layer__actions {
+  text-align: right;
+  white-space: nowrap;
+
+  .form__option--switch {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  > * {
+    margin-left: 0.5rem;
+  }
+
+  > .button:last-child {
+    margin-right: - $global-spacing / 4;
+  }
+}
+
+.layer__body {
+  @extend .antialiased;
+  padding: $global-spacing;
+  position: relative;
+  z-index: 2;
+  background: tint($base-color, 32%);
+  color: #fff;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Collapsed layer state */
+  overflow-y: hidden;
+  padding: 0 $global-spacing;
+  max-height: 0;            
+  transition: all 0.16s ease 0s;
+
+  /* Expanded layer state */
+  .layer--expanded & {
+    padding: $global-spacing;
+    max-height: 60rem;
+    overflow: visible;
+  }
+
+  &::before {
+    @extend %collecticon-triangle-up;
+    position: absolute;
+    top: -0.715rem;
+    right: $global-spacing * 3.5;
+    color: tint($base-color, 32%);
+    font-size: 1rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+}
+
+.button-edit-layer {
+  @extend .button, .button--small, .button--base-unbounded, .button--text-hidden;
+  
+  &::before {
+    @extend %collecticon-pencil;
+  }
+
+  /* Expanded layer state */
+  .layer--expanded & {
+    color: $primary-color;
+  }
+}
+
+/* Layer modifiers */
+
+.layer--base {
+  .layer__header {
+    position: relative;
+    padding: $global-spacing;
+  }
+}
+
+/* Layer body elements */
+
+.layer__body {
+
+  .form {
+    position: relative;
+  }
+
+  .form__fieldset {
+    box-shadow: none;
+    padding: 0;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .form__legend {
+    color: #fff;
+    opacity: 0.64;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: $base-font-bold;
+  }
+
+  .form__option--custom-checkbox,
+  .form__option--custom-radio {
+    .form__option__ui {
+      top: 0.125rem;
+      box-shadow: none;
+    }
+  }
+
+  .form__option {
+    line-height: 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .form__actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .button {
+      opacity: 0.64;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    > * {
+      margin-top: -0.5rem;
+      margin-left: 0.25rem;
+    }
+
+    > .button:last-child {
+      margin-right: - $global-spacing / 4;
+    }
+  }
+}
+
+.button-cancel-edit,
+.button-save-edit {
+  @extend .button, .button--small, .button--achromic-unbounded, .button--text-hidden;
+}
+
+.button-cancel-edit::before {
+  @extend %collecticon-xmark;
+}
+
+.button-save-edit::before {
+  @extend %collecticon-tick;
 }

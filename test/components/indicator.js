@@ -21,10 +21,10 @@ test('indicator test', t => {
   />)
   t.truthy(component.hasClass(classes.nodot['indicator']))
 
-  // click the on/off button and test that it calls the function appropriately
-  component.find(classes['indicator toggle']).simulate('click')
+  // toggle the on/off button and test that it calls the function appropriately
+  component.find(classes['indicator toggle']).simulate('change')
   t.truthy(toggleSpy.calledOnce)
-  t.truthy(toggleSpy.calledWith(undefined, mockLayers[0].id))
+  t.truthy(toggleSpy.calledWith(mockLayers[0].id))
 
   // click the editing button and test that it calls the function appropriately
   component.find(classes['indicator edit']).simulate('click')

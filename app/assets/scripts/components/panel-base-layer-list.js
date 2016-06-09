@@ -15,6 +15,7 @@ const PanelBaseLayerList = React.createClass({
     return (
       <div className='panel__body'>
         <div className='panel__body-inner'>
+          <ul className='layer-list'>
           {layers.map(layer => {
             return <BaseLayer
               key={layer.id}
@@ -22,6 +23,7 @@ const PanelBaseLayerList = React.createClass({
               toggleLayerVisibility={this.props.toggleLayerVisibility}
             />
           })}
+          </ul>
         </div>
       </div>
     )

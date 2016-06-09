@@ -34,7 +34,7 @@ export const Map = React.createClass({
     const editLayer = layers.indicators.filter(layer => layer.editing)
 
     return (
-      <div className='map' id='map'>
+      <div id='map' className='map'>
         <div className='temp-map-hover'>
           <p>THE MAP</p>
           <p>Visible Indicators: {visibleIndicators.join(', ')}</p>

@@ -239,6 +239,7 @@ label[for] {
   line-height: 1.5;
   cursor: pointer;
   padding-left: $global-spacing * 1.25;
+
   input {
     position: absolute;
     top: $global-spacing / 4;
@@ -246,7 +247,7 @@ label[for] {
   }
 }
 
-.form__option:not(.form__option--inline) {
+.form__option:not(.form__option--inline):not(.form__option--switch) {
   display: table; // Hack-ish. Please fix me.
 }
 
@@ -270,7 +271,7 @@ label[for] {
 
 .form__option--custom-radio,
 .form__option--custom-checkbox {
-  padding-left: $global-spacing * 2;
+  padding-left: $global-spacing * 1.5;
 
   input {
     @extend .visually-hidden;
@@ -278,47 +279,52 @@ label[for] {
 
   .form__option__ui {
     position: absolute;
-    top: 0;
+    top: 0.25rem;
     left: 0;;
-    height: 1.5rem;
-    width: 1.5rem;
-    box-shadow: inset 0 3px 0 0 rgba($base-color, 0.08), inset 0 0 0 1px rgba($base-color, 0.16);
+    height: 1rem;
+    width: 1rem;
+    box-shadow: inset 0 0 0 2px rgba($base-color, 0.16);
     background: #fff;
-    transition: all 0.24s ease 0s;
+    transition: all 0.16s ease 0s;
 
-    &:before {
+    &::before {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       opacity: 0;
-      transition: all 0.16s ease 0s;
+      transition: all 0.32s ease 0s;
     }
   }
 
   &:focus,
   &:active {
     .form__option__ui {
-      box-shadow: inset 0 3px 0 0 rgba($base-color, 0.08), inset 0 0 0 1px rgba($base-color, 0.32);
+      box-shadow: inset 0 0 0 1px rgba($base-color, 0.32);
     }
   }
 
-  input:checked ~ .form__option__ui:before {
-    opacity: 1;
+  input:checked ~ .form__option__ui {
+    background: $primary-color;
+    box-shadow: none;
+
+    &::before {
+      opacity: 1;
+    }
   }
 }
 
 .form__option--custom-radio {
   .form__option__ui {
-    &, &:before {
+    &, &::before {
       border-radius: $full-border-radius;
     }
 
-    &:before {
+    &::before {
       content: "";
       height: 0.5rem;
       width: 0.5rem;
-      background: rgba($base-color, 0.80);
+      background: #fff;
     }
   }
 }
@@ -331,7 +337,54 @@ label[for] {
 
     &:before {
       @extend %collecticon-sm-tick;
-      color: rgba($base-color, 0.80);
+      color: #fff;
+    }
+  }
+}
+
+
+/* Form switch (checkbox)
+   ========================================================================== */
+
+.form__option--switch {
+  position: relative;
+  padding: 0;
+
+  input,
+  .form__option__text {
+    @extend .visually-hidden;
+  }
+
+  transition: all 0.16s ease 0s;
+
+  .form__option__ui {
+    position: relative;
+    display: block;
+    width: 1.75rem;
+    height: 1rem;
+    background: rgba($base-color, 0.32);
+    border-radius: $full-border-radius;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      content: '';
+      height: 0.75rem;
+      width: 0.75rem;
+      border-radius: $full-border-radius;
+      background: #fff;
+      margin: 0 0.125rem;
+      transition: all 0.32s ease 0s;
+    }
+  }
+
+  input:checked ~ .form__option__ui {
+    background: $primary-color;
+
+    &::before {
+      transform: translate(100%, -50%);
     }
   }
 }

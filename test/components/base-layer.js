@@ -14,5 +14,5 @@ test('base layer test', t => {
 
   component.find(classes['base layer toggle']).simulate('click')
   t.truthy(spy.calledOnce)
-  t.truthy(spy.calledWith(undefined, baseLayers[0].id))
+  t.truthy(spy.calledWith(baseLayers[0].id))
 })

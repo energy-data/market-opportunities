@@ -6,8 +6,10 @@ export const baseLayers = [
 
 // TODO: at some point we should copy options object over to filter object
 export const mockLayers = [
-  { id: 1, name: 'Population Density', group: 'a', type: 'red', options: { range: [0, 100] }, filter: { range: [0, 100] } },
-  { id: 2, name: 'Mobile Penetration', group: 'a', type: 'blue', options: { range: [0, 100] }, filter: { range: [0, 100] } },
-  { id: 3, name: 'Another Indicator', group: 'b', type: 'green', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
-  { id: 4, name: 'Yet Another Indicator', group: 'b', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } }
+  { id: 1, name: 'Population Density', group: 'Socioeconomics', type: 'red', options: { range: [0, 100] }, filter: { range: [0, 100] } },
+  { id: 2, name: 'Mobile Penetration', group: 'Socioeconomics', type: 'blue', options: { range: [0, 100] }, filter: { range: [0, 100] } },
+  { id: 3, name: 'Lorem ipsum', group: 'Socioeconomics', type: 'green', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
+  { id: 4, name: 'Sit amet', group: 'Socioeconomics', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
+  { id: 5, name: 'Yet Another Indicator', group: 'Financing & Payments', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
+  { id: 6, name: 'Yet Another Indicator', group: 'Resouce Potential', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } }
 ]

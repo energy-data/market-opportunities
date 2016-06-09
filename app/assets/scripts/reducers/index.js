@@ -3,10 +3,12 @@ import { routerReducer } from 'react-router-redux'
 
 import layers from './layers'
 import tempFilter from './temp-filter'
+import groups from './groups'
 
 export const reducers = {
   tempFilter,
-  layers
+  layers,
+  groups
 }
 
 export default combineReducers(Object.assign({}, reducers, {

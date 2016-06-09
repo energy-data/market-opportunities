@@ -12,7 +12,7 @@ export const ResultsFold = React.createClass({
             <h1 className='fold__title'>Results</h1>
           </div>
         </header>
-        <div className='fol__body'>
+        <div className='fold__body'>
           <div className='fold__body-inner'>
             <dl className='results-details'>
               <dt>Population Density</dt>

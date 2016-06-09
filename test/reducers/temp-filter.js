@@ -2,7 +2,7 @@ import test from 'ava'
 import tempFilter, { initial } from '../../app/assets/scripts/reducers/temp-filter'
 import { UPDATE_TEMP_FILTER, TEMP_FILTER_TO_DEFAULT } from '../../app/assets/scripts/actions'
 
-test('temp filter test', t => {
+test('temp filter reducer test', t => {
   const temp = { range: [0, 100] }
   t.deepEqual(tempFilter(undefined, {}), initial,
     'returns initial state when no state is given')

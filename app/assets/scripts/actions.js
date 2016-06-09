@@ -5,6 +5,7 @@ export const UPDATE_FOO = 'UPDATE_FOO'
 export const UPDATE_BAR = 'UPDATE_BAR'
 export const LAYERS_TO_DEFAULT = 'LAYERS_TO_DEFAULT'
 export const TEMP_FILTER_TO_DEFAULT = 'TEMP_FILTER_TO_DEFAULT'
+export const GROUPS_TO_DEFAULT = 'GROUPS_TO_DEFAULT'
 export const BAD_ACTION = 'BAD_ACTION'
 export const UPDATE_VISIBLE_LAYERS = 'UPDATE_VISIBLE_LAYERS'
 export const START_EDITING_LAYER = 'START_EDITING_LAYER'
@@ -12,6 +13,7 @@ export const STOP_EDITING_LAYER = 'STOP_EDITING_LAYER'
 export const TOGGLE_LAYER_VISIBILITY = 'TOGGLE_LAYER_VISIBILITY'
 export const UPDATE_LAYER_FILTER = 'UPDATE_LAYER_FILTER'
 export const UPDATE_TEMP_FILTER = 'UPDATE_TEMP_FILTER'
+export const TOGGLE_OPEN_GROUP = 'TOGGLE_OPEN_GROUP'
 
 /*
  * bare action creators
@@ -40,6 +42,8 @@ export function resetState (portion) {
       return { type: LAYERS_TO_DEFAULT }
     case 'tempFilter':
       return { type: TEMP_FILTER_TO_DEFAULT }
+    case 'groups':
+      return { type: GROUPS_TO_DEFAULT }
     default:
       return { type: BAD_ACTION }
   }
@@ -85,10 +89,18 @@ export function updateLayerFilter (id, filter) {
   return { type: UPDATE_LAYER_FILTER, data: {id, filter} }
 }
 
-/**
+/*
  * update the temporary filter (stored in case we cancel/reset)
  */
 
 export function updateTempFilter (filter) {
   return { type: UPDATE_TEMP_FILTER, data: filter }
+}
+
+/*
+ * toggle the open status of a particular group
+ */
+
+export function toggleOpenGroup (group) {
+  return { type: TOGGLE_OPEN_GROUP, data: group }
 }

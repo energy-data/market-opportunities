@@ -7,7 +7,7 @@ const PanelFooter = React.createClass({
   render: function () {
     return (
       <footer className='panel__footer'>
-        <button className='button button--achromic-unbounded'><span className='collecticon-download'></span>Export</button>
+        <button className='button-export'><span></span>Export</button>
       </footer>
     )
   }

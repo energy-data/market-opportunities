@@ -6,3 +6,7 @@ export function toggleArrayElement (array, el) {
   : tempArray.push(el)
   return tempArray
 }
+
+export function unique (array) {
+  return Array.from(new Set(array))
+}
