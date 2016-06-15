@@ -21,14 +21,14 @@ const Indicator = React.createClass({
 
     let Editor
     if (options.range) {
-      Editor = <div className='slider-wrapper'><Nouislider
+      Editor = <div className='form__group'><div className='form__slider'><Nouislider
         range={{min: options.range[0], max: options.range[1]}}
         start={filter.range}
         step={10}
         connect
         pips={{mode: 'steps', density: 10}}
         onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
-      /></div>
+      /></div></div>
     } else if (options.values) {
       Editor = <CheckboxGroup
         values={options.values}
@@ -57,13 +57,29 @@ const Indicator = React.createClass({
             </div>
           </header>
           <div className='layer__body'>
-            <form className='form layer__controls'>
-              {Editor}
-              <div className='form__actions'>
-                <button onClick={this._handleCancel} type='reset' className='button-cancel-edit' title='Close without saving changes'><span>Cancel</span></button>
-                <button onClick={this._handleAccept} type='submit' className='button-save-edit' title='Save changes'><span>Save</span></button>
-              </div>
-            </form>
+            <section className='layer-block layer-controls'>
+              <h2 className='layer-block__title'>Edit</h2>
+              <form className='form'>
+                {Editor}
+                <div className='form__actions'>
+                  <button onClick={this._handleCancel} type='reset' className='button-cancel-edit' title='Close without saving changes'><span>Cancel</span></button>
+                  <button onClick={this._handleAccept} type='submit' className='button-save-edit' title='Save changes'><span>Save</span></button>
+                </div>
+              </form>
+            </section>
+            <section className='layer-block layer-info'>
+              <h2 className='layer-block__title layer-info__title'>Info</h2>
+              <dl className='layer-info__details'>
+                <dt>Description</dt>
+                <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</dd>
+                <dt>Provider</dt>
+                <dd>Open Data Platform</dd>
+                <dt>Source URL</dt>
+                <dd><a href='#' title='Visit data source URL' className='url'>http://opendataplatform.org/loremipsum</a></dd>
+                <dt>Year</dt>
+                <dd>2015</dd>
+              </dl>
+            </section>
           </div>
         </article>
       </li>

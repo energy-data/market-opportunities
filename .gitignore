@@ -1,4 +1,4 @@
-app/assets/styles/_collecticons.scss
+app/assets/styles/core/_collecticons.scss
 app/assets/scripts/config/local.js
 node_modules
 .sass-cache

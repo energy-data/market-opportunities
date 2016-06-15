@@ -147,12 +147,14 @@
 
 .layer-group__body {
   /* Collapsed layer-group state */
+  opacity: 0;
   overflow-y: hidden;
   max-height: 0;            
   transition: all 0.16s ease 0s;
 
   /* Expanded layer-group state */
   .layer-group--expanded & {
+    opacity: 1;
     max-height: 120rem;
     overflow: visible;
   }
@@ -232,7 +234,7 @@
   }
 
   > * {
-    margin-left: 0.5rem;
+    margin-left: $global-spacing / 4;
   }
 
   > .button:last-child {
@@ -253,6 +255,7 @@
   }
 
   /* Collapsed layer state */
+  opacity: 0;
   overflow-y: hidden;
   padding: 0 $global-spacing;
   max-height: 0;            
@@ -260,6 +263,7 @@
 
   /* Expanded layer state */
   .layer--expanded & {
+    opacity: 1;
     padding: $global-spacing;
     max-height: 60rem;
     overflow: visible;
@@ -268,12 +272,20 @@
   &::before {
     @extend %collecticon-triangle-up;
     position: absolute;
-    top: -0.715rem;
-    right: $global-spacing * 3.5;
+    right: $global-spacing * 3.25;
     color: tint($base-color, 32%);
     font-size: 1rem;
     line-height: 1;
     pointer-events: none;
+    transition: all 0.24s ease 0s;
+
+    /* Collapsed layer state */
+    top: 0;
+
+    /* Collapsed layer state */
+    .layer--expanded & {
+      top: -0.715rem;
+    }
   }
 }
 
@@ -290,6 +302,7 @@
   }
 }
 
+
 /* Layer modifiers */
 
 .layer--base {
@@ -299,31 +312,40 @@
   }
 }
 
-/* Layer body elements */
 
-.layer__body {
+/* Layer blocks */
 
-  .form {
-    position: relative;
+.layer-block {
+  position: relative;
+  padding: 0 $global-spacing $global-spacing $global-spacing;
+  margin: 0 (-$global-spacing) $global-spacing (-$global-spacing);
+  box-shadow: inset 0 -1px 0 0 rgba(#fff, 0.08);
+
+  > *:last-child {
+    margin-bottom: 0;
   }
 
-  .form__fieldset {
+  &:last-child {
     box-shadow: none;
-    padding: 0;
-
-    &:last-of-type {
-      margin-bottom: 0;
-    }
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
+}
 
-  .form__legend {
-    color: #fff;
-    opacity: 0.64;
-    margin-bottom: 0.5rem;
-    font-size: 0.75rem;
-    line-height: 1rem;
-    font-weight: $base-font-bold;
-  }
+.layer-block__title {
+  color: #fff;
+  opacity: 0.64;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: $base-font-bold;
+  margin-bottom: 0.75rem;
+}
+
+
+/* Layer block: form elements */
+
+.layer-block {
 
   .form__option--custom-checkbox,
   .form__option--custom-radio {
@@ -341,7 +363,7 @@
   .form__actions {
     position: absolute;
     top: 0;
-    right: 0;
+    right: $global-spacing;
 
     .button {
       opacity: 0.64;
@@ -352,15 +374,28 @@
     }
 
     > * {
-      margin-top: -0.5rem;
-      margin-left: 0.25rem;
+      margin-top: - $global-spacing / 2;
+      margin-left: $global-spacing / 4;
     }
 
     > .button:last-child {
       margin-right: - $global-spacing / 4;
     }
   }
+
+  .form__slider {
+    padding: 0.5rem 0.5rem 2rem 0.5rem;
+  }
+
+  .form {
+    > *:nth-last-child(2) {
+      margin-bottom: 0;
+    }
+  }
 }
+
+
+/* Layer block: buttons */
 
 .button-cancel-edit,
 .button-save-edit {
@@ -373,4 +408,45 @@
 
 .button-save-edit::before {
   @extend %collecticon-tick;
+}
+
+
+/* Layer info */
+
+.layer-info__title {
+  @extend .visually-hidden;
+}
+
+.layer-info__details {
+  @extend .clearfix;
+  dt, dd {
+    float: left;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    padding-bottom: $global-spacing / 4;
+  }
+
+  dt {
+    position: relative;
+    width: 32%;
+    clear: left;
+    padding-right: $global-spacing / 2;
+    color: rgba(#fff, 0.48);
+  }
+
+  dd {
+    width: 68%;
+    padding-left: $global-spacing / 2;
+    margin-bottom: 0;
+  }
+
+  a, a:visited {
+    color: tint($primary-color, 48%);
+  }
+
+  .url {
+    @extend .truncated;
+    display: block;
+    width: 100%;
+  }
 }

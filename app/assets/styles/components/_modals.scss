@@ -196,7 +196,7 @@
   }
 
   &:before {
-    @extend %oam-ds-icon-xmark;
+    @extend %collecticon-xmark;
   }
 
   @include media(medium-up) {

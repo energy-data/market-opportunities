@@ -3,7 +3,7 @@ var classes = {
   'base layer': '.layer-list__layer-wrapper',
   'base layer toggle': '.form__option--switch input',
   'checkbox': '.form__option--custom-checkbox',
-  'checkbox group': '.form__fieldset',
+  'checkbox group': '.form__group',
   'group': '.layer-group',
   'group toggle': '.layer-group__toggle',
   'header': '.page__header',

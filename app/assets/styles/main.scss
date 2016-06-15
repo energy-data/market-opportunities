@@ -7,13 +7,12 @@
  * https://github.com/necolas/idiomatic-css
  */
 
-
 /* Charset */
 
 @charset "UTF-8";
 
 
-/* Libraries
+/* Third-party
    ========================================================================== */
 
 /**
@@ -30,59 +29,68 @@
 
 @import "jeet/index";
 
-
-/* Normalize
-   ========================================================================== */
-
 /**
  * Normalize.css, a modern, HTML5-ready alternative to CSS resets:
  * http://necolas.github.io/normalize.css/
  */
 
-@import "normalize";
+@import "vendor/normalize";
 
 /**
  * Kenneth Ormandy's OpenType features—ligatures, kerning, and more—to Normalize.css:
  * https://github.com/kennethormandy/normalize-opentype.css
  */
 
-@import "normalize-opentype";
+@import "vendor/normalize-opentype";
 
 
 /* Settings
    ========================================================================== */
 
-@import "variables";
-@import "functions";
-@import "mixins";
+@import "settings/variables";
+@import "settings/functions";
+@import "settings/mixins";
 
 
 /* Core
    ========================================================================== */
 
-@import "webfont-montserrat";
-@import "collecticons";
-@import "base";
-@import "typography";
-@import "media";
-@import "utilities";
+@import "core/base";
+@import "core/webfont-montserrat"; // Webfont: Monteserrat
+@import "core/collecticons"; // Webfont icon library: Collecticons
+@import "core/typography";
+@import "core/media";
+@import "core/utilities";
 
 
 /* Components
    ========================================================================== */
 
-@import "buttons";
-@import "forms";
-@import "panels";
+@import "components/buttons";
+@import "components/forms";
+@import "components/panels";
+@import "components/drops";
+@import "components/modals";
 
 
-/* Structure & Content
+/* Content
    ========================================================================== */
 
-@import "structure";
+@import "content/structure";
 
 /* Page: Explore */
 
-@import "p-explore-control-panel";
-@import "p-explore-map";
-@import "p-explore-results-fold";
+@import "content/p-explore-control-panel";
+@import "content/p-explore-map";
+@import "content/p-explore-results-fold";
+
+
+/* Third-party (cont.)
+   ========================================================================== */
+
+/**
+ * Using noUiSlider, a lightweight JavaScript range slider:
+ * http://refreshless.com/nouislider/
+ */
+
+@import "vendor/nouislider";

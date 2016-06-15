@@ -28,6 +28,7 @@
 
 .results-details {
   @extend .clearfix;
+
   dt, dd {
     float: left;
     font-size: 0.875rem;
@@ -35,6 +36,7 @@
     padding-top: $global-spacing / 2;
     padding-bottom: $global-spacing / 2;
   }
+
   dt {
     position: relative;
     width: 60%;
@@ -52,11 +54,13 @@
       opacity: 0.08;
     }
   }
+
   dd {
     width: 40%;
     padding-left: $global-spacing / 2;
     margin-bottom: 0;
   }
+
   dd + dd {
     margin-left: 60%;
   }
