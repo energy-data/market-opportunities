@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
+import { inFirstArrayNotSecond } from '../utils'
+
 export const Map = React.createClass({
 
   propTypes: {
@@ -21,7 +23,23 @@ export const Map = React.createClass({
       container: 'map',
       style: 'mapbox://styles/mapbox/light-v8'
     })
+    /* istanbul ignore next */
     map.on('moveend', () => this.setState({zoom: map.getZoom()}))
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    const oldVisibleLayers = this.props.layers.indicators
+      .concat(this.props.layers.base).filter(layer => layer.visible)
+    const newVisibleLayers = nextProps.layers.indicators
+      .concat(nextProps.layers.base).filter(layer => layer.visible)
+
+    // update visible layers on the map
+    // new layers that weren't in the old get added
+    inFirstArrayNotSecond(newVisibleLayers, oldVisibleLayers, a => a.id)
+      .forEach(layer => this._addLayer(layer))
+    // old layers that aren't in the new get removed
+    inFirstArrayNotSecond(oldVisibleLayers, newVisibleLayers, a => a.id)
+      .forEach(layer => this._removeLayer(layer))
   },
 
   render: function () {
@@ -45,9 +63,29 @@ export const Map = React.createClass({
         </div>
       </div>
     )
+  },
+
+  _addLayer: function (layer) {
+    this._map.addSource(String(layer.id), {
+      type: 'vector',
+      url: layer.url
+    })
+    this._map.addLayer({
+      'id': String(layer.id),
+      'type': layer.layerType,
+      'source': String(layer.id),
+      'source-layer': 'data_layer',
+      'interactive': true,
+      'paint': layer.paint
+    })
+  },
+
+  _removeLayer: function (layer) {
+    this._map.removeSource(layer.id)
+    this._map.removeLayer(layer.id)
   }
 })
-
+/* istanbul ignore next */
 function mapStateToProps (state) {
   return {
     layers: state.layers

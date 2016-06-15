@@ -16,7 +16,7 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, name, type, editing, options, filter } = this.props.layer
+    const { id, name, type, editing, options, filter, visible } = this.props.layer
     const { updateLayerFilter } = this.props
 
     let Editor
@@ -50,7 +50,14 @@ const Indicator = React.createClass({
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className='button-edit-layer' title='Edit layer settings'><span>Edit</span></button>
               <label for='form-custom-switch-1a' className='form__option form__option--switch' title='Toggle layer on/off'>
-                <input onChange={this._handleOnOff} type='checkbox' name='form-custom-checkbox' name='form-custom-switch-1a' id='form-custom-switch-1a' />
+                <input
+                  onChange={this._handleOnOff}
+                  defaultChecked={visible}
+                  type='checkbox'
+                  name='form-custom-checkbox'
+                  name='form-custom-switch-1a'
+                  id='form-custom-switch-1a'
+                />
                 <span className='form__option__text'>On/off</span>
                 <span className='form__option__ui'></span>
               </label>

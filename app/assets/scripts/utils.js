@@ -7,6 +7,16 @@ export function toggleArrayElement (array, el) {
   return tempArray
 }
 
+// return all elements of arrayOne not in arrayTwo, uses accessFn to compare
+// if provided
+export function inFirstArrayNotSecond (arrayOne, arrayTwo, accessFn) {
+  /* istanbul ignore next */
+  accessFn = accessFn || (a => a)
+  return arrayOne.filter(a => {
+    return arrayTwo.map(accessFn).indexOf(accessFn(a)) === -1
+  })
+}
+
 export function unique (array) {
   return Array.from(new Set(array))
 }

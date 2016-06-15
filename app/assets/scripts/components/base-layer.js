@@ -19,8 +19,8 @@ const BaseLayer = React.createClass({
             <div className='layer__actions'>
               <label for='form-custom-switch-1b' className='form__option form__option--switch' title='Toggle layer on/off'>
                 <input
-                  onClick={this._handleOnOff}
-                  checked={visible}
+                  onChange={this._handleOnOff}
+                  defaultChecked={visible}
                   type='checkbox'
                   name='form-custom-checkbox'
                   name='form-custom-switch-1b'

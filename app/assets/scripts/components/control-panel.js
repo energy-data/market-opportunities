@@ -89,7 +89,7 @@ export const ControlPanel = React.createClass({
     this.props.dispatch(toggleOpenGroup(group))
   }
 })
-
+/* istanbul ignore next */
 function mapStateToProps (state) {
   return {
     layers: state.layers,

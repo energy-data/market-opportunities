@@ -5,7 +5,7 @@ import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
 
 test('layer reducer test', t => {
   const base = [{id: 'a'}]
-  const indicators = [{id: 'b', editing: true}]
+  const indicators = [{id: 'b', editing: true}, {id: 'c'}]
   const visible = 'base'
 
   t.deepEqual(layers(undefined, {}), initial,

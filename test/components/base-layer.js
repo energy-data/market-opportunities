@@ -12,7 +12,7 @@ test('base layer test', t => {
   const component = shallow(<BaseLayer layer={baseLayers[0]} toggleLayerVisibility={spy} />)
   t.truthy(component.hasClass(classes.nodot['base layer']))
 
-  component.find(classes['base layer toggle']).simulate('click')
+  component.find(classes['base layer toggle']).simulate('change')
   t.truthy(spy.calledOnce)
   t.truthy(spy.calledWith(baseLayers[0].id))
 })
