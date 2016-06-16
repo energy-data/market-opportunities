@@ -25,3 +25,17 @@ export const mockLayers = [
   { id: '5', name: 'Yet Another Indicator', group: 'Financing & Payments', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
   { id: '6', name: 'Yet Another Indicator', group: 'Resouce Potential', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } }
 ]
+
+export const countries = [
+  { name: 'Tanzania', flagPath: '/assets/graphics/content/flags/4x3/tz.svg', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' },
+  { name: 'Zambia', flagPath: '/assets/graphics/content/flags/4x3/zm.svg', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' },
+  { name: 'Lorem', flagPath: 'http://placehold.it/640x480', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' },
+  { name: 'Ipsum', flagPath: 'http://placehold.it/640x480', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' }
+]
+
+export const scenarios = [
+  { title: 'Scenario 1', thumbnail: 'http://placehold.it/768x384' },
+  { title: 'Scenario 2', thumbnail: 'http://placehold.it/768x384' },
+  { title: 'Scenario 3', thumbnail: 'http://placehold.it/768x384' },
+  { title: 'Scenario 4', thumbnail: 'http://placehold.it/768x384' }
+]

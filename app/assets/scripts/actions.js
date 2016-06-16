@@ -6,6 +6,7 @@ export const UPDATE_BAR = 'UPDATE_BAR'
 export const LAYERS_TO_DEFAULT = 'LAYERS_TO_DEFAULT'
 export const TEMP_FILTER_TO_DEFAULT = 'TEMP_FILTER_TO_DEFAULT'
 export const GROUPS_TO_DEFAULT = 'GROUPS_TO_DEFAULT'
+export const SELECTION_TO_DEFAULT = 'SELECTION_TO_DEFAULT'
 export const BAD_ACTION = 'BAD_ACTION'
 export const UPDATE_VISIBLE_LAYERS = 'UPDATE_VISIBLE_LAYERS'
 export const START_EDITING_LAYER = 'START_EDITING_LAYER'
@@ -19,6 +20,9 @@ export const SUCCESSFUL_LOGIN = 'SUCCESSFUL_LOGIN'
 export const BAD_LOGIN = 'BAD_LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const USER_TO_DEFAULT = 'USER_TO_DEFAULT'
+export const UPDATE_STEP = 'UPDATE_STEP'
+export const UPDATE_SELECTED_COUNTRY = 'UPDATE_SELECTED_COUNTRY'
+export const UPDATE_SELECTED_SCENARIO = 'UPDATE_SELECTED_SCENARIO'
 
 /*
  * bare action creators
@@ -51,6 +55,8 @@ export function resetState (portion) {
       return { type: TEMP_FILTER_TO_DEFAULT }
     case 'groups':
       return { type: GROUPS_TO_DEFAULT }
+    case 'selection':
+      return { type: SELECTION_TO_DEFAULT }
     default:
       return { type: BAD_ACTION }
   }
@@ -126,4 +132,27 @@ export function badLogin (error) {
 
 export function logout () {
   return { type: LOGOUT }
+}
+
+/*
+ * update the "step" shown by the tool
+ */
+export function updateStep (id) {
+  return { type: UPDATE_STEP, data: id }
+}
+
+/*
+ * update the selected country
+ */
+
+export function updateSelectedCountry (country) {
+  return { type: UPDATE_SELECTED_COUNTRY, data: country }
+}
+
+/*
+ * update the selected scenario
+ */
+
+export function updateSelectedScenario (scenario) {
+  return { type: UPDATE_SELECTED_SCENARIO, data: scenario }
 }

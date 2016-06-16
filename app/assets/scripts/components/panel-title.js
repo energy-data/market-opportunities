@@ -7,11 +7,12 @@ const PanelTitle = React.createClass({
     title: React.PropTypes.string,
     subtitle: React.PropTypes.string,
     visible: React.PropTypes.string,
-    updateVisibleLayers: React.PropTypes.func
+    updateVisibleLayers: React.PropTypes.func,
+    openSelection: React.PropTypes.func
   },
 
   render: function () {
-    const { title, subtitle, visible } = this.props
+    const { title, subtitle, visible, openSelection } = this.props
 
     return (
       <header className='panel__header'>
@@ -20,7 +21,7 @@ const PanelTitle = React.createClass({
           <div className='panel__subtitle'>{subtitle}</div>
         </div>
         <div className='panel__meta-actions'>
-          <button className='panel__button-more' title='Options'><span>Options</span></button>
+          <button onClick={openSelection} className='panel__button-more' title='Options'><span>Options</span></button>
         </div>
         <div className='panel__tab-nav'>
           <ul className='layers-menu' role='menu'>

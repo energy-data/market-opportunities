@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
   toggleLayerVisibility, updateLayerFilter, updateTempFilter,
-  toggleOpenGroup } from '../actions'
+  toggleOpenGroup, updateStep } from '../actions'
 
 import PanelTitle from './panel-title'
 import PanelIndicatorList from './panel-indicator-list'
@@ -16,11 +16,12 @@ export const ControlPanel = React.createClass({
     layers: React.PropTypes.object,
     tempFilter: React.PropTypes.object,
     groups: React.PropTypes.object,
+    selection: React.PropTypes.object,
     dispatch: React.PropTypes.func
   },
 
   render: function () {
-    const { layers, groups } = this.props
+    const { layers, groups, selection } = this.props
 
     const PanelLayerList = (layers.visible === 'indicators')
     ? <PanelIndicatorList
@@ -41,10 +42,11 @@ export const ControlPanel = React.createClass({
     return (
       <section className='panel' id='control-panel'>
         <PanelTitle
-          title='Tanzania'
-          subtitle='Solar for rural areas'
+          title={selection.country}
+          subtitle={selection.scenario}
           updateVisibleLayers={this._updateVisibleLayers}
           visible={layers.visible}
+          openSelection={this._openSelection}
         />
         { PanelLayerList }
         <PanelFooter />
@@ -87,6 +89,10 @@ export const ControlPanel = React.createClass({
   _toggleOpenGroup: function (e, group) {
     e.preventDefault()
     this.props.dispatch(toggleOpenGroup(group))
+  },
+
+  _openSelection: function () {
+    this.props.dispatch(updateStep('country'))
   }
 })
 /* istanbul ignore next */
@@ -94,7 +100,8 @@ function mapStateToProps (state) {
   return {
     layers: state.layers,
     tempFilter: state.tempFilter,
-    groups: state.groups
+    groups: state.groups,
+    selection: state.selection
   }
 }
 

@@ -5,12 +5,14 @@ import user from './user'
 import layers from './layers'
 import tempFilter from './temp-filter'
 import groups from './groups'
+import selection from './selection'
 
 export const reducers = {
   user,
   tempFilter,
   layers,
-  groups
+  groups,
+  selection
 }
 
 export default combineReducers(Object.assign({}, reducers, {

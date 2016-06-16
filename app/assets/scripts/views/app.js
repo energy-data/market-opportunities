@@ -4,6 +4,7 @@ import Header from '../components/header'
 import Map from '../components/map'
 import ControlPanel from '../components/control-panel'
 import ResultsFold from '../components/results-fold'
+import MultiStep from '../components/multi-step'
 
 const App = React.createClass({
 
@@ -26,6 +27,7 @@ const App = React.createClass({
                   <ControlPanel />
                   <Map />
                   <ResultsFold />
+                  <MultiStep />
                 </div>
               </div>
             </section>

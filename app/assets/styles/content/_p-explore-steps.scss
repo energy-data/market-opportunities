@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Page: Explore / Steps
+   ========================================================================== */
+
+.multi-step {
+  position: absolute;
+  z-index: 104;
+  width: 100%;
+  height: 100%;
+  background: tint($base-color, 96%);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.multi-step__title {
+  @extend .visually-hidden;
+}
+
+
+/* Step view
+   ========================================================================== */
+
+.step-view {
+  @include display(flex);
+  @include flex-direction(column);
+  @include flex-wrap(wrap);
+  @include justify-content(center);
+  min-height: 100%;
+}
+
+.step-view__header {
+  padding: $global-spacing;
+  text-align: center;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  @include media(large-up) {
+    padding: $global-spacing * 2;
+  }
+}
+
+.step-view__title {
+  @include heading(1.25rem, large-up);
+  margin-bottom: 0;
+}
+
+.step-view__subtitle {
+  text-transform: uppercase;
+  margin-bottom: 0;
+  opacity: 0.64;
+  font-size: 0.875rem;
+  line-height: 1.25;
+
+  @include media(large-up) {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+.step-view__body {
+  padding: $global-spacing 0;
+  text-align: center;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  @include media(large-up) {
+    padding: ($global-spacing * 2) 0;
+  }
+}
+
+.step-view__footer {
+  padding: $global-spacing;
+  text-align: center;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  > .button {
+    margin: 0 ($global-spacing / 2);
+    min-width: 8rem;
+  }
+
+  @include media(large-up) {
+    padding: ($global-spacing * 2);
+  }
+}
+
+.button-cancel-step {
+  @extend .button, .button--large, .button--achromic;
+}
+
+.button-save-step {
+  @extend .button, .button--large, .button--primary;
+}
+
+
+/* Step: Country selection
+   ========================================================================== */
+
+.step-options {
+  position: relative;
+  white-space: nowrap;
+  overflow-x: scroll;
+  padding: ($global-spacing * 2) 0;
+}
+
+.options-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.options-list__item {
+  display: inline-block;
+  vertical-align: top;
+  width: 16rem;
+  margin: 0 ($global-spacing / 2);
+
+  @include media(large-up) {
+    margin: 0 $global-spacing;
+  }
+}
+
+.card--country__flag {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  right: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: $full-border-radius;
+  box-shadow: 0 0 0 4px #fff, 0 0 0 8px $base-semi-alpha-color;
+  overflow: hidden;
+  transform: translate(-50%, 25%);
+  text-align: center;
+  background: tint($base-color, 96%);
+
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.card--country__details,
+.card--scenario__details {
+  @extend .clearfix;
+  dt, dd {
+    float: left;
+  }
+  dt {
+    width: 40%;
+    clear: left;
+    padding-right: $global-spacing / 2;
+  }
+  dd {
+    width: 60%;
+    padding-left: $global-spacing / 2;
+    margin-bottom: 0;
+    opacity: 0.8;
+  }
+  dd + dd {
+    margin-left: 40%;
+  }
+}

@@ -1,0 +1,144 @@
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+
+.card {
+  position: relative;
+  text-align: initial;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.card__contents {
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: #fff;
+  box-shadow: 0 0 8px 4px rgba($primary-color, 0.16);
+  border-radius: $base-border-radius * 2;
+  backface-visibility: hidden;
+  padding: $global-spacing;
+  overflow: hidden;
+
+  &, &:visited {
+    color: inherit;
+  }
+
+   > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .card--active & {
+    z-index: 2;
+    box-shadow: 0 8px 32px 8px rgba($primary-color, 0.32);
+
+    &:after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 20;
+      height: 3.5rem;
+      width: 8rem;
+      content: '';
+      background: $primary-color;
+      transform: rotate(45deg);
+      transform-origin: right bottom;
+      box-shadow: 0 4px 0 0 $base-semi-alpha-color;
+    }
+
+    &:before {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 30;
+      @extend %collecticon-tick;
+      color: #fff;
+      font-size: 1rem;
+    }
+  }
+}
+
+
+/* Card media
+   ========================================================================== */
+
+.card__media {
+  position: relative;
+  margin: 0 (- $global-spacing) ($global-spacing / 2) (- $global-spacing);
+
+  img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: all 0.32s ease 0s;
+  }
+
+  &:first-child {
+    margin-top: - $global-spacing;
+  }
+
+  &:last-child {
+    margin-bottom: - $global-spacing;
+  }
+
+}
+
+.card__thumbnail {
+  position: relative;
+  overflow: hidden;
+  background: tint($base-color, 96%);
+  margin: $global-spacing / 4;
+  border-radius: $base-border-radius;
+  min-height: 4rem;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    content: "";
+    box-shadow: inset 0 0 0 4px $base-semi-alpha-color;
+    pointer-events: none;
+  }
+}
+
+/* Card header
+   ========================================================================== */
+
+.card__header {
+  margin-bottom: $global-spacing / 2;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card__title {
+  @include heading(1.25rem);
+  margin: 0;
+}
+
+.card__subtitle {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  opacity: 0.64;
+}
+
+
+/* Card body
+   ========================================================================== */
+
+.card__body {
+  margin-bottom: $global-spacing / 2;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -7,6 +7,10 @@ import { ControlPanel } from '../../app/assets/scripts/components/control-panel'
 import { initial } from '../../app/assets/scripts/reducers/layers'
 
 test('control panel test', t => {
-  const component = shallow(<ControlPanel layers={initial} groups={{open: []}}/>)
+  const component = shallow(<ControlPanel
+    layers={initial}
+    groups={{open: []}}
+    selection={{country: 'Country', scenario: 'Scenario'}}
+  />)
   t.truthy(component.hasClass(classes.nodot['panel']))
 })
