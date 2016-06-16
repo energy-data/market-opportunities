@@ -14,6 +14,11 @@ export const TOGGLE_LAYER_VISIBILITY = 'TOGGLE_LAYER_VISIBILITY'
 export const UPDATE_LAYER_FILTER = 'UPDATE_LAYER_FILTER'
 export const UPDATE_TEMP_FILTER = 'UPDATE_TEMP_FILTER'
 export const TOGGLE_OPEN_GROUP = 'TOGGLE_OPEN_GROUP'
+export const REQUEST_LOGIN = 'REQUEST_LOGIN'
+export const SUCCESSFUL_LOGIN = 'SUCCESSFUL_LOGIN'
+export const BAD_LOGIN = 'BAD_LOGIN'
+export const LOGOUT = 'LOGOUT'
+export const USER_TO_DEFAULT = 'USER_TO_DEFAULT'
 
 /*
  * bare action creators
@@ -38,6 +43,8 @@ export function updateBar (bar) {
  */
 export function resetState (portion) {
   switch (portion) {
+    case 'user':
+      return { type: USER_TO_DEFAULT }
     case 'layers':
       return { type: LAYERS_TO_DEFAULT }
     case 'tempFilter':
@@ -103,4 +110,20 @@ export function updateTempFilter (filter) {
 
 export function toggleOpenGroup (group) {
   return { type: TOGGLE_OPEN_GROUP, data: group }
+}
+
+export function requestLogin () {
+  return { type: REQUEST_LOGIN }
+}
+
+export function successfulLogin (token) {
+  return { type: SUCCESSFUL_LOGIN, token: token }
+}
+
+export function badLogin (error) {
+  return { type: BAD_LOGIN, error: error }
+}
+
+export function logout () {
+  return { type: LOGOUT }
 }

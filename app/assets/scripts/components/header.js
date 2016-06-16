@@ -1,4 +1,5 @@
 import React from 'react'
+import Login from './login'
 
 const Header = React.createClass({
 
@@ -20,6 +21,7 @@ const Header = React.createClass({
                 <li><a href='#' title='Visit page' className='global-menu-item global-menu-item--active'><span>Explore</span></a></li>
                 <li><a href='#' title='Visit page' className='global-menu-item'><span>About</span></a></li>
                 <li><a href='#' title='Visit page' className='global-menu-item external'><span>Data Platform</span></a></li>
+                <li><Login /></li>
               </ul>
             </div>
           </nav>

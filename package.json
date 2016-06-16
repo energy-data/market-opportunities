@@ -122,6 +122,7 @@
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
-    "why-did-you-update": "0.0.8"
+    "why-did-you-update": "0.0.8",
+    "xhr": "^2.2.0"
   }
 }
