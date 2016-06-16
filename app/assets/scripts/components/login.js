@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import login from '../login'
+import { logout } from '../actions'
 
 export const Login = React.createClass({
   propTypes: {
@@ -18,19 +19,23 @@ export const Login = React.createClass({
     this.props.dispatch(login(this.refs.username.value, this.refs.password.value))
   },
 
+  _logout: function () {
+    this.props.dispatch(logout())
+  },
+
   render: function () {
     let user = this.props.user
     if (user.status !== 'success') {
       return (
-        <div>
-          <input ref='username' type='text' onChange={this._updateUsername} onKeyDown={this._handleKeypress} />
-          <input ref='password' type='password' onChange={this._updatePassword} onKeyDown={this._handleKeypress}/>
-          {user.error ? <div class='login--error'>{user.error}</div> : ''}
+        <div className='login'>
+          <input type='text' ref='username' onKeyDown={this._handleKeypress} />
+          <input type='password' ref='password' onKeyDown={this._handleKeypress}/>
+          {user.error ? <div className='login__error'>{user.error}</div> : ''}
         </div>
       )
     }
 
-    return <div>You are logged in</div>
+    return <div className='login login__current-user'>You are logged in<button className='login__logout' onClick={this._logout}>Logout</button></div>
   }
 })
 
