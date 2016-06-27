@@ -4,11 +4,13 @@ import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
 import { inFirstArrayNotSecond } from '../utils'
+import { countryBounds } from '../../data/bounds'
 
 export const Map = React.createClass({
 
   propTypes: {
-    layers: React.PropTypes.object
+    layers: React.PropTypes.object,
+    country: React.PropTypes.string
   },
 
   // for testing only
@@ -40,6 +42,14 @@ export const Map = React.createClass({
     // old layers that aren't in the new get removed
     inFirstArrayNotSecond(oldVisibleLayers, newVisibleLayers, a => a.id)
       .forEach(layer => this._removeLayer(layer))
+
+    if (nextProps.country !== this.props.country) {
+      this._map.fitBounds(
+        countryBounds.find(c => c.properties.name === nextProps.country).bbox,
+        // TODO: eliminate magic number
+        { padding: 30, offset: [160, 0] }
+      )
+    }
   },
 
   render: function () {
@@ -88,7 +98,8 @@ export const Map = React.createClass({
 /* istanbul ignore next */
 function mapStateToProps (state) {
   return {
-    layers: state.layers
+    layers: state.layers,
+    country: state.selection.country
   }
 }
 
