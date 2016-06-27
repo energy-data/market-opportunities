@@ -4,7 +4,7 @@
 
 .multi-step {
   position: absolute;
-  z-index: 104;
+  z-index: 90;
   width: 100%;
   height: 100%;
   background: tint($base-color, 96%);
@@ -26,6 +26,9 @@
   @include flex-wrap(wrap);
   @include justify-content(center);
   min-height: 100%;
+
+  /* Animation */
+  @include animation(step-reveal 0.32s ease 0s 1);
 }
 
 .step-view__header {
@@ -81,8 +84,8 @@
   }
 
   > .button {
-    margin: 0 ($global-spacing / 2);
-    min-width: 8rem;
+    margin: 0 ($global-spacing / 4);
+    min-width: 6rem;
   }
 
   @include media(large-up) {
@@ -91,11 +94,11 @@
 }
 
 .button-cancel-step {
-  @extend .button, .button--large, .button--achromic;
+  @extend .button, .button--medium, .button--achromic;
 }
 
 .button-save-step {
-  @extend .button, .button--large, .button--primary;
+  @extend .button, .button--medium, .button--primary;
 }
 
 

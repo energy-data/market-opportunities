@@ -122,8 +122,8 @@ export function requestLogin () {
   return { type: REQUEST_LOGIN }
 }
 
-export function successfulLogin (token) {
-  return { type: SUCCESSFUL_LOGIN, token: token }
+export function successfulLogin (token, user) {
+  return { type: SUCCESSFUL_LOGIN, token, user }
 }
 
 export function badLogin (error) {

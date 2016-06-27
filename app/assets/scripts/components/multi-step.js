@@ -42,7 +42,7 @@ export const MultiStep = React.createClass({
               </div>
               <footer className='step-view__footer'>
                 <button onClick={this._handleCancel} className={c('button-cancel-step', {disabled: !selection.country || !selection.scenario})} type='button'><span>Cancel</span></button>
-                <button onClick={this._handleNext} className={c('button-save-step', {disabled: !selection.country})} type='button'><span>Next</span></button>
+                <button onClick={this._handleNext} className={c('button-save-step', {disabled: !selection.country})} type='button'><span>Continue</span></button>
               </footer>
             </section>
           </section>
@@ -72,7 +72,7 @@ export const MultiStep = React.createClass({
               </div>
               <footer className='step-view__footer'>
                 <button onClick={this._handleCancel} className={c('button-cancel-step', {disabled: !selection.scenario})} type='button'><span>Cancel</span></button>
-                <button onClick={this._handleNext} className={c('button-save-step', {disabled: !selection.scenario})} type='button'><span>Next</span></button>
+                <button onClick={this._handleNext} className={c('button-save-step', {disabled: !selection.scenario})} type='button'><span>Save</span></button>
               </footer>
             </section>
           </section>

@@ -24,10 +24,10 @@ var classes = {
   'panel title': '.panel__title',
   'panel subtitle': '.panel__subtitle',
   'results fold': '.fold',
-  'login': '.login',
-  'login error': '.login__error',
-  'logged in status': '.login__current-user',
-  'logout button': '.login__logout',
+  'login': '.nav-block',
+  'login error': '.account--error',
+  'logged in status': '.account-content--postsigned',
+  'logout link': '.signout-link',
   'scenario': '.options-list__item'
 }
 

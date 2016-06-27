@@ -13,13 +13,15 @@ test('user reducer', t => {
   t.deepEqual(state = user(state, requestLogin()), {
     status: 'pending',
     token: null,
-    error: null
+    error: null,
+    user: null
   }, 'request login')
 
-  t.deepEqual(state = user(state, successfulLogin('token-value')), {
+  t.deepEqual(state = user(state, successfulLogin('token-value', 'user-name')), {
     status: 'success',
     token: 'token-value',
-    error: null
+    error: null,
+    user: 'user-name'
   }, 'successful login')
 
   t.deepEqual(state = user(state, logout()), initial, 'logout')
@@ -29,7 +31,7 @@ test('user reducer', t => {
   t.deepEqual(state = user(state, badLogin('Error message')), {
     status: initial.status,
     token: null,
-    error: 'Error message'
+    error: 'Error message',
+    user: null
   }, 'bad login')
 })
-

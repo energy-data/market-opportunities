@@ -3,7 +3,8 @@ import { REQUEST_LOGIN, SUCCESSFUL_LOGIN, BAD_LOGIN, LOGOUT, USER_TO_DEFAULT } f
 export const initial = {
   status: 'logged out',
   error: null,
-  token: null
+  token: null,
+  user: null
 }
 
 export default function user (state = initial, action) {
@@ -12,19 +13,22 @@ export default function user (state = initial, action) {
       return {
         status: 'pending',
         error: null,
-        token: null
+        token: null,
+        user: null
       }
     case SUCCESSFUL_LOGIN:
       return {
         status: 'success',
         error: null,
-        token: action.token
+        token: action.token,
+        user: action.user
       }
     case BAD_LOGIN:
       return {
         status: initial.status,
         error: action.error,
-        token: null
+        token: null,
+        user: null
       }
     case USER_TO_DEFAULT:
     case LOGOUT:

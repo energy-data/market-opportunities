@@ -28,33 +28,66 @@
     margin-bottom: 0;
   }
 
+  /* Animation */
+  transition: all 0.16s ease 0s;
+
+  &::after,
+  &::before {
+    pointer-events: none;
+    opacity: 0;
+    transition: all 0.16s ease 0s;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    height: 3.5rem;
+    width: 8rem;
+    content: '';
+    background: $primary-color;
+    transform: rotate(45deg);
+    transform-origin: right bottom;
+    box-shadow: 0 4px 0 0 $base-semi-alpha-color;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 30;
+    @extend %collecticon-tick;
+    color: #fff;
+    font-size: 1rem;
+  }
+
   .card--active & {
     z-index: 2;
     box-shadow: 0 8px 32px 8px rgba($primary-color, 0.32);
 
-    &:after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 20;
-      height: 3.5rem;
-      width: 8rem;
-      content: '';
-      background: $primary-color;
-      transform: rotate(45deg);
-      transform-origin: right bottom;
-      box-shadow: 0 4px 0 0 $base-semi-alpha-color;
+    &::after,
+    &::before {
+      opacity: 1;
     }
+  }
+}
 
-    &:before {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      z-index: 30;
-      @extend %collecticon-tick;
-      color: #fff;
-      font-size: 1rem;
+a.card__contents {
+  &:hover {
+    opacity: 1;
+    box-shadow: 0 8px 16px 8px rgba($primary-color, 0.16);
+    z-index: 2;
+    transform: translate(0, -0.25rem);
+
+    .card--active & {
+      box-shadow: 0 8px 32px 8px rgba($primary-color, 0.32);
     }
+  }
+
+  &:active {
+    transform: translate(0, 0.25rem);
+    transition: transform 0.08s 0s;
   }
 }
 
@@ -93,7 +126,7 @@
   border-radius: $base-border-radius;
   min-height: 4rem;
 
-  &:before {
+  &::before {
     position: absolute;
     top: 0;
     left: 0;

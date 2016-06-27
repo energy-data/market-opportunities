@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import c from 'classnames'
+
 import login from '../login'
 import { logout } from '../actions'
 
@@ -9,10 +11,21 @@ export const Login = React.createClass({
     dispatch: React.PropTypes.func
   },
 
+  getInitialState: function () {
+    return {
+      open: false
+    }
+  },
+
   _handleKeypress: function (e) {
     if (e.which === 13) {
       this._login()
     }
+  },
+
+  _handleSubmitClick: function (e) {
+    e.preventDefault()
+    this._login()
   },
 
   _login: function () {
@@ -23,19 +36,79 @@ export const Login = React.createClass({
     this.props.dispatch(logout())
   },
 
+  _toggleMenu: function () {
+    this.setState({ open: !this.state.open })
+  },
+
   render: function () {
-    let user = this.props.user
+    const user = this.props.user
     if (user.status !== 'success') {
       return (
-        <div className='login'>
-          <input type='text' ref='username' onKeyDown={this._handleKeypress} />
-          <input type='password' ref='password' onKeyDown={this._handleKeypress}/>
-          {user.error ? <div className='login__error'>{user.error}</div> : ''}
+        <div className={c('nav-block', 'nav-block--account', { 'nav-block--active': this.state.open })}>
+          <h2 className='nav-block__title'>
+            <a onClick={this._toggleMenu} href='#' title='Toggle menu'>
+              <span className='text'>Account</span>
+              <span className='image'><img alt='User avatar' src='/assets/graphics/layout/avatar-placeholder.svg' width='128' height='128' /></span>
+            </a>
+          </h2>
+          <div className='nav-block__menu-wrapper' id='account-contents'>
+            <div className='account-content account-content--presigned'>
+              <h6 className='account-content__title'>
+                <span className='account-content__title-text'>Sign in</span>
+              </h6>
+              <form className='form'>
+                <div className='form__group'>
+                  <label className='form__label' for='input-username'>Username</label>
+                  <input type='text' className='form__control form__control--medium' id='input-username' placeholder='Username' ref='username' onKeyDown={this._handleKeypress} />
+                </div>
+                <div className='form__group'>
+                  <label className='form__label' for='input-password'>Password</label>
+                  <input type='password' className='form__control form__control--medium' id='input-password' placeholder='Password' ref='password' onKeyDown={this._handleKeypress} />
+                </div>
+                <div className='form__actions'>
+                  <button className='button-account-signin' type='submit' onClick={this._handleSubmitClick}><span>Sign in</span></button>
+                </div>
+              </form>
+
+              {user.error ? (
+                <div className='alert alert--danger account--error' role='alert'>
+                  <button className='alert__button-dismiss' title='Dismiss alert'><span>Dismiss</span></button>
+                  <p>{user.error}</p>
+                </div>
+              ) : null}
+
+              <ul className='drop__menu' role='menu'>
+                <li><a href='#' title='View more' className='drop__menu-item'>Don&#8217;t have an account or forgot your password?</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className={c('nav-block', 'nav-block--account', 'nav-block--signedin', { 'nav-block--active': this.state.open })}>
+          <h2 className='nav-block__title'>
+            <a onClick={this._toggleMenu} href='#' title='Toggle menu'>
+              <span className='text'>Account</span>
+              <span className='image'><img alt='User avatar' src='/assets/graphics/layout/avatar-placeholder.svg' width='128' height='128' /></span>
+            </a>
+          </h2>
+          <div className='nav-block__menu-wrapper' id='account-contents'>
+            <div className='account-content account-content--postsigned'>
+              <h6 className='account-content__title'>
+                <a href='#' title='View account' className='account-content__title-link'>
+                  <span className='account-content__title-text'>Signed in as <em>{user.user}</em></span>
+                </a>
+              </h6>
+              <ul className='drop__menu' role='menu'>
+                <li><a href='http://ec2-23-20-208-183.compute-1.amazonaws.com/user/edit/test-account' target='_blank' title='View settings' className='drop__menu-item'>Settings</a></li>
+                <li><a href='#' title='Sign out' className='drop__menu-item signout-link' onClick={this._logout}>Sign out</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       )
     }
-
-    return <div className='login login__current-user'>You are logged in<button className='login__logout' onClick={this._logout}>Logout</button></div>
   }
 })
 

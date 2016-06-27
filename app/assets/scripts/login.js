@@ -24,8 +24,7 @@ export default function login (username, password) {
         }
         return dispatch(badLogin(err))
       }
-
-      dispatch(successfulLogin(result.token))
+      dispatch(successfulLogin(result.apikey, result.user))
     })
   }
 }

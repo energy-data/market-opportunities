@@ -19,7 +19,7 @@ test('login form - not logged in', t => {
 
   t.is(component.find('input').length, 2, 'shows username/password fields')
   t.falsy(component.find(classes['logged in status']).length, 'does not show logged in status')
-  t.falsy(component.find(classes['logout button']).length, 'does not show logout button')
+  t.falsy(component.find(classes['logout link']).length, 'does not show logout button')
   t.falsy(component.find(classes['login error']).length, 'does not show error message')
 })
 
@@ -33,7 +33,6 @@ test('login form - logged in', t => {
 
   t.is(component.find('input').length, 0, 'does not show username/password fields')
   t.truthy(component.find(classes['logged in status']).length, 'shows logged in status')
-  t.truthy(component.find(classes['logout button']).length, 'shows logout button')
+  t.truthy(component.find(classes['logout link']).length, 'shows logout button')
   t.falsy(component.find(classes['login error']).length, 'does not show error message')
 })
-

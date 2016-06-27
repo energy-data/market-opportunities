@@ -1,0 +1,331 @@
+/* ==========================================================================
+   Structure: Page Prime Nav
+   ========================================================================== */
+
+.page__prime-nav {
+  float: right;
+  padding: 1rem 0;
+
+  @include media(medium-up) {
+    padding: 1.5rem 0;
+  }
+}
+
+.page__prime-nav-title {
+  @extend .visually-hidden;
+}
+
+
+/* Nav Block
+   ========================================================================== */
+
+.nav-block {
+  float: left;
+  position: relative;
+
+  @include media(large-up) {
+    margin-left: $global-spacing;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &--signedin {
+    margin-left: $global-spacing / 2;
+
+    @include media(large-up) {
+      margin-left: $global-spacing * 1.5;
+    }
+  }
+}
+
+.nav-block__title {
+  float: left;
+  font-size: 1rem;
+  color: inherit;
+  text-align: center;
+  margin: 0;
+
+  a, a:visited {
+    display: block;
+    color: inherit;
+    height: 2rem;
+    width: 2rem;
+    line-height: 2rem;
+
+    .nav-block--active & {
+      color: $primary-color;
+    }
+
+    &::before,
+    > * {
+      display: inline-block;
+      vertical-align: top;
+      line-height: inherit !important;
+    }
+
+    .nav-block--signedin & {
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  .image {
+    border-radius: $full-border-radius;
+    display: none;
+    overflow: hidden;
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $base-semi-alpha-color;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .nav-block--active & {
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba($primary-color, 0.16);
+    }
+
+    .nav-block--signedin & {
+      display: block;
+    }
+  }
+
+  .text {
+    @extend .visually-hidden;
+  }
+}
+
+.nav-block__menu-wrapper {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  padding: $global-spacing;
+  border-radius: $base-border-radius;
+  min-width: 12rem;
+  box-shadow: 0 8px 16px 8px rgba($primary-color, 0.24);
+  transition: opacity 0.16s ease 0s, margin 0.16s ease 0s, visibility 0.16s linear 0s;
+
+  /* Pre-animation */
+  margin-top: - $global-spacing / 2;
+  opacity: 0;
+  visibility: hidden;
+
+  /* Post-animation */
+  .nav-block--active & {
+    margin-top: $global-spacing / 2;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+/* Nav Block: Browse
+   ========================================================================== */
+
+.nav-block {
+  &--browse {
+    .nav-block__title {
+      a::before {
+        @extend %collecticon-hamburger-menu;
+      }
+
+      @include media(large-up) {
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .nav-block__menu-wrapper {
+      @include media(large-up) {
+        position: initial;
+        float: left;
+        padding: 0;
+        margin-top: 0;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}
+
+.browse-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @include media(large-up) {
+    float: left;
+
+    > li {
+      float: left;
+      margin: 0 ($global-spacing * 1.5) 0 0;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.browse-menu-item {
+  position: relative;
+  display: block;
+  line-height: 1.5rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  font-weight: $base-font-bold;
+  margin: 0 (-$global-spacing);
+  padding: ($global-spacing / 4) $global-spacing;
+
+  &, &:visited {
+    color: $base-font-color;
+  }
+
+  &::after,
+  > * {
+    display: inline-block;
+    vertical-align: top;
+    line-height: inherit !important;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 4px;
+    background: transparent;
+    content: '';
+  }
+
+  &--active {
+    &, &:visited {
+      color: $primary-color;
+    }
+
+    &::before {
+      background: $primary-color;
+    }
+  }
+
+  &--external::after {
+    @extend %collecticon-pop-up;
+    font-size: 1rem;
+    opacity: 0.48;
+    margin-left: $global-spacing / 8;
+  }
+
+  @include media(large-up) {
+    margin: 0;
+    padding: ($global-spacing / 4) 0;
+
+    &::before {
+      top: -1.5rem;
+      height: 4px;
+      width: 100%;
+    }
+  }
+}
+
+
+/* Nav Block: Account
+   ========================================================================== */
+
+.nav-block {
+  &--account {
+    .nav-block__title a {
+      &:before {
+        @extend %collecticon-user;
+      }
+    }
+  }
+}
+
+.account-content {
+  width: 14rem;
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: $base-font-bold;
+    margin-bottom: 0.75rem;
+  }
+
+  &__title-link {
+    display: table;
+    width: 100%;
+    color: inherit;
+
+    > * {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+
+  &__title-text {
+    color: rgba($base-font-color, 0.48);
+    em {
+      display: block;
+      font-style: normal;
+      text-transform: none;
+      color: rgba($base-font-color, 1);
+      line-height: 1.25rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__title-media {
+    width: $global-spacing * 4.5;
+    padding-right: $global-spacing / 2;
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: $full-border-radius;
+    }
+  }
+
+  .drop__menu {
+    box-shadow: 0 -1px 0 0 $base-alpha-color;
+    margin-top: $global-spacing;
+    padding-bottom: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .form {
+    margin-bottom: $global-spacing / 2;
+  }
+
+  .form__group {
+    margin-bottom: $global-spacing / 2;
+  }
+
+  .form__label {
+    @extend .visually-hidden;
+  }
+
+  .form__control {
+    font-size: 0.875rem;
+  }
+
+  .button-account-signin {
+    @extend .button, .button--medium, .button--primary;
+    display: block;
+    width: 100%;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}

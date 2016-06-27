@@ -8,7 +8,7 @@
   position: absolute;
   top: $global-spacing;
   left: $global-spacing;
-  z-index: 100;
+  z-index: 80;
   width: 18rem;
   max-height: calc(100% - #{$global-spacing * 2}); // once max-height is reached, the body becomes scrollable
 

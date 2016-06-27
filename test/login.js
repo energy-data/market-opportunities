@@ -26,10 +26,10 @@ test('good login', t => {
   t.is(requests[0].requestBody, 'username=user&password=pass')
   t.is(requests[0].headers['Content-Type'], 'application/x-www-form-urlencoded')
 
-  requests[0].respond(200, {}, JSON.stringify({token: 'TOKEN'}))
+  requests[0].respond(200, {}, JSON.stringify({apikey: 'TOKEN', user: 'USER'}))
   t.deepEqual(dispatch.args, [
     [{ type: REQUEST_LOGIN }],
-    [{ type: SUCCESSFUL_LOGIN, token: 'TOKEN' }]
+    [{ type: SUCCESSFUL_LOGIN, token: 'TOKEN', user: 'USER' }]
   ])
 })
 
@@ -60,4 +60,3 @@ test('bad login', t => {
     [{ type: BAD_LOGIN, error: genericLoginError }]
   ])
 })
-

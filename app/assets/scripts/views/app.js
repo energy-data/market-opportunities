@@ -24,10 +24,10 @@ const App = React.createClass({
               </header>
               <div className='layout__body'>
                 <div className='inner'>
+                  <MultiStep />
                   <ControlPanel />
                   <Map />
                   <ResultsFold />
-                  <MultiStep />
                 </div>
               </div>
             </section>

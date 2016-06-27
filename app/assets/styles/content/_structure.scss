@@ -19,7 +19,7 @@
 
 .page__header {
   position: relative;
-  z-index: 10;
+  z-index: 100;
   background: rgba(#fff, 0.96);
   color: $base-font-color;
   box-shadow: 0 0 64px 32px rgba($primary-color, 0.12);
@@ -29,6 +29,7 @@
     @extend .row;
   }
 }
+
 
 /* Headline */
 
@@ -45,22 +46,31 @@
 }
 
 .page__title {
-  font-size: inherit;
-  line-height: 1.5rem;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
   margin: 0;
 
   a {
     display: inline-block;
     vertical-align: top;
   }
+
+  @include media(medium-up) {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
 }
 
 .page__subtitle {
-  font-size: 0.75rem;
+  font-size: 0.625rem;
+  line-height: 0.75rem;
   text-transform: uppercase;
-  line-height: 1rem;
   opacity: 0.48;
+
+  @include media(medium-up) {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
 }
 
 .mast-logo__image {
@@ -72,165 +82,10 @@
   height: auto;
 }
 
-/* Navigation */
-
-.page__prime-nav {
-  font-weight: $base-font-bold;
-
-  @include media(medium-up) {
-    float: right;
-  }
-
-  .toggle-menu {
-    position: absolute;
-    top: 50%;
-    right: $global-spacing / 4;
-    transform: translate(0, -50%);
-    margin: 0;
-
-    a {
-      @extend .button, .button--base-unbounded, .button--medium, .button--text-hidden;
-      vertical-align: top;
-
-      &:before {
-        @extend %collecticon-hamburger-menu;
-      }
-
-      @include media(medium-up) {
-        &:before {
-          font-size: 1.5rem;
-        }
-      }
-    }
-
-    @include media(small-up) {
-      right: $global-spacing * 1.5;
-    }
-
-    @include media(large-up) {
-      display: none;
-    }
-  }
-}
-
-.menu-wrapper {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  clear: both;
-  background: #fff;
-  padding: $global-spacing;
-  box-shadow: 0 4px 12px 0 rgba($primary-color, 0.16), inset 0 2px 0 0 $base-alpha-color;
-
-  /* Animation */
-
-  margin-top: - $global-spacing;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.16s ease 0s, margin 0.16s ease 0s, visibility 0.16s linear 0s;
-
-  &.menu-wrapper--open {
-    margin-top: 0;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  @include media(small-up) {
-    padding: $global-spacing ($global-spacing * 2);
-  }
-
-   @include media(medium-up) {
-    padding: 0 ($global-spacing * 2);
-  }
-
-  @include media(large-up) {
-    position: initial;
-    float: left;
-    width: auto;
-    margin-top: 0;
-    background: none;
-    box-shadow: none;
-    padding: 0;
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-.global-menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  @include media(medium-up) {
-    float: left;
-    > li {
-      float: left;
-      margin: 0 ($global-spacing * 1.5) 0 0;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-}
-
-.global-menu-item {
-  position: relative;
-  display: inline-block;
-  line-height: 1.5rem;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-
-  &, &:visited {
-    color: $base-font-color;
-  }
-
-  &::after,
-  > * {
-    vertical-align: top;
-    display: inline-block;
-    line-height: inherit !important;
-  }
-
-  &::before {
-    position: absolute;
-    top: 0;
-    left: - $global-spacing;
-    height: 100%;
-    width: 4px;
-    background: transparent;
-    content: '';
-  }
-
-  &--active {
-    &, &:visited {
-      color: $primary-color;
-    }
-
-    &::before {
-      background: $primary-color;
-    }
-  }
-
-  &.external::after {
-    @extend %collecticon-pop-up;
-    font-size: 1rem;
-    opacity: 0.48;
-    margin-left: $global-spacing / 8;
-  }
-
-  @include media(medium-up) {
-    padding: ($global-spacing * 1.75) 0;
-    line-height: 1.5;
-    display: block;
-
-    &::before {
-      left: 0;
-      height: 4px;
-      width: 100%;
-    }
-  }
-}
+/**
+ * Prime Nav styles:
+ * _s-page-prime-nav.scss
+ */
 
 
 /* Body
