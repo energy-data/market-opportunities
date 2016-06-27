@@ -96,7 +96,7 @@
     "gulp-uglify": "^1.5.3",
     "gulp-useref": "^3.1.0",
     "gulp-util": "^3.0.7",
-    "jeet": "^6.1.2",
+    "jeet": "6.1.2",
     "mapbox-gl-js-mock": "^0.19.0",
     "node-bourbon": "^4.2.8",
     "node-notifier": "^4.5.0",

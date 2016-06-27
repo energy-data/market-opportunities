@@ -27,10 +27,9 @@ export const mockLayers = [
 ]
 
 export const countries = [
-  { name: 'Tanzania', flagPath: '/assets/graphics/content/flags/4x3/tz.svg', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' },
-  { name: 'Zambia', flagPath: '/assets/graphics/content/flags/4x3/zm.svg', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' },
-  { name: 'Lorem', flagPath: 'http://placehold.it/640x480', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' },
-  { name: 'Ipsum', flagPath: 'http://placehold.it/640x480', mapPath: 'http://placehold.it/768x384', area: '947,303 km2', population: '51,820,000' }
+  { name: 'Tanzania', flagPath: '/assets/graphics/content/flags/4x3/tz.svg', area: '947,303 km2', population: '51,820,000' },
+  { name: 'Zambia', flagPath: '/assets/graphics/content/flags/4x3/zm.svg', area: '752,618 km2', population: '15,721,000' },
+  { name: 'Nigeria', flagPath: '/assets/graphics/content/flags/4x3/ng.svg', area: '923,768 km2', population: '177,476,000' }
 ]
 
 export const scenarios = [

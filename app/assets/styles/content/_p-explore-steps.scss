@@ -175,3 +175,75 @@
     margin-left: 40%;
   }
 }
+
+
+/* Options control */
+
+.options-control {
+  padding: ($global-spacing * 2) $global-spacing;
+}
+
+.options-control__title {
+  position: relative;
+  margin-bottom: $global-spacing * 2;
+  text-transform: uppercase;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: rgba($base-font-color, 0.64);
+  font-weight: $base-font-weight;
+
+  span {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    background: tint($base-color, 96%);
+    padding: 0 $global-spacing;
+  }
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: -50vw;
+    z-index: 1;
+    transform: translate(0, -50%);
+    width: calc(150vw);
+    height: 2px;
+    background: rgba($base-color, 0.08);
+    content: '';
+  }
+}
+
+.options_control__drop {
+  @extend .button, .button--base;
+  padding: 0 0 0 0.5rem;
+  width: 17rem;
+  height: 3rem;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  color: #fff;
+
+  &::before {
+    @extend %collecticon-sort;
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    pointer-events: none;
+    opacity: 0.64;
+  }
+
+  select {
+    background: transparent;
+    border: 0;
+    height: 3rem;
+    padding: 0.5rem;
+    width: 18rem;
+    cursor: pointer;
+    color: inherit;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
