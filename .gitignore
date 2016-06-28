@@ -1,7 +1,15 @@
+app/assets/styles/core/_collecticons.scss
+app/assets/scripts/config/local.js
 node_modules
+.sass-cache
 npm-debug.log
+*~
+*#
 .DS_STORE
+.node_history
+temp
+tmp
+.tmp
 dist
 coverage
 .nyc_output
-.tmp

@@ -1,0 +1,84 @@
+{
+  "help": "http://ec2-23-20-208-183.compute-1.amazonaws.com/api/3/action/help_show?name=package_show",
+  "success": true,
+  "result": {
+    "license_title": "Creative Commons Attribution",
+    "maintainer": "",
+    "relationships_as_object": [],
+    "private": false,
+    "maintainer_email": "",
+    "num_tags": 0,
+    "id": "90c8744d-a565-4eea-a109-8b4b521b671b",
+    "metadata_created": "2016-06-22T17:50:10.555983",
+    "metadata_modified": "2016-06-27T17:05:59.510061",
+    "author": "",
+    "author_email": "",
+    "state": "active",
+    "version": "",
+    "creator_user_id": "d66f8499-ae73-49c3-b641-f1203abfee05",
+    "type": "dataset",
+    "resources": [
+      {
+        "cache_last_updated": null,
+        "package_id": "90c8744d-a565-4eea-a109-8b4b521b671b",
+        "webstore_last_updated": null,
+        "datastore_active": false,
+        "id": "015887e7-84b7-4c1c-a1c9-1b2516105d4b",
+        "size": null,
+        "state": "active",
+        "hash": "",
+        "description": "",
+        "format": "GeoJSON",
+        "last_modified": "2016-06-22T17:50:57.615898",
+        "url_type": "upload",
+        "tilejson": "https://test-offgrid-mvt.s3.amazonaws.com/tiles/015887e7-84b7-4c1c-a1c9-1b2516105d4b-34fb30f8-38e0-11e6-952a-0242ac110005/data.tilejson",
+        "mimetype": null,
+        "cache_url": null,
+        "name": "Demo Transmission network",
+        "created": "2016-06-22T17:50:57.686919",
+        "url": "http://ec2-23-20-208-183.compute-1.amazonaws.com/dataset/90c8744d-a565-4eea-a109-8b4b521b671b/resource/015887e7-84b7-4c1c-a1c9-1b2516105d4b/download/demo-transmission.geosjon",
+        "webstore_url": null,
+        "mimetype_inner": null,
+        "position": 0,
+        "revision_id": "74e179a8-8862-4d1b-b746-1a5258701cda",
+        "resource_type": null
+      }
+    ],
+    "num_resources": 1,
+    "tags": [],
+    "groups": [],
+    "license_id": "cc-by",
+    "relationships_as_subject": [],
+    "organization": {
+      "description": "",
+      "created": "2016-06-08T21:58:26.332906",
+      "title": "Offgrid Market Opportunities",
+      "name": "offgrid-market-opportunities",
+      "is_organization": true,
+      "state": "active",
+      "image_url": "2016-06-22-200534.607703tool-screenshot-ogmo.jpg",
+      "revision_id": "b1d27037-2050-4781-88ac-c3a092e36ac1",
+      "type": "organization",
+      "id": "840468ce-7c73-4769-b966-1a9e25f1692a",
+      "approval_status": "approved"
+    },
+    "name": "transmission-network",
+    "isopen": true,
+    "url": "source attribution!",
+    "notes": "",
+    "owner_org": "840468ce-7c73-4769-b966-1a9e25f1692a",
+    "extras": [
+      {
+        "key": "demand-tool-group",
+        "value": "Resource Potential"
+      },
+      {
+        "key": "demand-tool-indicator-options",
+        "value": "{ \"values\": [ \"a\", \"b\", \"c\" ] }"
+      }
+    ],
+    "license_url": "http://www.opendefinition.org/licenses/cc-by",
+    "title": "Transmission network",
+    "revision_id": "4063712b-a41d-47b7-94f7-4f21e9d461cf"
+  }
+}

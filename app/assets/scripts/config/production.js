@@ -4,5 +4,8 @@
  */
 
 module.exports = {
-  environment: 'production'
+  environment: 'production',
+  APIBaseURL: 'https://TBD',
+  dataHubURL: 'https://TBD',
+  dataHubOrganization: 'offgrid-market-opportunities'
 }

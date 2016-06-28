@@ -1,0 +1,327 @@
+/* ==========================================================================
+   Page
+   ========================================================================== */
+
+.page {
+  background: tint($base-color, 96%);
+}
+
+/* Inner
+   ========================================================================== */
+
+.page > .inner {
+  background: #fff;
+}
+
+
+/* Header
+   ========================================================================== */
+
+.page__header {
+  position: relative;
+  z-index: 100;
+  background: rgba(#fff, 0.96);
+  color: $base-font-color;
+  box-shadow: 0 0 64px 32px rgba($primary-color, 0.12);
+  min-height: 4rem;
+
+  > .inner {
+    @extend .row;
+  }
+}
+
+
+/* Headline */
+
+.page__headline {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  float: left;
+  padding-left: 2.5rem;
+
+  > * {
+    margin-bottom: 0;
+  }
+}
+
+.page__title {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin: 0;
+
+  a {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  @include media(medium-up) {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+}
+
+.page__subtitle {
+  font-size: 0.625rem;
+  line-height: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.48;
+
+  @include media(medium-up) {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+}
+
+.mast-logo__image {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -1rem;
+  width: 2rem;
+  height: auto;
+}
+
+/**
+ * Prime Nav styles:
+ * _s-page-prime-nav.scss
+ */
+
+
+/* Body
+   ========================================================================== */
+
+.page__body {
+  @extend .clearfix;
+}
+
+
+/* Footer
+   ========================================================================== */
+
+.page__footer {
+  position: relative;
+  z-index: 8;
+  background: tint($base-color, 96%);
+  color: $base-font-color;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgba($base-font-color, 0.64);
+
+  > .inner {
+    @extend .row, .row--centered;
+  }
+  
+  *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+/* ==========================================================================
+   layout
+   ========================================================================== */
+
+.layout {
+  &__header {
+    position: relative;
+    color: inherit;
+    padding: {
+      top: $global-spacing * 2;
+      right: 0;
+      bottom: $global-spacing * 2;
+      left: 0;
+    }
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    transform: translateZ(0);
+
+    > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    > .inner {
+      @extend .row;
+    }
+
+    &::before {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      background: linear-gradient(rgba($primary-color, 0), rgba($primary-color, 0.08));
+    }
+
+    @include media(medium-up) {
+      padding: {
+        top: $global-spacing * 3;
+        bottom: $global-spacing * 3;
+      }
+    }
+
+    @include media(large-up) {
+      padding: {
+        top: $global-spacing * 4;
+        bottom: $global-spacing * 4;
+      }
+    }
+
+  }
+
+  &__headline {
+    @include col(12/12);
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+    
+    @include media(medium-up) {
+      @include col(10/12);
+    }
+
+    @include media(large-up) {
+      @include col(8/12);
+    }
+  }
+
+  &__title {
+    @extend .heading, .heading--xlarge;
+  }
+
+  &__subtitle {
+    text-transform: uppercase;
+    font-weight: $base-font-regular;
+    color: rgba($base-font-color, 0.48);
+    font-size: 0.875rem;
+    line-height: 1.25;
+    margin: 0;
+
+    @include media(medium-up) {
+      position: absolute;
+      transform: translate(0, -100%);
+    }
+  }
+
+  &__introduction {
+    color: rgba($base-font-color, 0.64);
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    > *:last-child {
+      margin-bottom: 0;
+    }
+
+    @include media(medium-up) {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
+
+  &__body {
+    padding: {
+      top: $global-spacing * 2;
+      bottom: $global-spacing * 2;
+    }
+
+    > .inner {
+      @extend .row;
+      @extend .row--centered;
+    }
+
+    @include media(medium-up) {
+      padding: {
+        top: $global-spacing * 3;
+        bottom: $global-spacing * 3;
+      }
+    }
+
+    @include media(large-up) {
+      padding: {
+        top: $global-spacing * 4;
+        bottom: $global-spacing * 4;
+      }
+    }
+  }
+
+  &__main-content {
+    @include col(12/12);
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+/* Layout header modifiers
+   ========================================================================== */
+
+.layout__header--dark {
+  @extend .antialiased;
+  background: linear-gradient($secondary-color, $primary-color);
+  color: #fff;
+
+  &::before {
+    background: transparent;
+  }
+
+  &.layout__header--hero {
+    &::before {
+      background: linear-gradient(rgba($secondary-color, 0.64), rgba($secondary-color, 0.80), rgba($secondary-color, 0.92));
+    }
+  }
+
+  .layout__subtitle {
+    color: rgba(#fff, 0.48);
+  }
+  
+  .layout__introduction {
+    color: rgba(#fff, 0.64);
+  }
+}
+
+
+/* Page/Layout arrangement modifiers
+   ========================================================================== */
+
+.page--article {
+  .layout__main-content {
+    @include media(medium-up) {
+      @include col(10/12, $offset: 1/12);
+    }
+
+    @include media(large-up) {
+      @include col(8/12, $offset: 2/12);
+    }
+  }
+}
+
+.page--app {
+  .page__footer,
+  .layout__header {
+    @extend .visually-hidden;
+  }
+
+  .layout__body {
+    padding: 0;
+
+    > .inner {
+      position: relative;
+      padding: 0;
+      margin: 0;
+      height: calc(100vh - 4rem);
+      max-width: none;
+
+      @include media(large-up) {
+        height: calc(100vh - 5rem);
+      }
+    }
+  }
+}

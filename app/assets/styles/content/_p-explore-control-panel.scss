@@ -1,0 +1,452 @@
+/* ==========================================================================
+   Page: Explore / Control Panel
+   ========================================================================== */
+
+#control-panel {
+  @include display(flex);
+  @include flex-direction(column);
+  position: absolute;
+  top: $global-spacing;
+  left: $global-spacing;
+  z-index: 80;
+  width: 18rem;
+  max-height: calc(100% - #{$global-spacing * 2}); // once max-height is reached, the body becomes scrollable
+
+  .panel__header {
+    @include flex(0 0 auto);
+  }
+
+  .panel__body {
+    @include flex(1 1 auto);
+    overflow-y: scroll;
+  }
+
+  .panel__body-inner {
+    padding: 0;
+    &:empty {
+      text-align: center;
+      padding: $global-spacing;
+      font-size: 0.75rem;
+      line-height: 1rem;
+      opacity: 0.48;
+      
+      &::after {
+        content: 'Nothing to show.';
+      }
+    }
+  }
+
+  .panel__footer {
+    @include flex(0 0 auto);
+    text-align: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  @include media(xlarge-up) {
+    top: $global-spacing * 2;
+    left: $global-spacing * 2;
+    max-height: calc(100% - #{$global-spacing * 4});
+  }
+}
+
+.button-export {
+  @extend .button, .button--achromic-unbounded;
+  &::before {
+    @extend %collecticon-download;
+  }
+}
+
+
+/* Layer group
+   ========================================================================== */
+
+.layer-group__header {
+  background: tint($base-color, 96%);
+  box-shadow: inset 0 -1px 0 0 $base-semi-alpha-color;
+}
+
+.layer-group__title,
+.layer-group__toggle {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 1rem;
+    line-height: 1;
+    width: 1rem;
+    text-align: center;
+  }
+}
+
+.layer-group__title {
+  position: relative;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: $base-font-bold;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgba($base-font-color, 0.64);
+}
+
+.layer-group__motif {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-size: 1rem;
+  line-height: 1;
+  width: 1rem;
+  text-align: center;
+  left: $global-spacing;
+  opacity: 0.48;
+  color: $base-color;
+
+  > * {
+    vertical-align: top;
+    display: inline-block;
+    line-height: inherit;
+  }
+}
+
+.layer-group__motif ~ .layer-group__title {
+  padding-left: 1.5rem;
+}
+
+.layer-group__toggle {
+  position: relative;
+  display: block;
+  padding: ($global-spacing / 2) ($global-spacing * 2) ($global-spacing / 2) $global-spacing;
+
+  &, &:visited {
+    color: inherit;
+  }
+
+  &::after {
+    @extend %collecticon-sm-chevron-down;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 1rem;
+    line-height: 1;
+    width: 1rem;
+    text-align: center;
+    right: $global-spacing;
+    color: rgba($base-color, 0.32);
+    transition: all 0.16s ease 0s;
+  }
+
+  /* Expanded layer-group state */
+  .layer-group--expanded & {
+    &::after {
+      transform: rotate(180deg) translate(0, 50%);
+    }
+  }
+}
+
+.layer-group__body {
+  /* Collapsed layer-group state */
+  opacity: 0;
+  overflow-y: hidden;
+  max-height: 0;            
+  transition: all 0.16s ease 0s;
+
+  /* Expanded layer-group state */
+  .layer-group--expanded & {
+    opacity: 1;
+    max-height: 120rem;
+    overflow: visible;
+  }
+}
+
+/* Layers
+   ========================================================================== */
+
+.layer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.layer-list__layer-wrapper {
+  display: block;
+}
+
+.layer {
+  background: #fff;
+  box-shadow: inset 0 -1px 0 0 $base-semi-alpha-color;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background: #fff;
+}
+
+.layer__header {
+  position: relative;
+  padding: ($global-spacing / 2) $global-spacing;
+}
+
+.layer__legend-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0.25rem;
+  background: transparent;
+  box-shadow: inset 0 -1px 0 0 $base-alpha-color,  inset 0 1px 0 0 $base-alpha-color;
+}
+
+.layer__headline,
+.layer__actions {
+  display: table-cell;
+  overflow: hidden;
+
+  &, > * {
+    vertical-align: middle;
+  }
+}
+
+.layer__headline {
+  width: 100%;
+}
+
+.layer__title {
+  margin: 0;
+  font-weight: $base-font-bold;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.layer__summary {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  opacity: 0.64;
+  margin: 0;
+}
+
+.layer__actions {
+  text-align: right;
+  white-space: nowrap;
+
+  .form__option--switch {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  > * {
+    margin-left: $global-spacing / 4;
+  }
+
+  > .button:last-child {
+    margin-right: - $global-spacing / 4;
+  }
+}
+
+.layer__body {
+  @extend .antialiased;
+  padding: $global-spacing;
+  position: relative;
+  z-index: 2;
+  background: tint($base-color, 32%);
+  color: #fff;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Collapsed layer state */
+  opacity: 0;
+  overflow-y: hidden;
+  padding: 0 $global-spacing;
+  max-height: 0;            
+  transition: all 0.16s ease 0s;
+
+  /* Expanded layer state */
+  .layer--expanded & {
+    opacity: 1;
+    padding: $global-spacing;
+    max-height: 60rem;
+    overflow: visible;
+  }
+
+  &::before {
+    @extend %collecticon-triangle-up;
+    position: absolute;
+    right: $global-spacing * 3.25;
+    color: tint($base-color, 32%);
+    font-size: 1rem;
+    line-height: 1;
+    pointer-events: none;
+    transition: all 0.24s ease 0s;
+
+    /* Collapsed layer state */
+    top: 0;
+
+    /* Collapsed layer state */
+    .layer--expanded & {
+      top: -0.715rem;
+    }
+  }
+}
+
+.button-edit-layer {
+  @extend .button, .button--small, .button--base-unbounded, .button--text-hidden;
+  
+  &::before {
+    @extend %collecticon-pencil;
+  }
+
+  /* Expanded layer state */
+  .layer--expanded & {
+    color: $primary-color;
+  }
+}
+
+
+/* Layer modifiers */
+
+.layer--base {
+  .layer__header {
+    position: relative;
+    padding: $global-spacing;
+  }
+}
+
+
+/* Layer blocks */
+
+.layer-block {
+  position: relative;
+  padding: 0 $global-spacing $global-spacing $global-spacing;
+  margin: 0 (-$global-spacing) $global-spacing (-$global-spacing);
+  box-shadow: inset 0 -1px 0 0 rgba(#fff, 0.08);
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  &:last-child {
+    box-shadow: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+
+.layer-block__title {
+  color: #fff;
+  opacity: 0.64;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: $base-font-bold;
+  margin-bottom: 0.75rem;
+}
+
+
+/* Layer block: form elements */
+
+.layer-block {
+
+  .form__option--custom-checkbox,
+  .form__option--custom-radio {
+    .form__option__ui {
+      top: 0.125rem;
+      box-shadow: none;
+    }
+  }
+
+  .form__option {
+    line-height: 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .form__actions {
+    position: absolute;
+    top: 0;
+    right: $global-spacing;
+
+    .button {
+      opacity: 0.64;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    > * {
+      margin-top: - $global-spacing / 2;
+      margin-left: $global-spacing / 4;
+    }
+
+    > .button:last-child {
+      margin-right: - $global-spacing / 4;
+    }
+  }
+
+  .form__slider {
+    padding: 0.5rem 0.5rem 2rem 0.5rem;
+  }
+
+  .form {
+    > *:nth-last-child(2) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+/* Layer block: buttons */
+
+.button-cancel-edit,
+.button-save-edit {
+  @extend .button, .button--small, .button--achromic-unbounded, .button--text-hidden;
+}
+
+.button-cancel-edit::before {
+  @extend %collecticon-xmark;
+}
+
+.button-save-edit::before {
+  @extend %collecticon-tick;
+}
+
+
+/* Layer info */
+
+.layer-info__title {
+  @extend .visually-hidden;
+}
+
+.layer-info__details {
+  @extend .clearfix;
+  dt, dd {
+    float: left;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    padding-bottom: $global-spacing / 4;
+  }
+
+  dt {
+    position: relative;
+    width: 32%;
+    clear: left;
+    padding-right: $global-spacing / 2;
+    color: rgba(#fff, 0.48);
+  }
+
+  dd {
+    width: 68%;
+    padding-left: $global-spacing / 2;
+    margin-bottom: 0;
+  }
+
+  a, a:visited {
+    color: tint($primary-color, 48%);
+  }
+
+  .url {
+    @extend .truncated;
+    display: block;
+    width: 100%;
+  }
+}

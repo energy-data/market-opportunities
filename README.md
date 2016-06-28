@@ -21,9 +21,14 @@ $ npm install
 There are two commands, both run via npm.
 
 - `npm run build` or `gulp` - clean & build everything and put it into dist folder
-- `npm run serve` or `gulp serve` - serve the pages and utilize live reload on changes to styles, fonts, images, scripts and HTML.
+- `npm run serve` or `gulp serve` - Compiles the sass files, javascript, and launches the server making the site available at `http://localhost:3000/`. The system will watch files and execute tasks whenever one of them changes. The site will automatically refresh since it is bundled with livereload.
 
-## semistandard for linting
+## standard for linting
 We're using [standard](https://github.com/feross/standard) for linting.
 
 - `npm run lint` - will run linter and warn of any errors.
+
+
+### Other commands
+
+- `npm run collections` - create icon font

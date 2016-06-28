@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Page: Explore / Map
+   ========================================================================== */
+
+#map {
+  position: absolute;
+  z-index: 1;
+  height: calc(100% - 10rem);
+  .temp-map-hover {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    z-index: 60;
+  }
+  @include media(large-up) {
+    height: 100%;
+    width: calc(100% - 18rem);
+  }
+}

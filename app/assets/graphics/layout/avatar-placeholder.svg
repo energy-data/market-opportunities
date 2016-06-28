@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="128px" height="128px" viewBox="0 0 128 128" enable-background="new 0 0 128 128" xml:space="preserve">
+  <rect fill="#C8CDCF" width="128" height="128"/>
+  <path fill="#FFFFFF" d="M64,64c8.8,0,16-7.2,16-16s-7.2-16-16-16s-16,7.2-16,16S55.2,64,64,64z M80,72H48c-8.8,0-16,7.2-16,16v8h64
+  	v-8C96,79.2,88.8,72,80,72z"/>
+</svg>
