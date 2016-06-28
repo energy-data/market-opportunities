@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Views
+   ========================================================================== */
+
+
+/* View grid
+   ========================================================================== */
+
+.view-grid {
+  @extend .clearfix;
+  clear: both;
+  text-align: center;
+  word-spacing: -0.26rem;
+  margin: 0;
+  padding: 0;
+
+  > * {
+    @include span(12/12);
+    margin-bottom: 1rem;
+    display: inline-block;
+    vertical-align: top;
+    word-spacing: normal;
+    &:last-child {
+      margin-bottom: 0;
+      margin-right: 0;
+    }
+  }
+
+  @include media(small-up) {
+    padding: 0 4rem;
+    > * {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @include media(medium-up) {
+    padding: 0;
+    > * {
+      @include col(6/12, $cycle: 2);
+      &:nth-last-child(-n+2) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @include media(large-up) {
+    > * {
+      @include col(4/12, $uncycle: 2, $cycle: 3);
+      &:nth-last-child(-n+3) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @include media(xlarge-up) {
+    > * {
+      @include col(3/12, $uncycle: 3, $cycle: 4);
+      &:nth-last-child(-n+4) {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
+/* Modifiers
+   ========================================================================== */
+
+.view-grid--centered {
+  > * {
+    float: none !important;
+  }
+}

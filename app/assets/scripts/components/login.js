@@ -8,13 +8,9 @@ import { logout } from '../actions'
 export const Login = React.createClass({
   propTypes: {
     user: React.PropTypes.object,
+    onLoginToggle: React.PropTypes.func,
+    isOpen: React.PropTypes.bool,
     dispatch: React.PropTypes.func
-  },
-
-  getInitialState: function () {
-    return {
-      open: false
-    }
   },
 
   _handleKeypress: function (e) {
@@ -36,22 +32,18 @@ export const Login = React.createClass({
     this.props.dispatch(logout())
   },
 
-  _toggleMenu: function () {
-    this.setState({ open: !this.state.open })
-  },
-
   render: function () {
     const user = this.props.user
     if (user.status !== 'success') {
       return (
-        <div className={c('nav-block', 'nav-block--account', { 'nav-block--active': this.state.open })}>
+        <div className={c('nav-block', 'nav-block--account', { 'nav-block--active': this.props.isOpen })}>
           <h2 className='nav-block__title'>
-            <a onClick={this._toggleMenu} href='#' title='Toggle menu'>
+            <a onClick={this.props.onLoginToggle} href='#' title='Toggle menu'>
               <span className='text'>Account</span>
               <span className='image'><img alt='User avatar' src='/assets/graphics/layout/avatar-placeholder.svg' width='128' height='128' /></span>
             </a>
           </h2>
-          <div className='nav-block__menu-wrapper' id='account-contents'>
+          <div className='nav-block__menu-wrapper' id='account-contents' data-hook='nav-block:login'>
             <div className='account-content account-content--presigned'>
               <h6 className='account-content__title'>
                 <span className='account-content__title-text'>Sign in</span>
@@ -86,14 +78,14 @@ export const Login = React.createClass({
       )
     } else {
       return (
-        <div className={c('nav-block', 'nav-block--account', 'nav-block--signedin', { 'nav-block--active': this.state.open })}>
+        <div className={c('nav-block', 'nav-block--account', 'nav-block--signedin', { 'nav-block--active': this.props.isOpen })}>
           <h2 className='nav-block__title'>
-            <a onClick={this._toggleMenu} href='#' title='Toggle menu'>
+            <a onClick={this.props.onLoginToggle} href='#' title='Toggle menu'>
               <span className='text'>Account</span>
               <span className='image'><img alt='User avatar' src='/assets/graphics/layout/avatar-placeholder.svg' width='128' height='128' /></span>
             </a>
           </h2>
-          <div className='nav-block__menu-wrapper' id='account-contents'>
+          <div className='nav-block__menu-wrapper' id='account-contents' data-hook='nav-block:login'>
             <div className='account-content account-content--postsigned'>
               <h6 className='account-content__title'>
                 <a href='#' title='View account' className='account-content__title-link'>

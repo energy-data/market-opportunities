@@ -34,7 +34,7 @@
   font-size: 1rem;
   line-height: 1.5;
   background: #fff;
-  box-shadow: 0 2px 12px 2px $base-alpha-color, 0 0 0 1px $base-alpha-color;
+  box-shadow: 0 8px 16px 8px rgba($primary-color, 0.24);
   border-radius: $base-border-radius;
 
   /* Animation */
@@ -97,6 +97,10 @@
   opacity: 1;
   visibility: visible;
   transition: none;
+}
+
+.tether-element {
+  z-index: 9999;
 }
 
 .tether-element-attached-top,

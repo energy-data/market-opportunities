@@ -72,6 +72,7 @@
 .panel__headline,
 .panel__meta-actions {
   display: table-cell;
+  
   &, > * {
     vertical-align: top;
   }
