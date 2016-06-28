@@ -22,6 +22,9 @@ import reducer from './reducers'
 // Views
 import App from './views/app'
 
+// Initial data load
+import fetchLayers from './fetch-layers'
+
 const logger = createLogger({
   level: 'info',
   collapsed: true,
@@ -31,6 +34,8 @@ const logger = createLogger({
 })
 const historyMiddleware = routerMiddleware(browserHistory)
 const store = createStore(reducer, applyMiddleware(thunk, historyMiddleware, logger))
+
+store.dispatch(fetchLayers())
 
 const history = syncHistoryWithStore(browserHistory, store)
 

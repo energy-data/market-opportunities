@@ -1,6 +1,6 @@
 import test from 'ava'
 import layers, { initial } from '../../app/assets/scripts/reducers/layers'
-import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
+import { startFetchingLayers, errorFetchingLayers, setLayers, updateVisibleLayers, startEditingLayer, stopEditingLayer,
   toggleLayerVisibility, updateLayerFilter, resetState } from '../../app/assets/scripts/actions'
 
 test('layer reducer test', t => {
@@ -13,6 +13,27 @@ test('layer reducer test', t => {
 
   t.deepEqual(layers({ base, indicators, visible }, resetState('layers')), initial,
     'reducer returns to initial state when reset')
+
+  const startFetching = layers(initial, startFetchingLayers())
+  t.is(startFetching.status, 'loading',
+    'status is loading after "start fetching layers"')
+
+  const errorFetching = layers(startFetching, errorFetchingLayers('Error message!'))
+  t.is(errorFetching.status, 'error',
+    'status is error upon "error fetching layers"')
+  t.is(errorFetching.error, 'Error message!', 'set error message')
+
+  const layerOptions = { foo: { bar: [ 'baz' ] } }
+  const layersAdded = layers(startFetching, setLayers([{
+    id: 'z',
+    options: layerOptions
+  }, {
+    id: 'y',
+    options: {}
+  }]))
+  t.is(layersAdded.indicators.length, 2)
+  t.deepEqual(layersAdded.indicators[0].options, layerOptions)
+  t.deepEqual(layersAdded.indicators[0].filter, layerOptions, 'initialize indicator `filter` property from `options`')
 
   t.truthy(layers(Object.assign({}, initial, { indicators }),
     startEditingLayer('b')).indicators[0].editing,

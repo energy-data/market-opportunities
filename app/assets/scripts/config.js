@@ -19,7 +19,9 @@ var defaultsDeep = require('lodash.defaultsdeep')
  *      polluting the repo.
  */
 
-var configurations = require('./config/*.js', {mode: 'hash'})
+var bulk = require('bulk-require')
+/* eslint-disable no-path-concat */
+var configurations = bulk(__dirname + '/config/', ['*.js'])
 var config = configurations.local || {}
 
 if (process.env.DS_ENV === 'staging') {

@@ -11,10 +11,11 @@ const { Map } = proxyquire.noCallThru().load('../../app/assets/scripts/component
 
 import classes from '../helpers/classes'
 import layers, { initial } from '../../app/assets/scripts/reducers/layers'
-import { toggleLayerVisibility } from '../../app/assets/scripts/actions'
+import { setLayers, toggleLayerVisibility } from '../../app/assets/scripts/actions'
 
 test('map test', t => {
-  const component = shallow(<Map layers={initial} />)
+  const zeroVisible = layers(initial, setLayers([ { id: '1', options: {} } ]))
+  const component = shallow(<Map layers={zeroVisible} />)
   t.truthy(component.hasClass(classes.nodot['map']))
 
   // mock mount
@@ -23,7 +24,7 @@ test('map test', t => {
 
   // map component can receive new props (more or fewer layers)
   // call _addLayer/._removeLayer without incident
-  const oneVisible = layers(initial, toggleLayerVisibility('1'))
+  const oneVisible = layers(zeroVisible, toggleLayerVisibility('1'))
   t.notThrows(() => component.setProps({layers: oneVisible}))
   t.notThrows(() => component.setProps({layers: initial}))
 

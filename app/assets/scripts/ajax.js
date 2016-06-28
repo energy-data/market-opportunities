@@ -5,9 +5,18 @@ import xhr from 'xhr'
  * @param {Function} callback Called with (error, body) where body is the parsed JSON result
  * @private
  */
-export function postForm (urlOrOpts, callback) {
+export const getJSON = xhrJSON.bind(null, 'get')
+
+/**
+ * @param {string|object} urlOrOpts Either a url or an options object as accepted by request / xhr.
+ * @param {Function} callback Called with (error, body) where body is the parsed JSON result
+ * @private
+ */
+export const postForm = xhrJSON.bind(null, 'post')
+
+function xhrJSON (method, urlOrOpts, callback) {
   let opts = typeof urlOrOpts === 'object' ? urlOrOpts : { url: urlOrOpts }
-  xhr.post(opts, function (err, resp, body) {
+  xhr[method](opts, function (err, resp, body) {
     if (err) { return callback({error: err}) }
 
     try {

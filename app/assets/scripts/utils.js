@@ -20,3 +20,10 @@ export function inFirstArrayNotSecond (arrayOne, arrayTwo, accessFn) {
 export function unique (array) {
   return Array.from(new Set(array))
 }
+
+export function pick (object, properties) {
+  var result = {}
+  properties.forEach(function (key) { result[key] = object[key] })
+  return result
+}
+

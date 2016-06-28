@@ -1,9 +1,10 @@
 /*
  * action types
  */
-export const UPDATE_FOO = 'UPDATE_FOO'
-export const UPDATE_BAR = 'UPDATE_BAR'
 export const LAYERS_TO_DEFAULT = 'LAYERS_TO_DEFAULT'
+export const START_FETCHING_LAYERS = 'START_FETCHING_LAYERS'
+export const ERROR_FETCHING_LAYERS = 'ERROR_FETCHING_LAYERS'
+export const SET_LAYERS = 'SET_LAYERS'
 export const TEMP_FILTER_TO_DEFAULT = 'TEMP_FILTER_TO_DEFAULT'
 export const GROUPS_TO_DEFAULT = 'GROUPS_TO_DEFAULT'
 export const SELECTION_TO_DEFAULT = 'SELECTION_TO_DEFAULT'
@@ -28,20 +29,6 @@ export const UPDATE_SELECTED_SCENARIO = 'UPDATE_SELECTED_SCENARIO'
  * bare action creators
  */
 
- /*
- * Update foo
- */
-export function updateFoo (foo) {
-  return { type: UPDATE_FOO, data: foo }
-}
-
-/*
- * Update bar
- */
-export function updateBar (bar) {
-  return { type: UPDATE_BAR, data: bar }
-}
-
 /*
  * Reset a portion of the state to its initial state
  */
@@ -60,6 +47,18 @@ export function resetState (portion) {
     default:
       return { type: BAD_ACTION }
   }
+}
+
+export function startFetchingLayers () {
+  return { type: START_FETCHING_LAYERS }
+}
+
+export function errorFetchingLayers (err) {
+  return { type: ERROR_FETCHING_LAYERS, error: err }
+}
+
+export function setLayers (layers) {
+  return { type: SET_LAYERS, layers: layers }
 }
 
 /*

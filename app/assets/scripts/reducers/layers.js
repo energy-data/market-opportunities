@@ -1,15 +1,26 @@
 import { UPDATE_VISIBLE_LAYERS, START_EDITING_LAYER, STOP_EDITING_LAYER,
-  TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER } from '../actions'
-import { mockLayers, baseLayers } from '../constants'
+  TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER, START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS } from '../actions'
+import { baseLayers } from '../constants'
 
 export const initial = {
-  indicators: mockLayers,
+  indicators: [],
   base: baseLayers,
-  visible: 'indicators'
+  visible: 'indicators',
+  status: 'loading'
 }
 
 export default function layers (state = initial, action) {
   switch (action.type) {
+    case START_FETCHING_LAYERS:
+      return Object.assign({}, state, { status: 'loading' })
+    case ERROR_FETCHING_LAYERS:
+      return Object.assign({}, state, { status: 'error', error: action.error })
+    case SET_LAYERS:
+      // initialize `filter` from `options` for each layer
+      var layers = action.layers.map(layer => Object.assign({}, layer, {
+        filter: JSON.parse(JSON.stringify(layer.options))
+      }))
+      return Object.assign({}, state, { status: 'success', indicators: layers })
     case UPDATE_VISIBLE_LAYERS:
       return Object.assign({}, state, { visible: action.data })
     case START_EDITING_LAYER:

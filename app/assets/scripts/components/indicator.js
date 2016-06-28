@@ -1,6 +1,8 @@
 import React from 'react'
+import url from 'url'
 import Nouislider from 'react-nouislider'
 import c from 'classnames'
+import config from '../config'
 
 import CheckboxGroup from './checkbox-group'
 
@@ -16,7 +18,8 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, name, type, editing, options, filter, visible } = this.props.layer
+    const { id, name, datasetName, description, type, editing, options, filter, visible } = this.props.layer
+    const license = this.props.layer['license_title']
     const { updateLayerFilter } = this.props
 
     let Editor
@@ -78,13 +81,15 @@ const Indicator = React.createClass({
               <h2 className='layer-block__title layer-info__title'>Info</h2>
               <dl className='layer-info__details'>
                 <dt>Description</dt>
-                <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</dd>
+                <dd>{description}</dd>
                 <dt>Provider</dt>
                 <dd>Open Data Platform</dd>
                 <dt>Source URL</dt>
-                <dd><a href='#' title='Visit data source URL' className='url'>http://opendataplatform.org/loremipsum</a></dd>
+                <dd><a href='#' title='Visit data source URL' className='url'>{url.resolve(config.dataHubURL, '/dataset/' + datasetName)}</a></dd>
                 <dt>Year</dt>
-                <dd>2015</dd>
+                <dd>TBD</dd>
+                <dt>License</dt>
+                <dd>{license}</dd>
               </dl>
             </section>
           </div>

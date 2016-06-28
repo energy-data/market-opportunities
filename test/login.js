@@ -27,10 +27,17 @@ test('good login', t => {
   t.is(requests[0].headers['Content-Type'], 'application/x-www-form-urlencoded')
 
   requests[0].respond(200, {}, JSON.stringify({apikey: 'TOKEN', user: 'USER'}))
-  t.deepEqual(dispatch.args, [
+
+  t.deepEqual(dispatch.args.slice(0, 2), [
     [{ type: REQUEST_LOGIN }],
     [{ type: SUCCESSFUL_LOGIN, token: 'TOKEN', user: 'USER' }]
   ])
+
+  // this is a little crazy: we expect the last dispatch to be a thunk, so we
+  // use Function.prototype.toString() to make an assertion against its _source
+  // code_.
+  var expectedThunk = dispatch.args[2][0]
+  t.truthy(/startFetchingLayers/.test(expectedThunk.toString(), 'dispatches fetchLayers on successful login'))
 })
 
 test('bad login', t => {
