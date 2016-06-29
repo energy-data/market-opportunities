@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const Group = React.createClass({
+export const Loading = React.createClass({
 
   propTypes: {
     loading: React.PropTypes.bool
@@ -22,4 +22,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(Group)
+export default connect(mapStateToProps)(Loading)
