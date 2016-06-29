@@ -37,7 +37,7 @@ export const MultiStep = React.createClass({
               <div className='step-view__body'>
                 <div className='inner'>
                   <div className='step-options'>
-                    <ol className='options-list country-list view-grid view-grid--centered' role='menu'>
+                    <ol className='options-list country-list' role='menu'>
                       {countries.map(country => {
                         return <Country
                           key={country.name}
@@ -126,7 +126,7 @@ export const MultiStep = React.createClass({
               <div className='step-view__body'>
                 <div className='inner'>
                   <div className='step-options'>
-                    <ol className='options-list scenario-list view-grid view-grid--centered' role='menu'>
+                    <ol className='options-list scenario-list' role='menu'>
                     {scenarios.map(scenario => {
                       return <Scenario
                         key={scenario.title}

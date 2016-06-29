@@ -307,7 +307,7 @@
       position: relative;
       padding: 0;
       margin: 0;
-      height: calc(100vh - 4rem);
+      height: calc(100vh - 3rem);
       max-width: none;
 
       @include media(large-up) {

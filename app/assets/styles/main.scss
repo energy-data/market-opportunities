@@ -56,7 +56,6 @@
    ========================================================================== */
 
 @import "core/base";
-@import "core/webfont-montserrat"; // Webfont: Monteserrat
 @import "core/collecticons"; // Webfont icon library: Collecticons
 @import "core/animations";
 @import "core/typography";
@@ -67,7 +66,6 @@
 /* Components
    ========================================================================== */
 
-@import "components/views";
 @import "components/buttons";
 @import "components/forms";
 @import "components/panels";

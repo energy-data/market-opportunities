@@ -100,10 +100,6 @@
   @include media(large-up) {
     padding: ($global-spacing * 2) 0;
   }
-
-  @include media(xlarge-up) {
-    padding: ($global-spacing * 4) 0;
-  }
 }
 
 .button-cancel-step {
@@ -115,20 +111,25 @@
 }
 
 
-/* Step: Country selection
+/* Step: Options
    ========================================================================== */
 
-.step-options {
-  max-width: 32rem;
-  margin: 0 auto;
+.options-list {
+  @include display(flex);
+  @include flex-flow(row wrap);
+  @include justify-content(center);
+  list-style: none;
+  padding: 0;
+  margin: 0 (- $global-spacing / 2);
 
   @include media(large-up) {
-    max-width: 56rem;
+    margin: 0 (- $global-spacing);
   }
+}
 
-  @include media(xlarge-up) {
-    max-width: 68rem;
-  }
+.options-list__item {
+  @include flex(0 1 18rem);
+  margin: $global-spacing;
 }
 
 .card--country__flag {
@@ -208,7 +209,7 @@
     left: 50%;
     z-index: 1;
     transform: translate(-50%, -50%);
-    width: 20rem;
+    width: 17rem;
     height: 2px;
     background: rgba($base-color, 0.08);
     content: '';
@@ -223,6 +224,7 @@
   overflow: hidden;
   margin: 0 auto;
   position: relative;
+  box-shadow: 0 0 8px 4px rgba($primary-color, 0.16);
 
   &::before {
     @extend %collecticon-sort;
