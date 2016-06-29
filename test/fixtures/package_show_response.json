@@ -75,6 +75,10 @@
       {
         "key": "demand-tool-indicator-options",
         "value": "{ \"values\": [ \"a\", \"b\", \"c\" ] }"
+      },
+      {
+        "key": "demand-tool-type",
+        "value": "base"
       }
     ],
     "license_url": "http://www.opendefinition.org/licenses/cc-by",

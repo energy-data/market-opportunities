@@ -18,8 +18,38 @@ export const baseLayers = [
 
 // TODO: at some point we should copy options object over to filter object
 export const mockLayers = [
-  { id: '1', name: 'Population Density', group: 'Socioeconomics', type: 'red', options: { range: [0, 100] }, filter: { range: [0, 100] } },
-  { id: '2', name: 'Mobile Penetration', group: 'Socioeconomics', type: 'blue', options: { range: [0, 100] }, filter: { range: [0, 100] } },
+  {
+    id: '1',
+    name: 'Population Density',
+    group: 'Socioeconomics',
+    type: 'red',
+    layerType: 'fill',
+    options: {
+      range: {
+        'min': [ 0, 100 ],
+        '25%': [ 100, 1000 ],
+        '50%': [ 1000, 10000 ],
+        '75%': [ 10000, 100000 ],
+        'max': [ 100000, 0 ]
+      }
+    },
+    filter: { range: [0, 100000] },
+    mapKey: 'pop100km2',
+    url: 'https://s3.amazonaws.com/test-offgrid-mvt/tiles/eb838cff-401d-4acd-97b6-5666dd0d160c-57a2afbe-37f0-11e6-9c37-0242ac110005/data.tilejson',
+    paint: {
+      'fill-color': {
+        'property': 'pop100km2',
+        'stops': [
+             [0, '#15a52f'],
+             [100, '#b0c93f'],
+             [1000, '#74cf8a'],
+             [10000, '#49250c'],
+             [100000, '#dc6f5c']
+        ]
+      }
+    }
+  },
+  { id: '2', name: 'Mobile Penetration', group: 'Socioeconomics', type: 'blue', options: { range: { min: 0, max: 100 } }, filter: { range: [0, 100] } },
   { id: '3', name: 'Lorem ipsum', group: 'Socioeconomics', type: 'green', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] }, visible: true },
   { id: '4', name: 'Sit amet', group: 'Socioeconomics', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
   { id: '5', name: 'Yet Another Indicator', group: 'Financing & Payments', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
@@ -38,3 +68,5 @@ export const scenarios = [
   { title: 'Scenario 3', thumbnail: 'http://placehold.it/768x384' },
   { title: 'Scenario 4', thumbnail: 'http://placehold.it/768x384' }
 ]
+
+export const mapStyle = 'mapbox://styles/devseed/cip5i5wgd000rb8m9pce23cnk'

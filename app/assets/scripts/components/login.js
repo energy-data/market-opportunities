@@ -1,9 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import c from 'classnames'
+import url from 'url'
 
 import login from '../login'
 import { logout } from '../actions'
+import { dataHubURL } from '../config'
 
 export const Login = React.createClass({
   propTypes: {
@@ -93,7 +95,7 @@ export const Login = React.createClass({
                 </a>
               </h6>
               <ul className='drop__menu' role='menu'>
-                <li><a href='http://ec2-23-20-208-183.compute-1.amazonaws.com/user/edit/test-account' target='_blank' title='View settings' className='drop__menu-item'>Settings</a></li>
+                <li><a href={url.resolve(dataHubURL, `user/edit/${user.user}`)} target='_blank' title='View settings' className='drop__menu-item'>Settings</a></li>
                 <li><a href='#' title='Sign out' className='drop__menu-item signout-link' onClick={this._logout}>Sign out</a></li>
               </ul>
             </div>

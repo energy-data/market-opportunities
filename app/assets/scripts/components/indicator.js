@@ -4,6 +4,7 @@ import Nouislider from 'react-nouislider'
 import c from 'classnames'
 import config from '../config'
 
+import { prettifyString, stopsToNoUiSliderRange } from '../utils'
 import CheckboxGroup from './checkbox-group'
 
 const Indicator = React.createClass({
@@ -18,27 +19,29 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, name, datasetName, description, type, editing, options, filter, visible } = this.props.layer
+    const { id, datasetName, description, type, editing, options, filter, visible } = this.props.layer
     const license = this.props.layer['license_title']
     const { updateLayerFilter } = this.props
 
     let Editor
-    if (options.range) {
-      Editor = <div className='form__group'><div className='form__slider'><Nouislider
-        range={{min: options.range[0], max: options.range[1]}}
-        start={filter.range}
-        step={10}
-        connect
-        pips={{mode: 'steps', density: 10}}
-        onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
-      /></div></div>
-    } else if (options.values) {
-      Editor = <CheckboxGroup
-        values={options.values}
-        selected={filter.values}
-        layerId={id}
-        updateLayerFilter={updateLayerFilter}
-      />
+    switch (options.value.type) {
+      case 'range':
+        Editor = <div className='form__group'><div className='form__slider'><Nouislider
+          range={stopsToNoUiSliderRange(options.value.stops)}
+          start={filter.range}
+          connect
+          pips={{mode: 'steps', density: 10}}
+          onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
+        /></div></div>
+        break
+      case 'categorical':
+        Editor = <CheckboxGroup
+          values={options.value.values}
+          selected={filter.values}
+          layerId={id}
+          updateLayerFilter={updateLayerFilter}
+        />
+        break
     }
 
     return (
@@ -47,7 +50,7 @@ const Indicator = React.createClass({
           <header className='layer__header'>
             <span className='layer__legend-color' style={{background: type}}></span>
             <div className='layer__headline'>
-              <h1 className='layer__title'>{name}</h1>
+              <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
               <p className='layer__summary'>195 km2</p>
             </div>
             <div className='layer__actions'>

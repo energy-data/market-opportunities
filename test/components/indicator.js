@@ -46,8 +46,4 @@ test('indicator test', t => {
   component.find(classes['indicator edit']).simulate('click')
   t.truthy(cancelSpy.calledTwice)
   t.truthy(cancelSpy.calledWith(undefined, mockLayers[1].id))
-
-  // try rendering with a different type of layer
-  component.setProps({layer: mockLayers[2]})
-  t.pass()
 })

@@ -1,6 +1,8 @@
 import React from 'react'
 import c from 'classnames'
+
 import { countryBounds } from '../../data/bounds'
+import { mapStyle } from '../constants'
 
 const Country = React.createClass({
 
@@ -15,7 +17,9 @@ const Country = React.createClass({
     const token = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
     const countryBbox = countryBounds.find(c => c.properties.name === info.name).bbox
     const center = [(countryBbox[0] + countryBbox[2]) / 2, (countryBbox[1] + countryBbox[3]) / 2]
-    const mapSrc = 'https://api.mapbox.com/styles/v1/mapbox/light-v8/static/' +
+    const mapSrc = 'https://api.mapbox.com/styles/v1/' +
+    `${mapStyle.replace('mapbox://styles/', '')}` +
+    '/static/' +
     `${center[0]},${center[1]},4,0,0/768x384?access_token=${token}&logo=false&attribution=false`
     return (
       <li className='options-list__item' onClick={this._updateSelectedCountry}>

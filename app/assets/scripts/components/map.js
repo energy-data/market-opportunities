@@ -1,29 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
-import { inFirstArrayNotSecond } from '../utils'
+import { mapStyle } from '../constants'
+import { inFirstArrayNotSecond, indicatorFilterToMapFilter,
+  createPaintObject } from '../utils'
 import { countryBounds } from '../../data/bounds'
 
 export const Map = React.createClass({
 
   propTypes: {
     layers: React.PropTypes.object,
+    editLayer: React.PropTypes.object,
     country: React.PropTypes.string
-  },
-
-  // for testing only
-  getInitialState: function () {
-    return {
-      zoom: 0
-    }
   },
 
   componentDidMount: function () {
     const map = this._map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/light-v8'
+      style: mapStyle
     })
     /* istanbul ignore next */
     map.on('moveend', () => this.setState({zoom: map.getZoom()}))
@@ -43,6 +40,13 @@ export const Map = React.createClass({
     inFirstArrayNotSecond(oldVisibleLayers, newVisibleLayers, a => a.id)
       .forEach(layer => this._removeLayer(layer))
 
+    const oldFilter = this.props.editLayer && this.props.editLayer.filter
+    const newFilter = nextProps.editLayer && nextProps.editLayer.filter
+    if (!_.isEqual(oldFilter, newFilter) && newFilter) {
+      this._map.setFilter(String(nextProps.editLayer.id),
+        indicatorFilterToMapFilter(nextProps.editLayer.filter))
+    }
+
     if (nextProps.country !== this.props.country) {
       this._map.fitBounds(
         countryBounds.find(c => c.properties.name === nextProps.country).bbox,
@@ -53,41 +57,23 @@ export const Map = React.createClass({
   },
 
   render: function () {
-    const { layers } = this.props
-
-    const visibleIndicators = layers.indicators.filter(layer => layer.visible)
-      .map(layer => layer.name)
-    const baseIndicators = layers.base.filter(layer => layer.visible)
-      .map(layer => layer.name)
-    const editLayer = layers.indicators.filter(layer => layer.editing)
-
-    return (
-      <div id='map' className='map'>
-        <div className='temp-map-hover'>
-          <p>THE MAP</p>
-          <p>Visible Indicators: {visibleIndicators.join(', ')}</p>
-          <p>Visible Base Layers: {baseIndicators.join(', ')}</p>
-          <p>Layer Being Edited: {editLayer.map(layer => layer.name).join(', ')}</p>
-          <p>Edited Layer Filter: {JSON.stringify(editLayer.map(layer => layer.filter))}</p>
-          <p>Zoom: {this.state.zoom}</p>
-        </div>
-      </div>
-    )
+    return <div id='map' className='map'></div>
   },
 
   _addLayer: function (layer) {
     this._map.addSource(String(layer.id), {
       type: 'vector',
-      url: layer.url
+      url: layer.tilejson
     })
     this._map.addLayer({
       'id': String(layer.id),
-      'type': layer.layerType,
+      'type': 'fill',
       'source': String(layer.id),
       'source-layer': 'data_layer',
       'interactive': true,
-      'paint': layer.paint
-    })
+      'paint': createPaintObject(layer),
+      'filter': indicatorFilterToMapFilter(layer.filter)
+    }, 'waterway-label')
   },
 
   _removeLayer: function (layer) {
@@ -99,6 +85,8 @@ export const Map = React.createClass({
 function mapStateToProps (state) {
   return {
     layers: state.layers,
+    // TODO: make this a memoized selector
+    editLayer: state.layers.indicators.find(layer => layer.editing),
     country: state.selection.country
   }
 }
