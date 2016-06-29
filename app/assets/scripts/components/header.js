@@ -13,44 +13,41 @@ const Header = React.createClass({
   },
 
   documentListener: function (e) {
-    //
-    // I'm working on this. Please be patient.
-    //
+    if (e.preventClose !== true && this.state.openItem !== 'none') {
+      this.setState({openItem: 'none'})
+    }
+  },
 
-    // console.log('target', e.target)
-    // let loginBlock = this.refs.nav.querySelector('[data-hook="nav-block:login"]')
-    // let menuBlock = this.refs.nav.querySelector('[data-hook="nav-block:menu"]')
-
-    // let theSelf = e.target;
-
-    // do {
-    //   if (theSelf && theSelf === ) {
-    //     break;
-    //   }
-    //   theSelf = theSelf.parentNode;
-    // } while (theSelf && theSelf.tagName !== 'BODY' && theSelf.tagName !== 'HTML');
-
-    // if (theSelf !== this.refs.dropdown) {
-    //   this.close();
-    // }
+  onNavBlockClick: function (e) {
+    // When clicking a nav block, add a property to the event indicating that
+    // the block shouldn't be toggled on body click.
+    e.preventClose = true
   },
 
   onLoginToggleClick: function (e) {
     e.preventDefault()
+    // Access native event so it propagates upward.
+    e.nativeEvent.preventClose = true
     this.setState({openItem: this.state.openItem === 'login' ? 'none' : 'login'})
   },
 
   onMenuToggleClick: function (e) {
     e.preventDefault()
+    // Access native event so it propagates upward.
+    e.nativeEvent.preventClose = true
     this.setState({openItem: this.state.openItem === 'menu' ? 'none' : 'menu'})
   },
 
   componentDidMount: function () {
     document.addEventListener('click', this.documentListener)
+    this.refs.nav.querySelector('[data-hook="nav-block:menu"]').addEventListener('click', this.onNavBlockClick)
+    this.refs.nav.querySelector('[data-hook="nav-block:login"]').addEventListener('click', this.onNavBlockClick)
   },
 
   componentWillUnmount: function () {
     document.removeEventListener('click', this.documentListener)
+    this.refs.nav.querySelector('[data-hook="nav-block:menu"]').removeEventListener('click', this.onNavBlockClick)
+    this.refs.nav.querySelector('[data-hook="nav-block:login"]').removeEventListener('click', this.onNavBlockClick)
   },
 
   render: function () {
