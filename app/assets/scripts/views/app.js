@@ -5,6 +5,7 @@ import Map from '../components/map'
 import ControlPanel from '../components/control-panel'
 import ResultsFold from '../components/results-fold'
 import MultiStep from '../components/multi-step'
+import Loading from '../components/loading'
 
 const App = React.createClass({
 
@@ -28,6 +29,7 @@ const App = React.createClass({
                   <ControlPanel />
                   <Map />
                   <ResultsFold />
+                  <Loading />
                 </div>
               </div>
             </section>
