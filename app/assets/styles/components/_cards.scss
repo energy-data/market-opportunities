@@ -82,6 +82,7 @@ a.card__contents {
 
     .card--active & {
       box-shadow: 0 8px 32px 8px rgba($primary-color, 0.32);
+      transform: translate(0, 0);
     }
   }
 

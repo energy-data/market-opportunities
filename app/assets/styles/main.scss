@@ -56,11 +56,11 @@
    ========================================================================== */
 
 @import "core/base";
-@import "core/webfont-montserrat"; // Webfont: Monteserrat
 @import "core/collecticons"; // Webfont icon library: Collecticons
 @import "core/animations";
 @import "core/typography";
 @import "core/media";
+@import "core/animations";
 @import "core/utilities";
 
 
@@ -74,6 +74,7 @@
 @import "components/cards";
 @import "components/alerts";
 @import "components/modals";
+@import "components/assorted";
 
 
 /* Content

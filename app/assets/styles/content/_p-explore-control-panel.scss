@@ -57,6 +57,31 @@
   }
 }
 
+.panel__button-edit {
+  @extend .button, .button--achromic-unbounded, .button--small, .button--text-hidden;
+  &:before {
+    @extend %collecticon-pencil;
+  }
+}
+
+.export-menu__item-image {
+  &::before {
+    @extend %collecticon-picture;
+  } 
+}
+
+.export-menu__item-pdf {
+  &::before {
+    @extend %collecticon-page-label;
+  } 
+}
+
+.export-menu__item-geojson {
+  &::before {
+    @extend %collecticon-code;
+  } 
+}
+
 
 /* Layer group
    ========================================================================== */

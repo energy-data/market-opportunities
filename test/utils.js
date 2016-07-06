@@ -1,5 +1,6 @@
 import test from 'ava'
 import * as utils from '../app/assets/scripts/utils'
+import { mockLayers } from './fixtures/constants'
 
 test('toggleArrayElement', t => {
   const array = [1, 2, 3]
@@ -22,4 +23,75 @@ test('inFirstArrayNotSecond', t => {
 test('unique', t => {
   const array = [1, 1, 2, 3]
   t.is(utils.unique(array).length, 3)
+})
+
+test('indicatorFilterToMapFilter', t => {
+  let filterObject = mockLayers[0].filter
+  const iso = 'nga'
+  t.deepEqual(utils.indicatorFilterToMapFilter(filterObject, iso), ['all',
+    ['>=', filterObject.property, filterObject.range[0]],
+    ['<=', filterObject.property, filterObject.range[1]],
+    ['==', 'iso', iso]
+  ])
+
+  filterObject = mockLayers[1].filter
+  t.deepEqual(utils.indicatorFilterToMapFilter(filterObject, iso), ['all',
+    ['in', filterObject.property].concat(filterObject.values),
+    ['==', 'iso', iso]
+  ])
+})
+
+test('prettifyString', t => {
+  const string = 'the-way-that-dataset-names-get-stored'
+  t.is(utils.prettifyString(string), 'The Way That Dataset Names Get Stored')
+})
+
+test('arrayToRangeObject', t => {
+  const array = [2, 3]
+  t.deepEqual(utils.arrayToRangeObject(array), { min: 2, max: 3 })
+})
+
+test('stopsToNoUiSliderRange', t => {
+  const stops = [1, 2, 3, 4, 5, 6, 7]
+  t.deepEqual(utils.stopsToNoUiSliderRange(stops), {
+    'min': 1,
+    '17%': 2,
+    '33%': 3,
+    '50%': 4,
+    '67%': 5,
+    '83%': 6,
+    'max': 7
+  })
+})
+
+test('createDataPaintObject', t => {
+  const rangeLayer = mockLayers[0]
+  t.deepEqual(utils.createDataPaintObject(rangeLayer), {
+    'fill-color': {
+      'property': 'test',
+      'stops': [
+        [ 0, '#ffffff' ],
+        [ 1, '#ffffff' ],
+        [ 2, '#ffffee' ],
+        [ 3, '#ccccbc' ],
+        [ 4, '#9b9b8c' ],
+        [ 5, '#6d6d5e' ]
+      ]
+    }
+  })
+
+  const categoricalLayer = mockLayers[1]
+  t.deepEqual(utils.createDataPaintObject(categoricalLayer), {
+    'fill-color': '#ffffee'
+  })
+
+  const badLayer = mockLayers[2]
+  t.falsy(utils.createDataPaintObject(badLayer))
+})
+
+test('createOutlinePaintObject', t => {
+  const rangeLayer = mockLayers[0]
+  t.deepEqual(utils.createOutlinePaintObject(rangeLayer), {
+    'line-color': '#ffffee'
+  })
 })

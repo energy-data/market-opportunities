@@ -4,6 +4,7 @@ import Nouislider from 'react-nouislider'
 import c from 'classnames'
 import config from '../config'
 
+import { prettifyString, stopsToNoUiSliderRange } from '../utils'
 import CheckboxGroup from './checkbox-group'
 
 const Indicator = React.createClass({
@@ -18,27 +19,29 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, name, datasetName, description, type, editing, options, filter, visible } = this.props.layer
+    const { id, datasetName, description, type, editing, options, filter, visible } = this.props.layer
     const license = this.props.layer['license_title']
     const { updateLayerFilter } = this.props
 
     let Editor
-    if (options.range) {
-      Editor = <div className='form__group'><div className='form__slider'><Nouislider
-        range={{min: options.range[0], max: options.range[1]}}
-        start={filter.range}
-        step={10}
-        connect
-        pips={{mode: 'steps', density: 10}}
-        onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
-      /></div></div>
-    } else if (options.values) {
-      Editor = <CheckboxGroup
-        values={options.values}
-        selected={filter.values}
-        layerId={id}
-        updateLayerFilter={updateLayerFilter}
-      />
+    switch (options.value.type) {
+      case 'range':
+        Editor = <div className='form__group'><div className='form__slider'><Nouislider
+          range={stopsToNoUiSliderRange(options.value.stops)}
+          start={filter.range}
+          connect
+          pips={{mode: 'steps', density: 10}}
+          onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
+        /></div></div>
+        break
+      case 'categorical':
+        Editor = <CheckboxGroup
+          values={options.value.values}
+          selected={filter.values}
+          layerId={id}
+          updateLayerFilter={updateLayerFilter}
+        />
+        break
     }
 
     return (
@@ -47,15 +50,15 @@ const Indicator = React.createClass({
           <header className='layer__header'>
             <span className='layer__legend-color' style={{background: type}}></span>
             <div className='layer__headline'>
-              <h1 className='layer__title'>{name}</h1>
+              <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
               <p className='layer__summary'>195 km2</p>
             </div>
             <div className='layer__actions'>
-              <button type='button' onClick={this._handleEdit} className='button-edit-layer' title='Edit layer settings'><span>Edit</span></button>
+              <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>
               <label for='form-custom-switch-1a' className='form__option form__option--switch' title='Toggle layer on/off'>
                 <input
                   onChange={this._handleOnOff}
-                  defaultChecked={visible}
+                  checked={visible || editing}
                   type='checkbox'
                   name='form-custom-checkbox'
                   name='form-custom-switch-1a'
@@ -99,11 +102,18 @@ const Indicator = React.createClass({
   },
 
   _handleOnOff: function () {
-    this.props.toggleLayerVisibility(this.props.layer.id)
+    const { layer } = this.props
+    // if we don't have a geojson yet and are turning on, start editing
+    if (!layer.geojson && !layer.visibility) {
+      this._handleEdit(null, layer.id)
+    } else {
+      this.props.toggleLayerVisibility(layer.id)
+    }
   },
 
   _handleEdit: function (e) {
     const { editing, id } = this.props.layer
+    // NOTE: this is currently disabled when editing
     // TODO: should clicking edit again save or cancel?
     const { startEditing, cancelEdit } = this.props
     if (!editing) {
@@ -118,7 +128,12 @@ const Indicator = React.createClass({
   },
 
   _handleAccept: function (e) {
-    this.props.saveEdit(e, this.props.layer.id)
+    const { layer } = this.props
+    this.props.saveEdit(e, layer.id)
+    // ensure that saved layers are on
+    if (!layer.visible) {
+      this.props.toggleLayerVisibility(layer.id)
+    }
   }
 })
 

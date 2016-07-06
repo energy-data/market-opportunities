@@ -12,9 +12,11 @@ const { Map } = proxyquire.noCallThru().load('../../app/assets/scripts/component
 import classes from '../helpers/classes'
 import layers, { initial } from '../../app/assets/scripts/reducers/layers'
 import { setLayers, toggleLayerVisibility } from '../../app/assets/scripts/actions'
+import { mockLayers } from '../fixtures/constants'
 
 test('map test', t => {
-  const zeroVisible = layers(initial, setLayers([ { id: '1', options: {} } ]))
+  const testLayer = mockLayers[2]
+  const zeroVisible = layers(initial, setLayers([testLayer]))
   const component = shallow(<Map layers={zeroVisible} />)
   t.truthy(component.hasClass(classes.nodot['map']))
 
@@ -24,15 +26,26 @@ test('map test', t => {
 
   // map component can receive new props (more or fewer layers)
   // call _addLayer/._removeLayer without incident
-  const oneVisible = layers(zeroVisible, toggleLayerVisibility('1'))
+  const oneVisible = layers(zeroVisible, toggleLayerVisibility(testLayer.id))
   t.notThrows(() => component.setProps({layers: oneVisible}))
   t.notThrows(() => component.setProps({layers: initial}))
 
   // should also verify it's actually calling the correct functions
-  instance._addLayer = sinon.spy()
-  instance._removeLayer = sinon.spy()
+  instance._addLayerOutline = sinon.spy()
+  instance._removeLayerOutline = sinon.spy()
   component.setProps({layers: oneVisible})
-  t.truthy(instance._addLayer.calledOnce)
+  t.truthy(instance._addLayerOutline.calledOnce)
   component.setProps({layers: initial})
-  t.truthy(instance._removeLayer.calledOnce)
+  t.truthy(instance._removeLayerOutline.calledOnce)
+
+  // add an edit layer, check the data addition/removal
+  instance._addLayerData = sinon.spy()
+  instance._removeLayerData = sinon.spy()
+  // // the mockbox map needs another method
+  instance._map.setFilter = () => {}
+
+  component.setProps({editLayer: mockLayers[1]})
+  t.truthy(instance._addLayerData.calledOnce)
+  component.setProps({editLayer: null})
+  t.truthy(instance._removeLayerData.calledOnce)
 })

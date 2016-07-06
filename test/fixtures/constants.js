@@ -17,8 +17,123 @@ module.exports = {
     { id: 'd', name: 'Grid', group: 'a', type: 'base' }
   ],
   mockLayers: [
-    { id: '1', name: 'Population Density', group: 'Socioeconomics', type: 'red', options: { range: [0, 100] }, filter: { range: [0, 100] } },
-    { id: '2', name: 'Mobile Penetration', group: 'Socioeconomics', type: 'blue', options: { range: [0, 100] }, filter: { range: [0, 100] }, editing: true },
+    {
+      'id': '015887e7-84b7-4c1c-a1c9-1b2505d4b',
+      'name': 'Demo Transmission network',
+      'description': '',
+      'license_id': 'cc-by',
+      'license_title': 'Creative Commons Attribution',
+      'license_url': 'http://www.opendefinition.org/licenses/cc-by',
+      'source': 'source attribution!',
+      'url': 'http://ec2-23-20-208-183.compute-1.amazonaws.com/dataset/90c8744d-a565-4eea-a109-8b4b521b671b/resource/015887e7-84b7-4c1c-a1c9-1b2516105d4b/download/demo-transmission.geosjon',
+      'tilejson': 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/015887e7-84b7-4c1c-a1c9-1b2516105d4b-34fb30f8-38e0-11e6-952a-0242ac110005/data.tilejson',
+      'datasetName': 'transmission-network',
+      'options': {
+        'value': {
+          'property': 'test',
+          'type': 'range',
+          'values': [
+            'a',
+            'b',
+            'c'
+          ],
+          'range': [0, 100],
+          'stops': [0, 1, 2, 3, 4, 5]
+        },
+        'geometry': {
+          'type': 'fill'
+        }
+      },
+      'filter': {
+        'property': 'test',
+        'type': 'range',
+        'values': [
+          'a',
+          'b',
+          'c'
+        ],
+        'range': [0, 100],
+        'stops': [0, 1, 2, 3, 4, 5]
+      },
+      'type': 'base',
+      'group': 'Resource Potential'
+    },
+    {
+      'id': '015887e7-84b7-4c1c-a1c9-1b2516105d4b',
+      'name': 'Demo Transmission network',
+      'description': '',
+      'license_id': 'cc-by',
+      'license_title': 'Creative Commons Attribution',
+      'license_url': 'http://www.opendefinition.org/licenses/cc-by',
+      'source': 'source attribution!',
+      'url': 'http://ec2-23-20-208-183.compute-1.amazonaws.com/dataset/90c8744d-a565-4eea-a109-8b4b521b671b/resource/015887e7-84b7-4c1c-a1c9-1b2516105d4b/download/demo-transmission.geosjon',
+      'tilejson': 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/015887e7-84b7-4c1c-a1c9-1b2516105d4b-34fb30f8-38e0-11e6-952a-0242ac110005/data.tilejson',
+      'datasetName': 'transmission-network',
+      'options': {
+        'value': {
+          'property': 'test',
+          'type': 'categorical',
+          'values': [
+            'a',
+            'b',
+            'c'
+          ]
+        },
+        'geometry': {
+          'type': 'fill'
+        }
+      },
+      'filter': {
+        'property': 'test',
+        'type': 'categorical',
+        'values': [
+          'a',
+          'b',
+          'c'
+        ]
+      },
+      'editing': true,
+      'type': 'indicator',
+      'group': 'Resource Potential'
+    },
+    {
+      'id': '0158a1c9-1b2516105d4b',
+      'name': 'Demo Transmission network',
+      'description': '',
+      'license_id': 'cc-by',
+      'license_title': 'Creative Commons Attribution',
+      'license_url': 'http://www.opendefinition.org/licenses/cc-by',
+      'source': 'source attribution!',
+      'url': 'http://ec2-23-20-208-183.compute-1.amazonaws.com/dataset/90c8744d-a565-4eea-a109-8b4b521b671b/resource/015887e7-84b7-4c1c-a1c9-1b2516105d4b/download/demo-transmission.geosjon',
+      'tilejson': 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/015887e7-84b7-4c1c-a1c9-1b2516105d4b-34fb30f8-38e0-11e6-952a-0242ac110005/data.tilejson',
+      'datasetName': 'transmission-network',
+      'options': {
+        'value': {
+          'property': 'test',
+          'type': 'categorical',
+          'values': [
+            'a',
+            'b',
+            'c'
+          ]
+        },
+        'geometry': {
+          'type': 'line'
+        }
+      },
+      'filter': {
+        'property': 'test',
+        'type': 'categorical',
+        'values': [
+          'a',
+          'b',
+          'c'
+        ]
+      },
+      'geojson': true,
+      'type': 'indicator',
+      'group': 'Resource Potential'
+    },
     { id: '3', name: 'Lorem ipsum', group: 'Socioeconomics', type: 'green', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] }, visible: true },
     { id: '4', name: 'Sit amet', group: 'Socioeconomics', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
     { id: '5', name: 'Yet Another Indicator', group: 'Financing & Payments', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },

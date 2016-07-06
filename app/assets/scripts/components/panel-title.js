@@ -21,7 +21,7 @@ const PanelTitle = React.createClass({
           <div className='panel__subtitle'>{subtitle}</div>
         </div>
         <div className='panel__meta-actions'>
-          <button onClick={openSelection} className='panel__button-more' title='Options'><span>Options</span></button>
+          <button onClick={openSelection} className='panel__button-edit' title='Change country and scenario'><span>Edit</span></button>
         </div>
         <div className='panel__tab-nav'>
           <ul className='layers-menu' role='menu'>

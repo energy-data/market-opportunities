@@ -23,7 +23,6 @@
   background: rgba(#fff, 0.96);
   color: $base-font-color;
   box-shadow: 0 0 64px 32px rgba($primary-color, 0.12);
-  min-height: 4rem;
 
   > .inner {
     @extend .row;
@@ -38,22 +37,21 @@
   top: 50%;
   transform: translate(0, -50%);
   float: left;
-  padding-left: 2.5rem;
 
-  > * {
+  a {
+    display: inline-block;
+    color: inherit;
+  }
+
+  * {
     margin-bottom: 0;
   }
 }
 
 .page__title {
-  font-size: 1rem;
-  line-height: 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1rem;
   margin: 0;
-
-  a {
-    display: inline-block;
-    vertical-align: top;
-  }
 
   @include media(medium-up) {
     font-size: 1.25rem;
@@ -62,24 +60,17 @@
 }
 
 .page__subtitle {
-  font-size: 0.625rem;
-  line-height: 0.75rem;
-  text-transform: uppercase;
-  opacity: 0.48;
+  font-size: 0;
+  visibility: hidden;
+  opacity: 0;
 
   @include media(medium-up) {
+    text-transform: uppercase;
     font-size: 0.75rem;
     line-height: 1rem;
+    opacity: 0.48;
+    visibility: visible;
   }
-}
-
-.mast-logo__image {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  margin-top: -1rem;
-  width: 2rem;
-  height: auto;
 }
 
 /**
@@ -316,7 +307,7 @@
       position: relative;
       padding: 0;
       margin: 0;
-      height: calc(100vh - 4rem);
+      height: calc(100vh - 3rem);
       max-width: none;
 
       @include media(large-up) {

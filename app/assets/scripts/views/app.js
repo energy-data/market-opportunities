@@ -5,6 +5,7 @@ import Map from '../components/map'
 import ControlPanel from '../components/control-panel'
 import ResultsFold from '../components/results-fold'
 import MultiStep from '../components/multi-step'
+import Loading from '../components/loading'
 
 const App = React.createClass({
 
@@ -28,11 +29,17 @@ const App = React.createClass({
                   <ControlPanel />
                   <Map />
                   <ResultsFold />
+                  <Loading />
                 </div>
               </div>
             </section>
           </div>
         </main>
+        <footer className='page__footer' role='contentinfo'>
+          <div className='inner'>
+            <p>Made with love by <a href='https://developmentseed.org' title='Visit Development Seed website'>Development Seed</a></p>
+          </div>
+        </footer>
       </div>
     )
   },

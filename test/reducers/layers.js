@@ -1,12 +1,19 @@
 import test from 'ava'
 import layers, { initial } from '../../app/assets/scripts/reducers/layers'
-import { startFetchingLayers, errorFetchingLayers, setLayers, updateVisibleLayers, startEditingLayer, stopEditingLayer,
-  toggleLayerVisibility, updateLayerFilter, resetState } from '../../app/assets/scripts/actions'
+import { startFetchingLayers, errorFetchingLayers, setLayers,
+  updateVisibleLayers, startEditingLayer, stopEditingLayer,
+  toggleLayerVisibility, updateLayerFilter, updateLayerGeoJSON,
+  resetState } from '../../app/assets/scripts/actions'
 
 test('layer reducer test', t => {
   const base = [{id: 'a'}]
   const indicators = [{id: 'b', editing: true}, {id: 'c'}]
   const visible = 'base'
+  const geojson = {
+    type: 'Feature',
+    geometry: {},
+    properties: {}
+  }
 
   t.deepEqual(layers(undefined, {}), initial,
     'reducer returns initial state when no state is given')
@@ -23,17 +30,18 @@ test('layer reducer test', t => {
     'status is error upon "error fetching layers"')
   t.is(errorFetching.error, 'Error message!', 'set error message')
 
-  const layerOptions = { foo: { bar: [ 'baz' ] } }
+  const layerOptions = { foo: { bar: [ 'baz' ] }, value: { type: 'value-type' } }
   const layersAdded = layers(startFetching, setLayers([{
     id: 'z',
     options: layerOptions
   }, {
     id: 'y',
-    options: {}
+    // TODO: sorry for undermining your test anand, it errors without a values key
+    options: layerOptions
   }]))
   t.is(layersAdded.indicators.length, 2)
   t.deepEqual(layersAdded.indicators[0].options, layerOptions)
-  t.deepEqual(layersAdded.indicators[0].filter, layerOptions, 'initialize indicator `filter` property from `options`')
+  t.deepEqual(layersAdded.indicators[0].filter, layerOptions.value, 'initialize indicator `filter` property from `options.value`')
 
   t.truthy(layers(Object.assign({}, initial, { indicators }),
     startEditingLayer('b')).indicators[0].editing,
@@ -54,4 +62,8 @@ test('layer reducer test', t => {
   t.is(layers(Object.assign({}, initial, { indicators }),
     updateLayerFilter('b', { value: 4 })).indicators[0].filter.value, 4,
     'update filter of layer "b"')
+
+  t.is(layers(Object.assign({}, initial, { indicators }),
+    updateLayerGeoJSON('b', geojson)).indicators[0].geojson, geojson,
+    'update geojson of layer "b"')
 })

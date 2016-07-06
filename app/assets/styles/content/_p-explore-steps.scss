@@ -21,31 +21,54 @@
    ========================================================================== */
 
 .step-view {
-  @include display(flex);
-  @include flex-direction(column);
-  @include flex-wrap(wrap);
-  @include justify-content(center);
-  min-height: 100%;
-
   /* Animation */
   @include animation(step-reveal 0.32s ease 0s 1);
 }
 
 .step-view__header {
-  padding: $global-spacing;
-  text-align: center;
+  @extend .antialiased;
+  background: tint($base-color, 32%);
+  color: #fff;
+  padding: $global-spacing 0; 
 
   > *:last-child {
     margin-bottom: 0;
   }
 
-  @include media(large-up) {
-    padding: $global-spacing * 2;
+  > .inner {
+    @extend .row;
+  }
+}
+
+.step-view__headline,
+.step-view__meta-actions {
+  display: table-cell;
+
+  &, > * {
+    vertical-align: middle;
+    min-width: 6rem;
+  }
+}
+
+.step-view__headline {
+  width: 100%;
+}
+
+.step-view__meta-actions {
+  text-align: right;
+  white-space: nowrap;
+
+  > * {
+    margin-left: 0.5rem;
+  }
+
+  > .button:last-child {
+    margin-right: - $global-spacing / 4;
   }
 }
 
 .step-view__title {
-  @include heading(1.25rem, large-up);
+  @include heading(1rem, large-up);
   margin-bottom: 0;
 }
 
@@ -70,26 +93,12 @@
     margin-bottom: 0;
   }
 
+  > .inner {
+    @extend .row;
+  }
+
   @include media(large-up) {
     padding: ($global-spacing * 2) 0;
-  }
-}
-
-.step-view__footer {
-  padding: $global-spacing;
-  text-align: center;
-
-  > *:last-child {
-    margin-bottom: 0;
-  }
-
-  > .button {
-    margin: 0 ($global-spacing / 4);
-    min-width: 6rem;
-  }
-
-  @include media(large-up) {
-    padding: ($global-spacing * 2);
   }
 }
 
@@ -102,32 +111,25 @@
 }
 
 
-/* Step: Country selection
+/* Step: Options
    ========================================================================== */
 
-.step-options {
-  position: relative;
-  white-space: nowrap;
-  overflow-x: scroll;
-  padding: ($global-spacing * 2) 0;
-}
-
 .options-list {
+  @include display(flex);
+  @include flex-flow(row wrap);
+  @include justify-content(center);
   list-style: none;
-  margin: 0;
   padding: 0;
-  text-align: center;
+  margin: 0 (- $global-spacing / 2);
+
+  @include media(large-up) {
+    margin: 0 (- $global-spacing);
+  }
 }
 
 .options-list__item {
-  display: inline-block;
-  vertical-align: top;
-  width: 16rem;
-  margin: 0 ($global-spacing / 2);
-
-  @include media(large-up) {
-    margin: 0 $global-spacing;
-  }
+  @include flex(0 1 18rem);
+  margin: $global-spacing;
 }
 
 .card--country__flag {
@@ -180,7 +182,8 @@
 /* Options control */
 
 .options-control {
-  padding: ($global-spacing * 2) $global-spacing;
+  @extend .row;
+  padding-top: ($global-spacing * 2);
 }
 
 .options-control__title {
@@ -203,10 +206,10 @@
   &::before {
     position: absolute;
     top: 50%;
-    left: -50vw;
+    left: 50%;
     z-index: 1;
-    transform: translate(0, -50%);
-    width: calc(150vw);
+    transform: translate(-50%, -50%);
+    width: 17rem;
     height: 2px;
     background: rgba($base-color, 0.08);
     content: '';
@@ -214,14 +217,14 @@
 }
 
 .options_control__drop {
-  @extend .button, .button--base;
+  @extend .button, .button--achromic;
   padding: 0 0 0 0.5rem;
   width: 17rem;
   height: 3rem;
   overflow: hidden;
   margin: 0 auto;
   position: relative;
-  color: #fff;
+  box-shadow: 0 0 8px 4px rgba($primary-color, 0.16);
 
   &::before {
     @extend %collecticon-sort;

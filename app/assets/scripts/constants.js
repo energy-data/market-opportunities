@@ -11,19 +11,9 @@ export const baseLayers = [
       'line-width': 2
     }
   },
-  { id: 'b', name: 'Satellite', group: 'a', type: 'base', visible: true },
+  { id: 'b', name: 'Satellite', group: 'a', type: 'base' },
   { id: 'c', name: 'OSM', group: 'a', type: 'base' },
   { id: 'd', name: 'Grid', group: 'a', type: 'base' }
-]
-
-// TODO: at some point we should copy options object over to filter object
-export const mockLayers = [
-  { id: '1', name: 'Population Density', group: 'Socioeconomics', type: 'red', options: { range: [0, 100] }, filter: { range: [0, 100] } },
-  { id: '2', name: 'Mobile Penetration', group: 'Socioeconomics', type: 'blue', options: { range: [0, 100] }, filter: { range: [0, 100] } },
-  { id: '3', name: 'Lorem ipsum', group: 'Socioeconomics', type: 'green', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] }, visible: true },
-  { id: '4', name: 'Sit amet', group: 'Socioeconomics', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
-  { id: '5', name: 'Yet Another Indicator', group: 'Financing & Payments', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
-  { id: '6', name: 'Yet Another Indicator', group: 'Resouce Potential', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } }
 ]
 
 export const countries = [
@@ -38,3 +28,10 @@ export const scenarios = [
   { title: 'Scenario 3', thumbnail: 'http://placehold.it/768x384' },
   { title: 'Scenario 4', thumbnail: 'http://placehold.it/768x384' }
 ]
+
+export const mapStyle = 'mapbox://styles/devseed/cip5i5wgd000rb8m9pce23cnk'
+
+export const intersectPaint = {
+  'fill-color': 'blue',
+  'fill-opacity': 0.3
+}

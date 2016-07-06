@@ -15,6 +15,6 @@ test('group reducer test', t => {
     toggleOpenGroup('A Group')).open.length, 0,
     'close an already open group')
 
-  t.is(groups(initial, toggleOpenGroup('A Group')).open[0], 'Socioeconomics',
+  t.deepEqual(groups(initial, toggleOpenGroup('A Group')).open, open,
     'open a closed group')
 })

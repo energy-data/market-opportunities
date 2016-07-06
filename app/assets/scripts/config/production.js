@@ -5,7 +5,7 @@
 
 module.exports = {
   environment: 'production',
-  APIBaseURL: 'https://TBD',
-  dataHubURL: 'https://TBD',
+  APIBaseURL: 'https://ifc.ds.io/',
+  dataHubURL: 'https://ifc.ds.io/',
   dataHubOrganization: 'offgrid-market-opportunities'
 }
