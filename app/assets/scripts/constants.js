@@ -1,3 +1,5 @@
+import config from './config'
+
 export const baseLayers = [
   {
     id: 'a',
@@ -17,9 +19,9 @@ export const baseLayers = [
 ]
 
 export const countries = [
-  { name: 'Tanzania', flagPath: '/assets/graphics/content/flags/4x3/tz.svg', area: '947,303 km2', population: '51,820,000' },
-  { name: 'Zambia', flagPath: '/assets/graphics/content/flags/4x3/zm.svg', area: '752,618 km2', population: '15,721,000' },
-  { name: 'Nigeria', flagPath: '/assets/graphics/content/flags/4x3/ng.svg', area: '923,768 km2', population: '177,476,000' }
+  { name: 'Tanzania', flagPath: `${config.basePath}assets/graphics/content/flags/4x3/tz.svg`, area: '947,303 km2', population: '51,820,000' },
+  { name: 'Zambia', flagPath: `${config.basePath}assets/graphics/content/flags/4x3/zm.svg`, area: '752,618 km2', population: '15,721,000' },
+  { name: 'Nigeria', flagPath: `${config.basePath}assets/graphics/content/flags/4x3/ng.svg`, area: '923,768 km2', population: '177,476,000' }
 ]
 
 export const scenarios = [

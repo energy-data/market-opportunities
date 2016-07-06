@@ -6,5 +6,6 @@
 module.exports = {
   environment: 'staging',
   APIBaseURL: 'https://ifc.ds.io/',
-  dataHubURL: 'https://ifc.ds.io/'
+  dataHubURL: 'https://ifc.ds.io/',
+  basePath: '/'
 }

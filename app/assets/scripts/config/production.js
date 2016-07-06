@@ -7,5 +7,6 @@ module.exports = {
   environment: 'production',
   APIBaseURL: 'https://ifc.ds.io/',
   dataHubURL: 'https://ifc.ds.io/',
-  dataHubOrganization: 'offgrid-market-opportunities'
+  dataHubOrganization: 'offgrid-market-opportunities',
+  basePath: '/ifc-demand-tool/'
 }
