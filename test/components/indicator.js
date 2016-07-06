@@ -12,7 +12,7 @@ test('indicator test', t => {
     return sinon.spy()
   })
   const component = shallow(<Indicator
-    layer={mockLayers[0]}
+    layer={mockLayers[2]}
     startEditing={startSpy}
     saveEdit={saveSpy}
     cancelEdit={cancelSpy}
@@ -24,23 +24,24 @@ test('indicator test', t => {
   // toggle the on/off button and test that it calls the function appropriately
   component.find(classes['indicator toggle']).simulate('change')
   t.truthy(toggleSpy.calledOnce)
-  t.truthy(toggleSpy.calledWith(mockLayers[0].id))
+  t.truthy(toggleSpy.calledWith(mockLayers[2].id))
 
   // click the editing button and test that it calls the function appropriately
   component.find(classes['indicator edit']).simulate('click')
   t.truthy(startSpy.calledOnce)
-  t.truthy(startSpy.calledWith(undefined, mockLayers[0].id))
+  t.truthy(startSpy.calledWith(undefined, mockLayers[2].id))
 
   // click the cancel edits button and test that it calls the function appropriately
   component.find(classes['indicator cancel']).simulate('click')
   t.truthy(cancelSpy.calledOnce)
-  t.truthy(cancelSpy.calledWith(undefined, mockLayers[0].id))
+  t.truthy(cancelSpy.calledWith(undefined, mockLayers[2].id))
 
   // click the save edits button and test that it calls the function appropriately
   component.find(classes['indicator save']).simulate('click')
   t.truthy(saveSpy.calledOnce)
-  t.truthy(saveSpy.calledWith(undefined, mockLayers[0].id))
+  t.truthy(saveSpy.calledWith(undefined, mockLayers[2].id))
 
+  // NOTE: this is currently disabled but we can still simulate a click
   // clicking edit after we are already editing should cancel
   component.setProps({layer: mockLayers[1]})
   component.find(classes['indicator edit']).simulate('click')

@@ -1,12 +1,11 @@
 import { TOGGLE_OPEN_GROUP, GROUPS_TO_DEFAULT } from '../actions'
-import { mockLayers } from '../constants'
-import { unique, toggleArrayElement } from '../utils'
+import { toggleArrayElement } from '../utils'
 
 export const initial = {
-  open: unique(mockLayers.map(layer => layer.group))
+  open: []
 }
 
-export default function tempFilter (state = initial, action) {
+export default function groups (state = initial, action) {
   switch (action.type) {
     case TOGGLE_OPEN_GROUP:
       return Object.assign({}, state,

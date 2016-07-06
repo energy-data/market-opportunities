@@ -24,6 +24,7 @@ export const USER_TO_DEFAULT = 'USER_TO_DEFAULT'
 export const UPDATE_STEP = 'UPDATE_STEP'
 export const UPDATE_SELECTED_COUNTRY = 'UPDATE_SELECTED_COUNTRY'
 export const UPDATE_SELECTED_SCENARIO = 'UPDATE_SELECTED_SCENARIO'
+export const UPDATE_LAYER_GEOJSON = 'UPDATE_LAYER_GEOJSON'
 
 /*
  * bare action creators
@@ -87,6 +88,7 @@ export function stopEditingLayer (id) {
 
 /*
  * Toggle the visible status of a layer
+ * this is only applicable to the layer outline
  */
 
 export function toggleLayerVisibility (id) {
@@ -154,4 +156,12 @@ export function updateSelectedCountry (country) {
 
 export function updateSelectedScenario (scenario) {
   return { type: UPDATE_SELECTED_SCENARIO, data: scenario }
+}
+
+/*
+ * update the selected layer geojson
+ */
+
+export function updateLayerGeoJSON (id, geojson) {
+  return { type: UPDATE_LAYER_GEOJSON, data: { id, geojson } }
 }

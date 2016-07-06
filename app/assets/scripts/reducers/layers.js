@@ -1,5 +1,7 @@
 import { UPDATE_VISIBLE_LAYERS, START_EDITING_LAYER, STOP_EDITING_LAYER,
-  TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER, START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS } from '../actions'
+  TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER,
+  START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS,
+  UPDATE_LAYER_GEOJSON } from '../actions'
 import { baseLayers } from '../constants'
 
 export const initial = {
@@ -63,6 +65,15 @@ export default function layers (state = initial, action) {
         }
       })
       return Object.assign({}, state, { indicators: newIndicatorsFilter })
+    case UPDATE_LAYER_GEOJSON:
+      const newIndicatorsGeo = state.indicators.map(layer => {
+        if (layer.id === action.data.id) {
+          return Object.assign({}, layer, { geojson: action.data.geojson })
+        } else {
+          return layer
+        }
+      })
+      return Object.assign({}, state, { indicators: newIndicatorsGeo })
     case LAYERS_TO_DEFAULT:
       return initial
     default:

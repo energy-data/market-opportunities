@@ -1,12 +1,19 @@
 import test from 'ava'
 import layers, { initial } from '../../app/assets/scripts/reducers/layers'
-import { startFetchingLayers, errorFetchingLayers, setLayers, updateVisibleLayers, startEditingLayer, stopEditingLayer,
-  toggleLayerVisibility, updateLayerFilter, resetState } from '../../app/assets/scripts/actions'
+import { startFetchingLayers, errorFetchingLayers, setLayers,
+  updateVisibleLayers, startEditingLayer, stopEditingLayer,
+  toggleLayerVisibility, updateLayerFilter, updateLayerGeoJSON,
+  resetState } from '../../app/assets/scripts/actions'
 
 test('layer reducer test', t => {
   const base = [{id: 'a'}]
   const indicators = [{id: 'b', editing: true}, {id: 'c'}]
   const visible = 'base'
+  const geojson = {
+    type: 'Feature',
+    geometry: {},
+    properties: {}
+  }
 
   t.deepEqual(layers(undefined, {}), initial,
     'reducer returns initial state when no state is given')
@@ -55,4 +62,8 @@ test('layer reducer test', t => {
   t.is(layers(Object.assign({}, initial, { indicators }),
     updateLayerFilter('b', { value: 4 })).indicators[0].filter.value, 4,
     'update filter of layer "b"')
+
+  t.is(layers(Object.assign({}, initial, { indicators }),
+    updateLayerGeoJSON('b', geojson)).indicators[0].geojson, geojson,
+    'update geojson of layer "b"')
 })

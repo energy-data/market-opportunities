@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
   toggleLayerVisibility, updateLayerFilter, updateTempFilter,
-  toggleOpenGroup, updateStep } from '../actions'
+  toggleOpenGroup, updateStep, updateLayerGeoJSON } from '../actions'
 
 import PanelTitle from './panel-title'
 import PanelIndicatorList from './panel-indicator-list'
@@ -69,9 +69,15 @@ export const ControlPanel = React.createClass({
 
   _startEditing: function (e, id) {
     const { dispatch, layers } = this.props
-    e.preventDefault()
+    const layer = layers.indicators.find(l => l.id === id)
+    if (e) e.preventDefault()
     dispatch(startEditingLayer(id))
-    dispatch(updateTempFilter(layers.indicators.find(l => l.id === id).filter))
+    // save temp filter
+    dispatch(updateTempFilter(layer.filter))
+    // clear geosjon
+    // TODO: for performance reasons, maybe we shouldn't clear the geojson until
+    // the filter has been updated
+    dispatch(updateLayerGeoJSON(layer.id, null))
   },
 
   _saveEdit: function (e, id) {
@@ -81,7 +87,7 @@ export const ControlPanel = React.createClass({
 
   _cancelEdit: function (e, id) {
     const { dispatch, tempFilter } = this.props
-    e.preventDefault()
+    if (e) e.preventDefault()
     dispatch(stopEditingLayer(id))
     dispatch(updateLayerFilter(id, tempFilter.temp))
   },

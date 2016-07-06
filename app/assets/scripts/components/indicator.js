@@ -54,11 +54,11 @@ const Indicator = React.createClass({
               <p className='layer__summary'>195 km2</p>
             </div>
             <div className='layer__actions'>
-              <button type='button' onClick={this._handleEdit} className='button-edit-layer' title='Edit layer settings'><span>Edit</span></button>
+              <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>
               <label for='form-custom-switch-1a' className='form__option form__option--switch' title='Toggle layer on/off'>
                 <input
                   onChange={this._handleOnOff}
-                  defaultChecked={visible}
+                  checked={visible || editing}
                   type='checkbox'
                   name='form-custom-checkbox'
                   name='form-custom-switch-1a'
@@ -102,11 +102,18 @@ const Indicator = React.createClass({
   },
 
   _handleOnOff: function () {
-    this.props.toggleLayerVisibility(this.props.layer.id)
+    const { layer } = this.props
+    // if we don't have a geojson yet and are turning on, start editing
+    if (!layer.geojson && !layer.visibility) {
+      this._handleEdit(null, layer.id)
+    } else {
+      this.props.toggleLayerVisibility(layer.id)
+    }
   },
 
   _handleEdit: function (e) {
     const { editing, id } = this.props.layer
+    // NOTE: this is currently disabled when editing
     // TODO: should clicking edit again save or cancel?
     const { startEditing, cancelEdit } = this.props
     if (!editing) {
@@ -121,7 +128,12 @@ const Indicator = React.createClass({
   },
 
   _handleAccept: function (e) {
-    this.props.saveEdit(e, this.props.layer.id)
+    const { layer } = this.props
+    this.props.saveEdit(e, layer.id)
+    // ensure that saved layers are on
+    if (!layer.visible) {
+      this.props.toggleLayerVisibility(layer.id)
+    }
   }
 })
 

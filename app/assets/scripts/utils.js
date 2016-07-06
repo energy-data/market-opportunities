@@ -1,5 +1,7 @@
 import tocolor from 'to-color'
 import chroma from 'chroma-js'
+import intersect from 'turf-intersect'
+import buffer from 'turf-buffer'
 
 export function toggleArrayElement (array, el) {
   const tempArray = array.slice(0)
@@ -24,12 +26,18 @@ export function unique (array) {
   return Array.from(new Set(array))
 }
 
-export function indicatorFilterToMapFilter (filterObject) {
+export function indicatorFilterToMapFilter (filterObject, iso) {
   switch (filterObject.type) {
     case 'range':
       return ['all',
         ['>=', filterObject.property, filterObject.range[0]],
-        ['<=', filterObject.property, filterObject.range[1]]
+        ['<=', filterObject.property, filterObject.range[1]],
+        ['==', 'iso', iso]
+      ]
+    case 'categorical':
+      return ['all',
+        ['in', filterObject.property].concat(filterObject.values),
+        ['==', 'iso', iso]
       ]
   }
 }
@@ -74,7 +82,7 @@ export function stopsToNoUiSliderRange (stops) {
   return range
 }
 
-export function createPaintObject (layer) {
+export function createDataPaintObject (layer) {
   // tocolor outputs as rgba(r, g, b, a)
   // chroma accepts an array as a constructor
   const baseColorArray = tocolor(layer.datasetName)
@@ -100,5 +108,25 @@ export function createPaintObject (layer) {
       break
     default:
       console.warn('Unsupported layer type given')
+  }
+}
+
+export function createOutlinePaintObject (layer) {
+  // tocolor outputs as rgba(r, g, b, a)
+  // chroma accepts an array as a constructor
+  const baseColorArray = tocolor(layer.datasetName)
+    .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
+
+  return {
+    'line-color': chroma(baseColorArray).hex()
+  }
+}
+
+export function intersectLayers (layers) {
+  try {
+    return layers.map(layer => layer.geojson).reduce((a, b) => buffer(intersect(a, b), 0))
+  } catch (e) {
+    console.warn(e)
+    return null
   }
 }

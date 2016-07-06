@@ -26,10 +26,18 @@ test('unique', t => {
 })
 
 test('indicatorFilterToMapFilter', t => {
-  const filterObject = mockLayers[0].filter
-  t.deepEqual(utils.indicatorFilterToMapFilter(filterObject), ['all',
+  let filterObject = mockLayers[0].filter
+  const iso = 'nga'
+  t.deepEqual(utils.indicatorFilterToMapFilter(filterObject, iso), ['all',
     ['>=', filterObject.property, filterObject.range[0]],
-    ['<=', filterObject.property, filterObject.range[1]]
+    ['<=', filterObject.property, filterObject.range[1]],
+    ['==', 'iso', iso]
+  ])
+
+  filterObject = mockLayers[1].filter
+  t.deepEqual(utils.indicatorFilterToMapFilter(filterObject, iso), ['all',
+    ['in', filterObject.property].concat(filterObject.values),
+    ['==', 'iso', iso]
   ])
 })
 
@@ -56,9 +64,9 @@ test('stopsToNoUiSliderRange', t => {
   })
 })
 
-test('createPaintObject', t => {
+test('createDataPaintObject', t => {
   const rangeLayer = mockLayers[0]
-  t.deepEqual(utils.createPaintObject(rangeLayer), {
+  t.deepEqual(utils.createDataPaintObject(rangeLayer), {
     'fill-color': {
       'property': 'test',
       'stops': [
@@ -70,5 +78,20 @@ test('createPaintObject', t => {
         [ 5, '#6d6d5e' ]
       ]
     }
+  })
+
+  const categoricalLayer = mockLayers[1]
+  t.deepEqual(utils.createDataPaintObject(categoricalLayer), {
+    'fill-color': '#ffffee'
+  })
+
+  const badLayer = mockLayers[2]
+  t.falsy(utils.createDataPaintObject(badLayer))
+})
+
+test('createOutlinePaintObject', t => {
+  const rangeLayer = mockLayers[0]
+  t.deepEqual(utils.createOutlinePaintObject(rangeLayer), {
+    'line-color': '#ffffee'
   })
 })
