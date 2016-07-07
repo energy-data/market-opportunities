@@ -1,14 +1,15 @@
 import { UPDATE_VISIBLE_LAYERS, START_EDITING_LAYER, STOP_EDITING_LAYER,
   TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER,
   START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS,
-  UPDATE_LAYER_GEOJSON } from '../actions'
+  UPDATE_LAYER_GEOJSON, SET_MAP_INTERSECT } from '../actions'
 import { baseLayers } from '../constants'
 
 export const initial = {
   indicators: [],
   base: baseLayers,
   visible: 'indicators',
-  status: 'loading'
+  status: 'loading',
+  intersect: null
 }
 
 export default function layers (state = initial, action) {
@@ -74,6 +75,8 @@ export default function layers (state = initial, action) {
         }
       })
       return Object.assign({}, state, { indicators: newIndicatorsGeo })
+    case SET_MAP_INTERSECT:
+      return Object.assign({}, state, { intersect: action.data })
     case LAYERS_TO_DEFAULT:
       return initial
     default:

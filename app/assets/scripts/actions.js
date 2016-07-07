@@ -25,6 +25,7 @@ export const UPDATE_STEP = 'UPDATE_STEP'
 export const UPDATE_SELECTED_COUNTRY = 'UPDATE_SELECTED_COUNTRY'
 export const UPDATE_SELECTED_SCENARIO = 'UPDATE_SELECTED_SCENARIO'
 export const UPDATE_LAYER_GEOJSON = 'UPDATE_LAYER_GEOJSON'
+export const SET_MAP_INTERSECT = 'SET_MAP_INTERSECT'
 
 /*
  * bare action creators
@@ -164,4 +165,12 @@ export function updateSelectedScenario (scenario) {
 
 export function updateLayerGeoJSON (id, geojson) {
   return { type: UPDATE_LAYER_GEOJSON, data: { id, geojson } }
+}
+
+/*
+ * store the map intersection GeoJSON
+ */
+
+export function setMapIntersect (geo) {
+  return { type: SET_MAP_INTERSECT, data: geo }
 }

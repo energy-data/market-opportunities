@@ -17,11 +17,12 @@ export const ControlPanel = React.createClass({
     tempFilter: React.PropTypes.object,
     groups: React.PropTypes.object,
     selection: React.PropTypes.object,
-    dispatch: React.PropTypes.func
+    dispatch: React.PropTypes.func,
+    getMapReference: React.PropTypes.func
   },
 
   render: function () {
-    const { layers, groups, selection } = this.props
+    const { layers, groups, selection, getMapReference } = this.props
 
     const PanelLayerList = (layers.visible === 'indicators')
     ? <PanelIndicatorList
@@ -49,7 +50,7 @@ export const ControlPanel = React.createClass({
           openSelection={this._openSelection}
         />
         { PanelLayerList }
-        <PanelFooter />
+        <PanelFooter geojson={layers.intersect} getMapReference={getMapReference}/>
       </section>
     )
   },

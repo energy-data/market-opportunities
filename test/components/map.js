@@ -15,9 +15,10 @@ import { setLayers, toggleLayerVisibility } from '../../app/assets/scripts/actio
 import { mockLayers } from '../fixtures/constants'
 
 test('map test', t => {
+  const onCanvasReady = sinon.spy()
   const testLayer = mockLayers[2]
   const zeroVisible = layers(initial, setLayers([testLayer]))
-  const component = shallow(<Map layers={zeroVisible} />)
+  const component = shallow(<Map layers={zeroVisible} onCanvasReady={onCanvasReady}/>)
   t.truthy(component.hasClass(classes.nodot['map']))
 
   // mock mount

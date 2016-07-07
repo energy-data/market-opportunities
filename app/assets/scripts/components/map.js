@@ -9,7 +9,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0td
 import { mapStyle, intersectPaint } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject } from '../utils'
-import { updateLayerGeoJSON } from '../actions'
+import { updateLayerGeoJSON, setMapIntersect } from '../actions'
 import { countryBounds } from '../../data/bounds'
 
 export const Map = React.createClass({
@@ -19,14 +19,17 @@ export const Map = React.createClass({
     editLayer: React.PropTypes.object,
     country: React.PropTypes.string,
     iso: React.PropTypes.string,
-    dispatch: React.PropTypes.func
+    dispatch: React.PropTypes.func,
+    onCanvasReady: React.PropTypes.func
   },
 
   componentDidMount: function () {
-    this._map = new mapboxgl.Map({
+    const map = this._map = new mapboxgl.Map({
       container: 'map',
-      style: mapStyle
+      style: mapStyle,
+      preserveDrawingBuffer: true
     })
+    this.props.onCanvasReady(map)
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -154,6 +157,7 @@ export const Map = React.createClass({
         'paint': intersectPaint
       }, 'waterway-label')
     }
+    this.props.dispatch(setMapIntersect(data))
   },
 
   _removeIntersectedArea: function () {
@@ -161,6 +165,7 @@ export const Map = React.createClass({
     if (map.getSource('intersect')) {
       map.removeSource('intersect')
       map.removeLayer('intersect')
+      this.props.dispatch(setMapIntersect(null))
     }
   },
 
