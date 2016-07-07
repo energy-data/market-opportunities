@@ -9,6 +9,8 @@ import Loading from '../components/loading'
 
 const App = React.createClass({
 
+  propTypes: {},
+
   render: function () {
     return (
       <div className='full-app'>
@@ -26,8 +28,8 @@ const App = React.createClass({
               <div className='layout__body'>
                 <div className='inner'>
                   <MultiStep />
-                  <ControlPanel />
-                  <Map />
+                  <ControlPanel getMapReference={this._getMapReference} />
+                  <Map onCanvasReady={this._updateMapReference} />
                   <ResultsFold />
                   <Loading />
                 </div>
@@ -44,7 +46,13 @@ const App = React.createClass({
     )
   },
 
-  propTypes: {}
+  _updateMapReference: function (map) {
+    this._mapReference = map
+  },
+
+  _getMapReference: function () {
+    return this._mapReference
+  }
 })
 
 export default App

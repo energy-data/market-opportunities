@@ -3,7 +3,7 @@ import layers, { initial } from '../../app/assets/scripts/reducers/layers'
 import { startFetchingLayers, errorFetchingLayers, setLayers,
   updateVisibleLayers, startEditingLayer, stopEditingLayer,
   toggleLayerVisibility, updateLayerFilter, updateLayerGeoJSON,
-  resetState } from '../../app/assets/scripts/actions'
+  resetState, setMapIntersect } from '../../app/assets/scripts/actions'
 
 test('layer reducer test', t => {
   const base = [{id: 'a'}]
@@ -66,4 +66,8 @@ test('layer reducer test', t => {
   t.is(layers(Object.assign({}, initial, { indicators }),
     updateLayerGeoJSON('b', geojson)).indicators[0].geojson, geojson,
     'update geojson of layer "b"')
+
+  t.deepEqual(layers(initial, setMapIntersect(geojson)),
+    Object.assign({}, initial, { intersect: geojson }),
+    'set map intersect')
 })
