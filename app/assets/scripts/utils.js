@@ -6,6 +6,8 @@ import { saveAs } from 'file-saver'
 import PDFDocument from 'pdfkit'
 import blobStream from 'blob-stream'
 
+import { presetLayerColors } from './constants'
+
 export function toggleArrayElement (array, el) {
   const tempArray = array.slice(0)
   const index = tempArray.indexOf(el)
@@ -86,10 +88,7 @@ export function stopsToNoUiSliderRange (stops) {
 }
 
 export function createDataPaintObject (layer) {
-  // tocolor outputs as rgba(r, g, b, a)
-  // chroma accepts an array as a constructor
-  const baseColorArray = tocolor(layer.datasetName)
-    .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
+  const baseColor = getLayerColor(layer.datasetName)
 
   switch (layer.options.geometry.type) {
     case 'fill':
@@ -97,15 +96,14 @@ export function createDataPaintObject (layer) {
         return {
           'fill-color': {
             'property': layer.options.value.property,
-            'stops': layer.options.value.stops.map((stop, i) => {
-              // TODO: maybe have a better color scale
-              return [stop, chroma(baseColorArray).darken(i - 2).hex()]
+            'stops': layer.options.value.stops.map((stop, j) => {
+              return [stop, chroma(baseColor).darken(j - 2).hex()]
             })
           }
         }
       } else if (layer.options.value.type === 'categorical') {
         return {
-          'fill-color': chroma(baseColorArray).hex()
+          'fill-color': baseColor
         }
       }
       break
@@ -115,14 +113,22 @@ export function createDataPaintObject (layer) {
 }
 
 export function createOutlinePaintObject (layer) {
-  // tocolor outputs as rgba(r, g, b, a)
-  // chroma accepts an array as a constructor
-  const baseColorArray = tocolor(layer.datasetName)
-    .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
-
   return {
-    'line-color': chroma(baseColorArray).hex()
+    'line-color': getLayerColor(layer.datasetName),
+    'line-opacity': 1,
+    'line-dasharray': [4, 2]
   }
+}
+
+export function getLayerColor (datasetName) {
+  let returnColor
+  if (presetLayerColors.hasOwnProperty(datasetName)) {
+    returnColor = presetLayerColors[datasetName]
+  } else {
+    returnColor = tocolor(datasetName)
+      .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
+  }
+  return chroma(returnColor).hex()
 }
 
 export function intersectLayers (layers) {

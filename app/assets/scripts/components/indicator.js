@@ -4,7 +4,7 @@ import Nouislider from 'react-nouislider'
 import c from 'classnames'
 import config from '../config'
 
-import { prettifyString, stopsToNoUiSliderRange } from '../utils'
+import { prettifyString, stopsToNoUiSliderRange, getLayerColor } from '../utils'
 import CheckboxGroup from './checkbox-group'
 
 const Indicator = React.createClass({
@@ -19,7 +19,7 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, datasetName, description, type, editing, options, filter, visible } = this.props.layer
+    const { id, datasetName, description, editing, options, filter, visible } = this.props.layer
     const license = this.props.layer['license_title']
     const { updateLayerFilter } = this.props
 
@@ -48,7 +48,7 @@ const Indicator = React.createClass({
       <li className='layer-list__layer-wrapper'>
         <article className={c('layer', {'layer--expanded': editing})}>
           <header className='layer__header'>
-            <span className='layer__legend-color' style={{background: type}}></span>
+            <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
             <div className='layer__headline'>
               <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
               <p className='layer__summary'>195 km2</p>

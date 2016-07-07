@@ -92,6 +92,12 @@ test('createDataPaintObject', t => {
 test('createOutlinePaintObject', t => {
   const rangeLayer = mockLayers[0]
   t.deepEqual(utils.createOutlinePaintObject(rangeLayer), {
-    'line-color': '#ffffee'
+    'line-color': '#ffffee',
+    'line-opacity': 1,
+    'line-dasharray': [4, 2]
   })
+})
+
+test('getLayerColor', t => {
+  t.is(utils.getLayerColor('energy-access-underserved'), '#09749e')
 })
