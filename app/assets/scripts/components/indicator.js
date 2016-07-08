@@ -2,9 +2,10 @@ import React from 'react'
 import url from 'url'
 import Nouislider from 'react-nouislider'
 import c from 'classnames'
-import config from '../config'
 
-import { prettifyString, stopsToNoUiSliderRange, getLayerColor } from '../utils'
+import config from '../config'
+import { prettifyString, stopsToNoUiSliderRange, filterSummary, pipFormatter,
+ getLayerColor } from '../utils'
 import CheckboxGroup from './checkbox-group'
 
 const Indicator = React.createClass({
@@ -30,7 +31,7 @@ const Indicator = React.createClass({
           range={stopsToNoUiSliderRange(options.value.stops)}
           start={filter.range}
           connect
-          pips={{mode: 'steps', density: 10}}
+          pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
           onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
         /></div></div>
         break
@@ -51,7 +52,7 @@ const Indicator = React.createClass({
             <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
             <div className='layer__headline'>
               <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
-              <p className='layer__summary'>195 km2</p>
+              <p className='layer__summary'>{filterSummary(options, filter)}</p>
             </div>
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>

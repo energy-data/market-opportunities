@@ -29,7 +29,7 @@
       font-size: 0.75rem;
       line-height: 1rem;
       opacity: 0.48;
-      
+
       &::after {
         content: 'Nothing to show.';
       }
@@ -67,19 +67,19 @@
 .export-menu__item-image {
   &::before {
     @extend %collecticon-picture;
-  } 
+  }
 }
 
 .export-menu__item-pdf {
   &::before {
     @extend %collecticon-page-label;
-  } 
+  }
 }
 
 .export-menu__item-geojson {
   &::before {
     @extend %collecticon-code;
-  } 
+  }
 }
 
 
@@ -174,7 +174,7 @@
   /* Collapsed layer-group state */
   opacity: 0;
   overflow-y: hidden;
-  max-height: 0;            
+  max-height: 0;
   transition: all 0.16s ease 0s;
 
   /* Expanded layer-group state */
@@ -283,7 +283,7 @@
   opacity: 0;
   overflow-y: hidden;
   padding: 0 $global-spacing;
-  max-height: 0;            
+  max-height: 0;
   transition: all 0.16s ease 0s;
 
   /* Expanded layer state */
@@ -316,7 +316,7 @@
 
 .button-edit-layer {
   @extend .button, .button--small, .button--base-unbounded, .button--text-hidden;
-  
+
   &::before {
     @extend %collecticon-pencil;
   }
@@ -409,7 +409,7 @@
   }
 
   .form__slider {
-    padding: 0.5rem 0.5rem 2rem 0.5rem;
+    padding: 0.5rem 1rem 2rem 1rem;
   }
 
   .form {

@@ -179,3 +179,30 @@ export function downloadMapPDF (map) {
     saveAs(stream.toBlob('application/pdf'), 'intersect.pdf')
   })
 }
+
+export function filterSummary (options, filter) {
+  const formatter = (options.value.format === 'percentage')
+  ? a => `${a * 100}%`
+  : a => numberWithCommas(a.toFixed(0))
+  switch (options.value.type) {
+    case 'range':
+      return filter.range.map(formatter).join(' - ')
+    case 'categorical':
+      return filter.values.join(', ')
+    default:
+      console.warn('Unsupported filter type')
+      return null
+  }
+}
+
+// nouislider requires formatters as objects with to and from methods
+// http://refreshless.com/nouislider/slider-read-write/#section-formatting
+export function pipFormatter (format) {
+  return (format === 'percentage')
+  ? { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
+  : { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
+}
+
+export function numberWithCommas (number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}

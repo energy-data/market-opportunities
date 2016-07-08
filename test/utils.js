@@ -71,11 +71,11 @@ test('createDataPaintObject', t => {
       'property': 'test',
       'stops': [
         [ 0, '#ffffff' ],
-        [ 1, '#ffffff' ],
-        [ 2, '#ffffee' ],
-        [ 3, '#ccccbc' ],
-        [ 4, '#9b9b8c' ],
-        [ 5, '#6d6d5e' ]
+        [ 0.2, '#ffffff' ],
+        [ 0.4, '#ffffee' ],
+        [ 0.6, '#ccccbc' ],
+        [ 0.8, '#9b9b8c' ],
+        [ 1, '#6d6d5e' ]
       ]
     }
   })
@@ -100,4 +100,35 @@ test('createOutlinePaintObject', t => {
 
 test('getLayerColor', t => {
   t.is(utils.getLayerColor('energy-access-underserved'), '#09749e')
+})
+
+test('filterSummary', t => {
+  let options = mockLayers[0].options
+  let filter = mockLayers[0].filter
+
+  t.is(utils.filterSummary(options, filter), '0% - 100%')
+
+  options.value = Object.assign({}, options.value, { format: 'not percentage' })
+  t.is(utils.filterSummary(options, filter), '0 - 1')
+
+  options = mockLayers[1].options
+  filter = mockLayers[1].filter
+  t.is(utils.filterSummary(options, filter), 'a, b, c')
+
+  options.value = Object.assign({}, options.value, { type: 'not a type' })
+  t.is(utils.filterSummary(options, filter), null)
+})
+
+test('pipFormatter', t => {
+  let formatter = utils.pipFormatter('percentage')
+  t.is(formatter.to(0.2), '20%')
+  t.is(formatter.from('35%'), 0.35)
+
+  formatter = utils.pipFormatter('something else')
+  t.is(formatter.to(12345), '12,345')
+  t.is(formatter.from('345,567,123'), 345567123)
+})
+
+test('numberWithCommas', t => {
+  t.is(utils.numberWithCommas(87162534), '87,162,534')
 })

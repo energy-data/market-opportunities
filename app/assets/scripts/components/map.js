@@ -82,8 +82,8 @@ export const Map = React.createClass({
     } else if (newVisibleLayers.length < 2 && oldVisibleLayers.length >= 2) {
       this._removeIntersectedArea()
     // TODO: fix intersect update logic, also needs to account for same length, new filter
-    } else if (newVisibleLayers.length !== oldVisibleLayers.length &&
-      newVisibleLayers >= 2) {
+    } else if ((newVisibleLayers.length !== oldVisibleLayers.length) &&
+      newVisibleLayers.length >= 2) {
       this._updateIntersectedArea(newVisibleLayers)
     }
   },
@@ -179,15 +179,18 @@ export const Map = React.createClass({
   _createLayerGeoJSON: function (layer) {
     // query all source features matching the current filters and merge
     // them into a single feature
-    const geo = this._map.querySourceFeatures(`${String(layer.id)}-data`, {
+    const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, {
       sourceLayer: 'data_layer',
       filter: indicatorFilterToMapFilter(layer.filter, this.props.iso)
-    }).map(a => {
-      return buffer(a, 0)
-    }).reduce((a, b) => {
-      return union(a, b)
     })
-    this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
+    if (features.length) {
+      const geo = features.map(a => {
+        return buffer(a, 0)
+      }).reduce((a, b) => {
+        return union(a, b)
+      })
+      this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
+    }
   }
 })
 /* istanbul ignore next */

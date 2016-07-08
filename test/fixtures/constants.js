@@ -37,8 +37,9 @@ module.exports = {
             'b',
             'c'
           ],
-          'range': [0, 100],
-          'stops': [0, 1, 2, 3, 4, 5]
+          'format': 'percentage',
+          'range': [0, 1],
+          'stops': [0, 0.2, 0.4, 0.6, 0.8, 1]
         },
         'geometry': {
           'type': 'fill'
@@ -52,8 +53,8 @@ module.exports = {
           'b',
           'c'
         ],
-        'range': [0, 100],
-        'stops': [0, 1, 2, 3, 4, 5]
+        'range': [0, 1],
+        'stops': [0, 0.2, 0.4, 0.6, 0.8, 1]
       },
       'type': 'base',
       'group': 'Resource Potential'

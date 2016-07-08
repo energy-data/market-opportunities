@@ -84,7 +84,7 @@ export const Login = React.createClass({
           <h2 className='nav-block__title'>
             <a onClick={this.props.onLoginToggle} href='#' title='Toggle menu'>
               <span className='text'>Account</span>
-              <span className='image'><img alt='User avatar' src='/assets/graphics/layout/avatar-placeholder.svg' width='128' height='128' /></span>
+              <span className='image'><img alt='User avatar' src='assets/graphics/layout/avatar-placeholder.svg' width='128' height='128' /></span>
             </a>
           </h2>
           <div className='nav-block__menu-wrapper' id='account-contents' data-hook='nav-block:login'>

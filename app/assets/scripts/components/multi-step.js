@@ -51,8 +51,8 @@ export const MultiStep = React.createClass({
                   <div className='options-control'>
                     <h3 className='options-control__title'><span>Or</span></h3>
                     <div className='options_control__drop'>
-                      <select>
-                        <option value='More countries'>More countries</option>
+                      <select onChange={this._updateSelectedCountryFromDropdown}>
+                        <option value=''>More countries</option>
                         <option value='Angola'>Angola</option>
                         <option value='Benin'>Benin</option>
                         <option value='Botswana'>Botswana</option>
@@ -168,6 +168,10 @@ export const MultiStep = React.createClass({
 
   _updateSelectedScenario: function (scenario) {
     this.props.dispatch(updateSelectedScenario(scenario))
+  },
+
+  _updateSelectedCountryFromDropdown: function (e) {
+    this._updateSelectedCountry(e.target.value)
   }
 })
 
