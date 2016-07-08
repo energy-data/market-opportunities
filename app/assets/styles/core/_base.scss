@@ -33,6 +33,7 @@ html {
 }
 
 body {
+  background: tint($base-color, 96%);
   color: $base-font-color;
   font-size: $base-font-size;
   line-height: $base-line-height;
@@ -74,10 +75,12 @@ a:active {
   @extend .clearfix;
   padding-left: $global-spacing;
   padding-right: $global-spacing;
+
   @include media(xlarge-up) {
     padding-left: $global-spacing * 2;
     padding-right: $global-spacing * 2;
   }
+  
   &--centered {
     max-width: $row-max-width;
     margin-left: auto;

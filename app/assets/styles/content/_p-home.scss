@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Page: Home
+   ========================================================================== */
+
+.page--home {
+  .layout__header {
+    @extend .visually-hidden;
+  }
+
+  .layout__body {
+    padding: 0;
+  }
+}
+
+
+/* Folds
+   ========================================================================== */
+
+.fold--dark {
+  @extend .antialiased;
+  background: $primary-color;
+  color: #fff;
+}
+
+.fold--dark-alt {
+  background: #97c42d;
+}
+
+.fold__header {
+  margin-bottom: 1rem;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.fold__body {
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.fold__tile--copy {
+  padding: $global-spacing;
+  max-width: 48rem; // Temporary
+
+  @include media(xlarge-up) {
+    padding: $global-spacing * 2;
+  }
+}

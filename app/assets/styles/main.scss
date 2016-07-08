@@ -83,8 +83,14 @@
 @import "content/structure";
 @import "content/s-page-prime-nav";
 
+/* Page: Home */
+
+@import "content/p-home";
+
+
 /* Page: Explore */
 
+@import "content/p-explore";
 @import "content/p-explore-steps";
 @import "content/p-explore-control-panel";
 @import "content/p-explore-map";

@@ -12,9 +12,9 @@ const Scenario = React.createClass({
   render: function () {
     const { info, selected } = this.props
     return (
-      <li className='options-list__item' onClick={this._updateSelectedScenario}>
+      <li className='options-list__item'>
         <article className={c('card', 'scenario--country', {'card--active': selected})}>
-          <a href='#' className='card__contents' title='Select option'>
+          <a href='#' className='card__contents' title='Select option' onClick={this._updateSelectedScenario}>
             <figure className='card__media'>
               <div className='card__thumbnail'>
                 <img alt='Card thumb' width='768' height='384' src={info.thumbnail} />
@@ -41,8 +41,8 @@ const Scenario = React.createClass({
     )
   },
 
-  _updateSelectedScenario: function () {
-    this.props.updateSelectedScenario(this.props.info.title)
+  _updateSelectedScenario: function (e) {
+    this.props.updateSelectedScenario(e, this.props.info.title)
   }
 })
 

@@ -3,13 +3,6 @@
    ========================================================================== */
 
 .page {
-  background: tint($base-color, 96%);
-}
-
-/* Inner
-   ========================================================================== */
-
-.page > .inner {
   background: #fff;
 }
 
@@ -184,7 +177,7 @@
   }
 
   &__title {
-    @extend .heading, .heading--xlarge;
+    @extend .heading, .heading--large;
   }
 
   &__subtitle {
@@ -241,11 +234,19 @@
     }
   }
 
-  &__main-content {
+  &__prose-content {
     @include col(12/12);
 
     > *:last-child {
       margin-bottom: 0;
+    }
+
+    @include media(medium-up) {
+      @include col(10/12, $offset: 1/12);
+    }
+
+    @include media(large-up) {
+      @include col(8/12, $offset: 2/12);
     }
   }
 }
@@ -256,7 +257,7 @@
 
 .layout__header--dark {
   @extend .antialiased;
-  background: linear-gradient($secondary-color, $primary-color);
+  background: $primary-color;
   color: #fff;
 
   &::before {
@@ -275,44 +276,5 @@
   
   .layout__introduction {
     color: rgba(#fff, 0.64);
-  }
-}
-
-
-/* Page/Layout arrangement modifiers
-   ========================================================================== */
-
-.page--article {
-  .layout__main-content {
-    @include media(medium-up) {
-      @include col(10/12, $offset: 1/12);
-    }
-
-    @include media(large-up) {
-      @include col(8/12, $offset: 2/12);
-    }
-  }
-}
-
-.page--app {
-  .page__footer,
-  .layout__header {
-    @extend .visually-hidden;
-  }
-
-  .layout__body {
-    padding: 0;
-
-    > .inner {
-      position: relative;
-      padding: 0;
-      margin: 0;
-      height: calc(100vh - 3rem);
-      max-width: none;
-
-      @include media(large-up) {
-        height: calc(100vh - 5rem);
-      }
-    }
   }
 }

@@ -16,8 +16,8 @@ test('scenario test', t => {
   t.truthy(component.hasClass(classes.nodot['scenario']))
 
   // clicking calls the spy
-  component.simulate('click')
+  component.find('a').simulate('click')
   t.truthy(spy.calledOnce)
   // with the correct value
-  t.truthy(spy.calledWith(scenarios[0].title))
+  t.truthy(spy.calledWith(undefined, scenarios[0].title))
 })

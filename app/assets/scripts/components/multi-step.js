@@ -162,11 +162,13 @@ export const MultiStep = React.createClass({
     this.props.dispatch(updateStep('map'))
   },
 
-  _updateSelectedCountry: function (country) {
+  _updateSelectedCountry: function (e, country) {
+    e.preventDefault()
     this.props.dispatch(updateSelectedCountry(country))
   },
 
-  _updateSelectedScenario: function (scenario) {
+  _updateSelectedScenario: function (e, scenario) {
+    e.preventDefault()
     this.props.dispatch(updateSelectedScenario(scenario))
   },
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import Login from './login'
 import c from 'classnames'
+import { Link, IndexLink } from 'react-router'
 
 const Header = React.createClass({
 
@@ -70,9 +71,9 @@ const Header = React.createClass({
               </h2>
               <div className='nav-block__menu-wrapper' id='browse-contents' data-hook='nav-block:menu'>
                 <ul className='nav-block__menu browse-menu'>
-                  <li><a href='#' title='Visit page' className='browse-menu-item'><span>Home</span></a></li>
-                  <li><a href='#' title='Visit page' className='browse-menu-item browse-menu-item--active'><span>Explore</span></a></li>
-                  <li><a href='#' title='Visit page' className='browse-menu-item'><span>About</span></a></li>
+                  <li><IndexLink to='/' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>Home</span></IndexLink></li>
+                  <li><Link to='/explore' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>Explore</span></Link></li>
+                  <li><Link to='/about' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>About</span></Link></li>
                   <li><a href='#' title='Visit page' className='browse-menu-item browse-menu-item--external'><span>Energy Platform</span></a></li>
                 </ul>
               </div>

@@ -16,8 +16,8 @@ test('country test', t => {
   t.truthy(component.hasClass(classes.nodot['country']))
 
   // clicking calls the spy
-  component.simulate('click')
+  component.find('a').simulate('click')
   t.truthy(spy.calledOnce)
   // with the correct value
-  t.truthy(spy.calledWith(countries[0].name))
+  t.truthy(spy.calledWith(undefined, countries[0].name))
 })
