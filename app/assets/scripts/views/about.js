@@ -14,10 +14,13 @@ const About = React.createClass({
         <main className='page__body' role='main'>
           <div className='inner'>
             <section className='layout'>
-              <header className='layout__header layout__header--dark'>
+              <header className='layout__header'>
                 <div className='inner'>
                   <div className='layout__headline'>
                     <h1 className='layout__title'>About</h1>
+                    <div className='layout__introduction'>
+                      <p>Learn more about the tool.</p>
+                    </div>
                   </div>
                 </div>
               </header>

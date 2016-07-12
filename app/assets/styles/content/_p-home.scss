@@ -3,10 +3,6 @@
    ========================================================================== */
 
 .page--home {
-  .layout__header {
-    @extend .visually-hidden;
-  }
-
   .layout__body {
     padding: 0;
   }
@@ -16,14 +12,35 @@
 /* Folds
    ========================================================================== */
 
-.fold--dark {
-  @extend .antialiased;
-  background: $primary-color;
-  color: #fff;
+.fold {
+  @extend .clearfix;
+  padding: {
+    top: $global-spacing * 2;
+    right: 0;
+    bottom: $global-spacing * 2;
+    left: 0;
+  }
+
+  > .inner {
+    @extend .row;
+  }
+
+  @include media(medium-up) {
+    padding: {
+      top: $global-spacing * 3;
+      bottom: $global-spacing * 3;
+    }
+  }
 }
 
-.fold--dark-alt {
-  background: #97c42d;
+.fold--center {
+  text-align: center;
+}
+
+.fold--dark {
+  @extend .antialiased;
+  background: tint($base-color, 32%);
+  color: #fff;
 }
 
 .fold__header {
@@ -34,17 +51,41 @@
   }
 }
 
+.fold__title {
+  @extend .heading, .heading--medium;
+}
+
 .fold__body {
   > *:last-child {
     margin-bottom: 0;
   }
 }
 
-.fold__tile--copy {
-  padding: $global-spacing;
-  max-width: 48rem; // Temporary
+.fold__media {
+  overflow: hidden;
 
-  @include media(xlarge-up) {
-    padding: $global-spacing * 2;
+  .media-container {
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+#showcase-fold {
+  .fold__media {
+    @include col(8/12);
+  }
+
+  .fold__copy {
+    @include col(4/12);
+  }
+}
+
+#locations-fold {
+  .fold__header,
+  .fold__body {
+    @include col(8/12, $offset: 2/12);
   }
 }

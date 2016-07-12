@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .page {
-  background: #fff;
+  background: tint($base-color, 96%);
 }
 
 
@@ -86,7 +86,7 @@
 .page__footer {
   position: relative;
   z-index: 8;
-  background: tint($base-color, 96%);
+  background: #fff;
   color: $base-font-color;
   padding: 2rem 0;
   text-align: center;
@@ -110,38 +110,18 @@
 
 .layout {
   &__header {
-    position: relative;
-    color: inherit;
+    @extend .antialiased;
+    background: $primary-color;
+    color: #fff;
     padding: {
       top: $global-spacing * 2;
       right: 0;
       bottom: $global-spacing * 2;
       left: 0;
     }
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    transform: translateZ(0);
-
-    > * {
-      position: relative;
-      z-index: 2;
-    }
 
     > .inner {
       @extend .row;
-    }
-
-    &::before {
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      content: "";
-      background: linear-gradient(rgba($primary-color, 0), rgba($primary-color, 0.08));
     }
 
     @include media(medium-up) {
@@ -150,14 +130,6 @@
         bottom: $global-spacing * 3;
       }
     }
-
-    @include media(large-up) {
-      padding: {
-        top: $global-spacing * 4;
-        bottom: $global-spacing * 4;
-      }
-    }
-
   }
 
   &__headline {
@@ -173,6 +145,7 @@
 
     @include media(large-up) {
       @include col(8/12);
+      max-width: 44rem;
     }
   }
 
@@ -183,7 +156,7 @@
   &__subtitle {
     text-transform: uppercase;
     font-weight: $base-font-regular;
-    color: rgba($base-font-color, 0.48);
+    color: rgba(#fff, 0.48);
     font-size: 0.875rem;
     line-height: 1.25;
     margin: 0;
@@ -195,9 +168,10 @@
   }
 
   &__introduction {
-    color: rgba($base-font-color, 0.64);
+    color: rgba(#fff, 0.64);
     font-size: 1.25rem;
     line-height: 1.75rem;
+
     > *:last-child {
       margin-bottom: 0;
     }
@@ -248,33 +222,5 @@
     @include media(large-up) {
       @include col(8/12, $offset: 2/12);
     }
-  }
-}
-
-
-/* Layout header modifiers
-   ========================================================================== */
-
-.layout__header--dark {
-  @extend .antialiased;
-  background: $primary-color;
-  color: #fff;
-
-  &::before {
-    background: transparent;
-  }
-
-  &.layout__header--hero {
-    &::before {
-      background: linear-gradient(rgba($secondary-color, 0.64), rgba($secondary-color, 0.80), rgba($secondary-color, 0.92));
-    }
-  }
-
-  .layout__subtitle {
-    color: rgba(#fff, 0.48);
-  }
-  
-  .layout__introduction {
-    color: rgba(#fff, 0.64);
   }
 }
