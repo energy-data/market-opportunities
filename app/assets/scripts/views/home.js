@@ -4,7 +4,6 @@ import { Link } from 'react-router'
 import Header from '../components/header'
 import Footer from '../components/footer'
 
-
 const Home = React.createClass({
 
   propTypes: {},
@@ -28,7 +27,6 @@ const Home = React.createClass({
                 </div>
               </header>
               <div className='layout__body'>
-
                 <section className='fold fold--base fold--copy-right' id='showcase-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
@@ -51,10 +49,8 @@ const Home = React.createClass({
                         </div>
                       </figure>
                     </div>
-
                   </div>
                 </section>
-
                 <section className='fold fold--copy-center' id='locations-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
@@ -68,7 +64,6 @@ const Home = React.createClass({
                     </div>
                   </div>
                 </section>
-
               </div>
             </section>
           </div>
