@@ -132,6 +132,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "react-router-redux": "^4.0.4",
+    "react-router-scroll": "^0.2.0",
     "react-tether": "^0.5.1",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
