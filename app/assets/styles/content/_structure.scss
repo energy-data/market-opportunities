@@ -89,17 +89,59 @@
   background: #fff;
   color: $base-font-color;
   padding: 2rem 0;
-  text-align: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: rgba($base-font-color, 0.64);
+  text-align: center;
 
   > .inner {
-    @extend .row, .row--centered;
+    @extend .row;
   }
   
   *:last-child {
     margin-bottom: 0;
+  }
+
+  @include media(small-up) {
+    text-align: initial;
+  }
+}
+
+.credits {
+  @include col(12/12);
+  @include media(small-up) {
+    @include col(6/12);
+  }
+
+  &--internal {
+    padding-bottom: $global-spacing * 2;
+
+    @include media(small-up) {
+      padding-bottom: 0;
+    }
+  }
+
+  &--external {
+    @include media(small-up) {
+      text-align: right;
+    }
+  }
+}
+
+.attribution-wbg-ifc {
+  a {
+    display: block;
+  }
+
+  img {
+    vertical-align: top;
+    max-width: 200px;
+    height: auto;
+    opacity: 0.64;
+  }
+
+  span {
+    @extend .visually-hidden;
   }
 }
 
