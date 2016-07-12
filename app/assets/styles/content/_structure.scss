@@ -130,7 +130,7 @@
 
 .attribution-wbg-ifc {
   a {
-    display: block;
+    display: inline-block;
   }
 
   img {
@@ -163,13 +163,20 @@
     }
 
     > .inner {
-      @extend .row;
+      @extend .row, .row--centered;
     }
 
     @include media(medium-up) {
       padding: {
         top: $global-spacing * 3;
         bottom: $global-spacing * 3;
+      }
+    }
+
+    @include media(xlarge-up) {
+      padding: {
+        top: $global-spacing * 4;
+        bottom: $global-spacing * 4;
       }
     }
   }
@@ -187,7 +194,6 @@
 
     @include media(large-up) {
       @include col(8/12);
-      max-width: 44rem;
     }
   }
 
@@ -231,8 +237,7 @@
     }
 
     > .inner {
-      @extend .row;
-      @extend .row--centered;
+      @extend .row, .row--centered;
     }
 
     @include media(medium-up) {
