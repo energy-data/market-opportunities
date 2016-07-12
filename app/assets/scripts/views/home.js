@@ -17,23 +17,43 @@ const Home = React.createClass({
               <header className='layout__header'>
                 <div className='inner'>
                   <div className='layout__headline'>
-                    <h1 className='layout__title'>Welcome</h1>
+                    <h1 className='layout__title'>Discover Off-Grid Energy Opportunities</h1>
+                    <div className='layout__introduction'>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat.</p>
+                      <p><a href='/#/explore' title='Visit Explore page' className='button button--large button--base'><span>Start exploring</span></a></p>
+                    </div>
                   </div>
                 </div>
               </header>
               <div className='layout__body'>
 
-                <section className='fold fold--dark fold--dark-alt fold--mosaic'>
-                  <div className='fold__tile fold__tile--copy'>
+                <section className='fold fold--dark' id='showcase-fold'>
+                  <div className='inner'>
+                    <div className='fold__media'>
+                      <div className='media-container'>
+                        <img src="http://placehold.it/1440x960" />
+                      </div>
+                    </div>
+                    <div className='fold__copy'>
+                      <header className='fold__header'>
+                        <h1 className='fold__title'>Find areas of interest from anywhere</h1>
+                      </header>
+                      <div className='fold__body'>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat. Phasellus condimentum id neque nec viverra.</p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className='fold fold--center' id='locations-fold'>
+                  <div className='inner'>
                     <header className='fold__header'>
-                      <h1 className='fold__title'>Discover Off-Grid Energy Opportunities</h1>
+                      <h1 className='fold__title'>Current locations</h1>
                     </header>
                     <div className='fold__body'>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat. Phasellus condimentum id neque nec viverra.</p>
-                      <p><a href='explore' title='Visit Explore page' className='button button--large button--primary'><span>Start exploring</span></a></p>
+                      <p><a href='/#/explore' title='Visit Explore page' className='button button--large button--primary'><span>Start exploring</span></a></p>
                     </div>
-                  </div>
-                  <div className='fold__tile fold__tile--media'>
                   </div>
                 </section>
 
