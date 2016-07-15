@@ -134,7 +134,7 @@
   @include media(medium-up) {
     .fold__media--desktop & {
       @include transform(translate(0, 0));
-      width: 160%;
+      width: 200%;
 
       .fold--copy-left & {
         left: 0;
@@ -168,6 +168,12 @@
         left: auto;
         right: 0;
       }
+    }
+  }
+
+  @include media(xlarge-up) {
+    .fold__media--desktop & {
+      width: 160%;
     }
   }
 }
