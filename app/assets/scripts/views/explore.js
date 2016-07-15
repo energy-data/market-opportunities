@@ -6,6 +6,7 @@ import Map from '../components/map'
 import ControlPanel from '../components/control-panel'
 import ResultsFold from '../components/results-fold'
 import MultiStep from '../components/multi-step'
+import Nocando from '../components/nocando'
 import Loading from '../components/loading'
 
 const Explore = React.createClass({
@@ -33,6 +34,7 @@ const Explore = React.createClass({
                   <Map onCanvasReady={this._updateMapReference} />
                   <ResultsFold />
                   <Loading />
+                  <Nocando />
                 </div>
               </div>
             </section>

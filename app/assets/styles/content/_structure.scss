@@ -12,7 +12,7 @@
 
 .page__header {
   position: relative;
-  z-index: 100;
+  z-index: 9992;
   background: rgba(#fff, 0.96);
   color: $base-font-color;
   box-shadow: 0 0 64px 32px rgba($primary-color, 0.12);
@@ -169,6 +169,9 @@
     > .inner {
       @extend .row, .row--centered;
     }
+
+    /* Animation */
+    @include animation(layout-reveal 0.32s ease 0s 1);
 
     @include media(medium-up) {
       padding: {
