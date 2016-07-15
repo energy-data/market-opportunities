@@ -59,6 +59,11 @@ const Home = React.createClass({
                       </header>
                       <div className='fold__body prose prose--responsive'>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat. Phasellus condimentum id neque nec viverra.</p>
+                        <ul className='stats-list'>
+                          <li><strong className='value'>20K</strong> <span className='term'>Lorem ipsum</span></li>
+                          <li><strong className='value'>56</strong> <span className='term'>Countries</span></li>
+                          <li><strong className='value'>327</strong> <span className='term'>Dolor sit</span></li>
+                        </ul>
                         <p><Link to='/about' title='Visit About page' className='button button--large button--primary'><span>Learn more</span></Link></p>
                       </div>
                     </div>

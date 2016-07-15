@@ -20,7 +20,7 @@
     display: block;
     position: relative;
     padding-left: 1.75rem;
-    color: inherit;
+    font-weight: $base-font-bold;
 
     &:before {
       position: absolute;
@@ -57,5 +57,62 @@
         }
       }
     }
+  }
+}
+
+
+/* Stats list
+   ========================================================================== */
+
+.stats-list {
+  @extend .clearfix;
+  list-style: none;
+  padding: 0;
+
+  li {
+    @include col(4/12);
+    position: relative;
+  }
+
+  .term,
+  .value {
+    display: block;
+  }
+
+  .term {
+    font-size: 0.75rem;
+    line-height: 1;
+    opacity: 0.8;
+    text-transform: uppercase;
+
+    @include media(medium-up) {
+      font-size: 0.875rem;
+    }
+  }
+
+  .value {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: $global-spacing / 4;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 104%;
+      z-index: 1;
+      transform: translate(0, -50%);
+      width: 2px;
+      height: 50%;
+      background: rgba($base-color, 0.08);
+      content: '';
+    }
+
+    @include media(medium-up) {
+      font-size: 3rem;
+    }
+  }
+
+  li:last-child .value::before {
+    display: none;
   }
 }
