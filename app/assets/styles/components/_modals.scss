@@ -20,7 +20,7 @@
 
   // The ghost, nudged to maintain perfect centering
   // Only medium-up queries
-  &:before {
+  &::before {
     content: '';
     display: inline-block;
     height: 100%;
@@ -115,7 +115,7 @@
     position: relative;
     text-align: center;
 
-    &:after {
+    &::after {
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
@@ -133,7 +133,7 @@
       margin-bottom: 0;
     }
 
-    &:after {
+    &::after {
       top: calc(100% - 1px);
     }
 
@@ -173,7 +173,7 @@
       margin: 0 ($global-spacing / 4);
     }
 
-    &:after {
+    &::after {
       top: 0;
     }
   }
@@ -195,7 +195,7 @@
     opacity: 1;
   }
 
-  &:before {
+  &::before {
     @extend %collecticon-xmark;
   }
 
@@ -219,8 +219,8 @@
   background: radial-gradient(ellipse at center, $base-color 0%, rgba($base-color, 0.92) 100%);
   color: #fff;
 
-  .modal__header:after,
-  .modal__footer:after {
+  .modal__header::after,
+  .modal__footer::after {
     background: rgba(#fff, 0.12);
   }
 
