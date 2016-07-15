@@ -10,8 +10,9 @@ if (process.env.NODE_ENV !== 'production') {
 import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory, applyRouterMiddleware } from 'react-router'
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
+import useScroll from 'react-router-scroll'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import config from './config'
@@ -44,7 +45,7 @@ const history = syncHistoryWithStore(hashHistory, store)
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={history} render={applyRouterMiddleware(useScroll())}>
       <Route path={config.basePath} component={App}>
         <Route path='explore' component={Explore} />
         <Route path='about' component={About} />

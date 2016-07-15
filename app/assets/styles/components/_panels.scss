@@ -104,9 +104,11 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
+
   > li {
     float: left;
     margin: 0 $global-spacing 0 0;
+
     &:last-child {
       margin-right: 0;
     }
@@ -137,8 +139,6 @@
   }
 
   @include media(medium-up) {
-    
-
     &::before {
       left: 0;
       height: 4px;
@@ -164,6 +164,7 @@
 .panel__body {
   position: relative;
   z-index: 1;
+
   > *:last-child {
     margin-bottom: 0;
   }
@@ -185,6 +186,7 @@
 
 .panel__button-dismiss {
   @extend .button, .button--achromic-unbounded, .button--small, .button--text-hidden;
+
   &:before {
     @extend %collecticon-sm-xmark;
   }
@@ -192,6 +194,7 @@
 
 .panel__button-more {
   @extend .button, .button--achromic-unbounded, .button--small, .button--text-hidden;
+  
   &:before {
     @extend %collecticon-ellipsis-vertical;
   }
