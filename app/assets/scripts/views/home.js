@@ -35,7 +35,7 @@ const Home = React.createClass({
                       </header>
                       <div className='fold__body prose prose--responsive'>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat. Phasellus condimentum id neque nec viverra.</p>
-                        <ul>
+                        <ul className='features-list'>
                           <li>Feature 1</li>
                           <li>Feature 2</li>
                           <li>Feature 3</li>

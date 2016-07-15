@@ -7,3 +7,55 @@
     padding: 0;
   }
 }
+
+
+/* Features list
+   ========================================================================== */
+
+.features-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: block;
+    position: relative;
+    padding-left: 1.75rem;
+    color: inherit;
+
+    &:before {
+      position: absolute;
+      top: 0.125rem;
+      left: 0;
+      z-index: 1;
+      text-align: center;
+      font-size: 1rem;
+      color: #fff;
+      border-radius: $full-border-radius;
+      @extend %collecticon-sm-tick;
+      background: $primary-color;
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
+      line-height: 1.25rem;
+    }
+  }
+}
+
+/* Prose specific */
+
+.prose--responsive {
+  > .features-list {
+    @include media(medium-up) {
+      li {
+        padding-left: 2rem;
+        
+        &:before {
+          top: 0.25rem;
+          width: 1.5rem;
+          height: 1.5rem;
+          line-height: 1.5rem;
+        }
+      }
+    }
+  }
+}
