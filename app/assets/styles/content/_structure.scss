@@ -198,7 +198,7 @@
   }
 
   &__title {
-    @extend .heading, .heading--large;
+    @extend .heading, .heading--xlarge;
   }
 
   &__subtitle {
@@ -219,6 +219,14 @@
     color: rgba(#fff, 0.64);
     font-size: 1.25rem;
     line-height: 1.75rem;
+
+    > * {
+      margin-bottom: $global-spacing * 2;
+
+      @include media(medium-up) {
+        margin-bottom: $global-spacing * 2.25;
+      }
+    }
 
     > *:last-child {
       margin-bottom: 0;

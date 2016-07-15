@@ -21,7 +21,7 @@ const Home = React.createClass({
                     <h1 className='layout__title'>Discover Off-Grid Energy Opportunities</h1>
                     <div className='layout__introduction'>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat lorem ipsum.</p>
-                      <p><Link to='/explore' title='Visit Explore page' className='button button--large button--base'><span>Start exploring</span></Link></p>
+                      <p><Link to='/explore' title='Visit Explore page' className='button button--xlarge button--base'><span>Start exploring</span></Link></p>
                     </div>
                   </div>
                 </div>
