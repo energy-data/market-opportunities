@@ -33,7 +33,6 @@
 /* Common elements
    ========================================================================== */
 
-
 p, ul, ol, dl, pre, blockquote {
   margin: 0 0 $global-spacing 0;
 }
@@ -58,6 +57,19 @@ p, ul, ol, dl, pre, blockquote {
     }
   }
 }
+
+
+/* Drop cap
+   ========================================================================== */
+
+.drop-cap::first-letter {
+  font-size: 3.4em;
+  padding: 0 0.1em 0 0;
+  line-height: 0.7; 
+  float: left;
+  margin: 0.1em 0.1em 0 0;
+}
+
 
 /* Lists
    ========================================================================== */
@@ -144,11 +156,10 @@ blockquote {
 
 hr, .hr {
   border: 0;
-  height: 1px;
+  height: $global-spacing / 4;
   background: $base-alpha-color;
-  width: 80%;
-  max-width: 16rem;
-  margin: ($global-spacing * 2) auto;
+  width: 8rem;
+  margin: ($global-spacing * 2) 0;
 }
 
 /* Prose specific */
@@ -156,7 +167,7 @@ hr, .hr {
 .prose {
   > hr,
   >.hr {
-    margin: ($global-spacing * 3) auto;
+    margin: ($global-spacing * 3) 0;
   }
 }
 
@@ -164,7 +175,7 @@ hr, .hr {
   > hr,
   > .hr {
     @include media(medium-up) {
-      margin: ($global-spacing * 4) auto;
+      margin: ($global-spacing * 4) 0;
     }
   }
 }

@@ -101,7 +101,7 @@
       left: 104%;
       z-index: 1;
       transform: translate(0, -50%);
-      width: 2px;
+      width: $global-spacing / 4;
       height: 50%;
       background: rgba($base-color, 0.08);
       content: '';
