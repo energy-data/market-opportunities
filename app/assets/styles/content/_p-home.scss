@@ -19,12 +19,13 @@
   li {
     display: block;
     position: relative;
-    padding-left: 1.75rem;
+    padding-left: 2rem;
     font-weight: $base-font-bold;
+    margin-bottom: $global-spacing / 4;
 
     &:before {
       position: absolute;
-      top: 0.125rem;
+      top: 0;
       left: 0;
       z-index: 1;
       text-align: center;
@@ -34,9 +35,9 @@
       @extend %collecticon-sm-tick;
       background: $primary-color;
       display: block;
-      width: 1.25rem;
-      height: 1.25rem;
-      line-height: 1.25rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
     }
   }
 }
@@ -47,13 +48,14 @@
   > .features-list {
     @include media(medium-up) {
       li {
-        padding-left: 2rem;
+        padding-left: 2.75rem;
+        margin-bottom: $global-spacing / 2;
         
         &:before {
-          top: 0.25rem;
-          width: 1.5rem;
-          height: 1.5rem;
-          line-height: 1.5rem;
+          top: 0;
+          width: 2rem;
+          height: 2rem;
+          line-height: 2rem;
         }
       }
     }
