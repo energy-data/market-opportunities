@@ -13,7 +13,8 @@ export const baseLayers = [
   },
   { id: 'b', name: 'Satellite', group: 'a', type: 'base' },
   { id: 'c', name: 'OSM', group: 'a', type: 'base' },
-  { id: 'd', name: 'Grid', group: 'a', type: 'base' }
+  { id: 'd', name: 'Grid', group: 'a', type: 'base' },
+  { id: 'mb-road-layers', name: 'Roads', group: 'a', type: 'base' }
 ]
 
 export const countries = [
@@ -59,3 +60,27 @@ export const presetLayerColors = {
   'energy-access-underserved': [9, 116, 158],
   'energy-access-ongrid': [42, 144, 78]
 }
+
+export const roadLayers = [
+  'road-pedestrian-case',
+  'road-street-low',
+  'road-street_limited-low',
+  'road-service-link-track-case',
+  'road-street_limited-case',
+  'road-street-case',
+  'road-main-case',
+  'road-primary-case',
+  'road-motorway_link-case',
+  'road-trunk_link-case',
+  'road-trunk-case',
+  'road-motorway-case',
+  'road-construction',
+  'road-sidewalks',
+  'road-path',
+  'road-steps',
+  'road-trunk_link',
+  'road-motorway_link',
+  'road-pedestrian',
+  'road-service-link-track',
+  'road-street_limited'
+]

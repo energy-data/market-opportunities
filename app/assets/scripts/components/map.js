@@ -6,7 +6,7 @@ import buffer from 'turf-buffer'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
-import { mapStyle, intersectPaint } from '../constants'
+import { mapStyle, intersectPaint, roadLayers } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect } from '../actions'
@@ -85,6 +85,20 @@ export const Map = React.createClass({
     } else if ((newVisibleLayers.length !== oldVisibleLayers.length) &&
       newVisibleLayers.length >= 2) {
       this._updateIntersectedArea(newVisibleLayers)
+    }
+
+    // Toggles basemap roads based on props
+    const oldRoadVisibility = this.props.layers.base.find(baseLayer => {
+      return baseLayer.id === 'mb-road-layers'
+    }).visible
+    const newRoadVisibility = nextProps.layers.base.find(baseLayer => {
+      return baseLayer.id === 'mb-road-layers'
+    }).visible
+
+    if (oldRoadVisibility && !newRoadVisibility) {
+      this._hideRoads()
+    } else if (!oldRoadVisibility && newRoadVisibility) {
+      this._showRoads()
     }
   },
 
@@ -191,6 +205,18 @@ export const Map = React.createClass({
       })
       this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
     }
+  },
+
+  _hideRoads: function () {
+    roadLayers.forEach(roadLayer => {
+      this._map.setLayoutProperty(roadLayer, 'visibility', 'none')
+    })
+  },
+
+  _showRoads: function () {
+    roadLayers.forEach(roadLayer => {
+      this._map.setLayoutProperty(roadLayer, 'visibility', 'visible')
+    })
   }
 })
 /* istanbul ignore next */
