@@ -40,13 +40,13 @@
         line-height: inherit !important;
       }
       &.table__sort--none:after {
-        @extend %oam-ds-icon-sort-none;
+        @extend %collecticon-sort-none;
       }
       &.table__sort--asc:after {
-        @extend %oam-ds-icon-sort-asc;
+        @extend %collecticon-sort-asc;
       }
       &.table__sort--desc:after {
-        @extend %oam-ds-icon-sort-desc;
+        @extend %collecticon-sort-desc;
       }
     }
     a, a:visited, a:hover {

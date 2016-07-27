@@ -61,6 +61,7 @@
 @import "core/animations";
 @import "core/typography";
 @import "core/media";
+@import "core/tables";
 @import "core/utilities";
 
 
@@ -93,9 +94,9 @@
 
 @import "content/p-explore";
 @import "content/p-explore-steps";
-@import "content/p-explore-control-panel";
 @import "content/p-explore-map";
-@import "content/p-explore-results-fold";
+@import "content/p-explore-control-panel";
+@import "content/p-explore-prize-panel";
 
 /* Page: About */
 

@@ -32,8 +32,12 @@
   float: left;
 
   a {
-    display: inline-block;
     color: inherit;
+    vertical-align: top;
+
+    &, * {
+      display: inline-block;
+    }
   }
 
   * {
@@ -56,6 +60,7 @@
   font-size: 0;
   visibility: hidden;
   opacity: 0;
+  display: block !important;
 
   @include media(medium-up) {
     text-transform: uppercase;
@@ -156,7 +161,7 @@
     background-color: $primary-color;
     background-image: url('../graphics/layout/hero-illu-01a.svg');
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: right top;
     background-size: cover;
     color: #fff;
     padding: {

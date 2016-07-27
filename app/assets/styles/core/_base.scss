@@ -123,3 +123,14 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/* Misc
+   ========================================================================== */
+
+/**
+ * Make all browsers render the <main> element correctly.
+ */
+
+main {
+  display: block;
+}

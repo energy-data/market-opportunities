@@ -4,7 +4,7 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 import Map from '../components/map'
 import ControlPanel from '../components/control-panel'
-import ResultsFold from '../components/results-fold'
+import PrizePanel from '../components/prize-panel'
 import MultiStep from '../components/multi-step'
 import Nocando from '../components/nocando'
 import Loading from '../components/loading'
@@ -32,7 +32,7 @@ const Explore = React.createClass({
                   <MultiStep />
                   <ControlPanel getMapReference={this._getMapReference} />
                   <Map onCanvasReady={this._updateMapReference} />
-                  <ResultsFold />
+                  <PrizePanel />
                   <Loading />
                   <Nocando />
                 </div>
