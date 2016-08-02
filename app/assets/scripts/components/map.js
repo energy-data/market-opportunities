@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import union from 'turf-union'
@@ -6,6 +7,7 @@ import buffer from 'turf-buffer'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
+import Popup from './popup'
 import { mapStyle, intersectPaint, roadLayers } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject } from '../utils'
@@ -30,6 +32,7 @@ export const Map = React.createClass({
       preserveDrawingBuffer: true
     })
     this.props.onCanvasReady(map)
+    map.on('click', this._handleMapClick)
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -204,6 +207,28 @@ export const Map = React.createClass({
         return union(a, b)
       })
       this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
+    }
+  },
+
+  _handleMapClick: function (e) {
+    const { editLayer } = this.props
+    if (editLayer) {
+      const mapProperty = editLayer.options.value.property
+      const rendered = this._map.queryRenderedFeatures(e.point, {
+        layers: [`${String(editLayer.id)}-data`]
+      })
+      if (rendered.length) {
+        const containerDivElement = document.createElement('div')
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setDOMContent(containerDivElement)
+          .addTo(this._map)
+
+        ReactDOM.render(<Popup
+          values={rendered.map(r => r.properties[mapProperty])}
+          mapProperty={mapProperty}
+        />, containerDivElement)
+      }
     }
   },
 
