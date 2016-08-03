@@ -159,9 +159,9 @@
   &__header {
     @extend .antialiased;
     background-color: $primary-color;
-    background-image: url('../graphics/layout/hero-illu-01a.svg');
+    background-image: url('../graphics/layout/hero-illu-02a.svg');
     background-repeat: no-repeat;
-    background-position: right top;
+    background-position: right bottom;
     background-size: cover;
     color: #fff;
     padding: {
@@ -210,7 +210,12 @@
   }
 
   &__title {
-    @extend .heading, .heading--xlarge;
+    @include heading(1.5rem, xlarge-up);
+    margin-bottom: $global-spacing * 1.25;
+
+    @include media(medium-up) {
+      margin-bottom: $global-spacing * 1.5;
+    }
   }
 
   &__subtitle {

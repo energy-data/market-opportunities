@@ -8,6 +8,23 @@
   }
 }
 
+.cta-button-explore,
+.cta-button-learn {
+  @extend .button, .button--secondary;
+
+  &::after {
+    @extend %collecticon-sm-chevron-right;
+  }
+}
+
+.cta-button-explore {
+  @extend .button--xlarge;
+}
+
+.cta-button-learn {
+  @extend .button--large;
+}
+
 
 /* Features list
    ========================================================================== */
@@ -23,7 +40,12 @@
     font-weight: $base-font-bold;
     margin-bottom: $global-spacing / 4;
 
-    &:before {
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &::before {
+      @extend %collecticon-sm-tick;
       position: absolute;
       top: 0;
       left: 0;
@@ -32,8 +54,7 @@
       font-size: 1rem;
       color: #fff;
       border-radius: $full-border-radius;
-      @extend %collecticon-sm-tick;
-      background: $primary-color;
+      background: $secondary-color;
       display: block;
       width: 1.5rem;
       height: 1.5rem;
@@ -46,6 +67,11 @@
 
 .prose--responsive {
   > .features-list {
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
     @include media(medium-up) {
       li {
         padding-left: 2.75rem;
@@ -105,7 +131,7 @@
       transform: translate(0, -50%);
       width: $global-spacing / 4;
       height: 50%;
-      background: rgba($base-color, 0.08);
+      background: rgba(#fff, 0.16);
       content: '';
     }
 
@@ -116,5 +142,30 @@
 
   li:last-child .value::before {
     display: none;
+  }
+}
+
+
+/* Showcase fold
+   ========================================================================== */
+
+#showcase-fold {
+  position: relative;
+  overflow: hidden;
+
+  .media-content {
+    @include media(medium-up) {
+      position: absolute;
+      width: 100vw;
+    }
+
+    @include media(large-up) {
+      width: 68vw;
+    }
+
+    @include media(xlarge-up) {
+      transform: translate(0, -$global-spacing * 2);
+      max-width: 52rem;
+    }
   }
 }

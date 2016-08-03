@@ -3,216 +3,60 @@
    ========================================================================== */
 
 .fold {
-  position: relative;
-  overflow: hidden;
-  padding: {
-    top: $global-spacing * 2;
-    right: 0;
-    bottom: $global-spacing * 2;
-    left: 0;
-  }
+  padding: ($global-spacing * 2) 0;
 
   > .inner {
     @extend .row, .row--centered;
-    position: relative;
-    z-index: 1;
+
+    > *:first-child:not(:last-child) {
+      margin-bottom: $global-spacing * 1.5;
+
+      @include media(medium-up) {
+        margin-bottom: 0;
+      }
+    }
   }
 
   @include media(medium-up) {
-    padding: {
-      top: $global-spacing * 3;
-      bottom: $global-spacing * 3;
-    }
+    padding: ($global-spacing * 3) 0;
+  }
+
+  @include media(large-up) {
+    padding: ($global-spacing * 4) 0;
   }
 
   @include media(xlarge-up) {
-    padding: {
-      top: $global-spacing * 4;
-      bottom: $global-spacing * 4;
-    }
+    padding: ($global-spacing * 5) 0;
   }
 }
 
 .fold__header {
-  margin-bottom: 1rem;
+  margin-bottom: $global-spacing * 1.25;
 
-  > *:last-child {
-    margin-bottom: 0;
+  @include media(medium-up) {
+    margin-bottom: $global-spacing * 1.5;
   }
 }
 
 .fold__title {
-  @extend .heading, .heading--medium;
+  @include heading(1.25rem, xlarge-up);
 }
 
-.fold__body {
+.fold__header,
+.fold__body,
+.fold__copy,
+.fold__media {
   > *:last-child {
     margin-bottom: 0;
   }
 }
 
-
-/* Fold media elements
-   ========================================================================== */
-
-.fold__media {
-  position: relative;
-  margin-top: 2rem;
-
-  img {
-    max-height: 32rem;
-  }
-
-  &.fold__media--desktop,
-  &.fold__media--mobile,
-  &.fold__media--overflow {
-    min-height: 12rem;
-
-    img {
-      max-height: none;
-    }
-  }
-
-  @include media(medium-up) {
-    margin-top: 2.5rem;
-    padding-bottom: 99999px;
-    margin-bottom: -99999px;
-  }
-
-  @include media(large-up) {
-    margin-top: 3rem;
-  }
-}
-
-.media-item {
-  text-align: center;
-
-  .media-frame {
-    &:before {
-      z-index: 2;
-    }
-  }
-
-  img {
-    vertical-align: top;
-    position: relative;
-    z-index: 1;
-    max-width: 100%;
-    background: #fff;
-  }
-
-  .fold__media--desktop &,
-  .fold__media--mobile &,
-  .fold__media--overflow & {
-    @include transform(translate(-50%, 0));
-    position: absolute;
-    top: 0;
-    left: 50%;
-    z-index: 1;
-
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
-
-  .fold__media--desktop & {
-    max-width: 64rem;
-    width: 100%;
-  }
-
-  .fold__media--mobile & {
-    max-width: 24rem;
-    width: 80%;
-  }
-
-  .fold__media--overflow & {
-    max-width: 64rem;
-    width: 100%;
-  }
-
-  @include media(medium-up) {
-    .fold__media--desktop & {
-      @include transform(translate(0, 0));
-      width: 200%;
-
-      .fold--copy-left & {
-        left: 0;
-      }
-
-      .fold--copy-right & {
-        left: auto;
-        right: 0;
-      }
-    }
-
-    .fold__media--mobile & {
-      width: 100%;
-
-      .fold--copy-right & {
-        @include transform(translate(50%, 0));
-        left: auto;
-        right: 50%;
-      }
-    }
-
-    .fold__media--overflow & {
-      @include transform(translate(0, 0));
-      width: 200%;
-
-      .fold--copy-left & {
-        left: 0;
-      }
-
-      .fold--copy-right & {
-        left: auto;
-        right: 0;
-      }
-    }
-  }
-
-  @include media(xlarge-up) {
-    .fold__media--desktop & {
-      width: 160%;
-    }
-  }
-}
-
-.fold__media--desktop .media-frame,
-.fold__media--mobile .media-frame {
-  position: relative;
-  background-color: tint($base-color, 88%);
-  background-repeat: no-repeat;
-  box-shadow: 0 8px 16px 8px rgba($base-color, 0.16);
-}
-
-.fold__media--desktop .media-frame {
-  padding: 2rem 0 0.5rem 0;
-  border-radius: $base-border-radius*2 $base-border-radius*2 $base-border-radius $base-border-radius;
-  background-image: svg-desktop-top(rgba($base-color, 0.24));
-  background-position: 0.625rem 0.625rem;
-
-  &:before {
-    margin: 2rem 0 0.5rem 0;
-  }
-}
-
-.fold__media--mobile .media-frame {
-  padding: 6rem 1rem;
-  border-radius: $base-border-radius*16;
-  background-image: svg-mobile-top(rgba($base-color, 0.24)), svg-mobile-bottom(rgba($base-color, 0.24));
-  background-position: center 2.5rem, center calc(100% - 1rem);
-
-  &:before {
-    margin: 6rem 1rem;
-  }
-}
-  
 
 /* Fold layout modifiers
    ========================================================================== */
 
 .fold--copy-center {
+
   .fold__copy,
   .fold__media {
     @include span(12/12);
@@ -251,42 +95,41 @@
 }
 
 .fold--copy-left {
-  @include media(medium-up) {
-    .fold__copy {
-      @include col(6/12);
-      padding: 2rem 0;
-    }
-
-    .fold__media {
-      margin-top: 0;
+  .fold__copy,
+  .fold__media {
+    @include media(medium-up) {
       @include col(6/12);
     }
   }
 
-  @include media(large-up) {
-    .fold__copy {
-      padding: 3rem 0;
+  .fold__copy {
+    @include media(medium-up) {
+      padding-right: $global-spacing;
+    }
+
+    @include media(large-up) {
+      padding-right: $global-spacing * 1.5;
     }
   }
 }
 
 .fold--copy-right {
-  @include media(medium-up) {
-    .fold__copy {
+  .fold__copy {
+    @include media(medium-up) {
       @include col(6/12);
       @include shift(6/12);
-      padding: 2rem 0;
+      padding-left: $global-spacing;
     }
-    .fold__media {
-      margin-top: 0;
-      @include col(6/12);
-      @include shift(-6/12);
+
+    @include media(large-up) {
+      padding-left: $global-spacing * 1.5;
     }
   }
 
-  @include media(large-up) {
-    .fold__copy {
-      padding: 3rem 0;
+  .fold__media {
+    @include media(medium-up) {
+      @include col(6/12);
+      @include shift(-6/12);
     }
   }
 }
@@ -296,16 +139,20 @@
    ========================================================================== */
 
 .fold--base,
-.fold--primary {
+.fold--primary,
+.fold--secondary {
   @extend .antialiased;
   color: #fff;
 }
 
 .fold--base {
   background: tint($base-color, 32%);
-  
 }
 
 .fold--primary {
   background: $primary-color;
+}
+
+.fold--secondary {
+  background: $secondary-color;
 }
