@@ -74,7 +74,7 @@
       },
       {
         "key": "demand-tool-indicator-options",
-        "value": "{ \"values\": [ \"a\", \"b\", \"c\" ] }"
+        "value": "{ \"value\":{  \"property\":\"value\",  \"type\":\"range\",  \"range\":[   0,   1  ],  \"stops\":[   0,   0.2,   0.4,   0.6,   0.8, 1  ],\"format\":\"percentage\" }, \"geometry\":{  \"type\":\"fill\" }}"
       },
       {
         "key": "demand-tool-type",
