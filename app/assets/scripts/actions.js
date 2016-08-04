@@ -23,7 +23,6 @@ export const LOGOUT = 'LOGOUT'
 export const USER_TO_DEFAULT = 'USER_TO_DEFAULT'
 export const UPDATE_STEP = 'UPDATE_STEP'
 export const UPDATE_SELECTED_COUNTRY = 'UPDATE_SELECTED_COUNTRY'
-export const UPDATE_SELECTED_SCENARIO = 'UPDATE_SELECTED_SCENARIO'
 export const UPDATE_LAYER_GEOJSON = 'UPDATE_LAYER_GEOJSON'
 export const SET_MAP_INTERSECT = 'SET_MAP_INTERSECT'
 
@@ -149,14 +148,6 @@ export function updateStep (id) {
 
 export function updateSelectedCountry (country) {
   return { type: UPDATE_SELECTED_COUNTRY, data: country }
-}
-
-/*
- * update the selected scenario
- */
-
-export function updateSelectedScenario (scenario) {
-  return { type: UPDATE_SELECTED_SCENARIO, data: scenario }
 }
 
 /*

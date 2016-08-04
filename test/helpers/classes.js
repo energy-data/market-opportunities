@@ -29,8 +29,7 @@ var classes = {
   'login': '.nav-block',
   'login error': '.account--error',
   'logged in status': '.account-content--postsigned',
-  'logout link': '.signout-link',
-  'scenario': '.options-list__item'
+  'logout link': '.signout-link'
 }
 
 Object.keys(classes).forEach(function (key) {
