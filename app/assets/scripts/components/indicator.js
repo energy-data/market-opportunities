@@ -2,9 +2,10 @@ import React from 'react'
 import url from 'url'
 import Nouislider from 'react-nouislider'
 import c from 'classnames'
-import config from '../config'
 
-import { prettifyString, stopsToNoUiSliderRange } from '../utils'
+import config from '../config'
+import { prettifyString, stopsToNoUiSliderRange, filterSummary, pipFormatter,
+ getLayerColor } from '../utils'
 import CheckboxGroup from './checkbox-group'
 
 const Indicator = React.createClass({
@@ -19,7 +20,7 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, datasetName, description, type, editing, options, filter, visible } = this.props.layer
+    const { id, datasetName, description, editing, options, filter, visible } = this.props.layer
     const license = this.props.layer['license_title']
     const { updateLayerFilter } = this.props
 
@@ -30,7 +31,7 @@ const Indicator = React.createClass({
           range={stopsToNoUiSliderRange(options.value.stops)}
           start={filter.range}
           connect
-          pips={{mode: 'steps', density: 10}}
+          pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
           onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
         /></div></div>
         break
@@ -42,16 +43,23 @@ const Indicator = React.createClass({
           updateLayerFilter={updateLayerFilter}
         />
         break
+      case 'buffer':
+        Editor = <div className='form__group'><div className='form__slider'><Nouislider
+          range={stopsToNoUiSliderRange(options.value.range)}
+          start={[filter.value]}
+          pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
+          onChange={(e) => updateLayerFilter(id, { value: Number(e[0]) })}
+        /></div></div>
     }
 
     return (
       <li className='layer-list__layer-wrapper'>
         <article className={c('layer', {'layer--expanded': editing})}>
           <header className='layer__header'>
-            <span className='layer__legend-color' style={{background: type}}></span>
+            <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
             <div className='layer__headline'>
               <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
-              <p className='layer__summary'>195 km2</p>
+              <p className='layer__summary'>{filterSummary(options, filter)}</p>
             </div>
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>

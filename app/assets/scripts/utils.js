@@ -6,6 +6,8 @@ import { saveAs } from 'file-saver'
 import PDFDocument from 'pdfkit'
 import blobStream from 'blob-stream'
 
+import { presetLayerColors } from './constants'
+
 export function toggleArrayElement (array, el) {
   const tempArray = array.slice(0)
   const index = tempArray.indexOf(el)
@@ -42,6 +44,8 @@ export function indicatorFilterToMapFilter (filterObject, iso) {
         ['in', filterObject.property].concat(filterObject.values),
         ['==', 'iso', iso]
       ]
+    case 'buffer':
+      return ['==', 'iso', iso]
   }
 }
 
@@ -86,43 +90,59 @@ export function stopsToNoUiSliderRange (stops) {
 }
 
 export function createDataPaintObject (layer) {
-  // tocolor outputs as rgba(r, g, b, a)
-  // chroma accepts an array as a constructor
-  const baseColorArray = tocolor(layer.datasetName)
-    .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
-
-  switch (layer.options.geometry.type) {
-    case 'fill':
-      if (layer.options.value.type === 'range') {
-        return {
-          'fill-color': {
-            'property': layer.options.value.property,
-            'stops': layer.options.value.stops.map((stop, i) => {
-              // TODO: maybe have a better color scale
-              return [stop, chroma(baseColorArray).darken(i - 2).hex()]
-            })
-          }
-        }
-      } else if (layer.options.value.type === 'categorical') {
-        return {
-          'fill-color': chroma(baseColorArray).hex()
-        }
+  const baseColor = getLayerColor(layer.datasetName)
+  if (layer.options.value.type === 'range') {
+    return {
+      'fill-color': {
+        'property': layer.options.value.property,
+        'stops': layer.options.value.stops.map((stop, j) => {
+          return [stop, chroma(baseColor).darken(j - 2).hex()]
+        })
       }
-      break
-    default:
-      console.warn('Unsupported layer type given')
+    }
+  } else if (layer.options.value.type === 'categorical' || layer.options.value.type === 'buffer') {
+    return {
+      'fill-color': baseColor
+    }
+  } else {
+    console.warn('Unsupported layer type given')
   }
 }
 
 export function createOutlinePaintObject (layer) {
-  // tocolor outputs as rgba(r, g, b, a)
-  // chroma accepts an array as a constructor
-  const baseColorArray = tocolor(layer.datasetName)
-    .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
-
   return {
-    'line-color': chroma(baseColorArray).hex()
+    'line-color': getLayerColor(layer.datasetName),
+    'line-opacity': 1,
+    'line-dasharray': [4, 2]
   }
+}
+
+export function createTempPaintStyle (layer) {
+  switch (layer.options.geometry.type) {
+    case 'line':
+      return {
+        'line-color': getLayerColor(layer.datasetName),
+        'line-opacity': 1
+      }
+    case 'circle':
+      return {
+        'circle-color': getLayerColor(layer.datasetName),
+        'circle-opacity': 1
+      }
+    default:
+      console.warn(`Not a valid geometry type: ${layer.options.geometry.type}`)
+  }
+}
+
+export function getLayerColor (datasetName) {
+  let returnColor
+  if (presetLayerColors.hasOwnProperty(datasetName)) {
+    returnColor = presetLayerColors[datasetName]
+  } else {
+    returnColor = tocolor(datasetName)
+      .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
+  }
+  return chroma(returnColor).hex()
 }
 
 export function intersectLayers (layers) {
@@ -172,4 +192,33 @@ export function downloadMapPDF (map) {
   stream.on('finish', () => {
     saveAs(stream.toBlob('application/pdf'), 'intersect.pdf')
   })
+}
+
+export function filterSummary (options, filter) {
+  const formatter = (options.value.format === 'percentage')
+  ? a => `${a * 100}%`
+  : a => numberWithCommas(a.toFixed(0))
+  switch (options.value.type) {
+    case 'range':
+      return filter.range.map(formatter).join(' - ')
+    case 'categorical':
+      return filter.values.join(', ')
+    case 'buffer':
+      return `${formatter(filter.value)} km buffer`
+    default:
+      console.warn('Unsupported filter type')
+      return null
+  }
+}
+
+// nouislider requires formatters as objects with to and from methods
+// http://refreshless.com/nouislider/slider-read-write/#section-formatting
+export function pipFormatter (format) {
+  return (format === 'percentage')
+  ? { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
+  : { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
+}
+
+export function numberWithCommas (number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }

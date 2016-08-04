@@ -5,18 +5,62 @@
 #map {
   position: absolute;
   z-index: 1;
-  height: calc(100% - 10rem);
+  height: 100%;
   width: 100%;
+}
 
-  .temp-map-hover {
-    position: absolute;
-    left: 50%;
-    top: 20px;
-    z-index: 60;
+
+/* Mapbox map (overrides)
+   ========================================================================== */
+
+/* Global */
+
+.mapboxgl-map {
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: inherit;
+}
+
+/* Atrribution */
+
+.mapboxgl-ctrl-attrib {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: tint($base-color, 32%);
+
+  a, a:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+/* Popup */
+
+.mapboxgl-popup-content {
+  box-shadow: 0 8px 16px 8px rgba($primary-color, 0.24);
+  border-radius: $base-border-radius;
+  padding: $global-spacing ($global-spacing * 2.5) $global-spacing $global-spacing;
+
+  > *:last-child,
+  > div *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.mapboxgl-popup-close-button {
+  @extend .button, .button--small, .button--base-unbounded, .button--text-hidden;
+  font-size: 0;
+  opacity: 0.48;
+  top: ($global-spacing / 4);
+  right: ($global-spacing / 4);
+
+  &:hover {
+    opacity: 1;
   }
 
-  @include media(large-up) {
-    height: 100%;
-    width: calc(100% - 18rem);
+  &::before {
+    font-size: 1rem;
+    @extend %collecticon-sm-xmark;
   }
 }

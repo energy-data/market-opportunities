@@ -2,10 +2,12 @@ import url from 'url'
 import qs from 'querystring'
 import queue from 'queue-async'
 import defaultsDeep from 'lodash.defaultsdeep'
+
 import { startFetchingLayers, errorFetchingLayers, setLayers } from './actions'
 import { getJSON } from './ajax'
 import { APIBaseURL, dataHubOrganization } from './config'
 import { pick } from './utils'
+import { layerValidator, prettyValidatorErrors } from './layer-validation'
 
 const metadataKeys = [
   'name',
@@ -42,6 +44,12 @@ function fetchLayersThunk (dispatch, getState) {
 
       try {
         indicator.options = JSON.parse(tags.find(kv => kv.key === 'demand-tool-indicator-options').value)
+        const validationErrors = layerValidator(indicator.options)
+        if (validationErrors.length) {
+          console.warn(prettyValidatorErrors(validationErrors[0]))
+          console.warn('Could not parse options for indicator ' + indicator.name, resource)
+          return null
+        }
       } catch (e) {
         console.warn('Could not parse options for indicator ' + indicator.name, resource)
         return null

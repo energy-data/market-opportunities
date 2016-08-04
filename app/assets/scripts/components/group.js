@@ -23,7 +23,6 @@ const Group = React.createClass({
       <section className={c('layer-group', {'layer-group--expanded': open})}>
         <header className='layer-group__header'>
           <a onClick={this._toggleOpenGroup} href='#' title='Expand/collapse group' className='layer-group__toggle'>
-            <span className='layer-group__motif'><i className='collecticon-user'></i></span>
             <h1 className='layer-group__title'>{name}</h1>
           </a>
         </header>

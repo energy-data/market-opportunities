@@ -33,6 +33,7 @@ html {
 }
 
 body {
+  background: #fff;
   color: $base-font-color;
   font-size: $base-font-size;
   line-height: $base-line-height;
@@ -74,10 +75,12 @@ a:active {
   @extend .clearfix;
   padding-left: $global-spacing;
   padding-right: $global-spacing;
+
   @include media(xlarge-up) {
     padding-left: $global-spacing * 2;
     padding-right: $global-spacing * 2;
   }
+  
   &--centered {
     max-width: $row-max-width;
     margin-left: auto;
@@ -121,11 +124,13 @@ table {
   border-spacing: 0;
 }
 
+/* Misc
+   ========================================================================== */
 
-#site-canvas {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  overflow: hidden;
+/**
+ * Make all browsers render the <main> element correctly.
+ */
+
+main {
+  display: block;
 }

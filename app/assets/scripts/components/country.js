@@ -22,9 +22,9 @@ const Country = React.createClass({
     '/static/' +
     `${center[0]},${center[1]},4,0,0/768x384?access_token=${token}&logo=false&attribution=false`
     return (
-      <li className='options-list__item' onClick={this._updateSelectedCountry}>
+      <li className='options-list__item'>
         <article className={c('card', 'card--country', {'card--active': selected})}>
-          <a href='#' className='card__contents' title='Select option'>
+          <a href='#' className='card__contents' title='Select option' onClick={this._updateSelectedCountry}>
             <figure className='card__media'>
               <div className='card__thumbnail'>
                 <img alt='Card thumb' width='768' height='384' src={mapSrc} />
@@ -50,8 +50,8 @@ const Country = React.createClass({
     )
   },
 
-  _updateSelectedCountry: function () {
-    this.props.updateSelectedCountry(this.props.info.name)
+  _updateSelectedCountry: function (e) {
+    this.props.updateSelectedCountry(e, this.props.info.name)
   }
 })
 

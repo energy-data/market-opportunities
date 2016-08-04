@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Page: Home
+   ========================================================================== */
+
+.page--home {
+  .layout__body {
+    padding: 0;
+  }
+}
+
+.cta-button-explore,
+.cta-button-learn {
+  @extend .button, .button--secondary;
+
+  &::after {
+    @extend %collecticon-sm-chevron-right;
+  }
+}
+
+.cta-button-explore {
+  @extend .button--xlarge;
+}
+
+.cta-button-learn {
+  @extend .button--large;
+}
+
+
+/* Features list
+   ========================================================================== */
+
+.features-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    font-weight: $base-font-bold;
+    margin-bottom: $global-spacing / 4;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &::before {
+      @extend %collecticon-sm-tick;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      text-align: center;
+      font-size: 1rem;
+      color: #fff;
+      border-radius: $full-border-radius;
+      background: $secondary-color;
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+    }
+  }
+}
+
+/* Prose specific */
+
+.prose--responsive {
+  > .features-list {
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+
+    @include media(medium-up) {
+      li {
+        padding-left: 2.75rem;
+        margin-bottom: $global-spacing / 2;
+        
+        &:before {
+          top: 0;
+          width: 2rem;
+          height: 2rem;
+          line-height: 2rem;
+        }
+      }
+    }
+  }
+}
+
+
+/* Stats list
+   ========================================================================== */
+
+.stats-list {
+  @extend .clearfix;
+  list-style: none;
+  padding: 0;
+
+  li {
+    @include col(4/12);
+    position: relative;
+  }
+
+  .term,
+  .value {
+    display: block;
+  }
+
+  .term {
+    font-size: 0.75rem;
+    line-height: 1;
+    opacity: 0.8;
+    text-transform: uppercase;
+
+    @include media(medium-up) {
+      font-size: 0.875rem;
+    }
+  }
+
+  .value {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: $global-spacing / 4;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 104%;
+      z-index: 1;
+      transform: translate(0, -50%);
+      width: $global-spacing / 4;
+      height: 50%;
+      background: rgba(#fff, 0.16);
+      content: '';
+    }
+
+    @include media(medium-up) {
+      font-size: 3rem;
+    }
+  }
+
+  li:last-child .value::before {
+    display: none;
+  }
+}
+
+
+/* Showcase fold
+   ========================================================================== */
+
+#showcase-fold {
+  position: relative;
+  overflow: hidden;
+
+  .media-content {
+    @include media(medium-up) {
+      position: absolute;
+      width: 100vw;
+    }
+
+    @include media(large-up) {
+      width: 68vw;
+    }
+
+    @include media(xlarge-up) {
+      transform: translate(0, -$global-spacing * 2);
+      max-width: 52rem;
+    }
+  }
+}

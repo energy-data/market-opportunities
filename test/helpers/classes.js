@@ -25,12 +25,11 @@ var classes = {
   'panel toggle': '.layers-menu a',
   'panel title': '.panel__title',
   'panel subtitle': '.panel__subtitle',
-  'results fold': '.fold',
+  'prize panel': '.panel',
   'login': '.nav-block',
   'login error': '.account--error',
   'logged in status': '.account-content--postsigned',
-  'logout link': '.signout-link',
-  'scenario': '.options-list__item'
+  'logout link': '.signout-link'
 }
 
 Object.keys(classes).forEach(function (key) {

@@ -56,11 +56,12 @@
    ========================================================================== */
 
 @import "core/base";
+@import "core/webfont-montserrat"; // Webfont: Monteserrat
 @import "core/collecticons"; // Webfont icon library: Collecticons
 @import "core/animations";
 @import "core/typography";
 @import "core/media";
-@import "core/animations";
+@import "core/tables";
 @import "core/utilities";
 
 
@@ -74,6 +75,7 @@
 @import "components/cards";
 @import "components/alerts";
 @import "components/modals";
+@import "components/folds";
 @import "components/assorted";
 
 
@@ -83,12 +85,22 @@
 @import "content/structure";
 @import "content/s-page-prime-nav";
 
+/* Page: Home */
+
+@import "content/p-home";
+
+
 /* Page: Explore */
 
+@import "content/p-explore";
 @import "content/p-explore-steps";
-@import "content/p-explore-control-panel";
 @import "content/p-explore-map";
-@import "content/p-explore-results-fold";
+@import "content/p-explore-control-panel";
+@import "content/p-explore-prize-panel";
+
+/* Page: About */
+
+@import "content/p-about";
 
 
 /* Third-party (cont.)

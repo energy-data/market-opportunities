@@ -1,0 +1,158 @@
+/* ==========================================================================
+   Folds
+   ========================================================================== */
+
+.fold {
+  padding: ($global-spacing * 2) 0;
+
+  > .inner {
+    @extend .row, .row--centered;
+
+    > *:first-child:not(:last-child) {
+      margin-bottom: $global-spacing * 1.5;
+
+      @include media(medium-up) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @include media(medium-up) {
+    padding: ($global-spacing * 3) 0;
+  }
+
+  @include media(large-up) {
+    padding: ($global-spacing * 4) 0;
+  }
+
+  @include media(xlarge-up) {
+    padding: ($global-spacing * 5) 0;
+  }
+}
+
+.fold__header {
+  margin-bottom: $global-spacing * 1.25;
+
+  @include media(medium-up) {
+    margin-bottom: $global-spacing * 1.5;
+  }
+}
+
+.fold__title {
+  @include heading(1.25rem, xlarge-up);
+}
+
+.fold__header,
+.fold__body,
+.fold__copy,
+.fold__media {
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+/* Fold layout modifiers
+   ========================================================================== */
+
+.fold--copy-center {
+
+  .fold__copy,
+  .fold__media {
+    @include span(12/12);
+    text-align: center !important;
+  }
+
+  @include media(medium-up) {
+    .fold__copy {
+      @include span(10/12, $offset: 1/12);
+    }
+
+    .fold__media {
+      @include span(10/12, $offset: 1/12);
+    }
+  }
+
+  @include media(large-up) {
+    .fold__copy {
+      @include span(9/12, $offset: 1.5/12);
+    }
+
+    .fold__media {
+      @include span(9/12, $offset: 1.5/12);
+    }
+  }
+
+  @include media(xlarge-up) {
+    .fold__copy {
+      @include span(8/12, $offset: 2/12);
+    }
+
+    .fold__media {
+      @include span(8/12, $offset: 2/12);
+    } 
+  }
+}
+
+.fold--copy-left {
+  .fold__copy,
+  .fold__media {
+    @include media(medium-up) {
+      @include col(6/12);
+    }
+  }
+
+  .fold__copy {
+    @include media(medium-up) {
+      padding-right: $global-spacing;
+    }
+
+    @include media(large-up) {
+      padding-right: $global-spacing * 1.5;
+    }
+  }
+}
+
+.fold--copy-right {
+  .fold__copy {
+    @include media(medium-up) {
+      @include col(6/12);
+      @include shift(6/12);
+      padding-left: $global-spacing;
+    }
+
+    @include media(large-up) {
+      padding-left: $global-spacing * 1.5;
+    }
+  }
+
+  .fold__media {
+    @include media(medium-up) {
+      @include col(6/12);
+      @include shift(-6/12);
+    }
+  }
+}
+
+
+/* Fold color modifiers
+   ========================================================================== */
+
+.fold--base,
+.fold--primary,
+.fold--secondary {
+  @extend .antialiased;
+  color: #fff;
+}
+
+.fold--base {
+  background: tint($base-color, 32%);
+}
+
+.fold--primary {
+  background: $primary-color;
+}
+
+.fold--secondary {
+  background: $secondary-color;
+}
