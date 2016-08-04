@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import fc from 'turf-featurecollection'
 import union from 'turf-union'
 import buffer from 'turf-buffer'
 import mapboxgl from 'mapbox-gl'
@@ -10,7 +11,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0td
 import Popup from './popup'
 import { mapStyle, intersectPaint, roadLayers } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
-  createDataPaintObject, createOutlinePaintObject } from '../utils'
+  createDataPaintObject, createOutlinePaintObject, createTempPaintStyle } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect } from '../actions'
 import { countryBounds } from '../../data/bounds'
 
@@ -57,12 +58,11 @@ export const Map = React.createClass({
     }
 
     // if we have an editing layer, make updates for new filter options
-    if (nextProps.editLayer) {
+    if (this.props.editLayer && nextProps.editLayer) {
       const oldFilter = this.props.editLayer && this.props.editLayer.filter
       const newFilter = nextProps.editLayer && nextProps.editLayer.filter
       if (!_.isEqual(oldFilter, newFilter) && newFilter) {
-        this._map.setFilter(`${String(nextProps.editLayer.id)}-data`,
-          indicatorFilterToMapFilter(nextProps.editLayer.filter, nextProps.iso))
+        this._updateMapFilter(nextProps)
       }
     }
 
@@ -132,20 +132,63 @@ export const Map = React.createClass({
   },
 
   _addLayerData: function (layer) {
-    this._map.addSource(`${String(layer.id)}-data`, {
-      type: 'vector',
-      url: layer.tilejson
-    })
-    this._map.addLayer({
-      'id': `${String(layer.id)}-data`,
-      'type': 'fill',
-      'source': `${String(layer.id)}-data`,
-      'source-layer': 'data_layer',
-      'interactive': true,
-      'maxzoom': 18,
-      'paint': createDataPaintObject(layer),
-      'filter': indicatorFilterToMapFilter(layer.filter, this.props.iso)
-    }, 'waterway-label')
+    if (layer.options.geometry.type === 'fill') {
+      this._map.addSource(`${String(layer.id)}-data`, {
+        type: 'vector',
+        url: layer.tilejson
+      })
+      this._map.addLayer({
+        'id': `${String(layer.id)}-data`,
+        'type': 'fill',
+        'source': `${String(layer.id)}-data`,
+        'source-layer': 'data_layer',
+        'interactive': true,
+        'maxzoom': 18,
+        'paint': createDataPaintObject(layer),
+        'filter': indicatorFilterToMapFilter(layer.filter, this.props.iso)
+      }, 'waterway-label')
+    } else {
+      const sourceName = `${String(layer.id)}-source`
+      // for non fill layers we add the source and construct the data
+      this._map.addSource(sourceName, {
+        type: 'vector',
+        url: layer.tilejson
+      })
+      // listen for the source being loaded, then calculate the data layer
+      this._map.on('render', () => {
+        if (this._map.getSource(sourceName).loaded()) {
+          this._map.off('render')
+          const features = this._map.querySourceFeatures(sourceName, {
+            sourceLayer: 'data_layer',
+            filter: indicatorFilterToMapFilter(layer.filter, this.props.iso)
+          })
+          const buffered = buffer(fc(features), layer.filter.value.toFixed(0), 'kilometers')
+          this._map.addSource(`${String(layer.id)}-data`, {
+            type: 'geojson',
+            data: buffered
+          })
+          this._map.addLayer({
+            'id': `${String(layer.id)}-data`,
+            'type': 'fill',
+            'source': `${String(layer.id)}-data`,
+            'interactive': true,
+            'maxzoom': 18,
+            'paint': createDataPaintObject(layer)
+          }, 'waterway-label')
+        }
+      })
+      // force source loading with temp layer
+      this._map.addLayer({
+        'id': 'temp',
+        'type': layer.options.geometry.type,
+        'source': sourceName,
+        'source-layer': 'data_layer',
+        'interactive': true,
+        'maxzoom': 18,
+        'paint': createTempPaintStyle(layer),
+        'filter': indicatorFilterToMapFilter(layer.filter, this.props.iso)
+      }, 'waterway-label')
+    }
   },
 
   _removeLayerData: function (layer) {
@@ -156,6 +199,10 @@ export const Map = React.createClass({
     if (map.getSource(`${String(layer.id)}-data`)) {
       map.removeSource(`${String(layer.id)}-data`)
       map.removeLayer(`${String(layer.id)}-data`)
+    }
+    if (map.getSource(`${String(layer.id)}-source`)) {
+      map.removeLayer('temp')
+      map.removeSource(`${String(layer.id)}-source`)
     }
   },
 
@@ -196,10 +243,12 @@ export const Map = React.createClass({
   _createLayerGeoJSON: function (layer) {
     // query all source features matching the current filters and merge
     // them into a single feature
-    const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, {
-      sourceLayer: 'data_layer',
-      filter: indicatorFilterToMapFilter(layer.filter, this.props.iso)
-    })
+    // circle and line layers already have the filters applied to the data layer
+    // (and no source layer since it is a geojson layer)
+    const queryOptions = (layer.options.geometry.type === 'fill')
+    ? { sourceLayer: 'data_layer', filter: indicatorFilterToMapFilter(layer.filter, this.props.iso) }
+    : {}
+    const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, queryOptions)
     if (features.length) {
       const geo = features.map(a => {
         return buffer(a, 0)
@@ -242,6 +291,20 @@ export const Map = React.createClass({
     roadLayers.forEach(roadLayer => {
       this._map.setLayoutProperty(roadLayer, 'visibility', 'visible')
     })
+  },
+
+  _updateMapFilter: function (props) {
+    if (props.editLayer.options.geometry.type === 'fill') {
+      this._map.setFilter(`${String(props.editLayer.id)}-data`,
+        indicatorFilterToMapFilter(props.editLayer.filter, props.iso))
+    } else {
+      const features = this._map.querySourceFeatures(`${String(props.editLayer.id)}-source`, {
+        sourceLayer: 'data_layer',
+        filter: indicatorFilterToMapFilter(props.editLayer.filter, this.props.iso)
+      })
+      const buffered = buffer(fc(features), props.editLayer.filter.value.toFixed(0), 'kilometers')
+      this._map.getSource(`${String(props.editLayer.id)}-data`).setData(buffered)
+    }
   }
 })
 /* istanbul ignore next */

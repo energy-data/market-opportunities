@@ -43,6 +43,13 @@ const Indicator = React.createClass({
           updateLayerFilter={updateLayerFilter}
         />
         break
+      case 'buffer':
+        Editor = <div className='form__group'><div className='form__slider'><Nouislider
+          range={stopsToNoUiSliderRange(options.value.range)}
+          start={[filter.value]}
+          pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
+          onChange={(e) => updateLayerFilter(id, { value: Number(e[0]) })}
+        /></div></div>
     }
 
     return (

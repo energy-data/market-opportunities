@@ -135,7 +135,7 @@ module.exports = {
       'type': 'indicator',
       'group': 'Resource Potential'
     },
-    { id: '3', name: 'Lorem ipsum', group: 'Socioeconomics', type: 'green', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] }, visible: true },
+    { id: '3', name: 'Lorem ipsum', group: 'Socioeconomics', type: 'green', options: { value: { type: 'not a real type', values: ['a', 'b', 'c'] }, geometry: { type: 'not a real type' } }, filter: { type: 'not a real type', values: ['a', 'b', 'c'] }, visible: true },
     { id: '4', name: 'Sit amet', group: 'Socioeconomics', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
     { id: '5', name: 'Yet Another Indicator', group: 'Financing & Payments', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } },
     { id: '6', name: 'Yet Another Indicator', group: 'Resouce Potential', type: 'yellow', options: { values: ['a', 'b', 'c'] }, filter: { values: ['a', 'b', 'c'] } }

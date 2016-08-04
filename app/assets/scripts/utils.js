@@ -44,6 +44,8 @@ export function indicatorFilterToMapFilter (filterObject, iso) {
         ['in', filterObject.property].concat(filterObject.values),
         ['==', 'iso', iso]
       ]
+    case 'buffer':
+      return ['==', 'iso', iso]
   }
 }
 
@@ -89,26 +91,21 @@ export function stopsToNoUiSliderRange (stops) {
 
 export function createDataPaintObject (layer) {
   const baseColor = getLayerColor(layer.datasetName)
-
-  switch (layer.options.geometry.type) {
-    case 'fill':
-      if (layer.options.value.type === 'range') {
-        return {
-          'fill-color': {
-            'property': layer.options.value.property,
-            'stops': layer.options.value.stops.map((stop, j) => {
-              return [stop, chroma(baseColor).darken(j - 2).hex()]
-            })
-          }
-        }
-      } else if (layer.options.value.type === 'categorical') {
-        return {
-          'fill-color': baseColor
-        }
+  if (layer.options.value.type === 'range') {
+    return {
+      'fill-color': {
+        'property': layer.options.value.property,
+        'stops': layer.options.value.stops.map((stop, j) => {
+          return [stop, chroma(baseColor).darken(j - 2).hex()]
+        })
       }
-      break
-    default:
-      console.warn('Unsupported layer type given')
+    }
+  } else if (layer.options.value.type === 'categorical' || layer.options.value.type === 'buffer') {
+    return {
+      'fill-color': baseColor
+    }
+  } else {
+    console.warn('Unsupported layer type given')
   }
 }
 
@@ -117,6 +114,23 @@ export function createOutlinePaintObject (layer) {
     'line-color': getLayerColor(layer.datasetName),
     'line-opacity': 1,
     'line-dasharray': [4, 2]
+  }
+}
+
+export function createTempPaintStyle (layer) {
+  switch (layer.options.geometry.type) {
+    case 'line':
+      return {
+        'line-color': getLayerColor(layer.datasetName),
+        'line-opacity': 1
+      }
+    case 'circle':
+      return {
+        'circle-color': getLayerColor(layer.datasetName),
+        'circle-opacity': 1
+      }
+    default:
+      console.warn(`Not a valid geometry type: ${layer.options.geometry.type}`)
   }
 }
 
@@ -189,6 +203,8 @@ export function filterSummary (options, filter) {
       return filter.range.map(formatter).join(' - ')
     case 'categorical':
       return filter.values.join(', ')
+    case 'buffer':
+      return `${formatter(filter.value)} km buffer`
     default:
       console.warn('Unsupported filter type')
       return null

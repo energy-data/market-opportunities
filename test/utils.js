@@ -85,7 +85,7 @@ test('createDataPaintObject', t => {
     'fill-color': '#ffffee'
   })
 
-  const badLayer = mockLayers[2]
+  const badLayer = mockLayers[3]
   t.falsy(utils.createDataPaintObject(badLayer))
 })
 
