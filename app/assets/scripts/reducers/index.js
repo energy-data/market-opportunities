@@ -15,6 +15,8 @@ export const reducers = {
   selection
 }
 
+// ie polyfill
+require('core-js/es6')
 export default combineReducers(Object.assign({}, reducers, {
   routing: routerReducer
 }))
