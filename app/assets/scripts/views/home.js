@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import Header from '../components/header'
 import Footer from '../components/footer'
+import config from '../config'
 
 const Home = React.createClass({
 
@@ -45,7 +46,7 @@ const Home = React.createClass({
                     <div className='fold__media'>
                       <figure className='media-content'>
                         <div className='media-item media-item--browser'>
-                          <img src='/assets/graphics/content/tool-screenshot-ogmo.jpg' alt='Fold image' width='1920' height='960' />
+                          <img src={`${config.basePath}assets/graphics/content/tool-screenshot-ogmo.jpg`} alt='Fold image' width='1920' height='960' />
                         </div>
                       </figure>
                     </div>

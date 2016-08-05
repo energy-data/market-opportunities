@@ -46,7 +46,7 @@ const history = syncHistoryWithStore(hashHistory, store)
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history} render={applyRouterMiddleware(useScroll())}>
-      <Route path={config.basePath} component={App}>
+      <Route path='/' component={App}>
         <Route path='explore' component={Explore} />
         <Route path='about' component={About} />
         <IndexRoute component={Home} />
