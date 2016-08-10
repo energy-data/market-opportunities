@@ -123,7 +123,7 @@ export const MultiStep = React.createClass({
   },
 
   _updateSelectedCountryFromDropdown: function (e) {
-    this._updateSelectedCountry(e.target.value)
+    this._updateSelectedCountry(e, e.target.value)
   }
 })
 
