@@ -99,6 +99,11 @@
 
   th, td  {
     padding: ($global-spacing / 2) ($global-spacing / 4);
+    text-align: right;
+  }
+
+  tbody td {
+    text-align: right;
   }
 
   th:first-child,

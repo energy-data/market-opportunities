@@ -8,7 +8,13 @@ const PanelFooter = React.createClass({
 
   propTypes: {
     geojson: React.PropTypes.object,
-    getMapReference: React.PropTypes.func
+    getMapReference: React.PropTypes.func,
+    population: React.PropTypes.number,
+    tier1pop: React.PropTypes.number,
+    tier2pop: React.PropTypes.number,
+    tier1price: React.PropTypes.number,
+    tier2price: React.PropTypes.number,
+    country: React.PropTypes.string
   },
 
   render: function () {
@@ -48,7 +54,7 @@ const PanelFooter = React.createClass({
 
   _exportAsPDF: function (e) {
     e.preventDefault()
-    downloadMapPDF(this.props.getMapReference())
+    downloadMapPDF(this.props)
   }
 })
 

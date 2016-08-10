@@ -50,7 +50,16 @@ export const ControlPanel = React.createClass({
           openSelection={this._openSelection}
         />
         { PanelLayerList }
-        <PanelFooter geojson={layers.intersect} getMapReference={getMapReference}/>
+        <PanelFooter
+          geojson={layers.intersect}
+          getMapReference={getMapReference}
+          population={this.props.layers.population}
+          tier1pop={this.props.layers.tier1pop}
+          tier2pop={this.props.layers.tier2pop}
+          tier1price={this.props.layers.tier1price}
+          tier2price={this.props.layers.tier2price}
+          country={this.props.selection.country}
+        />
       </section>
     )
   },

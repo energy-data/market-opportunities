@@ -5,6 +5,9 @@ import _ from 'lodash'
 import fc from 'turf-featurecollection'
 import union from 'turf-union'
 import buffer from 'turf-buffer'
+import intersect from 'turf-intersect'
+import area from 'turf-area'
+import flatten from 'geojson-flatten'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
@@ -12,7 +15,7 @@ import Popup from './popup'
 import { mapStyle, intersectPaint, roadLayers } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject, createTempPaintStyle } from '../utils'
-import { updateLayerGeoJSON, setMapIntersect } from '../actions'
+import { updateLayerGeoJSON, setMapIntersect, setPopulation } from '../actions'
 import { countryBounds } from '../../data/bounds'
 
 export const Map = React.createClass({
@@ -34,6 +37,24 @@ export const Map = React.createClass({
     })
     this.props.onCanvasReady(map)
     map.on('click', this._handleMapClick)
+    // always keep population data handy
+    map.on('load', () => {
+      map.addSource('pop', {
+        type: 'vector',
+        url: 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/fe064e97-938e-4235-b670-1b8409d8f553-e03e65e2-6c26-4970-84ae-66da7882e372/data.tilejson'
+      })
+      this._map.addLayer({
+        'id': 'hidden-pop',
+        'type': 'fill',
+        'source': 'pop',
+        'source-layer': 'data_layer',
+        'interactive': true,
+        'maxzoom': 18,
+        'paint': {
+          'fill-opacity': 0.01
+        }
+      }, 'landuse')
+    })
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -102,6 +123,11 @@ export const Map = React.createClass({
       this._hideRoads()
     } else if (!oldRoadVisibility && newRoadVisibility) {
       this._showRoads()
+    }
+
+    // if we have a new intersected area, let's calculate the intersected population
+    if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect)) {
+      this._calculateIntersectedPopulation(nextProps)
     }
   },
 
@@ -298,13 +324,61 @@ export const Map = React.createClass({
       this._map.setFilter(`${String(props.editLayer.id)}-data`,
         indicatorFilterToMapFilter(props.editLayer.filter, props.iso))
     } else {
-      const features = this._map.querySourceFeatures(`${String(props.editLayer.id)}-source`, {
-        sourceLayer: 'data_layer',
-        filter: indicatorFilterToMapFilter(props.editLayer.filter, this.props.iso)
-      })
-      const buffered = buffer(fc(features), props.editLayer.filter.value.toFixed(0), 'kilometers')
-      this._map.getSource(`${String(props.editLayer.id)}-data`).setData(buffered)
+      const sourceName = `${String(props.editLayer.id)}-source`
+      if (this._map.getSource(sourceName).loaded()) {
+        this._map.off('render')
+        const features = this._map.querySourceFeatures(sourceName, {
+          sourceLayer: 'data_layer',
+          filter: indicatorFilterToMapFilter(props.editLayer.filter, this.props.iso)
+        })
+        const buffered = buffer(fc(features), props.editLayer.filter.value.toFixed(0), 'kilometers')
+        this._map.getSource(`${String(props.editLayer.id)}-data`).setData(buffered)
+      } else {
+        this._map.on('render', () => {
+          this._updateMapFilter(props)
+        })
+      }
     }
+  },
+
+  _calculateIntersectedPopulation: function (props) {
+    const popFeatures = this._map.querySourceFeatures('pop', {
+      sourceLayer: 'data_layer',
+      filter: ['==', 'iso', props.iso]
+    })
+    let flattenedFeatures = []
+    popFeatures.filter(a => a.geometry.type === 'MultiPolygon').forEach(multi => {
+      const flattened = flatten(multi)
+      flattenedFeatures = flattenedFeatures.concat(flattened)
+    })
+    const population = popFeatures
+    // TODO: remove this filtering and flatten multipolygons in the data
+      .filter(a => a.geometry.type === 'Polygon')
+      .concat(flattenedFeatures)
+      .reduce((a, b) => {
+        const subPopulation = props.layers.intersect.geometry.coordinates.reduce((c, d) => {
+          let dFeature = {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              coordinates: d,
+              type: 'Polygon'
+            }
+          }
+          let clip = intersect(dFeature, {
+            type: 'Feature',
+            properties: {},
+            geometry: b.geometry
+          })
+          if (clip) {
+            return c + area(clip) / area(dFeature) * b.properties.total
+          } else {
+            return c
+          }
+        }, 0)
+        return a + subPopulation
+      }, 0)
+    this.props.dispatch(setPopulation(population))
   }
 })
 /* istanbul ignore next */
