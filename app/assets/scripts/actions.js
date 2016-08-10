@@ -25,6 +25,9 @@ export const UPDATE_STEP = 'UPDATE_STEP'
 export const UPDATE_SELECTED_COUNTRY = 'UPDATE_SELECTED_COUNTRY'
 export const UPDATE_LAYER_GEOJSON = 'UPDATE_LAYER_GEOJSON'
 export const SET_MAP_INTERSECT = 'SET_MAP_INTERSECT'
+export const SET_POPULATION = 'SET_POPULATION'
+export const SET_TIER_1_PRICE = 'SET_TIER_1_PRICE'
+export const SET_TIER_2_PRICE = 'SET_TIER_2_PRICE'
 
 /*
  * bare action creators
@@ -164,4 +167,24 @@ export function updateLayerGeoJSON (id, geojson) {
 
 export function setMapIntersect (geo) {
   return { type: SET_MAP_INTERSECT, data: geo }
+}
+
+/*
+ * set the popuation of the intersected region
+ */
+
+export function setPopulation (pop) {
+  return { type: SET_POPULATION, data: pop }
+}
+
+/*
+ * set prices for different population tiers
+ */
+
+export function setTier1Price (price) {
+  return { type: SET_TIER_1_PRICE, data: price }
+}
+
+export function setTier2Price (price) {
+  return { type: SET_TIER_2_PRICE, data: price }
 }

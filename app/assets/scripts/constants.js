@@ -57,8 +57,10 @@ export const intersectPaint = {
 // turqoise '#4fc3ac' (79, 195, 172)
 
 export const presetLayerColors = {
-  'energy-access-underserved': [9, 116, 158],
-  'energy-access-ongrid': [42, 144, 78]
+  'healthcare-facilities': [9, 116, 158],
+  'energy-access-ongrid': [42, 144, 78],
+  'mining-locations-in-ssa': [34, 68, 200],
+  'population-density': [200, 68, 34]
 }
 
 export const roadLayers = [

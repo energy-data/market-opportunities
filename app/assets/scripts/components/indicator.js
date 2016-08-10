@@ -31,6 +31,7 @@ const Indicator = React.createClass({
           range={stopsToNoUiSliderRange(options.value.stops)}
           start={filter.range}
           connect
+          snap
           pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
           onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
         /></div></div>
@@ -63,14 +64,14 @@ const Indicator = React.createClass({
             </div>
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>
-              <label for='form-custom-switch-1a' className='form__option form__option--switch' title='Toggle layer on/off'>
+              <label htmlFor={`form-custom-switch-${id}`} className='form__option form__option--switch' title='Toggle layer on/off'>
                 <input
                   onChange={this._handleOnOff}
                   checked={visible || editing}
                   type='checkbox'
                   name='form-custom-checkbox'
-                  name='form-custom-switch-1a'
-                  id='form-custom-switch-1a'
+                  name={`form-custom-switch-${id}`}
+                  id={`form-custom-switch-${id}`}
                 />
                 <span className='form__option__text'>On/off</span>
                 <span className='form__option__ui'></span>

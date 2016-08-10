@@ -52,11 +52,11 @@ export const Login = React.createClass({
               </h6>
               <form className='form'>
                 <div className='form__group'>
-                  <label className='form__label' for='input-username'>Username</label>
+                  <label className='form__label' htmlFor='input-username'>Username</label>
                   <input type='text' className='form__control form__control--medium' id='input-username' placeholder='Username' ref='username' onKeyDown={this._handleKeypress} />
                 </div>
                 <div className='form__group'>
-                  <label className='form__label' for='input-password'>Password</label>
+                  <label className='form__label' htmlFor='input-password'>Password</label>
                   <input type='password' className='form__control form__control--medium' id='input-password' placeholder='Password' ref='password' onKeyDown={this._handleKeypress} />
                 </div>
                 <div className='form__actions'>

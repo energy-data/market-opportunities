@@ -112,8 +112,8 @@ export function createDataPaintObject (layer) {
 export function createOutlinePaintObject (layer) {
   return {
     'line-color': getLayerColor(layer.datasetName),
-    'line-opacity': 1,
-    'line-dasharray': [4, 2]
+    'line-width': 1,
+    'line-opacity': 1
   }
 }
 
@@ -165,26 +165,76 @@ export function downloadMapImage (map) {
   })
 }
 
-export function downloadMapPDF (map) {
+export function downloadMapPDF (props) {
   const doc = new PDFDocument()
   const stream = doc.pipe(blobStream())
-  const canvas = map.getCanvas()
+  const canvas = props.getMapReference().getCanvas()
   const dataURL = canvas.toDataURL('image/png')
   const aspectRatio = canvas.height / canvas.width
   const pageWidth = 500
 
-  doc.image(dataURL, 60, 30, { width: pageWidth })
+  doc.image(dataURL, 40, 30, { width: pageWidth })
   const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in suscipit purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus nec hendrerit felis. Morbi aliquam facilisis risus eu lacinia. Sed eu leo in turpis fringilla hendrerit. Ut nec accumsan nisl. Suspendisse rhoncus nisl posuere tortor tempus et dapibus elit porta. Cras leo neque, elementum a rhoncus ut, vestibulum non nibh. Phasellus pretium justo turpis. Etiam vulputate, odio vitae tincidunt ultricies, eros odio dapibus nisi, ut tincidunt lacus arcu eu elit. Aenean velit erat, vehicula eget lacinia ut, dignissim non tellus. Aliquam nec lacus mi, sed vestibulum nunc. Suspendisse potenti. Curabitur vitae sem turpis. Vestibulum sed neque eget dolor dapibus porttitor at sit amet sem. Fusce a turpis lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;\nMauris at ante tellus. Vestibulum a metus lectus. Praesent tempor purus a lacus blandit eget gravida ante hendrerit. Cras et eros metus. Sed commodo malesuada eros, vitae interdum augue semper quis. Fusce id magna nunc. Curabitur sollicitudin placerat semper. Cras et mi neque, a dignissim risus. Nulla venenatis porta lacus, vel rhoncus lectus tempor vitae. Duis sagittis venenatis rutrum. Curabitur tempor massa tortor.'
 
   doc.fontSize(12)
   doc.fillColor('#333333')
     .font('Helvetica')
-    .text(lorem, 60, 60 + pageWidth * aspectRatio, {
-      width: pageWidth,
+    .text(lorem, 40, 60 + pageWidth * aspectRatio, {
+      width: (pageWidth / 2) - 10,
       align: 'justify',
       indent: 30,
-      columns: 2,
-      height: 200,
+      columns: 1,
+      height: 400,
+      ellipsis: true
+    })
+
+  doc.save()
+    .moveTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio)
+    .lineTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 12)
+    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio + 12)
+    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio)
+    .fill('#0da081')
+
+  doc.fillColor('#333333')
+    .fontSize(16)
+    .font('Helvetica')
+    .text(props.country, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 18, {
+      width: (pageWidth / 2) - 20,
+      align: 'left'
+    })
+
+  doc.save()
+    .moveTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 37)
+    .lineTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 41)
+    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio + 41)
+    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio + 37)
+    .fill('#0da081')
+
+  doc.fillColor('#333333')
+    .fontSize(14)
+    .font('Helvetica')
+    .text(`Selected Population: ${numberWithCommas(props.tier1pop + props.tier2pop)}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 47, {
+      width: (pageWidth / 2) - 20,
+      align: 'left'
+    })
+
+  doc.fillColor('#333333')
+    .fontSize(14)
+    .font('Helvetica')
+    .text(`Estimated Revenue: $${numberWithCommas(props.tier1pop * props.tier1price + props.tier2pop * props.tier2price)}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 64, {
+      width: (pageWidth / 2) - 20,
+      align: 'left'
+    })
+
+  doc.fillColor('#333333')
+    .fontSize(12)
+    .font('Helvetica')
+    .text(lorem, 40 + (pageWidth / 2) + 20, 160 + pageWidth * aspectRatio, {
+      width: (pageWidth / 2) - 20,
+      align: 'justify',
+      indent: 30,
+      columns: 1,
+      height: 300,
       ellipsis: true
     })
 
@@ -195,12 +245,20 @@ export function downloadMapPDF (map) {
 }
 
 export function filterSummary (options, filter) {
-  const formatter = (options.value.format === 'percentage')
-  ? a => `${a * 100}%`
-  : a => numberWithCommas(a.toFixed(0))
+  let formatter
+  switch (options.value.format) {
+    case 'percentage':
+      formatter = a => `${a * 100}%`
+      break
+    case 'exponent':
+      formatter = a => numberWithCommas(Math.pow(10, a) / 100)
+      break
+    default:
+      formatter = a => numberWithCommas(a.toFixed(0))
+  }
   switch (options.value.type) {
     case 'range':
-      return filter.range.map(formatter).join(' - ')
+      return filter.range.map(formatter).join(' - ') + ' ppl/km2'
     case 'categorical':
       return filter.values.join(', ')
     case 'buffer':
@@ -214,11 +272,17 @@ export function filterSummary (options, filter) {
 // nouislider requires formatters as objects with to and from methods
 // http://refreshless.com/nouislider/slider-read-write/#section-formatting
 export function pipFormatter (format) {
-  return (format === 'percentage')
-  ? { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
-  : { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
+  switch (format) {
+    case 'percentage':
+      return { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
+    case 'exponent':
+      return { to: a => numberWithCommas(Math.pow(10, a) / 100), from: a => Math.log10(a) }
+    default:
+      return { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
+  }
 }
 
-export function numberWithCommas (number) {
+function numberWithCommas (number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
+module.exports.numberWithCommas = numberWithCommas

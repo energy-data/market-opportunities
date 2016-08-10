@@ -14,7 +14,7 @@ const CheckboxGroup = React.createClass({
   render: function () {
     const { value, selected } = this.props
     return (
-      <label key={value} for={value} className='form__option form__option--custom-checkbox'>
+      <label key={value} htmlFor={value} className='form__option form__option--custom-checkbox'>
         <input
           onChange={this._handleChange}
           type='checkbox'
