@@ -58,7 +58,7 @@
       display: block;
       width: 1.5rem;
       height: 1.5rem;
-      line-height: 1.5rem;
+      padding: 0.25rem 0;
     }
   }
 }
@@ -77,11 +77,11 @@
         padding-left: 2.75rem;
         margin-bottom: $global-spacing / 2;
         
-        &:before {
+        &::before {
           top: 0;
           width: 2rem;
           height: 2rem;
-          line-height: 2rem;
+          padding: 0.5rem 0;
         }
       }
     }

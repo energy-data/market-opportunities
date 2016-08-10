@@ -9,7 +9,7 @@
   top: $global-spacing;
   right: $global-spacing;
   z-index: 80;
-  width: 18rem;
+  width: 18.5rem;
   max-height: calc(100% - #{$global-spacing * 2}); // once max-height is reached, the body becomes scrollable
 
   .panel__header {

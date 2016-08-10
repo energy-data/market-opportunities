@@ -144,13 +144,14 @@
 
     .nav-block__menu-wrapper {
       @include media(large-up) {
-        position: initial;
+        position: static;
         float: left;
         padding: 0;
         margin-top: 0;
         box-shadow: none;
         opacity: 1;
         visibility: visible;
+        background: transparent;
       }
     }
   }

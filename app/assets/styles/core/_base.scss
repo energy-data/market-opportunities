@@ -67,6 +67,10 @@ a:active {
   transform: translate(0, 1px);
 }
 
+a:focus {
+  outline: none; // This causes usability problems. Needs fixing.
+}
+
 
 /* Rows
    ========================================================================== */
