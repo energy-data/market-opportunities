@@ -195,9 +195,17 @@ export function downloadMapPDF (map) {
 }
 
 export function filterSummary (options, filter) {
-  const formatter = (options.value.format === 'percentage')
-  ? a => `${a * 100}%`
-  : a => numberWithCommas(a.toFixed(0))
+  let formatter
+  switch (options.value.format) {
+    case 'percentage':
+      formatter = a => `${a * 100}%`
+      break
+    case 'exponent':
+      formatter = a => numberWithCommas(Math.pow(10, a) / 100)
+      break
+    default:
+      formatter = a => numberWithCommas(a.toFixed(0))
+  }
   switch (options.value.type) {
     case 'range':
       return filter.range.map(formatter).join(' - ')
@@ -214,9 +222,14 @@ export function filterSummary (options, filter) {
 // nouislider requires formatters as objects with to and from methods
 // http://refreshless.com/nouislider/slider-read-write/#section-formatting
 export function pipFormatter (format) {
-  return (format === 'percentage')
-  ? { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
-  : { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
+  switch (format) {
+    case 'percentage':
+      return { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
+    case 'exponent':
+      return { to: a => numberWithCommas(Math.pow(10, a) / 100), from: a => Math.log10(a) }
+    default:
+      return { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
+  }
 }
 
 export function numberWithCommas (number) {

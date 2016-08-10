@@ -31,6 +31,7 @@ const Indicator = React.createClass({
           range={stopsToNoUiSliderRange(options.value.stops)}
           start={filter.range}
           connect
+          snap
           pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
           onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
         /></div></div>
