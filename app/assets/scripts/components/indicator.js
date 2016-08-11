@@ -2,6 +2,7 @@ import React from 'react'
 import url from 'url'
 import Nouislider from 'react-nouislider'
 import c from 'classnames'
+import chroma from 'chroma-js'
 
 import config from '../config'
 import { prettifyString, stopsToNoUiSliderRange, filterSummary, pipFormatter,
@@ -28,14 +29,27 @@ const Indicator = React.createClass({
     let Editor
     switch (options.value.type) {
       case 'range':
-        Editor = <div className='form__group'><div className='form__slider'><Nouislider
-          range={stopsToNoUiSliderRange(options.value.stops)}
-          start={filter.range}
-          connect
-          snap
-          pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
-          onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
-        /></div></div>
+        Editor = <div className='form__group'>
+          <div className='form__slider'>
+            <Nouislider
+              range={stopsToNoUiSliderRange(options.value.stops)}
+              start={filter.range}
+              connect
+              snap
+              pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
+              onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
+            />
+            <div className='legend'>
+            {options.value.stops.slice(0, -1).map((stop, j) => {
+              const baseColor = getLayerColor(datasetName)
+              return <div className='legend-swath' key={stop} style={{
+                backgroundColor: chroma(baseColor).darken(j - 2).hex(),
+                width: `${(100 / (options.value.stops.length - 1)).toFixed(2)}%`
+              }}></div>
+            })}
+            </div>
+          </div>
+        </div>
         break
       case 'categorical':
         Editor = <CheckboxGroup

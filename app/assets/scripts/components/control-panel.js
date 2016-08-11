@@ -23,6 +23,14 @@ export const ControlPanel = React.createClass({
     getMapReference: React.PropTypes.func
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    // NOTE: this a test for having a new set of indicators so we can open the
+    // first group
+    if (nextProps.layers.indicators.length && nextProps.layers.indicators.length !== this.props.layers.indicators.length) {
+      this.props.dispatch(toggleOpenGroup(nextProps.layers.indicators[0].group))
+    }
+  },
+
   render: function () {
     const { layers, groups, selection, prize, getMapReference } = this.props
 

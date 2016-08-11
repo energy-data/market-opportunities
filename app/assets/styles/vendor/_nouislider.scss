@@ -95,11 +95,11 @@
  */
 
 .noUi-background {
-  background: tint($base-color, 48%);
+  background: rgba(0, 0, 0, 0);
 }
 
 .noUi-connect {
-  background: $primary-color;
+  background: rgba(0, 0, 0, 0);
   transition: background 0.24s ease 0s;
 }
 
@@ -278,4 +278,32 @@
 
 .noUi-vertical .noUi-handle-upper .noUi-tooltip {
   right: 120%;
+}
+
+/* Legend inside the slider
+   ========================================================================== */
+
+.form__slider {
+  position: relative;
+}
+
+.legend {
+  position: absolute;
+  width: calc(100% - 2rem);
+  height: 0.5rem;
+  top: 0.5rem;
+}
+
+.legend-swath {
+  display: inline-block;
+  height: 0.5rem;
+  vertical-align: top;
+  &:first-of-type {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+  &:last-of-type {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
 }
