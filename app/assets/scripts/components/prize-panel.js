@@ -118,14 +118,13 @@ export const PrizePanel = React.createClass({
 /* istanbul ignore next */
 function mapStateToProps (state) {
   return {
-    // TODO: make this a memoized selector?
     displayAll: state.layers.indicators
      .filter(layer => layer.visible && !layer.editing && layer.geojson)
      .length >= 2,
-    tier1pop: state.layers.tier1pop,
-    tier2pop: state.layers.tier2pop,
-    tier1price: state.layers.tier1price,
-    tier2price: state.layers.tier2price
+    tier1pop: state.prize.tier1pop,
+    tier2pop: state.prize.tier2pop,
+    tier1price: state.prize.tier1price,
+    tier2price: state.prize.tier2price
   }
 }
 

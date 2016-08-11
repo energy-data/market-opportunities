@@ -12,10 +12,13 @@ import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
 import Popup from './popup'
-import { mapStyle, intersectPaint, roadLayers } from '../constants'
+import { mapStyle, intersectPaint, roadLayers, popLayer,
+  controlPanelWidth } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
-  createDataPaintObject, createOutlinePaintObject, createTempPaintStyle } from '../utils'
-import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers } from '../actions'
+  createDataPaintObject, createOutlinePaintObject,
+  createTempPaintStyle } from '../utils'
+import { updateLayerGeoJSON, setMapIntersect, setPopulation,
+  setLayers } from '../actions'
 import { countryBounds } from '../../data/bounds'
 
 export const Map = React.createClass({
@@ -41,7 +44,7 @@ export const Map = React.createClass({
     map.on('load', () => {
       map.addSource('pop', {
         type: 'vector',
-        url: 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/fe064e97-938e-4235-b670-1b8409d8f553-e03e65e2-6c26-4970-84ae-66da7882e372/data.tilejson'
+        url: popLayer.tilejson
       })
       this._map.addLayer({
         'id': 'hidden-pop',
@@ -91,8 +94,7 @@ export const Map = React.createClass({
     if (nextProps.country !== this.props.country) {
       this._map.fitBounds(
         countryBounds.find(c => c.properties.name === nextProps.country).bbox,
-        // TODO: eliminate magic number, it's half the width of the control panel
-        { padding: 30, offset: [160, 0] }
+        { padding: 30, offset: [controlPanelWidth / 2, 0] }
       )
     }
 
@@ -105,7 +107,8 @@ export const Map = React.createClass({
       this._addIntersectedArea(newVisibleLayers)
     } else if (newVisibleLayers.length < 2 && oldVisibleLayers.length >= 2) {
       this._removeIntersectedArea()
-    // TODO: fix intersect update logic, also needs to account for same length, new filter
+    // this handles all update cases since we have to "remove" a visible layer
+    // (edit it) in order to get a new filter
     } else if ((newVisibleLayers.length !== oldVisibleLayers.length) &&
       newVisibleLayers.length >= 2) {
       this._updateIntersectedArea(newVisibleLayers)
@@ -271,6 +274,7 @@ export const Map = React.createClass({
     if (data) {
       this._map.getSource('intersect').setData(data)
     }
+    this.props.dispatch(setMapIntersect(data))
   },
 
   _createLayerGeoJSON: function (layer) {
@@ -392,7 +396,6 @@ export const Map = React.createClass({
 function mapStateToProps (state) {
   return {
     layers: state.layers,
-    // TODO: make this a memoized selector
     editLayer: state.layers.indicators.find(layer => layer.editing),
     country: state.selection.country,
     // TODO: this can be an object property lookup once we have a better country object

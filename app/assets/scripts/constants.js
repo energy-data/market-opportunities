@@ -1,3 +1,10 @@
+export const controlPanelWidth = 320
+
+export const popLayer = {
+  id: 'fe064e97-938e-4235-b670-1b8409d8f553',
+  tilejson: 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/fe064e97-938e-4235-b670-1b8409d8f553-e03e65e2-6c26-4970-84ae-66da7882e372/data.tilejson'
+}
+
 export const baseLayers = [
   {
     id: 'a',

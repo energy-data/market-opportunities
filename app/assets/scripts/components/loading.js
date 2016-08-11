@@ -17,7 +17,6 @@ export const Loading = React.createClass({
 
 function mapStateToProps (state) {
   return {
-    // TODO: should this be an enum?
     loading: state.layers.status === 'loading'
   }
 }

@@ -8,6 +8,7 @@ export const SET_LAYERS = 'SET_LAYERS'
 export const TEMP_FILTER_TO_DEFAULT = 'TEMP_FILTER_TO_DEFAULT'
 export const GROUPS_TO_DEFAULT = 'GROUPS_TO_DEFAULT'
 export const SELECTION_TO_DEFAULT = 'SELECTION_TO_DEFAULT'
+export const PRIZE_TO_DEFAULT = 'PRIZE_TO_DEFAULT'
 export const BAD_ACTION = 'BAD_ACTION'
 export const UPDATE_VISIBLE_LAYERS = 'UPDATE_VISIBLE_LAYERS'
 export const START_EDITING_LAYER = 'START_EDITING_LAYER'
@@ -48,6 +49,8 @@ export function resetState (portion) {
       return { type: GROUPS_TO_DEFAULT }
     case 'selection':
       return { type: SELECTION_TO_DEFAULT }
+    case 'prize':
+      return { type: PRIZE_TO_DEFAULT }
     default:
       return { type: BAD_ACTION }
   }

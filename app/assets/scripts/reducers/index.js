@@ -6,13 +6,15 @@ import layers from './layers'
 import tempFilter from './temp-filter'
 import groups from './groups'
 import selection from './selection'
+import prize from './prize'
 
 export const reducers = {
   user,
   tempFilter,
   layers,
   groups,
-  selection
+  selection,
+  prize
 }
 
 // ie polyfill
