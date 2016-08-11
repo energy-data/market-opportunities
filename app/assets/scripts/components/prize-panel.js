@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { numberWithCommas } from '../utils'
+import { shortenNumber } from '../utils'
 import { setTier1Price, setTier2Price } from '../actions'
 
 export const PrizePanel = React.createClass({
@@ -54,30 +54,30 @@ export const PrizePanel = React.createClass({
                   </thead>
                   <tbody>
                     <tr>
-                      <th className='tier-value' scope='row'>T1</th>
-                      <td className='pop-value'>{numberWithCommas(tier1pop)}</td>
+                      <th className='tier-value' scope='row'>Tier 1</th>
+                      <td className='pop-value'>{shortenNumber(tier1pop)}</td>
                       <td className='revenue-value'>
                         <div className='form__group'>
                           <input onChange={this._updateTier1Price} className='form__control form__control--small' type='number' id='fa-party-number-1' name='party-qt' min='1' max='99' value={this.props.tier1price} />
                         </div>
                       </td>
-                      <td className='result-value'>{`$${numberWithCommas(tier1rev)}`}</td>
+                      <td className='result-value'>{`$${shortenNumber(tier1rev)}`}</td>
                     </tr>
                     <tr>
-                      <th className='tier-value' scope='row'>T2</th>
-                      <td className='pop-value'>{numberWithCommas(tier2pop)}</td>
+                      <th className='tier-value' scope='row'>Tier 2</th>
+                      <td className='pop-value'>{shortenNumber(tier2pop)}</td>
                       <td className='revenue-value'>
                         <div className='form__group'>
                           <input onChange={this._updateTier2Price} className='form__control form__control--small' type='number' id='fa-party-number-2' name='party-qt' min='1' max='99' value={this.props.tier2price} />
                         </div>
                       </td>
-                      <td className='result-value'>{`$${numberWithCommas(tier2rev)}`}</td>
+                      <td className='result-value'>{`$${shortenNumber(tier2rev)}`}</td>
                     </tr>
                   </tbody>
                   <tfoot>
                     <tr>
                       <th className='foot-term' scope='row' colSpan='3'>Size of the Prize</th>
-                      <td className='foot-value'>{`$${numberWithCommas(tier1rev + tier2rev)}`}</td>
+                      <td className='foot-value'>{`$${shortenNumber(tier1rev + tier2rev)}`}</td>
                     </tr>
                   </tfoot>
                 </table>

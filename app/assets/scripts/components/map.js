@@ -15,7 +15,7 @@ import Popup from './popup'
 import { mapStyle, intersectPaint, roadLayers } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject, createTempPaintStyle } from '../utils'
-import { updateLayerGeoJSON, setMapIntersect, setPopulation } from '../actions'
+import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers } from '../actions'
 import { countryBounds } from '../../data/bounds'
 
 export const Map = React.createClass({
@@ -126,8 +126,15 @@ export const Map = React.createClass({
     }
 
     // if we have a new intersected area, let's calculate the intersected population
-    if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect)) {
+    if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect) && nextProps.layers.intersect) {
       this._calculateIntersectedPopulation(nextProps)
+    }
+
+    // if we have a new country and it isn't our first, reset our layers
+    if (this.props.country && nextProps.country && this.props.country !== nextProps.country) {
+      this.props.dispatch(setLayers(nextProps.layers.indicators.map(layer => {
+        return Object.assign({}, _.omit(layer, ['editing', 'visible', 'geojson']), {})
+      })))
     }
   },
 

@@ -258,7 +258,7 @@ export function filterSummary (options, filter) {
   }
   switch (options.value.type) {
     case 'range':
-      return filter.range.map(formatter).join(' - ') + ' ppl/km2'
+      return filter.range.map(formatter).join(' - ')
     case 'categorical':
       return filter.values.join(', ')
     case 'buffer':
@@ -286,3 +286,15 @@ function numberWithCommas (number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 module.exports.numberWithCommas = numberWithCommas
+
+export function shortenNumber (number) {
+  if (number >= 1000000000) {
+    return `${(number / 1000000000).toFixed(2)} B`
+  } else if (number >= 1000000) {
+    return `${(number / 1000000).toFixed(2)} M`
+  } else if (number >= 1000) {
+    return `${(number / 1000).toFixed(2)} K`
+  } else {
+    return number
+  }
+}

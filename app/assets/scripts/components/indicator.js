@@ -60,7 +60,7 @@ const Indicator = React.createClass({
             <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
             <div className='layer__headline'>
               <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
-              <p className='layer__summary'>{filterSummary(options, filter)}</p>
+              <p className='layer__summary'>{filterSummary(options, filter) + (id === 'fe064e97-938e-4235-b670-1b8409d8f553' ? '  ppl/km2' : '')}</p>
             </div>
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>

@@ -89,20 +89,20 @@ test('createDataPaintObject', t => {
   t.falsy(utils.createDataPaintObject(badLayer))
 })
 
-test.skip('createOutlinePaintObject', t => {
+test('createOutlinePaintObject', t => {
   const rangeLayer = mockLayers[0]
   t.deepEqual(utils.createOutlinePaintObject(rangeLayer), {
     'line-color': '#ffffee',
-    'line-opacity': 1,
-    'line-dasharray': [4, 2]
+    'line-width': 1,
+    'line-opacity': 1
   })
 })
 
-test.skip('getLayerColor', t => {
-  t.is(utils.getLayerColor('energy-access-underserved'), '#09749e')
+test('getLayerColor', t => {
+  t.is(utils.getLayerColor('healthcare-facilities'), '#09749e')
 })
 
-test.skip('filterSummary', t => {
+test('filterSummary', t => {
   let options = mockLayers[0].options
   let filter = mockLayers[0].filter
 
