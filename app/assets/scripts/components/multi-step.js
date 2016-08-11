@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import c from 'classnames'
 
 import { updateStep, updateSelectedCountry } from '../actions'
-import { countries } from '../constants'
+import { highlightedCountries } from '../constants'
+import { countries } from '../../data/countries'
 import Country from './country'
 
 export const MultiStep = React.createClass({
@@ -36,11 +37,12 @@ export const MultiStep = React.createClass({
                 <div className='inner'>
                   <div className='step-options'>
                     <ol className='options-list country-list' role='menu'>
-                      {countries.map(country => {
+                      {highlightedCountries.map(country => {
                         return <Country
-                          key={country.name}
-                          info={country}
-                          selected={country.name === selection.country}
+                          key={country}
+                          id={country}
+                          info={countries[country]}
+                          selected={country === selection.country}
                           updateSelectedCountry={this._updateSelectedCountry}
                         />
                       })}
@@ -51,51 +53,51 @@ export const MultiStep = React.createClass({
                     <div className='options_control__drop'>
                       <select onChange={this._updateSelectedCountryFromDropdown}>
                         <option value=''>More countries</option>
-                        <option value='Angola'>Angola</option>
-                        <option value='Benin'>Benin</option>
-                        <option value='Botswana'>Botswana</option>
-                        <option value='Burkina Faso'>Burkina Faso</option>
-                        <option value='Burundi'>Burundi</option>
-                        <option value='Cameroon'>Cameroon</option>
-                        <option value='Cabo Verde'>Cabo Verde</option>
-                        <option value='Central African Republic'>Central African Republic</option>
-                        <option value='Chad'>Chad</option>
-                        <option value='Comoros'>Comoros</option>
-                        <option value='Cote dIvoire'>Cote d&#8217;Ivoire</option>
-                        <option value='Eritrea'>Eritrea</option>
-                        <option value='Gabon'>Gabon</option>
-                        <option value='Gambia'>Gambia</option>
-                        <option value='Ghana'>Ghana</option>
-                        <option value='Guinea'>Guinea</option>
-                        <option value='Guinea-Bissau'>Guinea-Bissau</option>
-                        <option value='Kenya'>Kenya</option>
-                        <option value='Lesotho'>Lesotho</option>
-                        <option value='Liberia'>Liberia</option>
-                        <option value='Madagascar'>Madagascar</option>
-                        <option value='Malawi'>Malawi</option>
-                        <option value='Mali'>Mali</option>
-                        <option value='Mauritania'>Mauritania</option>
-                        <option value='Mauritius'>Mauritius</option>
-                        <option value='Mozambique'>Mozambique</option>
-                        <option value='Namibia'>Namibia</option>
-                        <option value='Niger'>Niger</option>
-                        <option value='Rwanda'>Rwanda</option>
-                        <option value='Sao Tome and Principe'>Sao Tome and Principe</option>
-                        <option value='Senegal'>Senegal</option>
-                        <option value='Seychelles'>Seychelles</option>
-                        <option value='Sierra Leone'>Sierra Leone</option>
-                        <option value='Somalia'>Somalia</option>
-                        <option value='South Africa'>South Africa</option>
-                        <option value='South Sudan'>South Sudan</option>
-                        <option value='Sudan'>Sudan</option>
-                        <option value='Swaziland'>Swaziland</option>
-                        <option value='Togo'>Togo</option>
-                        <option value='Uganda'>Uganda</option>
-                        <option value='Zimbabwe'>Zimbabwe</option>
-                        <option value='Equatorial Guinea'>Equatorial Guinea</option>
-                        <option value='Ethiopia'>Ethiopia</option>
-                        <option value='Congo, Republic'>Congo, Republic</option>
-                        <option value='Congo, Republic Democratic'>Congo, Republic Democratic</option>
+                        <option value='AGO'>Angola</option>
+                        <option value='BEN'>Benin</option>
+                        <option value='BWA'>Botswana</option>
+                        <option value='BFA'>Burkina Faso</option>
+                        <option value='BDI'>Burundi</option>
+                        <option value='CMR'>Cameroon</option>
+                        <option value='CPV'>Cabo Verde</option>
+                        <option value='CAF'>Central African Republic</option>
+                        <option value='TCD'>Chad</option>
+                        <option value='COM'>Comoros</option>
+                        <option value='CIV'>Cote d&#8217;Ivoire</option>
+                        <option value='ERI'>Eritrea</option>
+                        <option value='GAB'>Gabon</option>
+                        <option value='GMB'>Gambia</option>
+                        <option value='GHA'>Ghana</option>
+                        <option value='GIN'>Guinea</option>
+                        <option value='GNB'>Guinea-Bissau</option>
+                        <option value='KEN'>Kenya</option>
+                        <option value='LSO'>Lesotho</option>
+                        <option value='LBR'>Liberia</option>
+                        <option value='MDG'>Madagascar</option>
+                        <option value='MWI'>Malawi</option>
+                        <option value='MLI'>Mali</option>
+                        <option value='MRT'>Mauritania</option>
+                        <option value='MUS'>Mauritius</option>
+                        <option value='MOZ'>Mozambique</option>
+                        <option value='NAM'>Namibia</option>
+                        <option value='NER'>Niger</option>
+                        <option value='RWA'>Rwanda</option>
+                        <option value='STP'>Sao Tome and Principe</option>
+                        <option value='SEN'>Senegal</option>
+                        <option value='SYC'>Seychelles</option>
+                        <option value='SLA'>Sierra Leone</option>
+                        <option value='SOM'>Somalia</option>
+                        <option value='ZAF'>South Africa</option>
+                        <option value='SSD'>South Sudan</option>
+                        <option value='SDN'>Sudan</option>
+                        <option value='SWZ'>Swaziland</option>
+                        <option value='TGO'>Togo</option>
+                        <option value='UGA'>Uganda</option>
+                        <option value='ZWE'>Zimbabwe</option>
+                        <option value='GNQ'>Equatorial Guinea</option>
+                        <option value='ETH'>Ethiopia</option>
+                        <option value='COG'>Congo, Republic</option>
+                        <option value='COD'>Congo, Republic Democratic</option>
                       </select>
                     </div>
                   </div>

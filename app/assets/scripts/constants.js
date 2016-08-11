@@ -24,11 +24,7 @@ export const baseLayers = [
   { id: 'mb-road-layers', name: 'Roads', group: 'a', type: 'base' }
 ]
 
-export const countries = [
-  { name: 'Tanzania', flagPath: 'assets/graphics/content/flags/4x3/tz.svg', area: '947,303 km2', population: '51,820,000' },
-  { name: 'Zambia', flagPath: 'assets/graphics/content/flags/4x3/zm.svg', area: '752,618 km2', population: '15,721,000' },
-  { name: 'Nigeria', flagPath: 'assets/graphics/content/flags/4x3/ng.svg', area: '923,768 km2', population: '177,476,000' }
-]
+export const highlightedCountries = [ 'TZA', 'ZMB', 'NGA' ]
 
 export const scenarios = [
   { title: 'Scenario 1', thumbnail: 'http://placehold.it/768x384' },

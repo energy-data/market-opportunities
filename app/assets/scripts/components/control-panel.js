@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
   toggleLayerVisibility, updateLayerFilter, updateTempFilter,
   toggleOpenGroup, updateStep, updateLayerGeoJSON } from '../actions'
+import { countries } from '../../data/countries'
 
 import PanelTitle from './panel-title'
 import PanelIndicatorList from './panel-indicator-list'
@@ -17,12 +18,13 @@ export const ControlPanel = React.createClass({
     tempFilter: React.PropTypes.object,
     groups: React.PropTypes.object,
     selection: React.PropTypes.object,
+    prize: React.PropTypes.object,
     dispatch: React.PropTypes.func,
     getMapReference: React.PropTypes.func
   },
 
   render: function () {
-    const { layers, groups, selection, getMapReference } = this.props
+    const { layers, groups, selection, prize, getMapReference } = this.props
 
     const PanelLayerList = (layers.visible === 'indicators')
     ? <PanelIndicatorList
@@ -43,7 +45,7 @@ export const ControlPanel = React.createClass({
     return (
       <section className='panel' id='control-panel'>
         <PanelTitle
-          title={selection.country}
+          title={(countries[selection.country] || {}).name}
           subtitle={selection.scenario}
           updateVisibleLayers={this._updateVisibleLayers}
           visible={layers.visible}
@@ -53,12 +55,12 @@ export const ControlPanel = React.createClass({
         <PanelFooter
           geojson={layers.intersect}
           getMapReference={getMapReference}
-          population={this.props.layers.population}
-          tier1pop={this.props.layers.tier1pop}
-          tier2pop={this.props.layers.tier2pop}
-          tier1price={this.props.layers.tier1price}
-          tier2price={this.props.layers.tier2price}
-          country={this.props.selection.country}
+          population={prize.population}
+          tier1pop={prize.tier1pop}
+          tier2pop={prize.tier2pop}
+          tier1price={prize.tier1price}
+          tier2price={prize.tier2price}
+          country={(countries[selection.country] || {}).name}
         />
       </section>
     )
@@ -117,7 +119,8 @@ function mapStateToProps (state) {
     layers: state.layers,
     tempFilter: state.tempFilter,
     groups: state.groups,
-    selection: state.selection
+    selection: state.selection,
+    prize: state.prize
   }
 }
 
