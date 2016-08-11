@@ -118,12 +118,14 @@
 /* Handles and cursors;
  */
 
-.noUi-draggable {
-  cursor: w-resize;
+.noUi-horizontal .noUi-draggable,
+.noUi-horizontal .noUi-handle {
+  cursor: ew-resize;
 }
 
-.noUi-vertical .noUi-draggable {
-  cursor: n-resize;
+.noUi-vertical .noUi-draggable,
+.noUi-vertical .noUi-handle {
+  cursor: ns-resize;
 }
 
 .noUi-handle {
