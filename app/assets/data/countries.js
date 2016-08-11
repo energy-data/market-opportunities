@@ -7,7 +7,8 @@ export const countries = {
       12.614111328124991
     ],
     "name": "Aruba",
-    "iso_a2": "AW"
+    "iso_a2": "AW",
+    "avg_hh_size": 5
   },
   "AFG": {
     "bbox": [
@@ -17,7 +18,8 @@ export const countries = {
       38.456396484375
     ],
     "name": "Afghanistan",
-    "iso_a2": "AF"
+    "iso_a2": "AF",
+    "avg_hh_size": 5
   },
   "AGO": {
     "bbox": [
@@ -27,7 +29,8 @@ export const countries = {
       -4.428906249999983
     ],
     "name": "Angola",
-    "iso_a2": "AO"
+    "iso_a2": "AO",
+    "avg_hh_size": 5
   },
   "AIA": {
     "bbox": [
@@ -37,7 +40,8 @@ export const countries = {
       18.269726562499997
     ],
     "name": "Anguilla",
-    "iso_a2": "AI"
+    "iso_a2": "AI",
+    "avg_hh_size": 5
   },
   "ALB": {
     "bbox": [
@@ -47,7 +51,8 @@ export const countries = {
       42.64794921875
     ],
     "name": "Albania",
-    "iso_a2": "AL"
+    "iso_a2": "AL",
+    "avg_hh_size": 5
   },
   "ALA": {
     "bbox": [
@@ -57,7 +62,8 @@ export const countries = {
       60.405810546875045
     ],
     "name": "Aland",
-    "iso_a2": "AX"
+    "iso_a2": "AX",
+    "avg_hh_size": 5
   },
   "AND": {
     "bbox": [
@@ -67,7 +73,8 @@ export const countries = {
       42.642724609374994
     ],
     "name": "Andorra",
-    "iso_a2": "AD"
+    "iso_a2": "AD",
+    "avg_hh_size": 5
   },
   "ARE": {
     "bbox": [
@@ -77,7 +84,8 @@ export const countries = {
       26.068164062500017
     ],
     "name": "United Arab Emirates",
-    "iso_a2": "AE"
+    "iso_a2": "AE",
+    "avg_hh_size": 5
   },
   "ARG": {
     "bbox": [
@@ -87,7 +95,8 @@ export const countries = {
       -21.802539062499974
     ],
     "name": "Argentina",
-    "iso_a2": "AR"
+    "iso_a2": "AR",
+    "avg_hh_size": 5
   },
   "ARM": {
     "bbox": [
@@ -97,7 +106,8 @@ export const countries = {
       41.29096679687498
     ],
     "name": "Armenia",
-    "iso_a2": "AM"
+    "iso_a2": "AM",
+    "avg_hh_size": 5
   },
   "ASM": {
     "bbox": [
@@ -107,7 +117,8 @@ export const countries = {
       -14.257421875
     ],
     "name": "American Samoa",
-    "iso_a2": "AS"
+    "iso_a2": "AS",
+    "avg_hh_size": 5
   },
   "ATA": {
     "bbox": [
@@ -117,7 +128,8 @@ export const countries = {
       -60.52089843750003
     ],
     "name": "Antarctica",
-    "iso_a2": "AQ"
+    "iso_a2": "AQ",
+    "avg_hh_size": 5
   },
   "-99": {
     "bbox": [
@@ -127,7 +139,8 @@ export const countries = {
       11.499804687499989
     ],
     "name": "Somaliland",
-    "iso_a2": "-99"
+    "iso_a2": "-99",
+    "avg_hh_size": 5
   },
   "ATF": {
     "bbox": [
@@ -137,7 +150,8 @@ export const countries = {
       -46.32685546874997
     ],
     "name": "Fr. S. Antarctic Lands",
-    "iso_a2": "TF"
+    "iso_a2": "TF",
+    "avg_hh_size": 5
   },
   "ATG": {
     "bbox": [
@@ -147,7 +161,8 @@ export const countries = {
       17.714062499999983
     ],
     "name": "Antigua and Barb.",
-    "iso_a2": "AG"
+    "iso_a2": "AG",
+    "avg_hh_size": 5
   },
   "AUS": {
     "bbox": [
@@ -157,7 +172,8 @@ export const countries = {
       -10.051757812500014
     ],
     "name": "Australia",
-    "iso_a2": "AU"
+    "iso_a2": "AU",
+    "avg_hh_size": 5
   },
   "AUT": {
     "bbox": [
@@ -167,7 +183,8 @@ export const countries = {
       49.001123046874994
     ],
     "name": "Austria",
-    "iso_a2": "AT"
+    "iso_a2": "AT",
+    "avg_hh_size": 5
   },
   "AZE": {
     "bbox": [
@@ -177,7 +194,8 @@ export const countries = {
       41.890966796875006
     ],
     "name": "Azerbaijan",
-    "iso_a2": "AZ"
+    "iso_a2": "AZ",
+    "avg_hh_size": 5
   },
   "BDI": {
     "bbox": [
@@ -187,7 +205,8 @@ export const countries = {
       -2.31298828125
     ],
     "name": "Burundi",
-    "iso_a2": "BI"
+    "iso_a2": "BI",
+    "avg_hh_size": 5
   },
   "BEL": {
     "bbox": [
@@ -197,7 +216,8 @@ export const countries = {
       51.49111328125002
     ],
     "name": "Belgium",
-    "iso_a2": "BE"
+    "iso_a2": "BE",
+    "avg_hh_size": 5
   },
   "BEN": {
     "bbox": [
@@ -207,7 +227,8 @@ export const countries = {
       12.383837890624989
     ],
     "name": "Benin",
-    "iso_a2": "BJ"
+    "iso_a2": "BJ",
+    "avg_hh_size": 5
   },
   "BFA": {
     "bbox": [
@@ -217,7 +238,8 @@ export const countries = {
       15.077880859375
     ],
     "name": "Burkina Faso",
-    "iso_a2": "BF"
+    "iso_a2": "BF",
+    "avg_hh_size": 5
   },
   "BGD": {
     "bbox": [
@@ -227,7 +249,8 @@ export const countries = {
       26.57153320312497
     ],
     "name": "Bangladesh",
-    "iso_a2": "BD"
+    "iso_a2": "BD",
+    "avg_hh_size": 5
   },
   "BGR": {
     "bbox": [
@@ -237,7 +260,8 @@ export const countries = {
       44.23779296875
     ],
     "name": "Bulgaria",
-    "iso_a2": "BG"
+    "iso_a2": "BG",
+    "avg_hh_size": 5
   },
   "BHR": {
     "bbox": [
@@ -247,7 +271,8 @@ export const countries = {
       26.246435546875
     ],
     "name": "Bahrain",
-    "iso_a2": "BH"
+    "iso_a2": "BH",
+    "avg_hh_size": 5
   },
   "BHS": {
     "bbox": [
@@ -257,7 +282,8 @@ export const countries = {
       26.940087890625023
     ],
     "name": "Bahamas",
-    "iso_a2": "BS"
+    "iso_a2": "BS",
+    "avg_hh_size": 5
   },
   "BIH": {
     "bbox": [
@@ -267,7 +293,8 @@ export const countries = {
       45.27656249999998
     ],
     "name": "Bosnia and Herz.",
-    "iso_a2": "BA"
+    "iso_a2": "BA",
+    "avg_hh_size": 5
   },
   "BLM": {
     "bbox": [
@@ -277,7 +304,8 @@ export const countries = {
       17.92226562499999
     ],
     "name": "St-Barthlemy",
-    "iso_a2": "BL"
+    "iso_a2": "BL",
+    "avg_hh_size": 5
   },
   "BLR": {
     "bbox": [
@@ -287,7 +315,8 @@ export const countries = {
       56.145800781249996
     ],
     "name": "Belarus",
-    "iso_a2": "BY"
+    "iso_a2": "BY",
+    "avg_hh_size": 5
   },
   "BLZ": {
     "bbox": [
@@ -297,7 +326,8 @@ export const countries = {
       18.482324218750023
     ],
     "name": "Belize",
-    "iso_a2": "BZ"
+    "iso_a2": "BZ",
+    "avg_hh_size": 5
   },
   "BMU": {
     "bbox": [
@@ -307,7 +337,8 @@ export const countries = {
       32.3869140625
     ],
     "name": "Bermuda",
-    "iso_a2": "BM"
+    "iso_a2": "BM",
+    "avg_hh_size": 5
   },
   "BOL": {
     "bbox": [
@@ -317,7 +348,8 @@ export const countries = {
       -9.71044921875
     ],
     "name": "Bolivia",
-    "iso_a2": "BO"
+    "iso_a2": "BO",
+    "avg_hh_size": 5
   },
   "BRA": {
     "bbox": [
@@ -327,7 +359,8 @@ export const countries = {
       5.257958984374966
     ],
     "name": "Brazil",
-    "iso_a2": "BR"
+    "iso_a2": "BR",
+    "avg_hh_size": 5
   },
   "BRB": {
     "bbox": [
@@ -337,7 +370,8 @@ export const countries = {
       13.317675781250003
     ],
     "name": "Barbados",
-    "iso_a2": "BB"
+    "iso_a2": "BB",
+    "avg_hh_size": 5
   },
   "BRN": {
     "bbox": [
@@ -347,7 +381,8 @@ export const countries = {
       5.022363281250023
     ],
     "name": "Brunei",
-    "iso_a2": "BN"
+    "iso_a2": "BN",
+    "avg_hh_size": 5
   },
   "BTN": {
     "bbox": [
@@ -357,7 +392,8 @@ export const countries = {
       28.311181640624994
     ],
     "name": "Bhutan",
-    "iso_a2": "BT"
+    "iso_a2": "BT",
+    "avg_hh_size": 5
   },
   "BWA": {
     "bbox": [
@@ -367,7 +403,8 @@ export const countries = {
       -17.78759765625
     ],
     "name": "Botswana",
-    "iso_a2": "BW"
+    "iso_a2": "BW",
+    "avg_hh_size": 5
   },
   "CAF": {
     "bbox": [
@@ -377,7 +414,8 @@ export const countries = {
       10.996240234374994
     ],
     "name": "Central African Rep.",
-    "iso_a2": "CF"
+    "iso_a2": "CF",
+    "avg_hh_size": 5
   },
   "CAN": {
     "bbox": [
@@ -387,7 +425,8 @@ export const countries = {
       83.11611328125005
     ],
     "name": "Canada",
-    "iso_a2": "CA"
+    "iso_a2": "CA",
+    "avg_hh_size": 5
   },
   "CHE": {
     "bbox": [
@@ -397,7 +436,8 @@ export const countries = {
       47.775634765625
     ],
     "name": "Switzerland",
-    "iso_a2": "CH"
+    "iso_a2": "CH",
+    "avg_hh_size": 5
   },
   "CHL": {
     "bbox": [
@@ -407,7 +447,8 @@ export const countries = {
       -17.50605468749997
     ],
     "name": "Chile",
-    "iso_a2": "CL"
+    "iso_a2": "CL",
+    "avg_hh_size": 5
   },
   "CHN": {
     "bbox": [
@@ -417,7 +458,8 @@ export const countries = {
       53.55561523437498
     ],
     "name": "China",
-    "iso_a2": "CN"
+    "iso_a2": "CN",
+    "avg_hh_size": 5
   },
   "CIV": {
     "bbox": [
@@ -427,7 +469,8 @@ export const countries = {
       10.724072265625054
     ],
     "name": "Cte d'Ivoire",
-    "iso_a2": "CI"
+    "iso_a2": "CI",
+    "avg_hh_size": 5
   },
   "CMR": {
     "bbox": [
@@ -437,7 +480,8 @@ export const countries = {
       13.07851562499999
     ],
     "name": "Cameroon",
-    "iso_a2": "CM"
+    "iso_a2": "CM",
+    "avg_hh_size": 5
   },
   "COD": {
     "bbox": [
@@ -447,7 +491,8 @@ export const countries = {
       5.31210937499999
     ],
     "name": "Dem. Rep. Congo",
-    "iso_a2": "CD"
+    "iso_a2": "CD",
+    "avg_hh_size": 5
   },
   "COG": {
     "bbox": [
@@ -457,7 +502,8 @@ export const countries = {
       3.687304687499989
     ],
     "name": "Congo",
-    "iso_a2": "CG"
+    "iso_a2": "CG",
+    "avg_hh_size": 5
   },
   "COK": {
     "bbox": [
@@ -467,7 +513,8 @@ export const countries = {
       -21.18642578125001
     ],
     "name": "Cook Is.",
-    "iso_a2": "CK"
+    "iso_a2": "CK",
+    "avg_hh_size": 5
   },
   "COL": {
     "bbox": [
@@ -477,7 +524,8 @@ export const countries = {
       12.434375
     ],
     "name": "Colombia",
-    "iso_a2": "CO"
+    "iso_a2": "CO",
+    "avg_hh_size": 5
   },
   "COM": {
     "bbox": [
@@ -487,7 +535,8 @@ export const countries = {
       -11.368457031249946
     ],
     "name": "Comoros",
-    "iso_a2": "KM"
+    "iso_a2": "KM",
+    "avg_hh_size": 5
   },
   "CPV": {
     "bbox": [
@@ -497,7 +546,8 @@ export const countries = {
       17.193652343750017
     ],
     "name": "Cape Verde",
-    "iso_a2": "CV"
+    "iso_a2": "CV",
+    "avg_hh_size": 5
   },
   "CRI": {
     "bbox": [
@@ -507,7 +557,8 @@ export const countries = {
       11.189453125
     ],
     "name": "Costa Rica",
-    "iso_a2": "CR"
+    "iso_a2": "CR",
+    "avg_hh_size": 5
   },
   "CUB": {
     "bbox": [
@@ -517,7 +568,8 @@ export const countries = {
       23.19042968750003
     ],
     "name": "Cuba",
-    "iso_a2": "CU"
+    "iso_a2": "CU",
+    "avg_hh_size": 5
   },
   "CUW": {
     "bbox": [
@@ -527,7 +579,8 @@ export const countries = {
       12.380273437499994
     ],
     "name": "Curaao",
-    "iso_a2": "CW"
+    "iso_a2": "CW",
+    "avg_hh_size": 5
   },
   "CYM": {
     "bbox": [
@@ -537,7 +590,8 @@ export const countries = {
       19.765722656250006
     ],
     "name": "Cayman Is.",
-    "iso_a2": "KY"
+    "iso_a2": "KY",
+    "avg_hh_size": 5
   },
   "CYP": {
     "bbox": [
@@ -547,7 +601,8 @@ export const countries = {
       35.182666015624996
     ],
     "name": "Cyprus",
-    "iso_a2": "CY"
+    "iso_a2": "CY",
+    "avg_hh_size": 5
   },
   "CZE": {
     "bbox": [
@@ -557,7 +612,8 @@ export const countries = {
       51.03779296875
     ],
     "name": "Czech Rep.",
-    "iso_a2": "CZ"
+    "iso_a2": "CZ",
+    "avg_hh_size": 5
   },
   "DEU": {
     "bbox": [
@@ -567,7 +623,8 @@ export const countries = {
       55.058740234374966
     ],
     "name": "Germany",
-    "iso_a2": "DE"
+    "iso_a2": "DE",
+    "avg_hh_size": 5
   },
   "DJI": {
     "bbox": [
@@ -577,7 +634,8 @@ export const countries = {
       12.70859375
     ],
     "name": "Djibouti",
-    "iso_a2": "DJ"
+    "iso_a2": "DJ",
+    "avg_hh_size": 5
   },
   "DMA": {
     "bbox": [
@@ -587,7 +645,8 @@ export const countries = {
       15.633105468750003
     ],
     "name": "Dominica",
-    "iso_a2": "DM"
+    "iso_a2": "DM",
+    "avg_hh_size": 5
   },
   "DNK": {
     "bbox": [
@@ -597,7 +656,8 @@ export const countries = {
       57.73691406249998
     ],
     "name": "Denmark",
-    "iso_a2": "DK"
+    "iso_a2": "DK",
+    "avg_hh_size": 5
   },
   "DOM": {
     "bbox": [
@@ -607,7 +667,8 @@ export const countries = {
       19.913964843749994
     ],
     "name": "Dominican Rep.",
-    "iso_a2": "DO"
+    "iso_a2": "DO",
+    "avg_hh_size": 5
   },
   "DZA": {
     "bbox": [
@@ -617,7 +678,8 @@ export const countries = {
       37.0923828125
     ],
     "name": "Algeria",
-    "iso_a2": "DZ"
+    "iso_a2": "DZ",
+    "avg_hh_size": 5
   },
   "ECU": {
     "bbox": [
@@ -627,7 +689,8 @@ export const countries = {
       1.455371093750031
     ],
     "name": "Ecuador",
-    "iso_a2": "EC"
+    "iso_a2": "EC",
+    "avg_hh_size": 5
   },
   "EGY": {
     "bbox": [
@@ -637,7 +700,8 @@ export const countries = {
       31.654980468749997
     ],
     "name": "Egypt",
-    "iso_a2": "EG"
+    "iso_a2": "EG",
+    "avg_hh_size": 5
   },
   "ERI": {
     "bbox": [
@@ -647,7 +711,8 @@ export const countries = {
       18.00507812500004
     ],
     "name": "Eritrea",
-    "iso_a2": "ER"
+    "iso_a2": "ER",
+    "avg_hh_size": 5
   },
   "ESP": {
     "bbox": [
@@ -657,7 +722,8 @@ export const countries = {
       43.76455078125005
     ],
     "name": "Spain",
-    "iso_a2": "ES"
+    "iso_a2": "ES",
+    "avg_hh_size": 5
   },
   "EST": {
     "bbox": [
@@ -667,7 +733,8 @@ export const countries = {
       59.63901367187506
     ],
     "name": "Estonia",
-    "iso_a2": "EE"
+    "iso_a2": "EE",
+    "avg_hh_size": 5
   },
   "ETH": {
     "bbox": [
@@ -677,7 +744,8 @@ export const countries = {
       14.852294921875
     ],
     "name": "Ethiopia",
-    "iso_a2": "ET"
+    "iso_a2": "ET",
+    "avg_hh_size": 5
   },
   "FIN": {
     "bbox": [
@@ -687,7 +755,8 @@ export const countries = {
       70.06484375
     ],
     "name": "Finland",
-    "iso_a2": "FI"
+    "iso_a2": "FI",
+    "avg_hh_size": 5
   },
   "FJI": {
     "bbox": [
@@ -697,7 +766,8 @@ export const countries = {
       -12.476953125
     ],
     "name": "Fiji",
-    "iso_a2": "FJ"
+    "iso_a2": "FJ",
+    "avg_hh_size": 5
   },
   "FLK": {
     "bbox": [
@@ -707,7 +777,8 @@ export const countries = {
       -51.26992187499998
     ],
     "name": "Falkland Is.",
-    "iso_a2": "FK"
+    "iso_a2": "FK",
+    "avg_hh_size": 5
   },
   "FRA": {
     "bbox": [
@@ -717,7 +788,8 @@ export const countries = {
       51.097119140624955
     ],
     "name": "France",
-    "iso_a2": "FR"
+    "iso_a2": "FR",
+    "avg_hh_size": 5
   },
   "FRO": {
     "bbox": [
@@ -727,7 +799,8 @@ export const countries = {
       62.35566406250001
     ],
     "name": "Faeroe Is.",
-    "iso_a2": "FO"
+    "iso_a2": "FO",
+    "avg_hh_size": 5
   },
   "FSM": {
     "bbox": [
@@ -737,7 +810,8 @@ export const countries = {
       9.593310546874989
     ],
     "name": "Micronesia",
-    "iso_a2": "FM"
+    "iso_a2": "FM",
+    "avg_hh_size": 5
   },
   "GAB": {
     "bbox": [
@@ -747,7 +821,8 @@ export const countries = {
       2.302197265624997
     ],
     "name": "Gabon",
-    "iso_a2": "GA"
+    "iso_a2": "GA",
+    "avg_hh_size": 5
   },
   "GBR": {
     "bbox": [
@@ -757,7 +832,8 @@ export const countries = {
       60.83188476562498
     ],
     "name": "United Kingdom",
-    "iso_a2": "GB"
+    "iso_a2": "GB",
+    "avg_hh_size": 5
   },
   "GEO": {
     "bbox": [
@@ -767,7 +843,8 @@ export const countries = {
       43.569775390625
     ],
     "name": "Georgia",
-    "iso_a2": "GE"
+    "iso_a2": "GE",
+    "avg_hh_size": 5
   },
   "GGY": {
     "bbox": [
@@ -777,7 +854,8 @@ export const countries = {
       49.506591796875
     ],
     "name": "Guernsey",
-    "iso_a2": "GG"
+    "iso_a2": "GG",
+    "avg_hh_size": 5
   },
   "GHA": {
     "bbox": [
@@ -787,7 +865,8 @@ export const countries = {
       11.166894531249994
     ],
     "name": "Ghana",
-    "iso_a2": "GH"
+    "iso_a2": "GH",
+    "avg_hh_size": 5
   },
   "GIN": {
     "bbox": [
@@ -797,7 +876,8 @@ export const countries = {
       12.673925781249991
     ],
     "name": "Guinea",
-    "iso_a2": "GN"
+    "iso_a2": "GN",
+    "avg_hh_size": 5
   },
   "GMB": {
     "bbox": [
@@ -807,7 +887,8 @@ export const countries = {
       13.81210937499999
     ],
     "name": "Gambia",
-    "iso_a2": "GM"
+    "iso_a2": "GM",
+    "avg_hh_size": 5
   },
   "GNB": {
     "bbox": [
@@ -817,7 +898,8 @@ export const countries = {
       12.679931640624986
     ],
     "name": "Guinea-Bissau",
-    "iso_a2": "GW"
+    "iso_a2": "GW",
+    "avg_hh_size": 5
   },
   "GNQ": {
     "bbox": [
@@ -827,7 +909,8 @@ export const countries = {
       3.758300781249972
     ],
     "name": "Eq. Guinea",
-    "iso_a2": "GQ"
+    "iso_a2": "GQ",
+    "avg_hh_size": 5
   },
   "GRC": {
     "bbox": [
@@ -837,7 +920,8 @@ export const countries = {
       41.74379882812502
     ],
     "name": "Greece",
-    "iso_a2": "GR"
+    "iso_a2": "GR",
+    "avg_hh_size": 5
   },
   "GRD": {
     "bbox": [
@@ -847,7 +931,8 @@ export const countries = {
       12.237011718749997
     ],
     "name": "Grenada",
-    "iso_a2": "GD"
+    "iso_a2": "GD",
+    "avg_hh_size": 5
   },
   "GRL": {
     "bbox": [
@@ -857,7 +942,8 @@ export const countries = {
       83.59960937500006
     ],
     "name": "Greenland",
-    "iso_a2": "GL"
+    "iso_a2": "GL",
+    "avg_hh_size": 5
   },
   "GTM": {
     "bbox": [
@@ -867,7 +953,8 @@ export const countries = {
       17.81640625
     ],
     "name": "Guatemala",
-    "iso_a2": "GT"
+    "iso_a2": "GT",
+    "avg_hh_size": 5
   },
   "GUM": {
     "bbox": [
@@ -877,7 +964,8 @@ export const countries = {
       13.622363281250003
     ],
     "name": "Guam",
-    "iso_a2": "GU"
+    "iso_a2": "GU",
+    "avg_hh_size": 5
   },
   "GUY": {
     "bbox": [
@@ -887,7 +975,8 @@ export const countries = {
       8.54931640625
     ],
     "name": "Guyana",
-    "iso_a2": "GY"
+    "iso_a2": "GY",
+    "avg_hh_size": 5
   },
   "HKG": {
     "bbox": [
@@ -897,7 +986,8 @@ export const countries = {
       22.564990234375074
     ],
     "name": "Hong Kong",
-    "iso_a2": "HK"
+    "iso_a2": "HK",
+    "avg_hh_size": 5
   },
   "HMD": {
     "bbox": [
@@ -907,7 +997,8 @@ export const countries = {
       -52.96630859375
     ],
     "name": "Heard I. and McDonald Is.",
-    "iso_a2": "HM"
+    "iso_a2": "HM",
+    "avg_hh_size": 5
   },
   "HND": {
     "bbox": [
@@ -917,7 +1008,8 @@ export const countries = {
       16.513964843750017
     ],
     "name": "Honduras",
-    "iso_a2": "HN"
+    "iso_a2": "HN",
+    "avg_hh_size": 5
   },
   "HRV": {
     "bbox": [
@@ -927,7 +1019,8 @@ export const countries = {
       46.53461914062504
     ],
     "name": "Croatia",
-    "iso_a2": "HR"
+    "iso_a2": "HR",
+    "avg_hh_size": 5
   },
   "HTI": {
     "bbox": [
@@ -937,7 +1030,8 @@ export const countries = {
       20.093652343750023
     ],
     "name": "Haiti",
-    "iso_a2": "HT"
+    "iso_a2": "HT",
+    "avg_hh_size": 5
   },
   "HUN": {
     "bbox": [
@@ -947,7 +1041,8 @@ export const countries = {
       48.553466796875
     ],
     "name": "Hungary",
-    "iso_a2": "HU"
+    "iso_a2": "HU",
+    "avg_hh_size": 5
   },
   "IDN": {
     "bbox": [
@@ -957,7 +1052,8 @@ export const countries = {
       5.907031250000031
     ],
     "name": "Indonesia",
-    "iso_a2": "ID"
+    "iso_a2": "ID",
+    "avg_hh_size": 5
   },
   "IMN": {
     "bbox": [
@@ -967,7 +1063,8 @@ export const countries = {
       54.407177734375
     ],
     "name": "Isle of Man",
-    "iso_a2": "IM"
+    "iso_a2": "IM",
+    "avg_hh_size": 5
   },
   "IND": {
     "bbox": [
@@ -977,7 +1074,8 @@ export const countries = {
       35.49589843750002
     ],
     "name": "India",
-    "iso_a2": "IN"
+    "iso_a2": "IN",
+    "avg_hh_size": 5
   },
   "IOT": {
     "bbox": [
@@ -987,7 +1085,8 @@ export const countries = {
       -7.220410156250011
     ],
     "name": "Br. Indian Ocean Ter.",
-    "iso_a2": "IO"
+    "iso_a2": "IO",
+    "avg_hh_size": 5
   },
   "IRL": {
     "bbox": [
@@ -997,7 +1096,8 @@ export const countries = {
       55.365820312500006
     ],
     "name": "Ireland",
-    "iso_a2": "IE"
+    "iso_a2": "IE",
+    "avg_hh_size": 5
   },
   "IRN": {
     "bbox": [
@@ -1007,7 +1107,8 @@ export const countries = {
       39.76855468750006
     ],
     "name": "Iran",
-    "iso_a2": "IR"
+    "iso_a2": "IR",
+    "avg_hh_size": 5
   },
   "IRQ": {
     "bbox": [
@@ -1017,7 +1118,8 @@ export const countries = {
       37.371875
     ],
     "name": "Iraq",
-    "iso_a2": "IQ"
+    "iso_a2": "IQ",
+    "avg_hh_size": 5
   },
   "ISL": {
     "bbox": [
@@ -1027,7 +1129,8 @@ export const countries = {
       66.52607421875
     ],
     "name": "Iceland",
-    "iso_a2": "IS"
+    "iso_a2": "IS",
+    "avg_hh_size": 5
   },
   "ISR": {
     "bbox": [
@@ -1037,7 +1140,8 @@ export const countries = {
       33.43173828125
     ],
     "name": "Israel",
-    "iso_a2": "IL"
+    "iso_a2": "IL",
+    "avg_hh_size": 5
   },
   "ITA": {
     "bbox": [
@@ -1047,7 +1151,8 @@ export const countries = {
       47.082128906250006
     ],
     "name": "Italy",
-    "iso_a2": "IT"
+    "iso_a2": "IT",
+    "avg_hh_size": 5
   },
   "JAM": {
     "bbox": [
@@ -1057,7 +1162,8 @@ export const countries = {
       18.522216796875
     ],
     "name": "Jamaica",
-    "iso_a2": "JM"
+    "iso_a2": "JM",
+    "avg_hh_size": 5
   },
   "JEY": {
     "bbox": [
@@ -1067,7 +1173,8 @@ export const countries = {
       49.266357421875
     ],
     "name": "Jersey",
-    "iso_a2": "JE"
+    "iso_a2": "JE",
+    "avg_hh_size": 5
   },
   "JOR": {
     "bbox": [
@@ -1077,7 +1184,8 @@ export const countries = {
       33.372216796874994
     ],
     "name": "Jordan",
-    "iso_a2": "JO"
+    "iso_a2": "JO",
+    "avg_hh_size": 5
   },
   "JPN": {
     "bbox": [
@@ -1087,7 +1195,8 @@ export const countries = {
       45.509521484375
     ],
     "name": "Japan",
-    "iso_a2": "JP"
+    "iso_a2": "JP",
+    "avg_hh_size": 5
   },
   "KAZ": {
     "bbox": [
@@ -1097,7 +1206,8 @@ export const countries = {
       55.389599609374955
     ],
     "name": "Kazakhstan",
-    "iso_a2": "KZ"
+    "iso_a2": "KZ",
+    "avg_hh_size": 5
   },
   "KEN": {
     "bbox": [
@@ -1107,7 +1217,8 @@ export const countries = {
       5.492285156250006
     ],
     "name": "Kenya",
-    "iso_a2": "KE"
+    "iso_a2": "KE",
+    "avg_hh_size": 5
   },
   "KGZ": {
     "bbox": [
@@ -1117,7 +1228,8 @@ export const countries = {
       43.240380859374994
     ],
     "name": "Kyrgyzstan",
-    "iso_a2": "KG"
+    "iso_a2": "KG",
+    "avg_hh_size": 5
   },
   "KHM": {
     "bbox": [
@@ -1127,7 +1239,8 @@ export const countries = {
       14.705078125
     ],
     "name": "Cambodia",
-    "iso_a2": "KH"
+    "iso_a2": "KH",
+    "avg_hh_size": 5
   },
   "KIR": {
     "bbox": [
@@ -1137,7 +1250,8 @@ export const countries = {
       3.923535156249983
     ],
     "name": "Kiribati",
-    "iso_a2": "KI"
+    "iso_a2": "KI",
+    "avg_hh_size": 5
   },
   "KNA": {
     "bbox": [
@@ -1147,7 +1261,8 @@ export const countries = {
       17.40258789062503
     ],
     "name": "St. Kitts and Nevis",
-    "iso_a2": "KN"
+    "iso_a2": "KN",
+    "avg_hh_size": 5
   },
   "KOR": {
     "bbox": [
@@ -1157,7 +1272,8 @@ export const countries = {
       38.6234375
     ],
     "name": "Korea",
-    "iso_a2": "KR"
+    "iso_a2": "KR",
+    "avg_hh_size": 5
   },
   "KWT": {
     "bbox": [
@@ -1167,7 +1283,8 @@ export const countries = {
       30.097314453125023
     ],
     "name": "Kuwait",
-    "iso_a2": "KW"
+    "iso_a2": "KW",
+    "avg_hh_size": 5
   },
   "LAO": {
     "bbox": [
@@ -1177,7 +1294,8 @@ export const countries = {
       22.495263671874966
     ],
     "name": "Lao PDR",
-    "iso_a2": "LA"
+    "iso_a2": "LA",
+    "avg_hh_size": 5
   },
   "LBN": {
     "bbox": [
@@ -1187,7 +1305,8 @@ export const countries = {
       34.6787109375
     ],
     "name": "Lebanon",
-    "iso_a2": "LB"
+    "iso_a2": "LB",
+    "avg_hh_size": 5
   },
   "LBR": {
     "bbox": [
@@ -1197,7 +1316,8 @@ export const countries = {
       8.537695312499991
     ],
     "name": "Liberia",
-    "iso_a2": "LR"
+    "iso_a2": "LR",
+    "avg_hh_size": 5
   },
   "LBY": {
     "bbox": [
@@ -1207,7 +1327,8 @@ export const countries = {
       33.181933593749996
     ],
     "name": "Libya",
-    "iso_a2": "LY"
+    "iso_a2": "LY",
+    "avg_hh_size": 5
   },
   "LCA": {
     "bbox": [
@@ -1217,7 +1338,8 @@ export const countries = {
       14.09335937499999
     ],
     "name": "Saint Lucia",
-    "iso_a2": "LC"
+    "iso_a2": "LC",
+    "avg_hh_size": 5
   },
   "LIE": {
     "bbox": [
@@ -1227,7 +1349,8 @@ export const countries = {
       47.270751953125
     ],
     "name": "Liechtenstein",
-    "iso_a2": "LI"
+    "iso_a2": "LI",
+    "avg_hh_size": 5
   },
   "LKA": {
     "bbox": [
@@ -1237,7 +1360,8 @@ export const countries = {
       9.812695312500011
     ],
     "name": "Sri Lanka",
-    "iso_a2": "LK"
+    "iso_a2": "LK",
+    "avg_hh_size": 5
   },
   "LSO": {
     "bbox": [
@@ -1247,7 +1371,8 @@ export const countries = {
       -28.58173828125001
     ],
     "name": "Lesotho",
-    "iso_a2": "LS"
+    "iso_a2": "LS",
+    "avg_hh_size": 5
   },
   "LTU": {
     "bbox": [
@@ -1257,7 +1382,8 @@ export const countries = {
       56.41118164062499
     ],
     "name": "Lithuania",
-    "iso_a2": "LT"
+    "iso_a2": "LT",
+    "avg_hh_size": 5
   },
   "LUX": {
     "bbox": [
@@ -1267,7 +1393,8 @@ export const countries = {
       50.1671875
     ],
     "name": "Luxembourg",
-    "iso_a2": "LU"
+    "iso_a2": "LU",
+    "avg_hh_size": 5
   },
   "LVA": {
     "bbox": [
@@ -1277,7 +1404,8 @@ export const countries = {
       58.063427734375
     ],
     "name": "Latvia",
-    "iso_a2": "LV"
+    "iso_a2": "LV",
+    "avg_hh_size": 5
   },
   "MAC": {
     "bbox": [
@@ -1287,7 +1415,8 @@ export const countries = {
       22.24594726562499
     ],
     "name": "Macao",
-    "iso_a2": "MO"
+    "iso_a2": "MO",
+    "avg_hh_size": 5
   },
   "MAF": {
     "bbox": [
@@ -1297,7 +1426,8 @@ export const countries = {
       18.11533203124999
     ],
     "name": "St-Martin",
-    "iso_a2": "MF"
+    "iso_a2": "MF",
+    "avg_hh_size": 5
   },
   "MAR": {
     "bbox": [
@@ -1307,7 +1437,8 @@ export const countries = {
       35.929882812499955
     ],
     "name": "Morocco",
-    "iso_a2": "MA"
+    "iso_a2": "MA",
+    "avg_hh_size": 5
   },
   "MCO": {
     "bbox": [
@@ -1317,7 +1448,8 @@ export const countries = {
       43.770898437499994
     ],
     "name": "Monaco",
-    "iso_a2": "MC"
+    "iso_a2": "MC",
+    "avg_hh_size": 5
   },
   "MDA": {
     "bbox": [
@@ -1327,7 +1459,8 @@ export const countries = {
       48.477734375
     ],
     "name": "Moldova",
-    "iso_a2": "MD"
+    "iso_a2": "MD",
+    "avg_hh_size": 5
   },
   "MDG": {
     "bbox": [
@@ -1337,7 +1470,8 @@ export const countries = {
       -12.079589843749957
     ],
     "name": "Madagascar",
-    "iso_a2": "MG"
+    "iso_a2": "MG",
+    "avg_hh_size": 5
   },
   "MDV": {
     "bbox": [
@@ -1347,7 +1481,8 @@ export const countries = {
       4.24765625000002
     ],
     "name": "Maldives",
-    "iso_a2": "MV"
+    "iso_a2": "MV",
+    "avg_hh_size": 5
   },
   "MEX": {
     "bbox": [
@@ -1357,7 +1492,8 @@ export const countries = {
       32.71533203125003
     ],
     "name": "Mexico",
-    "iso_a2": "MX"
+    "iso_a2": "MX",
+    "avg_hh_size": 5
   },
   "MHL": {
     "bbox": [
@@ -1367,7 +1503,8 @@ export const countries = {
       11.168652343750026
     ],
     "name": "Marshall Is.",
-    "iso_a2": "MH"
+    "iso_a2": "MH",
+    "avg_hh_size": 5
   },
   "MKD": {
     "bbox": [
@@ -1377,7 +1514,8 @@ export const countries = {
       42.358154296875
     ],
     "name": "Macedonia",
-    "iso_a2": "MK"
+    "iso_a2": "MK",
+    "avg_hh_size": 5
   },
   "MLI": {
     "bbox": [
@@ -1387,7 +1525,8 @@ export const countries = {
       24.99560546875
     ],
     "name": "Mali",
-    "iso_a2": "ML"
+    "iso_a2": "ML",
+    "avg_hh_size": 5
   },
   "MLT": {
     "bbox": [
@@ -1397,7 +1536,8 @@ export const countries = {
       36.075781250000034
     ],
     "name": "Malta",
-    "iso_a2": "MT"
+    "iso_a2": "MT",
+    "avg_hh_size": 5
   },
   "MMR": {
     "bbox": [
@@ -1407,7 +1547,8 @@ export const countries = {
       28.51704101562504
     ],
     "name": "Myanmar",
-    "iso_a2": "MM"
+    "iso_a2": "MM",
+    "avg_hh_size": 5
   },
   "MNE": {
     "bbox": [
@@ -1417,7 +1558,8 @@ export const countries = {
       43.542333984375
     ],
     "name": "Montenegro",
-    "iso_a2": "ME"
+    "iso_a2": "ME",
+    "avg_hh_size": 5
   },
   "MNG": {
     "bbox": [
@@ -1427,7 +1569,8 @@ export const countries = {
       52.11728515625
     ],
     "name": "Mongolia",
-    "iso_a2": "MN"
+    "iso_a2": "MN",
+    "avg_hh_size": 5
   },
   "MNP": {
     "bbox": [
@@ -1437,7 +1580,8 @@ export const countries = {
       18.806787109375023
     ],
     "name": "N. Mariana Is.",
-    "iso_a2": "MP"
+    "iso_a2": "MP",
+    "avg_hh_size": 5
   },
   "MOZ": {
     "bbox": [
@@ -1447,7 +1591,8 @@ export const countries = {
       -10.46435546875
     ],
     "name": "Mozambique",
-    "iso_a2": "MZ"
+    "iso_a2": "MZ",
+    "avg_hh_size": 5
   },
   "MRT": {
     "bbox": [
@@ -1457,7 +1602,8 @@ export const countries = {
       27.285937500000045
     ],
     "name": "Mauritania",
-    "iso_a2": "MR"
+    "iso_a2": "MR",
+    "avg_hh_size": 5
   },
   "MSR": {
     "bbox": [
@@ -1467,7 +1613,8 @@ export const countries = {
       16.8095703125
     ],
     "name": "Montserrat",
-    "iso_a2": "MS"
+    "iso_a2": "MS",
+    "avg_hh_size": 5
   },
   "MUS": {
     "bbox": [
@@ -1477,7 +1624,8 @@ export const countries = {
       -19.98994140625001
     ],
     "name": "Mauritius",
-    "iso_a2": "MU"
+    "iso_a2": "MU",
+    "avg_hh_size": 5
   },
   "MWI": {
     "bbox": [
@@ -1487,7 +1635,8 @@ export const countries = {
       -9.395019531249986
     ],
     "name": "Malawi",
-    "iso_a2": "MW"
+    "iso_a2": "MW",
+    "avg_hh_size": 5
   },
   "MYS": {
     "bbox": [
@@ -1497,7 +1646,8 @@ export const countries = {
       7.351660156250006
     ],
     "name": "Malaysia",
-    "iso_a2": "MY"
+    "iso_a2": "MY",
+    "avg_hh_size": 5
   },
   "NAM": {
     "bbox": [
@@ -1507,7 +1657,8 @@ export const countries = {
       -16.96767578125001
     ],
     "name": "Namibia",
-    "iso_a2": "NA"
+    "iso_a2": "NA",
+    "avg_hh_size": 5
   },
   "NCL": {
     "bbox": [
@@ -1517,7 +1668,8 @@ export const countries = {
       -19.114648437500023
     ],
     "name": "New Caledonia",
-    "iso_a2": "NC"
+    "iso_a2": "NC",
+    "avg_hh_size": 5
   },
   "NER": {
     "bbox": [
@@ -1527,7 +1679,8 @@ export const countries = {
       23.517871093750003
     ],
     "name": "Niger",
-    "iso_a2": "NE"
+    "iso_a2": "NE",
+    "avg_hh_size": 5
   },
   "NFK": {
     "bbox": [
@@ -1537,7 +1690,8 @@ export const countries = {
       -29.013964843750003
     ],
     "name": "Norfolk Island",
-    "iso_a2": "NF"
+    "iso_a2": "NF",
+    "avg_hh_size": 5
   },
   "NGA": {
     "bbox": [
@@ -1548,6 +1702,7 @@ export const countries = {
     ],
     "name": "Nigeria",
     "iso_a2": "NG",
+    "avg_hh_size": 5,
     "area": "923,768 km2",
     "population": 177476000
   },
@@ -1559,7 +1714,8 @@ export const countries = {
       15.008056640625
     ],
     "name": "Nicaragua",
-    "iso_a2": "NI"
+    "iso_a2": "NI",
+    "avg_hh_size": 5
   },
   "NIU": {
     "bbox": [
@@ -1569,7 +1725,8 @@ export const countries = {
       -18.96601562500001
     ],
     "name": "Niue",
-    "iso_a2": "NU"
+    "iso_a2": "NU",
+    "avg_hh_size": 5
   },
   "NLD": {
     "bbox": [
@@ -1579,7 +1736,8 @@ export const countries = {
       53.62548828125
     ],
     "name": "Netherlands",
-    "iso_a2": "NL"
+    "iso_a2": "NL",
+    "avg_hh_size": 5
   },
   "NOR": {
     "bbox": [
@@ -1589,7 +1747,8 @@ export const countries = {
       80.47783203124999
     ],
     "name": "Norway",
-    "iso_a2": "NO"
+    "iso_a2": "NO",
+    "avg_hh_size": 5
   },
   "NPL": {
     "bbox": [
@@ -1599,7 +1758,8 @@ export const countries = {
       30.3875
     ],
     "name": "Nepal",
-    "iso_a2": "NP"
+    "iso_a2": "NP",
+    "avg_hh_size": 5
   },
   "NRU": {
     "bbox": [
@@ -1609,7 +1769,8 @@ export const countries = {
       -0.489355468750006
     ],
     "name": "Nauru",
-    "iso_a2": "NR"
+    "iso_a2": "NR",
+    "avg_hh_size": 5
   },
   "NZL": {
     "bbox": [
@@ -1619,7 +1780,8 @@ export const countries = {
       -8.546484374999949
     ],
     "name": "New Zealand",
-    "iso_a2": "NZ"
+    "iso_a2": "NZ",
+    "avg_hh_size": 5
   },
   "OMN": {
     "bbox": [
@@ -1629,7 +1791,8 @@ export const countries = {
       26.356347656250023
     ],
     "name": "Oman",
-    "iso_a2": "OM"
+    "iso_a2": "OM",
+    "avg_hh_size": 5
   },
   "PAK": {
     "bbox": [
@@ -1639,7 +1802,8 @@ export const countries = {
       37.036669921874996
     ],
     "name": "Pakistan",
-    "iso_a2": "PK"
+    "iso_a2": "PK",
+    "avg_hh_size": 5
   },
   "PAN": {
     "bbox": [
@@ -1649,7 +1813,8 @@ export const countries = {
       9.597851562500026
     ],
     "name": "Panama",
-    "iso_a2": "PA"
+    "iso_a2": "PA",
+    "avg_hh_size": 5
   },
   "PCN": {
     "bbox": [
@@ -1659,7 +1824,8 @@ export const countries = {
       -24.3232421875
     ],
     "name": "Pitcairn Is.",
-    "iso_a2": "PN"
+    "iso_a2": "PN",
+    "avg_hh_size": 5
   },
   "PER": {
     "bbox": [
@@ -1669,7 +1835,8 @@ export const countries = {
       -0.041748046875
     ],
     "name": "Peru",
-    "iso_a2": "PE"
+    "iso_a2": "PE",
+    "avg_hh_size": 5
   },
   "PHL": {
     "bbox": [
@@ -1679,7 +1846,8 @@ export const countries = {
       20.841259765624983
     ],
     "name": "Philippines",
-    "iso_a2": "PH"
+    "iso_a2": "PH",
+    "avg_hh_size": 5
   },
   "PLW": {
     "bbox": [
@@ -1689,7 +1857,8 @@ export const countries = {
       7.712109374999983
     ],
     "name": "Palau",
-    "iso_a2": "PW"
+    "iso_a2": "PW",
+    "avg_hh_size": 5
   },
   "PNG": {
     "bbox": [
@@ -1699,7 +1868,8 @@ export const countries = {
       -1.353222656249983
     ],
     "name": "Papua New Guinea",
-    "iso_a2": "PG"
+    "iso_a2": "PG",
+    "avg_hh_size": 5
   },
   "POL": {
     "bbox": [
@@ -1709,7 +1879,8 @@ export const countries = {
       54.838183593749996
     ],
     "name": "Poland",
-    "iso_a2": "PL"
+    "iso_a2": "PL",
+    "avg_hh_size": 5
   },
   "PRI": {
     "bbox": [
@@ -1719,7 +1890,8 @@ export const countries = {
       18.522167968749955
     ],
     "name": "Puerto Rico",
-    "iso_a2": "PR"
+    "iso_a2": "PR",
+    "avg_hh_size": 5
   },
   "PRK": {
     "bbox": [
@@ -1729,7 +1901,8 @@ export const countries = {
       42.998144531250034
     ],
     "name": "Dem. Rep. Korea",
-    "iso_a2": "KP"
+    "iso_a2": "KP",
+    "avg_hh_size": 5
   },
   "PRT": {
     "bbox": [
@@ -1739,7 +1912,8 @@ export const countries = {
       42.13740234375001
     ],
     "name": "Portugal",
-    "iso_a2": "PT"
+    "iso_a2": "PT",
+    "avg_hh_size": 5
   },
   "PRY": {
     "bbox": [
@@ -1749,7 +1923,8 @@ export const countries = {
       -19.286230468750006
     ],
     "name": "Paraguay",
-    "iso_a2": "PY"
+    "iso_a2": "PY",
+    "avg_hh_size": 5
   },
   "PSE": {
     "bbox": [
@@ -1759,7 +1934,8 @@ export const countries = {
       32.53442382812503
     ],
     "name": "Palestine",
-    "iso_a2": "PS"
+    "iso_a2": "PS",
+    "avg_hh_size": 5
   },
   "PYF": {
     "bbox": [
@@ -1769,7 +1945,8 @@ export const countries = {
       -8.781542968749974
     ],
     "name": "Fr. Polynesia",
-    "iso_a2": "PF"
+    "iso_a2": "PF",
+    "avg_hh_size": 5
   },
   "QAT": {
     "bbox": [
@@ -1779,7 +1956,8 @@ export const countries = {
       26.153271484374997
     ],
     "name": "Qatar",
-    "iso_a2": "QA"
+    "iso_a2": "QA",
+    "avg_hh_size": 5
   },
   "ROU": {
     "bbox": [
@@ -1789,7 +1967,8 @@ export const countries = {
       48.263476562499996
     ],
     "name": "Romania",
-    "iso_a2": "RO"
+    "iso_a2": "RO",
+    "avg_hh_size": 5
   },
   "RUS": {
     "bbox": [
@@ -1799,7 +1978,8 @@ export const countries = {
       81.85419921874998
     ],
     "name": "Russia",
-    "iso_a2": "RU"
+    "iso_a2": "RU",
+    "avg_hh_size": 5
   },
   "RWA": {
     "bbox": [
@@ -1809,7 +1989,8 @@ export const countries = {
       -1.063085937500006
     ],
     "name": "Rwanda",
-    "iso_a2": "RW"
+    "iso_a2": "RW",
+    "avg_hh_size": 5
   },
   "ESH": {
     "bbox": [
@@ -1819,7 +2000,8 @@ export const countries = {
       27.656445312499997
     ],
     "name": "W. Sahara",
-    "iso_a2": "EH"
+    "iso_a2": "EH",
+    "avg_hh_size": 5
   },
   "SAU": {
     "bbox": [
@@ -1829,7 +2011,8 @@ export const countries = {
       32.12451171875
     ],
     "name": "Saudi Arabia",
-    "iso_a2": "SA"
+    "iso_a2": "SA",
+    "avg_hh_size": 5
   },
   "SDN": {
     "bbox": [
@@ -1839,7 +2022,8 @@ export const countries = {
       22.202441406250003
     ],
     "name": "Sudan",
-    "iso_a2": "SD"
+    "iso_a2": "SD",
+    "avg_hh_size": 5
   },
   "SSD": {
     "bbox": [
@@ -1849,7 +2033,8 @@ export const countries = {
       12.223095703124997
     ],
     "name": "S. Sudan",
-    "iso_a2": "SS"
+    "iso_a2": "SS",
+    "avg_hh_size": 5
   },
   "SEN": {
     "bbox": [
@@ -1859,7 +2044,8 @@ export const countries = {
       16.67890625
     ],
     "name": "Senegal",
-    "iso_a2": "SN"
+    "iso_a2": "SN",
+    "avg_hh_size": 5
   },
   "SGP": {
     "bbox": [
@@ -1869,7 +2055,8 @@ export const countries = {
       1.447070312499989
     ],
     "name": "Singapore",
-    "iso_a2": "SG"
+    "iso_a2": "SG",
+    "avg_hh_size": 5
   },
   "SGS": {
     "bbox": [
@@ -1879,7 +2066,8 @@ export const countries = {
       -53.98408203125004
     ],
     "name": "S. Geo. and S. Sandw. Is.",
-    "iso_a2": "GS"
+    "iso_a2": "GS",
+    "avg_hh_size": 5
   },
   "SHN": {
     "bbox": [
@@ -1889,7 +2077,8 @@ export const countries = {
       -7.882617187499974
     ],
     "name": "Saint Helena",
-    "iso_a2": "SH"
+    "iso_a2": "SH",
+    "avg_hh_size": 5
   },
   "SLB": {
     "bbox": [
@@ -1899,7 +2088,8 @@ export const countries = {
       -6.608886718750014
     ],
     "name": "Solomon Is.",
-    "iso_a2": "SB"
+    "iso_a2": "SB",
+    "avg_hh_size": 5
   },
   "SLE": {
     "bbox": [
@@ -1909,7 +2099,8 @@ export const countries = {
       9.996533203124983
     ],
     "name": "Sierra Leone",
-    "iso_a2": "SL"
+    "iso_a2": "SL",
+    "avg_hh_size": 5
   },
   "SLV": {
     "bbox": [
@@ -1919,7 +2110,8 @@ export const countries = {
       14.431103515624997
     ],
     "name": "El Salvador",
-    "iso_a2": "SV"
+    "iso_a2": "SV",
+    "avg_hh_size": 5
   },
   "SMR": {
     "bbox": [
@@ -1929,7 +2121,8 @@ export const countries = {
       43.98974609375
     ],
     "name": "San Marino",
-    "iso_a2": "SM"
+    "iso_a2": "SM",
+    "avg_hh_size": 5
   },
   "SOM": {
     "bbox": [
@@ -1939,7 +2132,8 @@ export const countries = {
       11.983691406249989
     ],
     "name": "Somalia",
-    "iso_a2": "SO"
+    "iso_a2": "SO",
+    "avg_hh_size": 5
   },
   "SPM": {
     "bbox": [
@@ -1949,7 +2143,8 @@ export const countries = {
       47.09897460937498
     ],
     "name": "St. Pierre and Miquelon",
-    "iso_a2": "PM"
+    "iso_a2": "PM",
+    "avg_hh_size": 5
   },
   "SRB": {
     "bbox": [
@@ -1959,7 +2154,8 @@ export const countries = {
       46.169189453125
     ],
     "name": "Serbia",
-    "iso_a2": "RS"
+    "iso_a2": "RS",
+    "avg_hh_size": 5
   },
   "STP": {
     "bbox": [
@@ -1969,7 +2165,8 @@ export const countries = {
       1.699121093750037
     ],
     "name": "So Tom and Principe",
-    "iso_a2": "ST"
+    "iso_a2": "ST",
+    "avg_hh_size": 5
   },
   "SUR": {
     "bbox": [
@@ -1979,7 +2176,8 @@ export const countries = {
       5.993457031249989
     ],
     "name": "Suriname",
-    "iso_a2": "SR"
+    "iso_a2": "SR",
+    "avg_hh_size": 5
   },
   "SVK": {
     "bbox": [
@@ -1989,7 +2187,8 @@ export const countries = {
       49.597705078124996
     ],
     "name": "Slovakia",
-    "iso_a2": "SK"
+    "iso_a2": "SK",
+    "avg_hh_size": 5
   },
   "SVN": {
     "bbox": [
@@ -1999,7 +2198,8 @@ export const countries = {
       46.86328125
     ],
     "name": "Slovenia",
-    "iso_a2": "SI"
+    "iso_a2": "SI",
+    "avg_hh_size": 5
   },
   "SWE": {
     "bbox": [
@@ -2009,7 +2209,8 @@ export const countries = {
       69.036865234375
     ],
     "name": "Sweden",
-    "iso_a2": "SE"
+    "iso_a2": "SE",
+    "avg_hh_size": 5
   },
   "SWZ": {
     "bbox": [
@@ -2019,7 +2220,8 @@ export const countries = {
       -25.74296875
     ],
     "name": "Swaziland",
-    "iso_a2": "SZ"
+    "iso_a2": "SZ",
+    "avg_hh_size": 5
   },
   "SXM": {
     "bbox": [
@@ -2029,7 +2231,8 @@ export const countries = {
       18.06894531249999
     ],
     "name": "Sint Maarten",
-    "iso_a2": "SX"
+    "iso_a2": "SX",
+    "avg_hh_size": 5
   },
   "SYC": {
     "bbox": [
@@ -2039,7 +2242,8 @@ export const countries = {
       -4.558789062500011
     ],
     "name": "Seychelles",
-    "iso_a2": "SC"
+    "iso_a2": "SC",
+    "avg_hh_size": 5
   },
   "SYR": {
     "bbox": [
@@ -2049,7 +2253,8 @@ export const countries = {
       37.29726562499999
     ],
     "name": "Syria",
-    "iso_a2": "SY"
+    "iso_a2": "SY",
+    "avg_hh_size": 5
   },
   "TCA": {
     "bbox": [
@@ -2059,7 +2264,8 @@ export const countries = {
       21.951904296875057
     ],
     "name": "Turks and Caicos Is.",
-    "iso_a2": "TC"
+    "iso_a2": "TC",
+    "avg_hh_size": 5
   },
   "TCD": {
     "bbox": [
@@ -2069,7 +2275,8 @@ export const countries = {
       23.445214843749994
     ],
     "name": "Chad",
-    "iso_a2": "TD"
+    "iso_a2": "TD",
+    "avg_hh_size": 5
   },
   "TGO": {
     "bbox": [
@@ -2079,7 +2286,8 @@ export const countries = {
       11.115625
     ],
     "name": "Togo",
-    "iso_a2": "TG"
+    "iso_a2": "TG",
+    "avg_hh_size": 5
   },
   "THA": {
     "bbox": [
@@ -2089,7 +2297,8 @@ export const countries = {
       20.424414062499977
     ],
     "name": "Thailand",
-    "iso_a2": "TH"
+    "iso_a2": "TH",
+    "avg_hh_size": 5
   },
   "TJK": {
     "bbox": [
@@ -2099,7 +2308,8 @@ export const countries = {
       41.03510742187498
     ],
     "name": "Tajikistan",
-    "iso_a2": "TJ"
+    "iso_a2": "TJ",
+    "avg_hh_size": 5
   },
   "TKM": {
     "bbox": [
@@ -2109,7 +2319,8 @@ export const countries = {
       42.778466796874966
     ],
     "name": "Turkmenistan",
-    "iso_a2": "TM"
+    "iso_a2": "TM",
+    "avg_hh_size": 5
   },
   "TLS": {
     "bbox": [
@@ -2119,7 +2330,8 @@ export const countries = {
       -8.139941406250003
     ],
     "name": "Timor-Leste",
-    "iso_a2": "TL"
+    "iso_a2": "TL",
+    "avg_hh_size": 5
   },
   "TON": {
     "bbox": [
@@ -2129,7 +2341,8 @@ export const countries = {
       -18.565332031250023
     ],
     "name": "Tonga",
-    "iso_a2": "TO"
+    "iso_a2": "TO",
+    "avg_hh_size": 5
   },
   "TTO": {
     "bbox": [
@@ -2139,7 +2352,8 @@ export const countries = {
       11.325390624999983
     ],
     "name": "Trinidad and Tobago",
-    "iso_a2": "TT"
+    "iso_a2": "TT",
+    "avg_hh_size": 5
   },
   "TUN": {
     "bbox": [
@@ -2149,7 +2363,8 @@ export const countries = {
       37.34038085937499
     ],
     "name": "Tunisia",
-    "iso_a2": "TN"
+    "iso_a2": "TN",
+    "avg_hh_size": 5
   },
   "TUR": {
     "bbox": [
@@ -2159,7 +2374,8 @@ export const countries = {
       42.09326171875
     ],
     "name": "Turkey",
-    "iso_a2": "TR"
+    "iso_a2": "TR",
+    "avg_hh_size": 5
   },
   "TWN": {
     "bbox": [
@@ -2169,7 +2385,8 @@ export const countries = {
       25.276904296875017
     ],
     "name": "Taiwan",
-    "iso_a2": "TW"
+    "iso_a2": "TW",
+    "avg_hh_size": 5
   },
   "TZA": {
     "bbox": [
@@ -2180,6 +2397,7 @@ export const countries = {
     ],
     "name": "Tanzania",
     "iso_a2": "TZ",
+    "avg_hh_size": 5,
     "area": "947,303 km2",
     "population": 51820000
   },
@@ -2191,7 +2409,8 @@ export const countries = {
       4.22021484375
     ],
     "name": "Uganda",
-    "iso_a2": "UG"
+    "iso_a2": "UG",
+    "avg_hh_size": 5
   },
   "UKR": {
     "bbox": [
@@ -2201,7 +2420,8 @@ export const countries = {
       52.35356445312496
     ],
     "name": "Ukraine",
-    "iso_a2": "UA"
+    "iso_a2": "UA",
+    "avg_hh_size": 5
   },
   "URY": {
     "bbox": [
@@ -2211,7 +2431,8 @@ export const countries = {
       -30.10107421875
     ],
     "name": "Uruguay",
-    "iso_a2": "UY"
+    "iso_a2": "UY",
+    "avg_hh_size": 5
   },
   "USA": {
     "bbox": [
@@ -2221,7 +2442,8 @@ export const countries = {
       71.40766601562501
     ],
     "name": "United States",
-    "iso_a2": "US"
+    "iso_a2": "US",
+    "avg_hh_size": 5
   },
   "UZB": {
     "bbox": [
@@ -2231,7 +2453,8 @@ export const countries = {
       45.55537109375001
     ],
     "name": "Uzbekistan",
-    "iso_a2": "UZ"
+    "iso_a2": "UZ",
+    "avg_hh_size": 5
   },
   "VAT": {
     "bbox": [
@@ -2241,7 +2464,8 @@ export const countries = {
       41.906201171875
     ],
     "name": "Vatican",
-    "iso_a2": "VA"
+    "iso_a2": "VA",
+    "avg_hh_size": 5
   },
   "VCT": {
     "bbox": [
@@ -2251,7 +2475,8 @@ export const countries = {
       13.358740234374991
     ],
     "name": "St. Vin. and Gren.",
-    "iso_a2": "VC"
+    "iso_a2": "VC",
+    "avg_hh_size": 5
   },
   "VEN": {
     "bbox": [
@@ -2261,7 +2486,8 @@ export const countries = {
       12.177880859375023
     ],
     "name": "Venezuela",
-    "iso_a2": "VE"
+    "iso_a2": "VE",
+    "avg_hh_size": 5
   },
   "VGB": {
     "bbox": [
@@ -2271,7 +2497,8 @@ export const countries = {
       18.75268554687503
     ],
     "name": "British Virgin Is.",
-    "iso_a2": "VG"
+    "iso_a2": "VG",
+    "avg_hh_size": 5
   },
   "VIR": {
     "bbox": [
@@ -2281,7 +2508,8 @@ export const countries = {
       18.38520507812504
     ],
     "name": "U.S. Virgin Is.",
-    "iso_a2": "VI"
+    "iso_a2": "VI",
+    "avg_hh_size": 5
   },
   "VNM": {
     "bbox": [
@@ -2291,7 +2519,8 @@ export const countries = {
       23.34521484375003
     ],
     "name": "Vietnam",
-    "iso_a2": "VN"
+    "iso_a2": "VN",
+    "avg_hh_size": 5
   },
   "VUT": {
     "bbox": [
@@ -2301,7 +2530,8 @@ export const countries = {
       -13.709472656250014
     ],
     "name": "Vanuatu",
-    "iso_a2": "VU"
+    "iso_a2": "VU",
+    "avg_hh_size": 5
   },
   "WLF": {
     "bbox": [
@@ -2311,7 +2541,8 @@ export const countries = {
       -13.221679687500028
     ],
     "name": "Wallis and Futuna Is.",
-    "iso_a2": "WF"
+    "iso_a2": "WF",
+    "avg_hh_size": 5
   },
   "WSM": {
     "bbox": [
@@ -2321,7 +2552,8 @@ export const countries = {
       -13.46523437499999
     ],
     "name": "Samoa",
-    "iso_a2": "WS"
+    "iso_a2": "WS",
+    "avg_hh_size": 5
   },
   "YEM": {
     "bbox": [
@@ -2331,7 +2563,8 @@ export const countries = {
       18.996142578125074
     ],
     "name": "Yemen",
-    "iso_a2": "YE"
+    "iso_a2": "YE",
+    "avg_hh_size": 5
   },
   "ZAF": {
     "bbox": [
@@ -2341,7 +2574,8 @@ export const countries = {
       -22.146289062500017
     ],
     "name": "South Africa",
-    "iso_a2": "ZA"
+    "iso_a2": "ZA",
+    "avg_hh_size": 5
   },
   "ZMB": {
     "bbox": [
@@ -2352,6 +2586,7 @@ export const countries = {
     ],
     "name": "Zambia",
     "iso_a2": "ZM",
+    "avg_hh_size": 5,
     "area": "752,618 km2",
     "population": 15721000
   },
@@ -2363,6 +2598,7 @@ export const countries = {
       -15.64306640625
     ],
     "name": "Zimbabwe",
-    "iso_a2": "ZW"
+    "iso_a2": "ZW",
+    "avg_hh_size": 5
   }
 }
