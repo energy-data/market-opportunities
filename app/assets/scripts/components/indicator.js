@@ -23,7 +23,6 @@ const Indicator = React.createClass({
 
   render: function () {
     const { id, datasetName, description, editing, options, filter, visible } = this.props.layer
-    const license = this.props.layer['license_title']
     const { updateLayerFilter } = this.props
 
     let Editor
@@ -109,14 +108,8 @@ const Indicator = React.createClass({
               <dl className='layer-info__details'>
                 <dt>Description</dt>
                 <dd>{description}</dd>
-                <dt>Provider</dt>
-                <dd>Open Data Platform</dd>
                 <dt>Source URL</dt>
                 <dd><a href='#' title='Visit data source URL' className='url'>{url.resolve(config.dataHubURL, '/dataset/' + datasetName)}</a></dd>
-                <dt>Year</dt>
-                <dd>TBD</dd>
-                <dt>License</dt>
-                <dd>{license}</dd>
               </dl>
             </section>
           </div>
