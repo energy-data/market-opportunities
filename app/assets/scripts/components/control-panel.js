@@ -63,12 +63,8 @@ export const ControlPanel = React.createClass({
         <PanelFooter
           geojson={layers.intersect}
           getMapReference={getMapReference}
-          population={prize.population}
-          tier1pop={prize.tier1pop}
-          tier2pop={prize.tier2pop}
-          tier1price={prize.tier1price}
-          tier2price={prize.tier2price}
-          country={(countries[selection.country] || {}).name}
+          prize={prize}
+          country={countries[selection.country]}
         />
       </section>
     )

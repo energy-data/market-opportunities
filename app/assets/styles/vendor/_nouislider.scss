@@ -95,7 +95,7 @@
  */
 
 .noUi-background {
-  background: rgba(0, 0, 0, 0);
+  background: tint($base-color, 48%);
 }
 
 .noUi-connect {
@@ -283,27 +283,29 @@
 /* Legend inside the slider
    ========================================================================== */
 
-.form__slider {
+.form__slider.range-type {
   position: relative;
-}
-
-.legend {
-  position: absolute;
-  width: calc(100% - 2rem);
-  height: 0.5rem;
-  top: 0.5rem;
-}
-
-.legend-swath {
-  display: inline-block;
-  height: 0.5rem;
-  vertical-align: top;
-  &:first-of-type {
-    border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
+  .noUi-background {
+    background: rgba(0, 0, 0, 0);
   }
-  &:last-of-type {
-    border-top-right-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
+  .legend {
+    position: absolute;
+    width: calc(100% - 2rem);
+    height: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .legend-swath {
+    display: inline-block;
+    height: 0.5rem;
+    vertical-align: top;
+    &:first-of-type {
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
+    }
+    &:last-of-type {
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
   }
 }

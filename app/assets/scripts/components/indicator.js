@@ -30,7 +30,7 @@ const Indicator = React.createClass({
     switch (options.value.type) {
       case 'range':
         Editor = <div className='form__group'>
-          <div className='form__slider'>
+          <div className={c('form__slider', 'range-type')}>
             <Nouislider
               range={stopsToNoUiSliderRange(options.value.stops)}
               start={filter.range}

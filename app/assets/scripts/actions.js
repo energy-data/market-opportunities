@@ -27,8 +27,8 @@ export const UPDATE_SELECTED_COUNTRY = 'UPDATE_SELECTED_COUNTRY'
 export const UPDATE_LAYER_GEOJSON = 'UPDATE_LAYER_GEOJSON'
 export const SET_MAP_INTERSECT = 'SET_MAP_INTERSECT'
 export const SET_POPULATION = 'SET_POPULATION'
-export const SET_TIER_1_PRICE = 'SET_TIER_1_PRICE'
-export const SET_TIER_2_PRICE = 'SET_TIER_2_PRICE'
+export const SET_REVENUE_PER_HOUSEHOLD = 'SET_REVENUE_PER_HOUSEHOLD'
+export const SET_MARKET_CAPTURE_RATE = 'SET_MARKET_CAPTURE_RATE'
 
 /*
  * bare action creators
@@ -181,13 +181,13 @@ export function setPopulation (pop) {
 }
 
 /*
- * set prices for different population tiers
+ * set other size of prize inputs
  */
 
-export function setTier1Price (price) {
-  return { type: SET_TIER_1_PRICE, data: price }
+export function setRevenuePerHousehold (revenue) {
+  return { type: SET_REVENUE_PER_HOUSEHOLD, data: revenue }
 }
 
-export function setTier2Price (price) {
-  return { type: SET_TIER_2_PRICE, data: price }
+export function setMarketCaptureRate (rate) {
+  return { type: SET_MARKET_CAPTURE_RATE, data: rate }
 }

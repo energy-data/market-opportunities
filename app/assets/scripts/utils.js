@@ -198,7 +198,7 @@ export function downloadMapPDF (props) {
   doc.fillColor('#333333')
     .fontSize(16)
     .font('Helvetica')
-    .text(props.country, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 18, {
+    .text(props.country.name, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 18, {
       width: (pageWidth / 2) - 20,
       align: 'left'
     })
@@ -213,7 +213,7 @@ export function downloadMapPDF (props) {
   doc.fillColor('#333333')
     .fontSize(14)
     .font('Helvetica')
-    .text(`Selected Population: ${numberWithCommas(props.tier1pop + props.tier2pop)}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 47, {
+    .text(`Selected Population: ${numberWithCommas(Math.round(props.prize.population))}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 47, {
       width: (pageWidth / 2) - 20,
       align: 'left'
     })
@@ -221,7 +221,7 @@ export function downloadMapPDF (props) {
   doc.fillColor('#333333')
     .fontSize(14)
     .font('Helvetica')
-    .text(`Estimated Revenue: $${numberWithCommas(props.tier1pop * props.tier1price + props.tier2pop * props.tier2price)}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 64, {
+    .text(`Estimated Revenue: $${numberWithCommas(Math.round(props.prize.population / props.country.avg_hh_size * props.prize.revenuePerHousehold * props.prize.marketCapture))}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 64, {
       width: (pageWidth / 2) - 20,
       align: 'left'
     })
