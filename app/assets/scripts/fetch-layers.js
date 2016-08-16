@@ -83,7 +83,8 @@ function fetchLayersThunk (dispatch, getState) {
       const resources = []
       datasets.forEach(function (item) {
         const dataset = item.result
-        dataset.resources.forEach(function (resource) {
+        // NOTE: only use the first resource
+        dataset.resources.slice(0, 1).forEach(function (resource) {
           resource.extras = (resource.extras || []).concat(dataset.extras)
           resource.source = dataset.url
           resource.datasetName = dataset.name
