@@ -19,19 +19,57 @@ export const PrizePanel = React.createClass({
   render: function () {
     const { population, revenuePerHousehold, marketCapture, country } = this.props
     if (this.props.displayAll) {
+      const hhCount = population / countries[country].avg_hh_size
       return (
         <section className='panel' id='prize-panel'>
           <header className='panel__header'>
             <div className='panel__headline'>
-              <h1 className='panel__title' data-tooltip='Tier explanation'>Size of the Prize</h1>
+              <h1 className='panel__title'>Size of the Prize</h1>
             </div>
           </header>
           <div className='panel__body'>
             <div className='panel__body-inner'>
-              {shortenNumber(population)}
-              <br /><input type='number' value={revenuePerHousehold} onChange={this._setRevenuePerHousehold} />
-              <br /><input type='number' value={marketCapture * 100} onChange={this._setMarketCaptureRate} />%
-              <br />{shortenNumber(population / countries[country].avg_hh_size * revenuePerHousehold * marketCapture)}
+
+              <div className='table-wrapper'>
+                <table className='table' id='prize-table'>
+                  <thead>
+                    <tr>
+                      <th className='head-term' scope='row'>Population <small>Households</small></th>
+                      <td className='head-value'>{shortenNumber(population)} <small>{shortenNumber(hhCount)}</small></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th className='body-term' scope='row'>Market captured</th>
+                      <td className='body-value'>
+                        <div className='form__group'>
+                          <div className='form__input-group form__input-group--small'>
+                            <input className='form__control form__control--small' type='number' value={marketCapture * 100} onChange={this._setMarketCaptureRate} />
+                            <div className='form__addon'><span className='form__addon-label'>%</span></div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className='body-term' scope='row'>Avg. revenue per HH</th>
+                      <td className='body-value'>
+                        <div className='form__group'>
+                          <div className='form__input-group form__input-group--small'>
+                            <input className='form__control form__control--small' type='number' value={revenuePerHousehold} onChange={this._setRevenuePerHousehold} />
+                            <div className='form__addon'><span className='form__addon-label'>$</span></div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th className='foot-term' scope='row'>Size of the Prize</th>
+                      <td className='foot-value'>{shortenNumber(hhCount * revenuePerHousehold * marketCapture)}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
           <footer className='panel__footer'></footer>
@@ -42,7 +80,7 @@ export const PrizePanel = React.createClass({
         <section className='panel' id='prize-panel'>
           <header className='panel__header'>
             <div className='panel__headline'>
-              <h1 className='panel__title' data-tooltip='Tier explanation'>Size of the Prize</h1>
+              <h1 className='panel__title'>Size of the Prize</h1>
             </div>
           </header>
           <div className='panel__body'>
