@@ -1,83 +1,71 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { numberWithCommas } from '../utils'
-import { setTier1Price, setTier2Price } from '../actions'
+import { countries } from '../../data/countries'
+import { shortenNumber } from '../utils'
+import { setMarketCaptureRate, setRevenuePerHousehold } from '../actions'
 
 export const PrizePanel = React.createClass({
 
   propTypes: {
     displayAll: React.PropTypes.bool,
-    tier1pop: React.PropTypes.number,
-    tier2pop: React.PropTypes.number,
-    tier1price: React.PropTypes.number,
-    tier2price: React.PropTypes.number,
+    population: React.PropTypes.number,
+    revenuePerHousehold: React.PropTypes.number,
+    marketCapture: React.PropTypes.number,
+    country: React.PropTypes.string,
     dispatch: React.PropTypes.func
   },
 
   render: function () {
+    const { population, revenuePerHousehold, marketCapture, country } = this.props
     if (this.props.displayAll) {
-      const tier1pop = (this.props.tier1pop)
-      ? this.props.tier1pop
-      : 0
-
-      const tier2pop = (this.props.tier2pop)
-      ? this.props.tier2pop
-      : 0
-
-      const tier1rev = (this.props.tier1pop)
-      ? this.props.tier1price * tier1pop
-      : 0
-
-      const tier2rev = (this.props.tier2pop)
-      ? this.props.tier2price * tier2pop
-      : 0
-
+      const hhCount = population / countries[country].avg_hh_size
       return (
         <section className='panel' id='prize-panel'>
           <header className='panel__header'>
             <div className='panel__headline'>
-              <h1 className='panel__title' data-tooltip='Tier explanation'>Size of the Prize</h1>
+              <h1 className='panel__title'>Size of the Prize</h1>
             </div>
           </header>
           <div className='panel__body'>
             <div className='panel__body-inner'>
+
               <div className='table-wrapper'>
                 <table className='table' id='prize-table'>
                   <thead>
                     <tr>
-                      <th className='tier-term'><span>Tier</span></th>
-                      <th className='pop-term'>Pop.</th>
-                      <th className='revenue-term'>Revenue</th>
-                      <th className='result-term'><span>Result</span></th>
+                      <th className='head-term' scope='row'>Population <small>Households</small></th>
+                      <td className='head-value'>{shortenNumber(population)} <small>{shortenNumber(hhCount)}</small></td>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <th className='tier-value' scope='row'>T1</th>
-                      <td className='pop-value'>{numberWithCommas(tier1pop)}</td>
-                      <td className='revenue-value'>
+                      <th className='body-term' scope='row'>Market captured</th>
+                      <td className='body-value'>
                         <div className='form__group'>
-                          <input onChange={this._updateTier1Price} className='form__control form__control--small' type='number' id='fa-party-number-1' name='party-qt' min='1' max='99' value={this.props.tier1price} />
+                          <div className='form__input-group form__input-group--small'>
+                            <input className='form__control form__control--small' type='number' value={marketCapture * 100} onChange={this._setMarketCaptureRate} />
+                            <div className='form__addon'><span className='form__addon-label'>%</span></div>
+                          </div>
                         </div>
                       </td>
-                      <td className='result-value'>{`$${numberWithCommas(tier1rev)}`}</td>
                     </tr>
                     <tr>
-                      <th className='tier-value' scope='row'>T2</th>
-                      <td className='pop-value'>{numberWithCommas(tier2pop)}</td>
-                      <td className='revenue-value'>
+                      <th className='body-term' scope='row'>Avg. revenue per HH</th>
+                      <td className='body-value'>
                         <div className='form__group'>
-                          <input onChange={this._updateTier2Price} className='form__control form__control--small' type='number' id='fa-party-number-2' name='party-qt' min='1' max='99' value={this.props.tier2price} />
+                          <div className='form__input-group form__input-group--small'>
+                            <input className='form__control form__control--small' type='number' value={revenuePerHousehold} onChange={this._setRevenuePerHousehold} />
+                            <div className='form__addon'><span className='form__addon-label'>$</span></div>
+                          </div>
                         </div>
                       </td>
-                      <td className='result-value'>{`$${numberWithCommas(tier2rev)}`}</td>
                     </tr>
                   </tbody>
                   <tfoot>
                     <tr>
-                      <th className='foot-term' scope='row' colSpan='3'>Size of the Prize</th>
-                      <td className='foot-value'>{`$${numberWithCommas(tier1rev + tier2rev)}`}</td>
+                      <th className='foot-term' scope='row'>Size of the Prize</th>
+                      <td className='foot-value'>{shortenNumber(hhCount * revenuePerHousehold * marketCapture)}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -92,7 +80,7 @@ export const PrizePanel = React.createClass({
         <section className='panel' id='prize-panel'>
           <header className='panel__header'>
             <div className='panel__headline'>
-              <h1 className='panel__title' data-tooltip='Tier explanation'>Size of the Prize</h1>
+              <h1 className='panel__title'>Size of the Prize</h1>
             </div>
           </header>
           <div className='panel__body'>
@@ -106,26 +94,25 @@ export const PrizePanel = React.createClass({
     }
   },
 
-  _updateTier1Price: function (e) {
-    this.props.dispatch(setTier1Price(Number(e.target.value)))
+  _setMarketCaptureRate: function (e) {
+    this.props.dispatch(setMarketCaptureRate(Number(e.target.value / 100)))
   },
 
-  _updateTier2Price: function (e) {
-    this.props.dispatch(setTier2Price(Number(e.target.value)))
+  _setRevenuePerHousehold: function (e) {
+    this.props.dispatch(setRevenuePerHousehold(Number(e.target.value)))
   }
 })
 
 /* istanbul ignore next */
 function mapStateToProps (state) {
   return {
-    // TODO: make this a memoized selector?
     displayAll: state.layers.indicators
      .filter(layer => layer.visible && !layer.editing && layer.geojson)
      .length >= 2,
-    tier1pop: state.layers.tier1pop,
-    tier2pop: state.layers.tier2pop,
-    tier1price: state.layers.tier1price,
-    tier2price: state.layers.tier2price
+    population: state.prize.population,
+    revenuePerHousehold: state.prize.revenuePerHousehold,
+    marketCapture: state.prize.marketCapture,
+    country: state.selection.country
   }
 }
 

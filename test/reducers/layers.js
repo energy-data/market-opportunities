@@ -36,7 +36,6 @@ test('layer reducer test', t => {
     options: layerOptions
   }, {
     id: 'y',
-    // TODO: sorry for undermining your test anand, it errors without a values key
     options: layerOptions
   }]))
   t.is(layersAdded.indicators.length, 2)

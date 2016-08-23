@@ -12,11 +12,14 @@ import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
 import Popup from './popup'
-import { mapStyle, intersectPaint, roadLayers } from '../constants'
+import { mapStyle, intersectPaint, roadLayers, popLayer,
+  controlPanelWidth } from '../constants'
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
-  createDataPaintObject, createOutlinePaintObject, createTempPaintStyle } from '../utils'
-import { updateLayerGeoJSON, setMapIntersect, setPopulation } from '../actions'
-import { countryBounds } from '../../data/bounds'
+  createDataPaintObject, createOutlinePaintObject,
+  createTempPaintStyle } from '../utils'
+import { updateLayerGeoJSON, setMapIntersect, setPopulation,
+  setLayers } from '../actions'
+import { countries } from '../../data/countries'
 
 export const Map = React.createClass({
 
@@ -24,7 +27,6 @@ export const Map = React.createClass({
     layers: React.PropTypes.object,
     editLayer: React.PropTypes.object,
     country: React.PropTypes.string,
-    iso: React.PropTypes.string,
     dispatch: React.PropTypes.func,
     onCanvasReady: React.PropTypes.func
   },
@@ -41,7 +43,7 @@ export const Map = React.createClass({
     map.on('load', () => {
       map.addSource('pop', {
         type: 'vector',
-        url: 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/fe064e97-938e-4235-b670-1b8409d8f553-e03e65e2-6c26-4970-84ae-66da7882e372/data.tilejson'
+        url: popLayer.tilejson
       })
       this._map.addLayer({
         'id': 'hidden-pop',
@@ -73,7 +75,7 @@ export const Map = React.createClass({
 
     // we only show one layer data for the singular editing layer
     if (this.props.editLayer && !nextProps.editLayer) {
-      this._removeLayerData(this.props.editLayer)
+      this._removeLayerData(this.props, nextProps)
     } else if (!this.props.editLayer && nextProps.editLayer) {
       this._addLayerData(nextProps.editLayer)
     }
@@ -90,9 +92,8 @@ export const Map = React.createClass({
     // if we have a newly selected country, zoom to it
     if (nextProps.country !== this.props.country) {
       this._map.fitBounds(
-        countryBounds.find(c => c.properties.name === nextProps.country).bbox,
-        // TODO: eliminate magic number, it's half the width of the control panel
-        { padding: 30, offset: [160, 0] }
+        countries[nextProps.country].bbox,
+        { padding: 30, offset: [controlPanelWidth / 2, 0] }
       )
     }
 
@@ -105,9 +106,10 @@ export const Map = React.createClass({
       this._addIntersectedArea(newVisibleLayers)
     } else if (newVisibleLayers.length < 2 && oldVisibleLayers.length >= 2) {
       this._removeIntersectedArea()
-    // TODO: fix intersect update logic, also needs to account for same length, new filter
+    // this handles all update cases since we have to "remove" a visible layer
+    // (edit it) in order to get a new filter
     } else if ((newVisibleLayers.length !== oldVisibleLayers.length) &&
-      newVisibleLayers.length >= 2) {
+      newVisibleLayers.length >= 2 && !nextProps.editLayer) {
       this._updateIntersectedArea(newVisibleLayers)
     }
 
@@ -126,8 +128,16 @@ export const Map = React.createClass({
     }
 
     // if we have a new intersected area, let's calculate the intersected population
-    if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect)) {
+    if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect) &&
+      nextProps.layers.intersect && !nextProps.editLayer) {
       this._calculateIntersectedPopulation(nextProps)
+    }
+
+    // if we have a new country and it isn't our first, reset our layers
+    if (this.props.country && nextProps.country && this.props.country !== nextProps.country) {
+      this.props.dispatch(setLayers(nextProps.layers.indicators.map(layer => {
+        return Object.assign({}, _.omit(layer, ['editing', 'visible', 'geojson']), {})
+      })))
     }
   },
 
@@ -171,7 +181,7 @@ export const Map = React.createClass({
         'interactive': true,
         'maxzoom': 18,
         'paint': createDataPaintObject(layer),
-        'filter': indicatorFilterToMapFilter(layer.filter, this.props.iso)
+        'filter': indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase())
       }, 'waterway-label')
     } else {
       const sourceName = `${String(layer.id)}-source`
@@ -186,7 +196,7 @@ export const Map = React.createClass({
           this._map.off('render')
           const features = this._map.querySourceFeatures(sourceName, {
             sourceLayer: 'data_layer',
-            filter: indicatorFilterToMapFilter(layer.filter, this.props.iso)
+            filter: indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase())
           })
           const buffered = buffer(fc(features), layer.filter.value.toFixed(0), 'kilometers')
           this._map.addSource(`${String(layer.id)}-data`, {
@@ -212,23 +222,30 @@ export const Map = React.createClass({
         'interactive': true,
         'maxzoom': 18,
         'paint': createTempPaintStyle(layer),
-        'filter': indicatorFilterToMapFilter(layer.filter, this.props.iso)
+        'filter': indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase())
       }, 'waterway-label')
     }
   },
 
-  _removeLayerData: function (layer) {
-    // TODO: call this conditionally, we shouldn't do it when removing the data
-    // for a cancelEdit
-    this._createLayerGeoJSON(layer)
-    const map = this._map
-    if (map.getSource(`${String(layer.id)}-data`)) {
-      map.removeSource(`${String(layer.id)}-data`)
-      map.removeLayer(`${String(layer.id)}-data`)
+  _removeLayerData: function (oldProps, nextProps) {
+    const layerToRemove = oldProps.editLayer
+    // NOTE: to ensure that we only create a new layer GeoJSON when the user has
+    // saved their selection, we check the temp filter against the filter in the
+    // new version of the editLayer (it was editLayer but now isn't editing)
+    const newVersionOfLayerToRemove = nextProps.layers.indicators
+      .find(layer => layer.id === layerToRemove.id)
+    if (oldProps.tempFilter &&
+      !_.isEqual(oldProps.tempFilter.temp, newVersionOfLayerToRemove.filter)) {
+      this._createLayerGeoJSON(layerToRemove)
     }
-    if (map.getSource(`${String(layer.id)}-source`)) {
+    const map = this._map
+    if (map.getSource(`${String(layerToRemove.id)}-data`)) {
+      map.removeSource(`${String(layerToRemove.id)}-data`)
+      map.removeLayer(`${String(layerToRemove.id)}-data`)
+    }
+    if (map.getSource(`${String(layerToRemove.id)}-source`)) {
       map.removeLayer('temp')
-      map.removeSource(`${String(layer.id)}-source`)
+      map.removeSource(`${String(layerToRemove.id)}-source`)
     }
   },
 
@@ -264,6 +281,7 @@ export const Map = React.createClass({
     if (data) {
       this._map.getSource('intersect').setData(data)
     }
+    this.props.dispatch(setMapIntersect(data))
   },
 
   _createLayerGeoJSON: function (layer) {
@@ -272,7 +290,7 @@ export const Map = React.createClass({
     // circle and line layers already have the filters applied to the data layer
     // (and no source layer since it is a geojson layer)
     const queryOptions = (layer.options.geometry.type === 'fill')
-    ? { sourceLayer: 'data_layer', filter: indicatorFilterToMapFilter(layer.filter, this.props.iso) }
+    ? { sourceLayer: 'data_layer', filter: indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase()) }
     : {}
     const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, queryOptions)
     if (features.length) {
@@ -322,14 +340,14 @@ export const Map = React.createClass({
   _updateMapFilter: function (props) {
     if (props.editLayer.options.geometry.type === 'fill') {
       this._map.setFilter(`${String(props.editLayer.id)}-data`,
-        indicatorFilterToMapFilter(props.editLayer.filter, props.iso))
+        indicatorFilterToMapFilter(props.editLayer.filter, props.country.toLowerCase()))
     } else {
       const sourceName = `${String(props.editLayer.id)}-source`
       if (this._map.getSource(sourceName).loaded()) {
         this._map.off('render')
         const features = this._map.querySourceFeatures(sourceName, {
           sourceLayer: 'data_layer',
-          filter: indicatorFilterToMapFilter(props.editLayer.filter, this.props.iso)
+          filter: indicatorFilterToMapFilter(props.editLayer.filter, props.country.toLowerCase())
         })
         const buffered = buffer(fc(features), props.editLayer.filter.value.toFixed(0), 'kilometers')
         this._map.getSource(`${String(props.editLayer.id)}-data`).setData(buffered)
@@ -344,7 +362,7 @@ export const Map = React.createClass({
   _calculateIntersectedPopulation: function (props) {
     const popFeatures = this._map.querySourceFeatures('pop', {
       sourceLayer: 'data_layer',
-      filter: ['==', 'iso', props.iso]
+      filter: ['==', 'iso', props.country.toLowerCase()]
     })
     let flattenedFeatures = []
     popFeatures.filter(a => a.geometry.type === 'MultiPolygon').forEach(multi => {
@@ -385,13 +403,9 @@ export const Map = React.createClass({
 function mapStateToProps (state) {
   return {
     layers: state.layers,
-    // TODO: make this a memoized selector
     editLayer: state.layers.indicators.find(layer => layer.editing),
     country: state.selection.country,
-    // TODO: this can be an object property lookup once we have a better country object
-    iso: (countryBounds.find(c => c.properties.name === state.selection.country) || {
-      properties: { 'iso_a3': 'none' }
-    })['properties']['iso_a3'].toLowerCase()
+    tempFilter: state.tempFilter
   }
 }
 

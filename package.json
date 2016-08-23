@@ -108,7 +108,6 @@
     "react-addons-test-utils": "^15.1.0",
     "sinon": "^1.17.4",
     "turf-bbox": "^3.0.10",
-    "turf-featurecollection": "^1.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

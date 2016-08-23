@@ -28,7 +28,7 @@ html {
 
 html {
   font-size: $root-font-size;
-  // Changes the default tap highlight to be completely transparent in iOS.
+  /* Changes the default tap highlight to be completely transparent in iOS. */
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
@@ -128,6 +128,7 @@ table {
   border-spacing: 0;
 }
 
+
 /* Misc
    ========================================================================== */
 
@@ -137,4 +138,13 @@ table {
 
 main {
   display: block;
+}
+
+/**
+ * Style selection appearance (via ::selection pseudo-element).
+ */
+
+@include selection {
+  background-color: rgba($base-color, 0.64);
+  color: #fff;
 }

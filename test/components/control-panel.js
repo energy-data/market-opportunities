@@ -10,7 +10,8 @@ test('control panel test', t => {
   const component = shallow(<ControlPanel
     layers={initial}
     groups={{open: []}}
-    selection={{country: 'Country', scenario: 'Scenario'}}
+    prize={{}}
+    selection={{country: 'Country'}}
   />)
   t.truthy(component.hasClass(classes.nodot['panel']))
 })

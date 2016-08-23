@@ -198,7 +198,7 @@ export function downloadMapPDF (props) {
   doc.fillColor('#333333')
     .fontSize(16)
     .font('Helvetica')
-    .text(props.country, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 18, {
+    .text(props.country.name, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 18, {
       width: (pageWidth / 2) - 20,
       align: 'left'
     })
@@ -213,7 +213,7 @@ export function downloadMapPDF (props) {
   doc.fillColor('#333333')
     .fontSize(14)
     .font('Helvetica')
-    .text(`Selected Population: ${numberWithCommas(props.tier1pop + props.tier2pop)}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 47, {
+    .text(`Selected Population: ${numberWithCommas(Math.round(props.prize.population))}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 47, {
       width: (pageWidth / 2) - 20,
       align: 'left'
     })
@@ -221,7 +221,7 @@ export function downloadMapPDF (props) {
   doc.fillColor('#333333')
     .fontSize(14)
     .font('Helvetica')
-    .text(`Estimated Revenue: $${numberWithCommas(props.tier1pop * props.tier1price + props.tier2pop * props.tier2price)}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 64, {
+    .text(`Estimated Revenue: $${numberWithCommas(Math.round(props.prize.population / props.country.avg_hh_size * props.prize.revenuePerHousehold * props.prize.marketCapture))}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 64, {
       width: (pageWidth / 2) - 20,
       align: 'left'
     })
@@ -250,15 +250,15 @@ export function filterSummary (options, filter) {
     case 'percentage':
       formatter = a => `${a * 100}%`
       break
-    case 'exponent':
-      formatter = a => numberWithCommas(Math.pow(10, a) / 100)
+    case 'pop':
+      formatter = a => numberWithCommas(Math.pow(10, a + 0.5) / 100)
       break
     default:
       formatter = a => numberWithCommas(a.toFixed(0))
   }
   switch (options.value.type) {
     case 'range':
-      return filter.range.map(formatter).join(' - ') + ' ppl/km2'
+      return filter.range.map(formatter).join(' - ')
     case 'categorical':
       return filter.values.join(', ')
     case 'buffer':
@@ -275,8 +275,9 @@ export function pipFormatter (format) {
   switch (format) {
     case 'percentage':
       return { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
-    case 'exponent':
-      return { to: a => numberWithCommas(Math.pow(10, a) / 100), from: a => Math.log10(a) }
+    // NOTE: this from function does not to a proper reversal but that's okay
+    case 'pop':
+      return { to: a => shortenNumber(Math.pow(10, a + 0.5) / 100, 0), from: a => Math.log10(a * 100) - 0.5 }
     default:
       return { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
   }
@@ -286,3 +287,16 @@ function numberWithCommas (number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 module.exports.numberWithCommas = numberWithCommas
+
+export function shortenNumber (number, decimals) {
+  decimals = (decimals === undefined) ? 2 : 0
+  if (number >= 1000000000) {
+    return `${(number / 1000000000).toFixed(decimals)} B`
+  } else if (number >= 1000000) {
+    return `${(number / 1000000).toFixed(decimals)} M`
+  } else if (number >= 1000) {
+    return `${(number / 1000).toFixed(decimals)} K`
+  } else {
+    return number
+  }
+}

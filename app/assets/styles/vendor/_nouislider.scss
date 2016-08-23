@@ -99,7 +99,7 @@
 }
 
 .noUi-connect {
-  background: $primary-color;
+  background: rgba(0, 0, 0, 0);
   transition: background 0.24s ease 0s;
 }
 
@@ -118,12 +118,14 @@
 /* Handles and cursors;
  */
 
-.noUi-draggable {
-  cursor: w-resize;
+.noUi-horizontal .noUi-draggable,
+.noUi-horizontal .noUi-handle {
+  cursor: ew-resize;
 }
 
-.noUi-vertical .noUi-draggable {
-  cursor: n-resize;
+.noUi-vertical .noUi-draggable,
+.noUi-vertical .noUi-handle {
+  cursor: ns-resize;
 }
 
 .noUi-handle {
@@ -276,4 +278,34 @@
 
 .noUi-vertical .noUi-handle-upper .noUi-tooltip {
   right: 120%;
+}
+
+/* Legend inside the slider
+   ========================================================================== */
+
+.form__slider.range-type {
+  position: relative;
+  .noUi-background {
+    background: rgba(0, 0, 0, 0);
+  }
+  .legend {
+    position: absolute;
+    width: calc(100% - 2rem);
+    height: 0.5rem;
+    top: 0.5rem;
+  }
+
+  .legend-swath {
+    display: inline-block;
+    height: 0.5rem;
+    vertical-align: top;
+    &:first-of-type {
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
+    }
+    &:last-of-type {
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
+  }
 }

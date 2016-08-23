@@ -2,11 +2,13 @@ import React from 'react'
 import url from 'url'
 import Nouislider from 'react-nouislider'
 import c from 'classnames'
+import chroma from 'chroma-js'
 
 import config from '../config'
 import { prettifyString, stopsToNoUiSliderRange, filterSummary, pipFormatter,
  getLayerColor } from '../utils'
 import CheckboxGroup from './checkbox-group'
+import { popLayer } from '../constants'
 
 const Indicator = React.createClass({
 
@@ -21,20 +23,32 @@ const Indicator = React.createClass({
 
   render: function () {
     const { id, datasetName, description, editing, options, filter, visible } = this.props.layer
-    const license = this.props.layer['license_title']
     const { updateLayerFilter } = this.props
 
     let Editor
     switch (options.value.type) {
       case 'range':
-        Editor = <div className='form__group'><div className='form__slider'><Nouislider
-          range={stopsToNoUiSliderRange(options.value.stops)}
-          start={filter.range}
-          connect
-          snap
-          pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
-          onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
-        /></div></div>
+        Editor = <div className='form__group'>
+          <div className={c('form__slider', 'range-type')}>
+            <Nouislider
+              range={stopsToNoUiSliderRange(options.value.stops)}
+              start={filter.range}
+              connect
+              snap
+              pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
+              onChange={(e) => updateLayerFilter(id, { range: e.map(a => Number(a)) })}
+            />
+            <div className='legend'>
+            {options.value.stops.slice(0, -1).map((stop, j) => {
+              const baseColor = getLayerColor(datasetName)
+              return <div className='legend-swath' key={stop} style={{
+                backgroundColor: chroma(baseColor).darken(j - 2).hex(),
+                width: `${(100 / (options.value.stops.length - 1)).toFixed(2)}%`
+              }}></div>
+            })}
+            </div>
+          </div>
+        </div>
         break
       case 'categorical':
         Editor = <CheckboxGroup
@@ -60,7 +74,7 @@ const Indicator = React.createClass({
             <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
             <div className='layer__headline'>
               <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
-              <p className='layer__summary'>{filterSummary(options, filter)}</p>
+              <p className='layer__summary'>{filterSummary(options, filter) + (id === popLayer.id ? '  ppl/km2' : '')}</p>
             </div>
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>
@@ -94,14 +108,8 @@ const Indicator = React.createClass({
               <dl className='layer-info__details'>
                 <dt>Description</dt>
                 <dd>{description}</dd>
-                <dt>Provider</dt>
-                <dd>Open Data Platform</dd>
                 <dt>Source URL</dt>
                 <dd><a href='#' title='Visit data source URL' className='url'>{url.resolve(config.dataHubURL, '/dataset/' + datasetName)}</a></dd>
-                <dt>Year</dt>
-                <dd>TBD</dd>
-                <dt>License</dt>
-                <dd>{license}</dd>
               </dl>
             </section>
           </div>

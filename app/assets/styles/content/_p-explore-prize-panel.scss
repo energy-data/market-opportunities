@@ -9,7 +9,7 @@
   top: $global-spacing;
   right: $global-spacing;
   z-index: 80;
-  width: 18.5rem;
+  width: 17rem;
   max-height: calc(100% - #{$global-spacing * 2}); // once max-height is reached, the body becomes scrollable
 
   .panel__header {
@@ -97,13 +97,12 @@
   margin-bottom: 0;
   width: 100%;
 
-  th, td  {
-    padding: ($global-spacing / 2) ($global-spacing / 4);
+  tr > *:first-child {
     text-align: right;
   }
 
-  tbody td {
-    text-align: right;
+  th, td  {
+    padding: ($global-spacing / 2) ($global-spacing / 4);
   }
 
   th:first-child,
@@ -116,7 +115,8 @@
     padding-right: 1rem;
   }
 
-  thead th {
+  thead th,
+  thead td {
     text-transform: uppercase;
     font-weight: $base-font-bold;
     font-size: 0.75rem;
@@ -124,27 +124,32 @@
     color: rgba($base-font-color, 0.64);
     background: tint($base-color, 96%);
     box-shadow: inset 0 -1px 0 0 $base-semi-alpha-color;
+
+    small {
+      display: block;
+      font-size: 0.675rem;
+    }
+  }
+
+  tfoot th,
+  tfoot td {
+    @extend .antialiased;
+    background: tint($base-color, 32%);
+    color: #fff;
+    box-shadow: none;
+    padding-top: ($global-spacing / 2);
+    padding-bottom: ($global-spacing / 2);
+  }
+
+  tfoot th {
+    color: rgba(#fff, 0.64)
   }
 
   .form__group {
     margin-bottom: 0;
   }
 
-  tfoot th,
-  tfoot td {
-    box-shadow: none;
-    padding-top: ($global-spacing / 2);
-    padding-bottom: ($global-spacing / 2);
+  .form__addon-label {
+    min-width: 2rem;
   }
-}
-
-.tier-term,
-.result-term {
-  span {
-    @extend .visually-hidden;
-  }
-}
-
-.table .foot-term {
-  text-align: right;
 }

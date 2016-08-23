@@ -1,12 +1,12 @@
 import React from 'react'
 import c from 'classnames'
 
-import { countryBounds } from '../../data/bounds'
 import { mapStyle } from '../constants'
 
 const Country = React.createClass({
 
   propTypes: {
+    id: React.PropTypes.string,
     info: React.PropTypes.object,
     selected: React.PropTypes.bool,
     updateSelectedCountry: React.PropTypes.func
@@ -15,8 +15,7 @@ const Country = React.createClass({
   render: function () {
     const { info, selected } = this.props
     const token = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
-    const countryBbox = countryBounds.find(c => c.properties.name === info.name).bbox
-    const center = [(countryBbox[0] + countryBbox[2]) / 2, (countryBbox[1] + countryBbox[3]) / 2]
+    const center = [(info.bbox[0] + info.bbox[2]) / 2, (info.bbox[1] + info.bbox[3]) / 2]
     const mapSrc = 'https://api.mapbox.com/styles/v1/' +
     `${mapStyle.replace('mapbox://styles/', '')}` +
     '/static/' +
@@ -30,7 +29,7 @@ const Country = React.createClass({
                 <img alt='Card thumb' width='768' height='384' src={mapSrc} />
               </div>
               <div className='card--country__flag'>
-                <img alt='Card flag' width='640' height='480' src={info.flagPath} />
+                <img alt='Card flag' width='640' height='480' src={`assets/graphics/content/flags/4x3/${info.iso_a2.toLowerCase()}.svg`} />
               </div>
             </figure>
             <header className='card__header'>
@@ -51,7 +50,7 @@ const Country = React.createClass({
   },
 
   _updateSelectedCountry: function (e) {
-    this.props.updateSelectedCountry(e, this.props.info.name)
+    this.props.updateSelectedCountry(e, this.props.id)
   }
 })
 

@@ -5,12 +5,14 @@ import sinon from 'sinon'
 
 import classes from '../helpers/classes'
 import Country from '../../app/assets/scripts/components/country'
-import { countries } from '../fixtures/constants'
+import { countries } from '../../app/assets/data/countries'
 
 test('country test', t => {
+  const id = 'NGA'
   const spy = sinon.spy()
   const component = shallow(<Country
-    info={countries[0]}
+    id={id}
+    info={countries[id]}
     updateSelectedCountry={spy}
   />)
   t.truthy(component.hasClass(classes.nodot['country']))
@@ -19,5 +21,5 @@ test('country test', t => {
   component.find('a').simulate('click')
   t.truthy(spy.calledOnce)
   // with the correct value
-  t.truthy(spy.calledWith(undefined, countries[0].name))
+  t.truthy(spy.calledWith(undefined, id))
 })
