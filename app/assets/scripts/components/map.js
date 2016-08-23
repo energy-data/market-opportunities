@@ -75,7 +75,7 @@ export const Map = React.createClass({
 
     // we only show one layer data for the singular editing layer
     if (this.props.editLayer && !nextProps.editLayer) {
-      this._removeLayerData(this.props.editLayer)
+      this._removeLayerData(this.props, nextProps)
     } else if (!this.props.editLayer && nextProps.editLayer) {
       this._addLayerData(nextProps.editLayer)
     }
@@ -227,18 +227,25 @@ export const Map = React.createClass({
     }
   },
 
-  _removeLayerData: function (layer) {
-    // TODO: call this conditionally, we shouldn't do it when removing the data
-    // for a cancelEdit
-    this._createLayerGeoJSON(layer)
-    const map = this._map
-    if (map.getSource(`${String(layer.id)}-data`)) {
-      map.removeSource(`${String(layer.id)}-data`)
-      map.removeLayer(`${String(layer.id)}-data`)
+  _removeLayerData: function (oldProps, nextProps) {
+    const layerToRemove = oldProps.editLayer
+    // NOTE: to ensure that we only create a new layer GeoJSON when the user has
+    // saved their selection, we check the temp filter against the filter in the
+    // new version of the editLayer (it was editLayer but now isn't editing)
+    const newVersionOfLayerToRemove = nextProps.layers.indicators
+      .find(layer => layer.id === layerToRemove.id)
+    if (oldProps.tempFilter &&
+      !_.isEqual(oldProps.tempFilter.temp, newVersionOfLayerToRemove.filter)) {
+      this._createLayerGeoJSON(layerToRemove)
     }
-    if (map.getSource(`${String(layer.id)}-source`)) {
+    const map = this._map
+    if (map.getSource(`${String(layerToRemove.id)}-data`)) {
+      map.removeSource(`${String(layerToRemove.id)}-data`)
+      map.removeLayer(`${String(layerToRemove.id)}-data`)
+    }
+    if (map.getSource(`${String(layerToRemove.id)}-source`)) {
       map.removeLayer('temp')
-      map.removeSource(`${String(layer.id)}-source`)
+      map.removeSource(`${String(layerToRemove.id)}-source`)
     }
   },
 
@@ -397,7 +404,8 @@ function mapStateToProps (state) {
   return {
     layers: state.layers,
     editLayer: state.layers.indicators.find(layer => layer.editing),
-    country: state.selection.country
+    country: state.selection.country,
+    tempFilter: state.tempFilter
   }
 }
 
