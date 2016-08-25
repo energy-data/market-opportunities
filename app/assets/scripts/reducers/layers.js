@@ -1,7 +1,8 @@
 import { UPDATE_VISIBLE_LAYERS, START_EDITING_LAYER, STOP_EDITING_LAYER,
   TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER,
   START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS,
-  UPDATE_LAYER_GEOJSON, SET_MAP_INTERSECT } from '../actions'
+  UPDATE_LAYER_GEOJSON, SET_MAP_INTERSECT, START_LOADING,
+  STOP_LOADING } from '../actions'
 import { baseLayers } from '../constants'
 
 export const initial = {
@@ -19,8 +20,11 @@ export const initial = {
 
 export default function layers (state = initial, action) {
   switch (action.type) {
+    case START_LOADING:
     case START_FETCHING_LAYERS:
       return Object.assign({}, state, { status: 'loading' })
+    case STOP_LOADING:
+      return Object.assign({}, state, { status: 'success' })
     case ERROR_FETCHING_LAYERS:
       return Object.assign({}, state, { status: 'error', error: action.error })
     case SET_LAYERS:

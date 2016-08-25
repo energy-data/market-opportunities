@@ -17,8 +17,8 @@ import { mapStyle, intersectPaint, roadLayers, popLayer,
 import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject,
   createTempPaintStyle } from '../utils'
-import { updateLayerGeoJSON, setMapIntersect, setPopulation,
-  setLayers } from '../actions'
+import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers,
+  startLoading, stopLoading } from '../actions'
 import { countries } from '../../data/countries'
 
 export const Map = React.createClass({
@@ -27,6 +27,7 @@ export const Map = React.createClass({
     layers: React.PropTypes.object,
     editLayer: React.PropTypes.object,
     country: React.PropTypes.string,
+    tempFilter: React.PropTypes.object,
     dispatch: React.PropTypes.func,
     onCanvasReady: React.PropTypes.func
   },
@@ -75,7 +76,26 @@ export const Map = React.createClass({
 
     // we only show one layer data for the singular editing layer
     if (this.props.editLayer && !nextProps.editLayer) {
-      this._removeLayerData(this.props, nextProps)
+      const layerToRemove = this.props.editLayer
+      // NOTE: to ensure that we only create a new layer GeoJSON when the user
+      // has saved their selection, we check the temp filter against the filter
+      // in the new version of the editLayer (it was editLayer but now isn't
+      // editing)
+      const newVersionOfLayerToRemove = nextProps.layers.indicators
+        .find(layer => layer.id === layerToRemove.id)
+      if (this.props.tempFilter &&
+        !_.isEqual(this.props.tempFilter.temp, newVersionOfLayerToRemove.filter)) {
+        this.props.dispatch(startLoading())
+        setTimeout(() => {
+          this._createLayerGeoJSON(layerToRemove)
+          this.props.dispatch(stopLoading())
+          this._removeLayerData(layerToRemove.id)
+        // NOTE: this amount of time is required to not interrupt the css
+        // transition on the loading indicator
+        }, 300)
+      } else {
+        this._removeLayerData(layerToRemove.id)
+      }
     } else if (!this.props.editLayer && nextProps.editLayer) {
       this._addLayerData(nextProps.editLayer)
     }
@@ -130,7 +150,13 @@ export const Map = React.createClass({
     // if we have a new intersected area, let's calculate the intersected population
     if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect) &&
       nextProps.layers.intersect && !nextProps.editLayer) {
-      this._calculateIntersectedPopulation(nextProps)
+      this.props.dispatch(startLoading())
+      setTimeout(() => {
+        this._calculateIntersectedPopulation(nextProps)
+        this.props.dispatch(stopLoading())
+      // NOTE: this amount of time is required to not interrupt the css
+      // transition on the loading indicator
+      }, 300)
     }
 
     // if we have a new country and it isn't our first, reset our layers
@@ -227,25 +253,15 @@ export const Map = React.createClass({
     }
   },
 
-  _removeLayerData: function (oldProps, nextProps) {
-    const layerToRemove = oldProps.editLayer
-    // NOTE: to ensure that we only create a new layer GeoJSON when the user has
-    // saved their selection, we check the temp filter against the filter in the
-    // new version of the editLayer (it was editLayer but now isn't editing)
-    const newVersionOfLayerToRemove = nextProps.layers.indicators
-      .find(layer => layer.id === layerToRemove.id)
-    if (oldProps.tempFilter &&
-      !_.isEqual(oldProps.tempFilter.temp, newVersionOfLayerToRemove.filter)) {
-      this._createLayerGeoJSON(layerToRemove)
-    }
+  _removeLayerData: function (id) {
     const map = this._map
-    if (map.getSource(`${String(layerToRemove.id)}-data`)) {
-      map.removeSource(`${String(layerToRemove.id)}-data`)
-      map.removeLayer(`${String(layerToRemove.id)}-data`)
+    if (map.getSource(`${String(id)}-data`)) {
+      map.removeSource(`${String(id)}-data`)
+      map.removeLayer(`${String(id)}-data`)
     }
-    if (map.getSource(`${String(layerToRemove.id)}-source`)) {
+    if (map.getSource(`${String(id)}-source`)) {
       map.removeLayer('temp')
-      map.removeSource(`${String(layerToRemove.id)}-source`)
+      map.removeSource(`${String(id)}-source`)
     }
   },
 

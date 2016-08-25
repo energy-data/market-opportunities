@@ -10,7 +10,9 @@ export const Loading = React.createClass({
   render: function () {
     const { loading } = this.props
     return (loading)
-    ? <div className='loading-indicator'><p>Loading...</p></div>
+    ? <div className='loading-full-block'>
+        <div className='loading-indicator'><p>Loading...</p></div>
+      </div>
     : <div className='empty-component'></div>
   }
 })

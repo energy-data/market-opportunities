@@ -29,6 +29,8 @@ export const SET_MAP_INTERSECT = 'SET_MAP_INTERSECT'
 export const SET_POPULATION = 'SET_POPULATION'
 export const SET_REVENUE_PER_HOUSEHOLD = 'SET_REVENUE_PER_HOUSEHOLD'
 export const SET_MARKET_CAPTURE_RATE = 'SET_MARKET_CAPTURE_RATE'
+export const START_LOADING = 'START_LOADING'
+export const STOP_LOADING = 'STOP_LOADING'
 
 /*
  * bare action creators
@@ -190,4 +192,16 @@ export function setRevenuePerHousehold (revenue) {
 
 export function setMarketCaptureRate (rate) {
   return { type: SET_MARKET_CAPTURE_RATE, data: rate }
+}
+
+/*
+ * actions for manually setting the layer status
+ */
+
+export function startLoading () {
+  return { type: START_LOADING }
+}
+
+export function stopLoading () {
+  return { type: STOP_LOADING }
 }
