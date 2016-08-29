@@ -15,7 +15,7 @@ var classes = {
   'indicator cancel': '.button-cancel-edit',
   'indicator save': '.button-save-edit',
   'layer list wrapper': '.panel__body-inner',
-  'loading': '.loading-indicator',
+  'loading': '.loading-full-block',
   'map': '.map',
   'multi step': '.multi-step',
   'panel footer': '.panel__footer',
