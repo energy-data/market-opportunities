@@ -143,7 +143,7 @@
     "turf-area": "^3.0.12",
     "turf-buffer": "^3.0.12",
     "turf-featurecollection": "^1.0.1",
-    "turf-intersect": "^3.0.12",
+    "turf-intersect": "^1.x",
     "turf-union": "^1.x",
     "validimir": "^1.5.0",
     "why-did-you-update": "0.0.8",

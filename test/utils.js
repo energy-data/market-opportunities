@@ -72,10 +72,10 @@ test('createDataPaintObject', t => {
       'stops': [
         [ 0, '#ffffff' ],
         [ 0.2, '#ffffff' ],
-        [ 0.4, '#ffffee' ],
-        [ 0.6, '#ccccbc' ],
-        [ 0.8, '#9b9b8c' ],
-        [ 1, '#6d6d5e' ]
+        [ 0.4, '#ffffff' ],
+        [ 0.6, '#ffffee' ],
+        [ 0.8, '#ccccbc' ],
+        [ 1, '#9b9b8c' ]
       ]
     }
   })
@@ -99,7 +99,7 @@ test('createOutlinePaintObject', t => {
 })
 
 test('getLayerColor', t => {
-  t.is(utils.getLayerColor('healthcare-facilities'), '#09749e')
+  t.is(utils.getLayerColor('healthcare-facilities'), '#4fc3ac')
 })
 
 test('filterSummary', t => {

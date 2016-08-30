@@ -31,6 +31,7 @@ export const SET_REVENUE_PER_HOUSEHOLD = 'SET_REVENUE_PER_HOUSEHOLD'
 export const SET_MARKET_CAPTURE_RATE = 'SET_MARKET_CAPTURE_RATE'
 export const START_LOADING = 'START_LOADING'
 export const STOP_LOADING = 'STOP_LOADING'
+export const UPDATE_LAYER_ERROR = 'UPDATE_LAYER_ERROR'
 
 /*
  * bare action creators
@@ -204,4 +205,12 @@ export function startLoading () {
 
 export function stopLoading () {
   return { type: STOP_LOADING }
+}
+
+/*
+ * show an error specific to a layer
+ */
+
+export function updateLayerError (id, error) {
+  return { type: UPDATE_LAYER_ERROR, data: { id, error } }
 }

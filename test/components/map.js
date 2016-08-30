@@ -24,6 +24,7 @@ test('map test', t => {
 
   // mock mount
   const instance = component.instance()
+  instance._hideRoads = () => {}
   t.notThrows(() => instance.componentDidMount())
 
   // map component can receive new props (more or fewer layers)

@@ -327,6 +327,11 @@
   }
 }
 
+.layer-block.layer-error {
+  background-color: $danger-color;
+  margin-top: -1rem;
+  h2 { padding-top: 0.75rem; }
+}
 
 /* Layer modifiers */
 
@@ -366,6 +371,7 @@
   font-weight: $base-font-bold;
   margin-bottom: 0.75rem;
 }
+
 
 
 /* Layer block: form elements */
@@ -424,15 +430,7 @@
 
 .button-cancel-edit,
 .button-save-edit {
-  @extend .button, .button--small, .button--achromic-unbounded, .button--text-hidden;
-}
-
-.button-cancel-edit::before {
-  @extend %collecticon-xmark;
-}
-
-.button-save-edit::before {
-  @extend %collecticon-tick;
+  @extend .button, .button--small, .button--achromic-unbounded;
 }
 
 

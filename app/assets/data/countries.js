@@ -1702,7 +1702,7 @@ export const countries = {
     ],
     "name": "Nigeria",
     "iso_a2": "NG",
-    "avg_hh_size": 5,
+    "avg_hh_size": 4.8,
     "area": "923,768 km2",
     "population": 177476000
   },
@@ -2397,7 +2397,7 @@ export const countries = {
     ],
     "name": "Tanzania",
     "iso_a2": "TZ",
-    "avg_hh_size": 5,
+    "avg_hh_size": 4.8,
     "area": "947,303 km2",
     "population": 51820000
   },
@@ -2586,7 +2586,7 @@ export const countries = {
     ],
     "name": "Zambia",
     "iso_a2": "ZM",
-    "avg_hh_size": 5,
+    "avg_hh_size": 4.8,
     "area": "752,618 km2",
     "population": 15721000
   },

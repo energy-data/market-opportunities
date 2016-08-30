@@ -22,7 +22,7 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, datasetName, description, editing, options, filter, visible } = this.props.layer
+    const { id, datasetName, description, editing, options, filter, visible, error } = this.props.layer
     const { updateLayerFilter } = this.props
 
     let Editor
@@ -42,7 +42,7 @@ const Indicator = React.createClass({
             {options.value.stops.slice(0, -1).map((stop, j) => {
               const baseColor = getLayerColor(datasetName)
               return <div className='legend-swath' key={stop} style={{
-                backgroundColor: chroma(baseColor).darken(j - 2).hex(),
+                backgroundColor: chroma(baseColor).darken(j - Math.floor(options.value.stops.length / 2)).hex(),
                 width: `${(100 / (options.value.stops.length - 1)).toFixed(2)}%`
               }}></div>
             })}
@@ -65,6 +65,17 @@ const Indicator = React.createClass({
           pips={{mode: 'steps', density: 10, format: pipFormatter(options.value.format)}}
           onChange={(e) => updateLayerFilter(id, { value: Number(e[0]) })}
         /></div></div>
+    }
+
+    let Error
+    if (error) {
+      Error = (
+        <section className='layer-block layer-error'>
+          <h2 className='layer-block__title'>{error}</h2>
+        </section>
+        )
+    } else {
+      Error = <div className='empty-component'></div>
     }
 
     return (
@@ -103,6 +114,7 @@ const Indicator = React.createClass({
                 </div>
               </form>
             </section>
+            { Error }
             <section className='layer-block layer-info'>
               <h2 className='layer-block__title layer-info__title'>Info</h2>
               <dl className='layer-info__details'>

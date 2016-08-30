@@ -6,21 +6,7 @@ export const popLayer = {
 }
 
 export const baseLayers = [
-  {
-    id: 'a',
-    name: 'Transmission Network',
-    type: 'base',
-    url: 'https://s3.amazonaws.com/test-offgrid-mvt/tiles/208de98c-f9b5-4a94-9a98-7fcd55734c01/index.tilejson',
-    layerType: 'line',
-    paint: {
-      'line-color': '#1CBD9D',
-      'line-opacity': 0.5,
-      'line-width': 2
-    }
-  },
-  { id: 'b', name: 'Satellite', group: 'a', type: 'base' },
-  { id: 'c', name: 'OSM', group: 'a', type: 'base' },
-  { id: 'd', name: 'Grid', group: 'a', type: 'base' },
+  { id: 'mb-satellite', name: 'Satellite', group: 'a', type: 'base' },
   { id: 'mb-road-layers', name: 'Roads', group: 'a', type: 'base' }
 ]
 
@@ -36,8 +22,8 @@ export const scenarios = [
 export const mapStyle = 'mapbox://styles/devseed/cip5i5wgd000rb8m9pce23cnk'
 
 export const intersectPaint = {
-  'fill-color': '#0da080',
-  'fill-opacity': 0.3
+  'fill-pattern': 'selectionfill',
+  'fill-opacity': 1
 }
 
 // tocolor outputs as rgba(r, g, b, a)
@@ -60,10 +46,14 @@ export const intersectPaint = {
 // turqoise '#4fc3ac' (79, 195, 172)
 
 export const presetLayerColors = {
-  'healthcare-facilities': [9, 116, 158],
+  'healthcare-facilities': [79, 195, 172],
   'energy-access-ongrid': [42, 144, 78],
-  'mining-locations-in-ssa': [34, 68, 200],
-  'population-density': [200, 68, 34]
+  'mining-locations-in-ssa': [169, 145, 94],
+  'population-density': [200, 68, 34],
+  'protected-areas': [42, 144, 78],
+  'solar-potential-ghi': [245, 134, 26],
+  'education-facilities': [127, 58, 149],
+  'electricity-grid-ssa': [246, 194, 23]
 }
 
 export const roadLayers = [

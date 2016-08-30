@@ -18,7 +18,8 @@ import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject,
   createTempPaintStyle } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers,
-  startLoading, stopLoading } from '../actions'
+  startLoading, stopLoading, updateLayerError, toggleLayerVisibility,
+  startEditingLayer } from '../actions'
 import { countries } from '../../data/countries'
 
 export const Map = React.createClass({
@@ -57,6 +58,7 @@ export const Map = React.createClass({
           'fill-opacity': 0.01
         }
       }, 'landuse')
+      this._hideRoads()
     })
   },
 
@@ -74,6 +76,19 @@ export const Map = React.createClass({
     inFirstArrayNotSecond(oldVisibleLayers, newVisibleLayers, a => a.id)
       .forEach(layer => this._removeLayerOutline(layer))
 
+    // new layers that were also in old, check for changed geojson and update
+    // outlines and intersect accordingly
+    const changedGeo = newVisibleLayers.filter(layer => {
+      return oldVisibleLayers.map(a => a.id).indexOf(layer.id) > -1
+    }).filter(layer => {
+      return !_.isEqual(layer.geojson,
+        oldVisibleLayers.find(a => a.id === layer.id).geojson)
+    })
+    if (changedGeo.length) {
+      this._updateIntersectedArea(newVisibleLayers)
+      changedGeo.forEach(layer => this._updateLayerOutline(layer))
+    }
+
     // we only show one layer data for the singular editing layer
     if (this.props.editLayer && !nextProps.editLayer) {
       const layerToRemove = this.props.editLayer
@@ -81,15 +96,32 @@ export const Map = React.createClass({
       // has saved their selection, we check the temp filter against the filter
       // in the new version of the editLayer (it was editLayer but now isn't
       // editing)
+      // we also create a geojson using the default selection if one doesn't
+      // exist EVEN IF the user cancels (we can't distinguish)
       const newVersionOfLayerToRemove = nextProps.layers.indicators
         .find(layer => layer.id === layerToRemove.id)
       if (this.props.tempFilter &&
-        !_.isEqual(this.props.tempFilter.temp, newVersionOfLayerToRemove.filter)) {
+        (!_.isEqual(this.props.tempFilter.temp, newVersionOfLayerToRemove.filter) ||
+          !newVersionOfLayerToRemove.geojson)) {
         this.props.dispatch(startLoading())
         setTimeout(() => {
-          this._createLayerGeoJSON(layerToRemove)
-          this.props.dispatch(stopLoading())
-          this._removeLayerData(layerToRemove.id)
+          try {
+            this._createLayerGeoJSON(layerToRemove)
+            this._removeLayerData(layerToRemove.id)
+          } catch (e) {
+            console.warn(e)
+            this.props.dispatch(updateLayerError(layerToRemove.id,
+              'there was a problem calculating this layer, please try again with new filters'))
+            setTimeout(() => {
+              this.props.dispatch(updateLayerError(layerToRemove.id, ''))
+            }, 10000)
+            // if there was an error, remove the data, re-add it to initialize
+            // properly, toggle the visiblity (to off) and stop the loading
+            this._removeLayerData(layerToRemove.id)
+            this.props.dispatch(startEditingLayer(layerToRemove.id))
+            this.props.dispatch(toggleLayerVisibility(layerToRemove.id))
+            this.props.dispatch(stopLoading())
+          }
         // NOTE: this amount of time is required to not interrupt the css
         // transition on the loading indicator
         }, 300)
@@ -126,8 +158,6 @@ export const Map = React.createClass({
       this._addIntersectedArea(newVisibleLayers)
     } else if (newVisibleLayers.length < 2 && oldVisibleLayers.length >= 2) {
       this._removeIntersectedArea()
-    // this handles all update cases since we have to "remove" a visible layer
-    // (edit it) in order to get a new filter
     } else if ((newVisibleLayers.length !== oldVisibleLayers.length) &&
       newVisibleLayers.length >= 2 && !nextProps.editLayer) {
       this._updateIntersectedArea(newVisibleLayers)
@@ -152,8 +182,12 @@ export const Map = React.createClass({
       nextProps.layers.intersect && !nextProps.editLayer) {
       this.props.dispatch(startLoading())
       setTimeout(() => {
-        this._calculateIntersectedPopulation(nextProps)
-        this.props.dispatch(stopLoading())
+        try {
+          this._calculateIntersectedPopulation(nextProps)
+        } catch (e) {
+          console.warn(e)
+          this.props.dispatch(stopLoading())
+        }
       // NOTE: this amount of time is required to not interrupt the css
       // transition on the loading indicator
       }, 300)
@@ -164,6 +198,29 @@ export const Map = React.createClass({
       this.props.dispatch(setLayers(nextProps.layers.indicators.map(layer => {
         return Object.assign({}, _.omit(layer, ['editing', 'visible', 'geojson']), {})
       })))
+    }
+
+    // Toggle basemap if satellite is on/off
+    const oldSatVisibility = this.props.layers.base.find(baseLayer => {
+      return baseLayer.id === 'mb-satellite'
+    }).visible
+    const newSatVisibility = nextProps.layers.base.find(baseLayer => {
+      return baseLayer.id === 'mb-satellite'
+    }).visible
+
+    if (oldSatVisibility && !newSatVisibility) {
+      this._map.removeSource('satellite')
+      this._map.removeLayer('satellite')
+    } else if (!oldSatVisibility && newSatVisibility) {
+      this._map.addSource('satellite', {
+        type: 'raster',
+        url: 'mapbox://mapbox.satellite'
+      })
+      this._map.addLayer({
+        id: 'satellite',
+        type: 'raster',
+        source: 'satellite'
+      }, 'road-pedestrian-case')
     }
   },
 
@@ -191,6 +248,10 @@ export const Map = React.createClass({
       map.removeSource(`${String(layer.id)}-outline`)
       map.removeLayer(`${String(layer.id)}-outline`)
     }
+  },
+
+  _updateLayerOutline: function (layer) {
+    this._map.getSource(`${String(layer.id)}-outline`).setData(layer.geojson)
   },
 
   _addLayerData: function (layer) {
@@ -315,7 +376,10 @@ export const Map = React.createClass({
       }).reduce((a, b) => {
         return union(a, b)
       })
+      this.props.dispatch(stopLoading())
       this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
+    } else {
+      this.props.dispatch(stopLoading())
     }
   },
 
@@ -412,6 +476,7 @@ export const Map = React.createClass({
         }, 0)
         return a + subPopulation
       }, 0)
+    this.props.dispatch(stopLoading())
     this.props.dispatch(setPopulation(population))
   }
 })
