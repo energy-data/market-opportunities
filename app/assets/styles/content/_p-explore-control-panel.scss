@@ -327,6 +327,11 @@
   }
 }
 
+.layer-block.layer-error {
+  background-color: $danger-color;
+  margin-top: -1rem;
+  h2 { padding-top: 0.75rem; }
+}
 
 /* Layer modifiers */
 
@@ -366,6 +371,7 @@
   font-weight: $base-font-bold;
   margin-bottom: 0.75rem;
 }
+
 
 
 /* Layer block: form elements */

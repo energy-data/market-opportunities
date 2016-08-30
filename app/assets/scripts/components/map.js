@@ -18,7 +18,8 @@ import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createOutlinePaintObject,
   createTempPaintStyle } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers,
-  startLoading, stopLoading } from '../actions'
+  startLoading, stopLoading, updateLayerError, toggleLayerVisibility,
+  startEditingLayer } from '../actions'
 import { countries } from '../../data/countries'
 
 export const Map = React.createClass({
@@ -74,6 +75,14 @@ export const Map = React.createClass({
     inFirstArrayNotSecond(oldVisibleLayers, newVisibleLayers, a => a.id)
       .forEach(layer => this._removeLayerOutline(layer))
 
+    // new layers that were also in old, check for changed geojson and update
+    newVisibleLayers.filter(layer => {
+      return oldVisibleLayers.map(a => a.id).indexOf(layer.id) > -1
+    }).filter(layer => {
+      return !_.isEqual(layer.geojson,
+        oldVisibleLayers.find(a => a.id === layer.id).geojson)
+    }).forEach(layer => this._updateLayerOutline(layer))
+
     // we only show one layer data for the singular editing layer
     if (this.props.editLayer && !nextProps.editLayer) {
       const layerToRemove = this.props.editLayer
@@ -87,9 +96,23 @@ export const Map = React.createClass({
         !_.isEqual(this.props.tempFilter.temp, newVersionOfLayerToRemove.filter)) {
         this.props.dispatch(startLoading())
         setTimeout(() => {
-          this._createLayerGeoJSON(layerToRemove)
-          this.props.dispatch(stopLoading())
-          this._removeLayerData(layerToRemove.id)
+          try {
+            this._createLayerGeoJSON(layerToRemove)
+            this._removeLayerData(layerToRemove.id)
+          } catch (e) {
+            console.warn(e)
+            this.props.dispatch(updateLayerError(layerToRemove.id,
+              'there was a problem calculating this layer, please try again with new filters'))
+            setTimeout(() => {
+              this.props.dispatch(updateLayerError(layerToRemove.id, ''))
+            }, 10000)
+            // if there was an error, remove the data, re-add it to initialize
+            // properly, toggle the visiblity (to off) and stop the loading
+            this._removeLayerData(layerToRemove.id)
+            this.props.dispatch(startEditingLayer(layerToRemove.id))
+            this.props.dispatch(toggleLayerVisibility(layerToRemove.id))
+            this.props.dispatch(stopLoading())
+          }
         // NOTE: this amount of time is required to not interrupt the css
         // transition on the loading indicator
         }, 300)
@@ -152,8 +175,12 @@ export const Map = React.createClass({
       nextProps.layers.intersect && !nextProps.editLayer) {
       this.props.dispatch(startLoading())
       setTimeout(() => {
-        this._calculateIntersectedPopulation(nextProps)
-        this.props.dispatch(stopLoading())
+        try {
+          this._calculateIntersectedPopulation(nextProps)
+        } catch (e) {
+          console.warn(e)
+          this.props.dispatch(stopLoading())
+        }
       // NOTE: this amount of time is required to not interrupt the css
       // transition on the loading indicator
       }, 300)
@@ -191,6 +218,10 @@ export const Map = React.createClass({
       map.removeSource(`${String(layer.id)}-outline`)
       map.removeLayer(`${String(layer.id)}-outline`)
     }
+  },
+
+  _updateLayerOutline: function (layer) {
+    this._map.getSource(`${String(layer.id)}-outline`).setData(layer.geojson)
   },
 
   _addLayerData: function (layer) {
@@ -315,6 +346,7 @@ export const Map = React.createClass({
       }).reduce((a, b) => {
         return union(a, b)
       })
+      this.props.dispatch(stopLoading())
       this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
     }
   },
@@ -412,6 +444,7 @@ export const Map = React.createClass({
         }, 0)
         return a + subPopulation
       }, 0)
+    this.props.dispatch(stopLoading())
     this.props.dispatch(setPopulation(population))
   }
 })

@@ -22,7 +22,7 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, datasetName, description, editing, options, filter, visible } = this.props.layer
+    const { id, datasetName, description, editing, options, filter, visible, error } = this.props.layer
     const { updateLayerFilter } = this.props
 
     let Editor
@@ -67,6 +67,17 @@ const Indicator = React.createClass({
         /></div></div>
     }
 
+    let Error
+    if (error) {
+      Error = (
+        <section className='layer-block layer-error'>
+          <h2 className='layer-block__title'>{error}</h2>
+        </section>
+        )
+    } else {
+      Error = <div className='empty-component'></div>
+    }
+
     return (
       <li className='layer-list__layer-wrapper'>
         <article className={c('layer', {'layer--expanded': editing})}>
@@ -103,6 +114,7 @@ const Indicator = React.createClass({
                 </div>
               </form>
             </section>
+            { Error }
             <section className='layer-block layer-info'>
               <h2 className='layer-block__title layer-info__title'>Info</h2>
               <dl className='layer-info__details'>

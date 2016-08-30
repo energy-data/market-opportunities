@@ -2,7 +2,7 @@ import { UPDATE_VISIBLE_LAYERS, START_EDITING_LAYER, STOP_EDITING_LAYER,
   TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER,
   START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS,
   UPDATE_LAYER_GEOJSON, SET_MAP_INTERSECT, START_LOADING,
-  STOP_LOADING } from '../actions'
+  STOP_LOADING, UPDATE_LAYER_ERROR } from '../actions'
 import { baseLayers } from '../constants'
 
 export const initial = {
@@ -49,7 +49,7 @@ export default function layers (state = initial, action) {
       return Object.assign({}, state, { indicators: newIndicatorsStartEdit })
     case STOP_EDITING_LAYER:
       const newIndicatorsStopEdit = state.indicators.map(layer => {
-        return Object.assign({}, layer, { editing: false })
+        return Object.assign({}, layer, { editing: false, error: '' })
       })
       return Object.assign({}, state, { indicators: newIndicatorsStopEdit })
     case TOGGLE_LAYER_VISIBILITY:
@@ -84,6 +84,15 @@ export default function layers (state = initial, action) {
         }
       })
       return Object.assign({}, state, { indicators: newIndicatorsGeo })
+    case UPDATE_LAYER_ERROR:
+      const newIndicatorsError = state.indicators.map(layer => {
+        if (layer.id === action.data.id) {
+          return Object.assign({}, layer, { error: action.data.error })
+        } else {
+          return layer
+        }
+      })
+      return Object.assign({}, state, { indicators: newIndicatorsError })
     case SET_MAP_INTERSECT:
       return Object.assign({}, state, { intersect: action.data })
     case LAYERS_TO_DEFAULT:
