@@ -6,21 +6,7 @@ export const popLayer = {
 }
 
 export const baseLayers = [
-  {
-    id: 'a',
-    name: 'Transmission Network',
-    type: 'base',
-    url: 'https://s3.amazonaws.com/test-offgrid-mvt/tiles/208de98c-f9b5-4a94-9a98-7fcd55734c01/index.tilejson',
-    layerType: 'line',
-    paint: {
-      'line-color': '#1CBD9D',
-      'line-opacity': 0.5,
-      'line-width': 2
-    }
-  },
-  { id: 'b', name: 'Satellite', group: 'a', type: 'base' },
-  { id: 'c', name: 'OSM', group: 'a', type: 'base' },
-  { id: 'd', name: 'Grid', group: 'a', type: 'base' },
+  { id: 'mb-satellite', name: 'Satellite', group: 'a', type: 'base' },
   { id: 'mb-road-layers', name: 'Roads', group: 'a', type: 'base' }
 ]
 

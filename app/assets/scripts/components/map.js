@@ -58,6 +58,7 @@ export const Map = React.createClass({
           'fill-opacity': 0.01
         }
       }, 'landuse')
+      this._hideRoads()
     })
   },
 
@@ -197,6 +198,29 @@ export const Map = React.createClass({
       this.props.dispatch(setLayers(nextProps.layers.indicators.map(layer => {
         return Object.assign({}, _.omit(layer, ['editing', 'visible', 'geojson']), {})
       })))
+    }
+
+    // Toggle basemap if satellite is on/off
+    const oldSatVisibility = this.props.layers.base.find(baseLayer => {
+      return baseLayer.id === 'mb-satellite'
+    }).visible
+    const newSatVisibility = nextProps.layers.base.find(baseLayer => {
+      return baseLayer.id === 'mb-satellite'
+    }).visible
+
+    if (oldSatVisibility && !newSatVisibility) {
+      this._map.removeSource('satellite')
+      this._map.removeLayer('satellite')
+    } else if (!oldSatVisibility && newSatVisibility) {
+      this._map.addSource('satellite', {
+        type: 'raster',
+        url: 'mapbox://mapbox.satellite'
+      })
+      this._map.addLayer({
+        id: 'satellite',
+        type: 'raster',
+        source: 'satellite'
+      }, 'road-pedestrian-case')
     }
   },
 
