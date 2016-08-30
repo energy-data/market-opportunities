@@ -76,12 +76,17 @@ export const Map = React.createClass({
       .forEach(layer => this._removeLayerOutline(layer))
 
     // new layers that were also in old, check for changed geojson and update
-    newVisibleLayers.filter(layer => {
+    // outlines and intersect accordingly
+    const changedGeo = newVisibleLayers.filter(layer => {
       return oldVisibleLayers.map(a => a.id).indexOf(layer.id) > -1
     }).filter(layer => {
       return !_.isEqual(layer.geojson,
         oldVisibleLayers.find(a => a.id === layer.id).geojson)
-    }).forEach(layer => this._updateLayerOutline(layer))
+    })
+    if (changedGeo.length) {
+      this._updateIntersectedArea(newVisibleLayers)
+      changedGeo.forEach(layer => this._updateLayerOutline(layer))
+    }
 
     // we only show one layer data for the singular editing layer
     if (this.props.editLayer && !nextProps.editLayer) {
@@ -90,10 +95,13 @@ export const Map = React.createClass({
       // has saved their selection, we check the temp filter against the filter
       // in the new version of the editLayer (it was editLayer but now isn't
       // editing)
+      // we also create a geojson using the default selection if one doesn't
+      // exist EVEN IF the user cancels (we can't distinguish)
       const newVersionOfLayerToRemove = nextProps.layers.indicators
         .find(layer => layer.id === layerToRemove.id)
       if (this.props.tempFilter &&
-        !_.isEqual(this.props.tempFilter.temp, newVersionOfLayerToRemove.filter)) {
+        (!_.isEqual(this.props.tempFilter.temp, newVersionOfLayerToRemove.filter) ||
+          !newVersionOfLayerToRemove.geojson)) {
         this.props.dispatch(startLoading())
         setTimeout(() => {
           try {
@@ -149,8 +157,6 @@ export const Map = React.createClass({
       this._addIntersectedArea(newVisibleLayers)
     } else if (newVisibleLayers.length < 2 && oldVisibleLayers.length >= 2) {
       this._removeIntersectedArea()
-    // this handles all update cases since we have to "remove" a visible layer
-    // (edit it) in order to get a new filter
     } else if ((newVisibleLayers.length !== oldVisibleLayers.length) &&
       newVisibleLayers.length >= 2 && !nextProps.editLayer) {
       this._updateIntersectedArea(newVisibleLayers)
@@ -348,6 +354,8 @@ export const Map = React.createClass({
       })
       this.props.dispatch(stopLoading())
       this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
+    } else {
+      this.props.dispatch(stopLoading())
     }
   },
 
