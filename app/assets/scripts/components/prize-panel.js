@@ -44,7 +44,7 @@ export const PrizePanel = React.createClass({
                       <td className='body-value'>
                         <div className='form__group'>
                           <div className='form__input-group form__input-group--small'>
-                            <input className='form__control form__control--small' type='number' value={marketCapture * 100} onChange={this._setMarketCaptureRate} />
+                            <input className='form__control form__control--small' type='number' value={Math.round(marketCapture * 100)} onChange={this._setMarketCaptureRate} />
                             <div className='form__addon'><span className='form__addon-label'>%</span></div>
                           </div>
                         </div>
@@ -95,11 +95,13 @@ export const PrizePanel = React.createClass({
   },
 
   _setMarketCaptureRate: function (e) {
-    this.props.dispatch(setMarketCaptureRate(Number(e.target.value / 100)))
+    const value = Math.min(Math.max(e.target.value, 0), 100)
+    this.props.dispatch(setMarketCaptureRate(Number(value / 100)))
   },
 
   _setRevenuePerHousehold: function (e) {
-    this.props.dispatch(setRevenuePerHousehold(Number(e.target.value)))
+    const value = Math.max(Number(e.target.value), 0)
+    this.props.dispatch(setRevenuePerHousehold(value))
   }
 })
 
