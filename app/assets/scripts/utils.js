@@ -253,6 +253,9 @@ export function filterSummary (options, filter) {
     case 'pop':
       formatter = a => numberWithCommas(Math.pow(10, a + 0.5) / 100)
       break
+    case 'shorten':
+      formatter = a => numberWithCommas(a)
+      break
     default:
       formatter = a => numberWithCommas(a.toFixed(0))
   }
@@ -275,9 +278,11 @@ export function pipFormatter (format) {
   switch (format) {
     case 'percentage':
       return { to: a => `${a * 100}%`, from: a => Number(a.replace('%', '')) / 100 }
-    // NOTE: this from function does not to a proper reversal but that's okay
+    // NOTE: this from function does not do a proper reversal but that's okay
     case 'pop':
       return { to: a => shortenNumber(Math.pow(10, a + 0.5) / 100, 0), from: a => Math.log10(a * 100) - 0.5 }
+    case 'shorten':
+      return { to: a => shortenNumber(a, 1), from: a => a }
     default:
       return { to: a => numberWithCommas(a), from: a => Number(a.replace(/,/g, '')) }
   }
@@ -289,7 +294,7 @@ function numberWithCommas (number) {
 module.exports.numberWithCommas = numberWithCommas
 
 export function shortenNumber (number, decimals) {
-  decimals = (decimals === undefined) ? 2 : 0
+  decimals = (decimals === undefined) ? 0 : decimals
   if (number >= 1000000000) {
     return `${(number / 1000000000).toFixed(decimals)} B`
   } else if (number >= 1000000) {

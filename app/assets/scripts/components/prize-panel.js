@@ -35,7 +35,7 @@ export const PrizePanel = React.createClass({
                   <thead>
                     <tr>
                       <th className='head-term' scope='row'>Population <small>Households</small></th>
-                      <td className='head-value'>{shortenNumber(population)} <small>{shortenNumber(hhCount)}</small></td>
+                      <td className='head-value'>{shortenNumber(population, 2)} <small>{shortenNumber(hhCount, 2)}</small></td>
                     </tr>
                   </thead>
                   <tbody>
@@ -65,7 +65,7 @@ export const PrizePanel = React.createClass({
                   <tfoot>
                     <tr>
                       <th className='foot-term' scope='row'>Size of the Prize</th>
-                      <td className='foot-value'>{shortenNumber(hhCount * revenuePerHousehold * marketCapture)}</td>
+                      <td className='foot-value'>{shortenNumber(hhCount * revenuePerHousehold * marketCapture, 2)}</td>
                     </tr>
                   </tfoot>
                 </table>
