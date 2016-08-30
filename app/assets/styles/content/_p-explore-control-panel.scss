@@ -424,15 +424,7 @@
 
 .button-cancel-edit,
 .button-save-edit {
-  @extend .button, .button--small, .button--achromic-unbounded, .button--text-hidden;
-}
-
-.button-cancel-edit::before {
-  @extend %collecticon-xmark;
-}
-
-.button-save-edit::before {
-  @extend %collecticon-tick;
+  @extend .button, .button--small, .button--achromic-unbounded;
 }
 
 
