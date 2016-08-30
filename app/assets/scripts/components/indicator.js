@@ -42,7 +42,7 @@ const Indicator = React.createClass({
             {options.value.stops.slice(0, -1).map((stop, j) => {
               const baseColor = getLayerColor(datasetName)
               return <div className='legend-swath' key={stop} style={{
-                backgroundColor: chroma(baseColor).darken(j - 2).hex(),
+                backgroundColor: chroma(baseColor).darken(j - Math.floor(options.value.stops.length / 2)).hex(),
                 width: `${(100 / (options.value.stops.length - 1)).toFixed(2)}%`
               }}></div>
             })}

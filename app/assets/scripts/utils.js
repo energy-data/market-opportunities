@@ -96,7 +96,7 @@ export function createDataPaintObject (layer) {
       'fill-color': {
         'property': layer.options.value.property,
         'stops': layer.options.value.stops.map((stop, j) => {
-          return [stop, chroma(baseColor).darken(j - 2).hex()]
+          return [stop, chroma(baseColor).darken(j - Math.floor(layer.options.value.stops.length / 2)).hex()]
         })
       }
     }
