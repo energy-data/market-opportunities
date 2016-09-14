@@ -8,6 +8,7 @@ import config from '../config'
 import { prettifyString, stopsToNoUiSliderRange, filterSummary, pipFormatter,
  getLayerColor } from '../utils'
 import CheckboxGroup from './checkbox-group'
+import RadioGroup from './radio-group'
 import { popLayer } from '../constants'
 
 const Indicator = React.createClass({
@@ -51,12 +52,21 @@ const Indicator = React.createClass({
         </div>
         break
       case 'categorical':
-        Editor = <CheckboxGroup
-          values={options.value.values}
-          selected={filter.values}
-          layerId={id}
-          updateLayerFilter={updateLayerFilter}
-        />
+        if (datasetName === 'distance-to-grid') {
+          Editor = <RadioGroup
+            values={options.value.values}
+            selected={filter.values}
+            layerId={id}
+            updateLayerFilter={updateLayerFilter}
+          />
+        } else {
+          Editor = <CheckboxGroup
+            values={options.value.values}
+            selected={filter.values}
+            layerId={id}
+            updateLayerFilter={updateLayerFilter}
+          />
+        }
         break
       case 'buffer':
         Editor = <div className='form__group'><div className='form__slider'><Nouislider
@@ -85,7 +95,7 @@ const Indicator = React.createClass({
             <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
             <div className='layer__headline'>
               <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
-              <p className='layer__summary'>{filterSummary(options, filter) + (id === popLayer.id ? '  ppl/km2' : '')}</p>
+              <p className='layer__summary'>{(datasetName !== 'proximity-to-road' ? (filterSummary(options, filter) + (id === popLayer.id ? '  ppl/km2' : '')) : '5km')}</p>
             </div>
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>
@@ -121,7 +131,7 @@ const Indicator = React.createClass({
                 <dt>Description</dt>
                 <dd>{description}</dd>
                 <dt>Source URL</dt>
-                <dd><a href='#' title='Visit data source URL' className='url'>{url.resolve(config.dataHubURL, '/dataset/' + datasetName)}</a></dd>
+                <dd><a href={url.resolve(config.dataHubURL, '/dataset/' + datasetName)} title='Visit data source URL' className='url'>{url.resolve(config.dataHubURL, '/dataset/' + datasetName)}</a></dd>
               </dl>
             </section>
           </div>

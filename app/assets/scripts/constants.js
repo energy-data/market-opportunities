@@ -30,20 +30,20 @@ export const intersectPaint = {
 // chroma accepts an array as a constructor
 // colors
 // liteblue '#8fcef9' (143, 206, 249)
-// blue '#09749e'     (9, 116, 158)
-// litegreen '#bde39a'(189, 227, 154)
+// blue '#09749e'     (9, 116, 158) used
+// litegreen '#bde39a'(189, 227, 154) used
 // green '#2a904e'    (42, 144, 78)
 // pink '#fcab90'     (252, 171, 144)
 // red '#d02e2b'      (208, 46, 43)
 // pale '#ffc990'     (255, 201, 144)
-// orange '#f5861a'   (245, 134, 26)
+// orange '#f5861a'   (245, 134, 26) used
 // litepurp '#c3a1de' (195, 161, 222)
 // purp '#7f3a95'     (127, 58, 149)
 // liteyell '#f3ea9b' (243, 234, 155)
 // hotpurp '#c274b3'  (194, 116, 179)
-// gold '#f6c217'     (246, 194, 23)
+// gold '#f6c217'     (246, 194, 23) used
 // ygreen '#9db926'   (157, 185, 38)
-// turqoise '#4fc3ac' (79, 195, 172)
+// turqoise '#4fc3ac' (79, 195, 172) used
 
 export const presetLayerColors = {
   'healthcare-facilities': [79, 195, 172],
@@ -53,7 +53,9 @@ export const presetLayerColors = {
   'protected-areas': [42, 144, 78],
   'solar-potential-ghi': [245, 134, 26],
   'education-facilities': [127, 58, 149],
-  'electricity-grid-ssa': [246, 194, 23]
+  'electricity-grid-ssa': [246, 194, 23],
+  'proximity-to-road': [9, 116, 158],
+  'distance-to-grid': [189, 227, 154]
 }
 
 export const roadLayers = [
