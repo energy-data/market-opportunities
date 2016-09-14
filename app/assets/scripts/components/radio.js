@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { toggleArrayElement } from '../utils'
-
 const CheckboxGroup = React.createClass({
 
   propTypes: {
@@ -14,24 +12,24 @@ const CheckboxGroup = React.createClass({
   render: function () {
     const { value, selected } = this.props
     return (
-      <label key={value} htmlFor={value} className='form__option form__option--custom-checkbox'>
+      <label key={value} htmlFor={value} className='form__option form__option--custom-radio'>
         <input
           onChange={this._handleChange}
-          type='checkbox'
+          type='radio'
           name={value}
           id={value}
           value={value}
           checked={selected.indexOf(value) > -1}
         />
-        <span className='form__option__text'>{value === 'residential' ? '5km' : value}</span>
+        <span className='form__option__text'>{value}</span>
         <span className='form__option__ui'></span>
       </label>
     )
   },
 
   _handleChange: function () {
-    const { layerId, value, selected, updateLayerFilter } = this.props
-    updateLayerFilter(layerId, { values: toggleArrayElement(selected, value) })
+    const { layerId, value, updateLayerFilter } = this.props
+    updateLayerFilter(layerId, { values: [value] })
   }
 })
 

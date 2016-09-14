@@ -450,7 +450,6 @@ export const Map = React.createClass({
       flattenedFeatures = flattenedFeatures.concat(flattened)
     })
     const population = popFeatures
-    // TODO: remove this filtering and flatten multipolygons in the data
       .filter(a => a.geometry.type === 'Polygon')
       .concat(flattenedFeatures)
       .reduce((a, b) => {
@@ -469,7 +468,7 @@ export const Map = React.createClass({
             geometry: b.geometry
           })
           if (clip) {
-            return c + area(clip) / area(dFeature) * b.properties.total
+            return c + area(clip) * b.properties.avg
           } else {
             return c
           }

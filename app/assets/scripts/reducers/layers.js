@@ -29,9 +29,13 @@ export default function layers (state = initial, action) {
       return Object.assign({}, state, { status: 'error', error: action.error })
     case SET_LAYERS:
       // initialize `filter` from `options.value` for each layer
-      var layers = action.layers.map(layer => Object.assign({}, layer, {
-        filter: JSON.parse(JSON.stringify(layer.options.value))
-      }))
+      var layers = action.layers.map(layer => {
+        var filter = JSON.parse(JSON.stringify(layer.options.value))
+        if (layer.datasetName === 'distance-to-grid') {
+          filter.values = []
+        }
+        return Object.assign({}, layer, { filter })
+      })
       return Object.assign({}, state, {
         status: 'success',
         indicators: layers.filter(layer => layer.type !== 'base')
