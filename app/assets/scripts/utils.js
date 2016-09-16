@@ -1,3 +1,7 @@
+/* global fetch */
+require('es6-promise').polyfill()
+require('isomorphic-fetch')
+
 import tocolor from 'to-color'
 import chroma from 'chroma-js'
 import intersect from 'turf-intersect'
@@ -6,7 +10,28 @@ import { saveAs } from 'file-saver'
 import PDFDocument from 'pdfkit'
 import blobStream from 'blob-stream'
 
-import { presetLayerColors } from './constants'
+import { presetLayerColors, popLayer } from './constants'
+import { countries } from '../data/countries'
+
+// fetch fonts & images on init for use in PDF
+let MSLight, MSSemiBold, Logo
+fetch('assets/fonts/Montserrat-Light.ttf')
+  .then(response => response.arrayBuffer())
+  .then(font => {
+    MSLight = font
+  })
+
+fetch('assets/fonts/Montserrat-SemiBold.ttf')
+  .then(response => response.arrayBuffer())
+  .then(font => {
+    MSSemiBold = font
+  })
+
+fetch('assets/graphics/content/ifc-logo.png')
+  .then(response => response.arrayBuffer())
+  .then(logo => {
+    Logo = logo
+  })
 
 export function toggleArrayElement (array, el) {
   const tempArray = array.slice(0)
@@ -68,7 +93,7 @@ export function arrayToRangeObject (array) {
 }
 
 /*
- * creates a "range" object to be used in the Nouislider options
+ * creates a 'range' object to be used in the Nouislider options
  * sending more that two elements in the stop array allows for the creation
  * of non-linear sliders (http://refreshless.com/nouislider/slider-values/#section-non-linear)
  * @param {Array<number>} stops breakpoint values in the data
@@ -171,71 +196,180 @@ export function downloadMapPDF (props) {
   const canvas = props.getMapReference().getCanvas()
   const dataURL = canvas.toDataURL('image/png')
   const aspectRatio = canvas.height / canvas.width
-  const pageWidth = 500
+  const pageWidth = 612 // Letter; http://www.a4papersize.org/a4-paper-size-in-pixels.php
+  const pageHeight = 792
 
-  doc.image(dataURL, 40, 30, { width: pageWidth })
-  const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in suscipit purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus nec hendrerit felis. Morbi aliquam facilisis risus eu lacinia. Sed eu leo in turpis fringilla hendrerit. Ut nec accumsan nisl. Suspendisse rhoncus nisl posuere tortor tempus et dapibus elit porta. Cras leo neque, elementum a rhoncus ut, vestibulum non nibh. Phasellus pretium justo turpis. Etiam vulputate, odio vitae tincidunt ultricies, eros odio dapibus nisi, ut tincidunt lacus arcu eu elit. Aenean velit erat, vehicula eget lacinia ut, dignissim non tellus. Aliquam nec lacus mi, sed vestibulum nunc. Suspendisse potenti. Curabitur vitae sem turpis. Vestibulum sed neque eget dolor dapibus porttitor at sit amet sem. Fusce a turpis lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;\nMauris at ante tellus. Vestibulum a metus lectus. Praesent tempor purus a lacus blandit eget gravida ante hendrerit. Cras et eros metus. Sed commodo malesuada eros, vitae interdum augue semper quis. Fusce id magna nunc. Curabitur sollicitudin placerat semper. Cras et mi neque, a dignissim risus. Nulla venenatis porta lacus, vel rhoncus lectus tempor vitae. Duis sagittis venenatis rutrum. Curabitur tempor massa tortor.'
+  const baseFontColor = '#47595d'
+  const secondaryFontColor = '#919b9e'
+  const primaryColor = '#0da081'
 
+  const column = 252
+  const gutter = 28
+  const margin = 40
+
+  // Title
+  doc.fontSize(20)
+  doc.fillColor(baseFontColor)
+    .font(MSSemiBold)
+    .text(countries[props.country].name, margin, margin)
+
+  // Subtitle
+  doc.fontSize(8)
+  doc.fillColor(secondaryFontColor)
+    .font(MSSemiBold)
+    .text('SELECTED AREA LOREM IPSUM', margin, margin + 24)
+
+  // Right Title
   doc.fontSize(12)
-  doc.fillColor('#333333')
-    .font('Helvetica')
-    .text(lorem, 40, 60 + pageWidth * aspectRatio, {
-      width: (pageWidth / 2) - 10,
-      align: 'justify',
-      indent: 30,
-      columns: 1,
-      height: 400,
-      ellipsis: true
+  doc.fillColor(baseFontColor)
+    .font(MSSemiBold)
+    .text('Off-Grid Market Opportunities', pageWidth - column - margin, margin, {
+      width: column,
+      align: 'right'
     })
 
-  doc.save()
-    .moveTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio)
-    .lineTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 12)
-    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio + 12)
-    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio)
-    .fill('#0da081')
+  // Right Subtitle
+  doc.fontSize(8)
+  doc.fillColor(secondaryFontColor)
+    .font(MSSemiBold)
+    .text('POWERED BY ENERGY PLATFORM', pageWidth - column - margin, margin + 16, {
+      width: column,
+      align: 'right'
+    })
 
-  doc.fillColor('#333333')
-    .fontSize(16)
-    .font('Helvetica')
-    .text(props.country.name, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 18, {
-      width: (pageWidth / 2) - 20,
+  // Map
+  doc.image(dataURL, 0, 96, { width: pageWidth })
+
+  // Map outline
+  doc.rect(0, 96, pageWidth, 1)
+     .fillColor('#192F35', 0.08)
+     .fill()
+
+  doc.rect(0, 96 + pageWidth * aspectRatio - 1, pageWidth, 1)
+     .fillColor('#192F35', 0.08)
+     .fill()
+
+  // Secondary Body Base
+  doc.rect(0, 96 + pageWidth * aspectRatio, pageWidth, pageHeight - (96 + pageWidth * aspectRatio) - margin * 2)
+     .fill('#f6f7f7')
+
+  doc.rect(0, pageHeight - margin * 2 - 1, pageWidth, 1)
+     .fillColor('#192F35', 0.08)
+     .fill()
+
+  // Indicator Headers
+  doc.fontSize(12)
+  doc.fillColor(baseFontColor)
+    .font(MSSemiBold)
+    .text('Selected Indicators', margin, 96 + pageWidth * aspectRatio + 20)
+
+  doc.rect(margin, 96 + pageWidth * aspectRatio + 38, 28, 2)
+     .fill(primaryColor)
+
+  const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat ante sagittis lacus vulputate suscipit. Donec sodales elementum blandit. Integer vel lectus id sapien euismod faucibus.'
+  doc.fontSize(8)
+  doc.fillColor(baseFontColor)
+    .font(MSLight)
+    .text(lorem, margin, 96 + pageWidth * aspectRatio + 52, {
+      width: column,
       align: 'left'
     })
 
-  doc.save()
-    .moveTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 37)
-    .lineTo(40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 41)
-    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio + 41)
-    .lineTo(40 + pageWidth, 60 + pageWidth * aspectRatio + 37)
-    .fill('#0da081')
+  // Analysis Headers
+  doc.fontSize(12)
+  doc.fillColor(baseFontColor)
+    .font(MSSemiBold)
+    .text('Analysis', margin + column + gutter, 96 + pageWidth * aspectRatio + 20)
 
-  doc.fillColor('#333333')
-    .fontSize(14)
-    .font('Helvetica')
-    .text(`Selected Population: ${numberWithCommas(Math.round(props.prize.population))}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 47, {
-      width: (pageWidth / 2) - 20,
+  doc.rect(margin + column + gutter, 96 + pageWidth * aspectRatio + 38, 28, 2)
+     .fill(primaryColor)
+
+  const loremTwo = 'Donec sodales elementum blandit. Integer vel lectus id sapien euismod faucibus.'
+  doc.fontSize(8)
+  doc.fillColor(baseFontColor)
+    .font(MSLight)
+    .text(loremTwo, margin + column + gutter, 96 + pageWidth * aspectRatio + 52, {
+      width: column,
       align: 'left'
     })
 
-  doc.fillColor('#333333')
-    .fontSize(14)
-    .font('Helvetica')
-    .text(`Estimated Revenue: $${numberWithCommas(Math.round(props.prize.population / props.country.avg_hh_size * props.prize.revenuePerHousehold * props.prize.marketCapture))}`, 40 + (pageWidth / 2) + 20, 60 + pageWidth * aspectRatio + 64, {
-      width: (pageWidth / 2) - 20,
-      align: 'left'
+  // Indicators
+  const indicators = props.layers.indicators.filter(a => a.visible)
+  indicators.forEach((layer, index) => {
+    doc.circle(margin + 3, 96 + pageWidth * aspectRatio + 112 + 3 + (index * 24), 3)
+       .fill(getLayerColor(layer.datasetName))
+
+    doc.fontSize(8)
+    doc.fillColor(secondaryFontColor)
+       .font(MSLight)
+       .text(prettifyString(layer.datasetName).toUpperCase(), margin + 10, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24))
+
+    doc.fontSize(8)
+    doc.fillColor(baseFontColor)
+       .font(MSSemiBold)
+       .text((filterSummary(layer.options, layer.filter) + (layer.id === popLayer.id ? '  ppl/km2' : '')), margin, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24), {
+         width: column,
+         align: 'right'
+       })
+
+    if (index !== indicators.length - 1) {
+      doc.rect(margin, 96 + pageWidth * aspectRatio + 126 + (index * 24), column, 1)
+         .fillColor('#192F35', 0.08)
+         .fill()
+    }
+  })
+
+  // Analysis
+  const { population, revenuePerHousehold, marketCapture } = props.prize
+  const hhCount = population / countries[props.country].avg_hh_size
+  const outputs = [
+    { name: 'Population', value: shortenNumber(Math.round(population), 2) },
+    { name: 'Households', value: shortenNumber(hhCount, 2) },
+    { name: 'Market Captured', value: Math.round(marketCapture * 100) + '%' },
+    { name: 'Avg. revenue per HH', value: '$' + revenuePerHousehold },
+    { name: 'Size of the Prize', value: shortenNumber(hhCount * revenuePerHousehold * marketCapture, 2) }
+  ]
+  outputs.forEach((output, index) => {
+    doc.fontSize(8)
+    doc.fillColor(secondaryFontColor)
+       .font(MSLight)
+       .text(output.name.toUpperCase(), margin + column + gutter, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24))
+
+    doc.fontSize(8)
+    doc.fillColor(baseFontColor)
+       .font(MSSemiBold)
+       .text(output.value, pageWidth - column - margin, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24), {
+         width: column,
+         align: 'right'
+       })
+
+    if (index !== outputs.length - 1) {
+      doc.rect(margin + column + gutter, 96 + pageWidth * aspectRatio + 126 + (index * 24), column, 1)
+         .fillColor('#192F35', 0.08)
+         .fill()
+    }
+  })
+
+  // Footer
+  doc.image(Logo, margin, pageHeight - (margin * 1.5), { height: 16 })
+
+  doc.fontSize(8)
+  doc.fillColor(secondaryFontColor)
+    .font(MSLight)
+    .text('offgrid.energydata.info', pageWidth - column - margin, pageHeight - (margin * 1.5), {
+      width: column,
+      height: 16,
+      align: 'right',
+      link: 'offgrid.energydata.info'
     })
 
-  doc.fillColor('#333333')
-    .fontSize(12)
-    .font('Helvetica')
-    .text(lorem, 40 + (pageWidth / 2) + 20, 160 + pageWidth * aspectRatio, {
-      width: (pageWidth / 2) - 20,
-      align: 'justify',
-      indent: 30,
-      columns: 1,
-      height: 300,
-      ellipsis: true
+  doc.fontSize(8)
+  doc.fillColor(secondaryFontColor)
+    .font(MSLight)
+    .text('© ' + new Date().getFullYear(), pageWidth - column - margin, pageHeight - margin * 1.5 + 12, {
+      width: column,
+      height: 16,
+      align: 'right'
     })
 
   doc.end()

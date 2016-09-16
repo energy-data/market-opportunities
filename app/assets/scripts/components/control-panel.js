@@ -64,7 +64,8 @@ export const ControlPanel = React.createClass({
           geojson={layers.intersect}
           getMapReference={getMapReference}
           prize={prize}
-          country={countries[selection.country]}
+          country={selection.country}
+          layers={layers}
         />
       </section>
     )

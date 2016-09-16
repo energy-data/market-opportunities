@@ -10,7 +10,8 @@ const PanelFooter = React.createClass({
     geojson: React.PropTypes.object,
     getMapReference: React.PropTypes.func,
     prize: React.PropTypes.object,
-    country: React.PropTypes.object
+    country: React.PropTypes.string,
+    layers: React.PropTypes.object
   },
 
   render: function () {
