@@ -320,7 +320,7 @@ export function downloadMapPDF (props) {
   })
 
   // Analysis
-  const { population, revenuePerHousehold, marketCapture } = props.prize
+  const { population, revenuePerHousehold, marketCapture } = props
   const hhCount = population / countries[props.country].avg_hh_size
   const outputs = [
     { name: 'Population', value: shortenNumber(Math.round(population), 2) },

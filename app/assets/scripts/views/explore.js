@@ -30,9 +30,9 @@ const Explore = React.createClass({
               <div className='layout__body'>
                 <div className='inner'>
                   <MultiStep />
-                  <ControlPanel getMapReference={this._getMapReference} />
+                  <ControlPanel />
                   <Map onCanvasReady={this._updateMapReference} />
-                  <PrizePanel />
+                  <PrizePanel getMapReference={this._getMapReference} />
                   <Loading />
                   <Nocando />
                 </div>

@@ -5,6 +5,8 @@ import { countries } from '../../data/countries'
 import { shortenNumber } from '../utils'
 import { setMarketCaptureRate, setRevenuePerHousehold } from '../actions'
 
+import PrizeFooter from './prize-footer'
+
 export const PrizePanel = React.createClass({
 
   propTypes: {
@@ -13,11 +15,14 @@ export const PrizePanel = React.createClass({
     revenuePerHousehold: React.PropTypes.number,
     marketCapture: React.PropTypes.number,
     country: React.PropTypes.string,
-    dispatch: React.PropTypes.func
+    layers: React.PropTypes.object,
+    dispatch: React.PropTypes.func,
+    getMapReference: React.PropTypes.func
   },
 
   render: function () {
-    const { population, revenuePerHousehold, marketCapture, country } = this.props
+    const { population, revenuePerHousehold, marketCapture, country,
+      layers, getMapReference } = this.props
     if (this.props.displayAll) {
       const hhCount = population / countries[country].avg_hh_size
       return (
@@ -72,7 +77,15 @@ export const PrizePanel = React.createClass({
               </div>
             </div>
           </div>
-          <footer className='panel__footer'></footer>
+          <PrizeFooter
+            geojson={layers.intersect}
+            getMapReference={getMapReference}
+            population={population}
+            revenuePerHousehold={revenuePerHousehold}
+            marketCapture={marketCapture}
+            country={country}
+            layers={layers}
+          />
         </section>
       )
     } else {
@@ -88,7 +101,9 @@ export const PrizePanel = React.createClass({
               Please add at least 2 layers to generate revenue estimates
             </div>
           </div>
-          <footer className='panel__footer'></footer>
+          <footer className='panel__footer'>
+            <button className='button-export disabled' title='Export options'>Export</button>
+          </footer>
         </section>
       )
     }
@@ -108,13 +123,12 @@ export const PrizePanel = React.createClass({
 /* istanbul ignore next */
 function mapStateToProps (state) {
   return {
-    displayAll: state.layers.indicators
-     .filter(layer => layer.visible && !layer.editing && layer.geojson)
-     .length >= 2,
+    displayAll: state.layers.intersect,
     population: state.prize.population,
     revenuePerHousehold: state.prize.revenuePerHousehold,
     marketCapture: state.prize.marketCapture,
-    country: state.selection.country
+    country: state.selection.country,
+    layers: state.layers
   }
 }
 

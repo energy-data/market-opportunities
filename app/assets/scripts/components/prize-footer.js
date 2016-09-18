@@ -1,22 +1,21 @@
 import React from 'react'
-import c from 'classnames'
 
 import Dropdown from './dropdown'
 import { downloadGeoJSON, downloadMapImage, downloadMapPDF } from '../utils'
 
-const PanelFooter = React.createClass({
+const PrizeFooter = React.createClass({
 
   propTypes: {
     geojson: React.PropTypes.object,
     getMapReference: React.PropTypes.func,
-    prize: React.PropTypes.object,
+    population: React.PropTypes.number,
+    revenuePerHousehold: React.PropTypes.number,
+    marketCapture: React.PropTypes.number,
     country: React.PropTypes.string,
     layers: React.PropTypes.object
   },
 
   render: function () {
-    const { geojson } = this.props
-    const disabled = !geojson
     return (
       <footer className='panel__footer'>
         <Dropdown
@@ -29,9 +28,9 @@ const PanelFooter = React.createClass({
           aligment='center' >
 
           <ul className='drop__menu drop__menu--iconified export-menu' role='menu'>
-            <li><a onClick={this._exportAsImage} href='#' title='Export as image' className={c('drop__menu-item export-menu__item-image', { disabled })}>Image</a></li>
-            <li><a onClick={this._exportAsPDF} href='#' title='Export as PDF' className={c('drop__menu-item export-menu__item-pdf', { disabled })}>PDF</a></li>
-            <li><a onClick={this._exportAsGeoJSON} href='#' title='Export as GeoJSON' className={c('drop__menu-item export-menu__item-geojson', { disabled })}>GeoJSON</a></li>
+            <li><a onClick={this._exportAsImage} href='#' title='Export as image' className='drop__menu-item export-menu__item-image'>Image</a></li>
+            <li><a onClick={this._exportAsPDF} href='#' title='Export as PDF' className='drop__menu-item export-menu__item-pdf'>PDF</a></li>
+            <li><a onClick={this._exportAsGeoJSON} href='#' title='Export as GeoJSON' className='drop__menu-item export-menu__item-geojson'>GeoJSON</a></li>
           </ul>
         </Dropdown>
 
@@ -55,4 +54,4 @@ const PanelFooter = React.createClass({
   }
 })
 
-export default PanelFooter
+export default PrizeFooter
