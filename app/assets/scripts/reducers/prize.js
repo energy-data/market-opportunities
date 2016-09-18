@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'react-router-redux'
+
 import { SET_POPULATION, SET_REVENUE_PER_HOUSEHOLD, SET_MARKET_CAPTURE_RATE,
   PRIZE_TO_DEFAULT } from '../actions'
 
@@ -15,6 +17,7 @@ export default function prize (state = initial, action) {
       return Object.assign({}, state, { revenuePerHousehold: action.data })
     case SET_MARKET_CAPTURE_RATE:
       return Object.assign({}, state, { marketCapture: action.data })
+    case LOCATION_CHANGE:
     case PRIZE_TO_DEFAULT:
       return initial
     default:
