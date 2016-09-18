@@ -54,6 +54,19 @@
     font-size: 1.25rem;
     line-height: 1.5rem;
   }
+
+  .site-beta-tag {
+    background: $primary-color;
+    color: #fff;
+    display: inline-block;
+    font-size: 0.6em;
+    line-height: 1;
+    margin-left: $global-spacing / 4;
+    padding: $global-spacing / 4;
+    border-radius: $base-border-radius;
+    text-transform: uppercase;
+    vertical-align: $global-spacing / 4;
+  }
 }
 
 .page__subtitle {
@@ -102,7 +115,7 @@
   > .inner {
     @extend .row;
   }
-  
+
   *:last-child {
     margin-bottom: 0;
   }
@@ -199,7 +212,7 @@
     > *:last-child {
       margin-bottom: 0;
     }
-    
+
     @include media(medium-up) {
       @include col(10/12);
     }
