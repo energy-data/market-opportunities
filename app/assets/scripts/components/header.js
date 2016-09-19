@@ -57,7 +57,10 @@ const Header = React.createClass({
         <div className='inner'>
           <div className='page__headline'>
             <a href='/' title='Visit page'>
-              <h1 className='page__title'>Off-Grid Market Opportunities</h1>
+              <h1 className='page__title'>
+                Off-Grid Market Opportunities
+                <small className='site-beta-tag'>beta</small>
+              </h1>
               <p className='page__subtitle'>Powered by <strong>Energy Platform</strong></p>
             </a>
           </div>
