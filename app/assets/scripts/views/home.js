@@ -21,25 +21,37 @@ const Home = React.createClass({
                   <div className='layout__headline'>
                     <h1 className='layout__title'>Discover Off-Grid Energy Opportunities</h1>
                     <div className='layout__introduction'>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat lorem ipsum.</p>
+                      <p>[INSERT ONE SENTENCE TEASER]</p>
                       <p><Link to='/explore' title='Visit Explore page' className='cta-button-explore'><span>Start exploring</span></Link></p>
                     </div>
                   </div>
                 </div>
               </header>
               <div className='layout__body'>
-                <section className='fold fold--copy-left' id='showcase-fold'>
+                <section className='fold fold--copy-center' id='why-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
-                        <h1 className='fold__title'>Find Areas of Interest</h1>
+                        <h1 className='fold__title'>Why this tool</h1>
                       </header>
                       <div className='fold__body prose prose--responsive'>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat. Phasellus condimentum id neque nec viverra.</p>
+                        <p>1.1. billion people still lack access to electricity across the world. Off-grid technologies and approaches are emerging as part of the solutions to serve the energy poor, but lack of data and information on the market potential remains a major constraint and impediment. As a result of these issues, IFC and the World Bank have developed this Off-Grid Market Opportunity Tool.</p>
+                        <p><Link to='/about' title='Visit About page' className='cta-button-learn'><span>About the tool</span></Link></p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section className='fold fold--primary fold--copy-left' id='what-fold'>
+                  <div className='inner'>
+                    <div className='fold__copy'>
+                      <header className='fold__header'>
+                        <h1 className='fold__title'>What this tool offers</h1>
+                      </header>
+                      <div className='fold__body prose prose--responsive'>
                         <ul className='features-list'>
-                          <li>Feature lorem ipsum.</li>
-                          <li>Feature dolor sit amet.</li>
-                          <li>Feature iaculis gravida.</li>
+                          <li>Quickly generate a high-level view of the off-grid market opportunity based on different parameters such as distance from the grid, population density and proximity to roads.</li>
+                          <li>Access underlying open data from energydata.info and leverage the tool with your own data</li>
+                          <li>On-the-fly access, export results, mobile</li>
                         </ul>
                       </div>
                     </div>
@@ -52,20 +64,15 @@ const Home = React.createClass({
                     </div>
                   </div>
                 </section>
-                <section className='fold fold--primary fold--copy-center' id='locations-fold'>
+                <section className='fold fold--copy-center' id='about-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
                         <h1 className='fold__title'>About the Data</h1>
                       </header>
                       <div className='fold__body prose prose--responsive'>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in enim ut nunc iaculis gravida quis in ante. Ut eu turpis eget leo placerat consequat. Phasellus condimentum id neque nec viverra.</p>
-                        <ul className='stats-list'>
-                          <li><strong className='value'>20K</strong> <span className='term'>Lorem ipsum</span></li>
-                          <li><strong className='value'>56</strong> <span className='term'>Countries</span></li>
-                          <li><strong className='value'>327</strong> <span className='term'>Dolor sit</span></li>
-                        </ul>
-                        <p><Link to='/about' title='Visit About page' className='cta-button-learn'><span>Learn more</span></Link></p>
+                        <p>The tool is powered using best available and mainly open data. There are various levels of accuracy, depending on the source.</p>
+                        <p><Link to='/about#disclaimer' title='Visit About page' className='cta-button-learn'><span>Data disclaimer</span></Link></p>
                       </div>
                     </div>
                   </div>
