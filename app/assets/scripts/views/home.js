@@ -42,7 +42,7 @@ const Home = React.createClass({
                     <div className='fold__media'>
                       <figure className='media-content'>
                         <div className='media-item media-item--browser'>
-                          <img src={`${config.basePath}assets/graphics/content/tool-screenshot-ogmo.jpg`} alt='Fold image' width='1920' height='960' />
+                          <img src={`${config.basePath}assets/graphics/content/tool-screenshot.png`} alt='Fold image' width='1920' height='960' />
                         </div>
                       </figure>
                     </div>
