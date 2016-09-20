@@ -28,7 +28,7 @@ const Home = React.createClass({
                 </div>
               </header>
               <div className='layout__body'>
-                <section className='fold fold--copy-center' id='why-fold'>
+                <section className='fold fold--copy-left' id='why-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
@@ -38,6 +38,13 @@ const Home = React.createClass({
                         <p>1.1. billion people still lack access to electricity across the world. Off-grid technologies and approaches are emerging as part of the solutions to serve the energy poor, but lack of data and information on the market potential remains a major constraint and impediment. As a result of these issues, IFC and the World Bank have developed this Off-Grid Market Opportunity Tool.</p>
                         <p><Link to='/about' title='Visit About page' className='cta-button-learn'><span>About the tool</span></Link></p>
                       </div>
+                    </div>
+                    <div className='fold__media'>
+                      <figure className='media-content'>
+                        <div className='media-item media-item--browser'>
+                          <img src={`${config.basePath}assets/graphics/content/tool-screenshot-ogmo.jpg`} alt='Fold image' width='1920' height='960' />
+                        </div>
+                      </figure>
                     </div>
                   </div>
                 </section>
@@ -54,13 +61,6 @@ const Home = React.createClass({
                           <li>On-the-fly access, export results, mobile</li>
                         </ul>
                       </div>
-                    </div>
-                    <div className='fold__media'>
-                      <figure className='media-content'>
-                        <div className='media-item media-item--browser'>
-                          <img src={`${config.basePath}assets/graphics/content/tool-screenshot-ogmo.jpg`} alt='Fold image' width='1920' height='960' />
-                        </div>
-                      </figure>
                     </div>
                   </div>
                 </section>
