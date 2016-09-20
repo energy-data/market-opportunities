@@ -14,7 +14,6 @@ test('panel title test', t => {
   t.truthy(component.hasClass(classes.nodot['panel header']))
 
   t.is(component.find(classes['panel title']).text(), title)
-  t.is(component.find(classes['panel subtitle']).text(), subtitle)
 
   // click both toggle buttons
   component.find(classes['panel toggle']).first().simulate('click')

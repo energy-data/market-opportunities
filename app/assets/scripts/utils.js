@@ -6,6 +6,7 @@ import tocolor from 'to-color'
 import chroma from 'chroma-js'
 import intersect from 'turf-intersect'
 import buffer from 'turf-buffer'
+import area from 'turf-area'
 import { saveAs } from 'file-saver'
 import PDFDocument from 'pdfkit'
 import blobStream from 'blob-stream'
@@ -320,9 +321,10 @@ export function downloadMapPDF (props) {
   })
 
   // Analysis
-  const { population, revenuePerHousehold, marketCapture } = props
+  const { population, revenuePerHousehold, marketCapture, geojson } = props
   const hhCount = population / countries[props.country].avg_hh_size
   const outputs = [
+    { name: 'Area', value: numberWithCommas(Math.round(area(geojson) / 1000000)) + ' KM2' },
     { name: 'Population', value: shortenNumber(Math.round(population), 2) },
     { name: 'Households', value: shortenNumber(hhCount, 2) },
     { name: 'Market Captured', value: Math.round(marketCapture * 100) + '%' },

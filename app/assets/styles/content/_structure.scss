@@ -15,7 +15,7 @@
   z-index: 9992;
   background: rgba(#fff, 0.96);
   color: $base-font-color;
-  box-shadow: 0 0 64px 32px rgba($primary-color, 0.12);
+  box-shadow: 0 4px 0 0 rgba($base-color, 0.08), 0 0 64px 32px rgba($base-color, 0.16);
 
   > .inner {
     @extend .row;
@@ -51,17 +51,17 @@
   margin: 0;
 
   @include media(medium-up) {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
+    font-size: 1rem;
+    line-height: 1rem;
   }
 
   .site-beta-tag {
     background: $primary-color;
     color: #fff;
-    font-size: 0.6em;
-    line-height: 1;
+    font-size: 0.675rem;
+    line-height: 1rem;
     margin-left: $global-spacing / 4;
-    padding: $global-spacing / 4;
+    padding: 0 ($global-spacing / 4);
     border-radius: $base-border-radius;
     text-transform: uppercase;
     display: none;
@@ -82,7 +82,7 @@
   @include media(medium-up) {
     text-transform: uppercase;
     font-size: 0.75rem;
-    line-height: 1rem;
+    line-height: 0.875rem;
     opacity: 0.48;
     visibility: visible;
   }
@@ -202,7 +202,7 @@
       }
     }
 
-    @include media(xlarge-up) {
+    @include media(large-up) {
       padding: {
         top: $global-spacing * 4;
         bottom: $global-spacing * 4;
@@ -227,12 +227,8 @@
   }
 
   &__title {
-    @include heading(1.5rem, xlarge-up);
+    @include heading(1.5rem, large-up);
     margin-bottom: $global-spacing * 1.25;
-
-    @include media(medium-up) {
-      margin-bottom: $global-spacing * 1.5;
-    }
   }
 
   &__subtitle {

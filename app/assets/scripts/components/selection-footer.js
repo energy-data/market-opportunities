@@ -3,7 +3,7 @@ import React from 'react'
 import Dropdown from './dropdown'
 import { downloadGeoJSON, downloadMapImage, downloadMapPDF } from '../utils'
 
-const PrizeFooter = React.createClass({
+const SelectionFooter = React.createClass({
 
   propTypes: {
     geojson: React.PropTypes.object,
@@ -54,4 +54,4 @@ const PrizeFooter = React.createClass({
   }
 })
 
-export default PrizeFooter
+export default SelectionFooter

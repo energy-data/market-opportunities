@@ -1,8 +1,8 @@
 /* ==========================================================================
-   Page: Explore / Size of the Prize Panel
+   Page: Explore / Selection Panel
    ========================================================================== */
 
-#prize-panel {
+#selection-panel {
   @include display(flex);
   @include flex-direction(column);
   position: absolute;
@@ -28,8 +28,17 @@
   .panel__footer {
     @include flex(0 0 auto);
     text-align: center;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding: $global-spacing / 2;
+  }
+
+  .panel__headline {
+    display: block;
+  }
+
+  .panel__body-inner {
+    color: rgba($base-font-color, 0.64);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   @include media(xlarge-up) {
@@ -40,24 +49,144 @@
 }
 
 
+/* Selection details
+   ========================================================================== */
+
+.selection-details {
+  @extend .clearfix;
+  margin: 0;
+
+  dt, dd {
+    float: left;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-top: $global-spacing / 2;
+    padding-bottom: $global-spacing / 2;
+    box-shadow: inset 0 1px 0 0 $base-semi-alpha-color;
+  }
+
+  dt {
+    position: relative;
+    width: 68%;
+    clear: left;
+    padding-right: $global-spacing / 2;
+    padding-left: $global-spacing;
+    opacity: 1;
+  }
+
+  dd {
+    width: 32%;
+    padding-right: $global-spacing;
+    padding-left: $global-spacing / 2;
+    margin-bottom: 0;
+    text-align: right;
+    opacity: 0.64;
+  }
+}
+
+
+/* Revenue calculator
+   ========================================================================== */
+
+.revenue-calculator {
+  @extend .antialiased;
+  position: relative;
+  z-index: 2;
+  background: tint($base-color, 32%);
+  padding: $global-spacing;
+  color: #fff;
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  &::before {
+    @extend %collecticon-triangle-up;
+    position: absolute;
+    top: -0.5rem;
+    left: $global-spacing * 2.5;
+    color: tint($base-color, 32%);
+    font-size: 1rem;
+    line-height: 1;
+    pointer-events: none;
+    transition: all 0.24s ease 0s;
+  }
+}
+
+.revenue-calculator__title {
+  color: rgba(#fff, 0.64);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: $base-font-bold;
+  margin-bottom: 0.75rem;
+}
+
+/* Form elements */
+
+.revenue-calculator {
+
+  .form {
+    @extend .clearfix;
+  }
+
+  .form__group {
+    float: left;
+    width: 50%;
+    margin: 0;
+
+    &:nth-child(odd) {
+      padding-right: $global-spacing / 4;
+    }
+
+    &:nth-child(even) {
+      padding-left: $global-spacing / 4;
+      clear: right;
+    }
+  }
+
+  .form__label {
+    font-weight: $base-font-weight;
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+
+  .form__control,
+  .form__addon-label {
+    box-shadow: 0 0 0 2px rgba($base-color, 0);
+  }
+
+  .form__control:focus {
+    box-shadow: 0 0 0 2px rgba($base-color, 0.32);
+  }
+
+}
+
+
 /* Tooltip
    ========================================================================== */
 
-#prize-panel {
+#selection-panel {
   [data-tooltip] {
     position: relative;
+    z-index: 10;
     padding-right: 1.5rem;
     cursor: help;
+    white-space: normal;
+
+    > * {
+      @extend .visually-hidden;
+    }
   }
 
   [data-tooltip]:after {
     @extend %collecticon-circle-information;
     position: absolute;
-    right: 0;
     top: 50%;
+    right: 0;
+    font-size: 1rem;
     opacity: 0.48;
     transform: translate(0, -50%);
-    font-size: 1rem;
   }
 
   [data-tooltip]:hover:before {
@@ -65,20 +194,21 @@
     content: attr(data-tooltip);
     display: block;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 100%;
-    max-width: 12rem;
+    width: 15rem;
     height: auto;
     margin-top: $global-spacing / 4;
-    overflow: hidden;
     padding: ($global-spacing / 4) ($global-spacing / 2);
     text-align: left;
     background: rgba($base-color, 0.80);
     border-radius: $base-border-radius;
     color: #fff;
+    font-style: normal;
     font-weight: $base-font-weight;
     font-size: 0.875rem;
     line-height: 1.25rem;
+    text-transform: none;
   }
 }
 
@@ -88,6 +218,7 @@
 
 .table-wrapper {
   margin: (- $global-spacing) !important;
+  display: none;
 }
 
 #prize-table {
@@ -151,5 +282,16 @@
 
   .form__addon-label {
     min-width: 2rem;
+  }
+}
+
+
+/* Buttons
+   ========================================================================== */
+
+.button-export {
+  @extend .button, .button--small, .button--achromic-unbounded;
+  &::before {
+    @extend %collecticon-download;
   }
 }

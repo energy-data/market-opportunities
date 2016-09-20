@@ -50,13 +50,6 @@
   }
 }
 
-.button-export {
-  @extend .button, .button--achromic-unbounded;
-  &::before {
-    @extend %collecticon-download;
-  }
-}
-
 .panel__button-edit {
   @extend .button, .button--achromic-unbounded, .button--small, .button--text-hidden;
   &:before {
@@ -203,7 +196,6 @@
   box-shadow: inset 0 -1px 0 0 $base-semi-alpha-color;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  background: #fff;
 }
 
 .layer__header {
@@ -371,7 +363,6 @@
   font-weight: $base-font-bold;
   margin-bottom: 0.75rem;
 }
-
 
 
 /* Layer block: form elements */

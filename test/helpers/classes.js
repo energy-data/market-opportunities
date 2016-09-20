@@ -16,6 +16,10 @@ var classes = {
   'indicator save': '.button-save-edit',
   'layer list wrapper': '.panel__body-inner',
   'loading': '.loading-full-block',
+  'login': '.nav-block',
+  'login error': '.account--error',
+  'logged in status': '.account-content--postsigned',
+  'logout link': '.signout-link',
   'map': '.map',
   'multi step': '.multi-step',
   'panel': '.panel',
@@ -24,12 +28,8 @@ var classes = {
   'panel toggle': '.layers-menu a',
   'panel title': '.panel__title',
   'panel subtitle': '.panel__subtitle',
-  'prize footer': '.panel__footer',
-  'prize panel': '.panel',
-  'login': '.nav-block',
-  'login error': '.account--error',
-  'logged in status': '.account-content--postsigned',
-  'logout link': '.signout-link'
+  'selection footer': '.panel__footer',
+  'selection panel': '.panel--secondary'
 }
 
 Object.keys(classes).forEach(function (key) {

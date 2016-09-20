@@ -9,7 +9,7 @@
   line-height: 1.5;
   background: #fff;
   border-radius: $base-border-radius * 2;
-  box-shadow: 0 0 32px 8px rgba($primary-color, 0.24);
+  box-shadow: 0 0 0 4px rgba($base-color, 0.08), 0 0 32px 8px rgba($base-color, 0.16);
 
   &__headline,
   &__body,
@@ -96,7 +96,7 @@
 }
 
 .panel__tab-nav {
-  margin: $global-spacing 0 (- $global-spacing) 0;
+  margin: ($global-spacing / 4) 0 (- $global-spacing) 0;
 }
 
 .layers-menu {
@@ -178,6 +178,21 @@
   text-align: center;
   padding: ($global-spacing * 8) ($global-spacing * 2);
   color: rgba($base-font-color, 0.64);
+}
+
+
+/* Panel modifers
+   ========================================================================== */
+
+.panel--secondary {
+  .panel__header,
+  .panel__footer {
+    background: $secondary-color;
+
+    &::after {
+      background: linear-gradient(rgba($secondary-color, 0.16), rgba($secondary-color, 0));
+    }
+  }
 }
 
 

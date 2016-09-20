@@ -222,21 +222,21 @@ abbr[title] {
 }
 
 .heading--xlarge {
-  @include heading(1.75rem, xlarge-up);   // 28, 32, 36, 40
+  @include heading(1.75rem, large-up);   // 28, 32, 36, 40
 }
 
 .heading--large {
-  @include heading(1.5rem, xlarge-up);    // 24, 28, 32, 36
+  @include heading(1.5rem, large-up);    // 24, 28, 32, 36
 }
 
 .heading--medium {
-  @include heading(1.25rem, xlarge-up);   // 20, 24, 28, 32
+  @include heading(1.25rem, large-up);   // 20, 24, 28, 32
 }
 
 .heading--small,
 .heading--xsmall,
 .heading--xxsmall {
-  @include heading(1rem, xlarge-up);      // 16, 20, 24, 28
+  @include heading(1rem, large-up);      // 16, 20, 24, 28
 }
 
 .heading-alt {

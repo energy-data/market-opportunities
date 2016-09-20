@@ -25,9 +25,6 @@
     padding: ($global-spacing * 4) 0;
   }
 
-  @include media(xlarge-up) {
-    padding: ($global-spacing * 5) 0;
-  }
 }
 
 .fold__header {
@@ -39,7 +36,7 @@
 }
 
 .fold__title {
-  @include heading(1.25rem, xlarge-up);
+  @include heading(1.25rem, large-up);
 }
 
 .fold__header,

@@ -48,10 +48,9 @@ export const ControlPanel = React.createClass({
     />
 
     return (
-      <section className='panel' id='control-panel'>
+      <section className='panel panel--primary' id='control-panel'>
         <PanelTitle
           title={(countries[selection.country] || {}).name}
-          subtitle={selection.scenario}
           updateVisibleLayers={this._updateVisibleLayers}
           visible={layers.visible}
           openSelection={this._openSelection}
