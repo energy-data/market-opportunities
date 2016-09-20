@@ -12,8 +12,7 @@ import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
 import Popup from './popup'
-import { mapStyle, intersectPaint, roadLayers, popLayer,
-  controlPanelWidth } from '../constants'
+import { mapStyle, intersectPaint, roadLayers, popLayer } from '../constants'
 import { indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createTempPaintStyle } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers,
@@ -133,9 +132,7 @@ export const Map = React.createClass({
 
     // if we have a newly selected country, zoom to it
     if (nextProps.country !== this.props.country) {
-      this._map.fitBounds(
-        countries[nextProps.country].bbox,
-        { padding: 30, offset: [controlPanelWidth / 2, 0] }
+      this._map.fitBounds(countries[nextProps.country].bbox, { padding: 50 }
       )
     }
 
