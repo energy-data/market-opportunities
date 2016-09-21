@@ -81,6 +81,9 @@ const Header = React.createClass({
                 </ul>
               </div>
             </div>
+            <Login
+            isOpen={this.state.openItem === 'login'}
+            onLoginToggle={this.onLoginToggleClick} />
           </nav>
         </div>
       </header>
