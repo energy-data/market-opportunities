@@ -19,7 +19,7 @@ const Home = React.createClass({
               <header className='layout__header'>
                 <div className='inner'>
                   <div className='layout__headline'>
-                    <h1 className='layout__title'>Discover Off-Grid Energy Opportunities</h1>
+                    <h1 className='layout__title'>Discover Off-Grid Energy Market Opportunities</h1>
                     <div className='layout__introduction'>
                       <p>[INSERT ONE SENTENCE TEASER]</p>
                       <p><Link to='/explore' title='Visit Explore page' className='cta-button-explore'><span>Start exploring</span></Link></p>
@@ -35,7 +35,7 @@ const Home = React.createClass({
                         <h1 className='fold__title'>Why this tool</h1>
                       </header>
                       <div className='fold__body prose prose--responsive'>
-                        <p>1.1. billion people still lack access to electricity across the world. Off-grid technologies and approaches are emerging as part of the solutions to serve the energy poor, but lack of data and information on the market potential remains a major constraint and impediment. As a result of these issues, IFC and the World Bank have developed this Off-Grid Market Opportunity Tool.</p>
+                        <p>1.1. billion people around the world still lack access to electricity. Off-grid technologies and approaches are emerging as part of the solution to close the energy access gap, but lack of information on the nature of the market remains a major constraint to serving the energy poor. IFC and the World Bank have developed this Off-Grid Market Opportunity Tool with a view to helping to address this issue.</p>
                         <p><Link to='/about' title='Visit About page' className='cta-button-learn'><span>About the tool</span></Link></p>
                       </div>
                     </div>
@@ -56,9 +56,9 @@ const Home = React.createClass({
                       </header>
                       <div className='fold__body prose prose--responsive'>
                         <ul className='features-list'>
-                          <li>Quickly generate a high-level view of the off-grid market opportunity based on different parameters such as distance from the grid, population density and proximity to roads.</li>
+                          <li>Quickly generate a high-level view of the off-grid market opportunity</li>
                           <li>Access underlying open data from energydata.info and leverage the tool with your own data</li>
-                          <li>On-the-fly access, export results, mobile</li>
+                          <li>On-the-fly access, export results</li>
                         </ul>
                       </div>
                     </div>

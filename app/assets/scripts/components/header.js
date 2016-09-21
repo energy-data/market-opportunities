@@ -61,7 +61,7 @@ const Header = React.createClass({
                 Off-Grid Market Opportunities
                 <small className='site-beta-tag'>beta</small>
               </h1>
-              <p className='page__subtitle'>Powered by <strong>Energy Platform</strong></p>
+              <p className='page__subtitle'>Powered by <strong>energydata.info</strong></p>
             </a>
           </div>
           <nav className='page__prime-nav' role='navigation' ref='nav'>
@@ -77,7 +77,7 @@ const Header = React.createClass({
                   <li><IndexLink to='/' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>Home</span></IndexLink></li>
                   <li><Link to='/explore' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>Explore</span></Link></li>
                   <li><Link to='/about' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>About</span></Link></li>
-                  <li><a href='#' title='Visit page' className='browse-menu-item browse-menu-item--external'><span>Energy Platform</span></a></li>
+                  <li><a href='#' title='Visit page' className='browse-menu-item browse-menu-item--external'><span>energydata.info</span></a></li>
                 </ul>
               </div>
             </div>
