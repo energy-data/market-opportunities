@@ -3,6 +3,23 @@
    ========================================================================== */
 
 .page--home {
+  .layout__header {
+    background-image: url('../graphics/layout/home-hero-image-01b.jpg');
+    background-position: center center;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+      content: '';
+      background: rgba($primary-color, 0.8);
+      background: linear-gradient(45deg, rgba($primary-color, 1) 0%, rgba($primary-color, 0.96) 32%, rgba($secondary-color, 0.64) 100%);
+    }
+  }
+
   .layout__body {
     padding: 0;
   }
