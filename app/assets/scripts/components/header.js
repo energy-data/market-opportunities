@@ -42,13 +42,13 @@ const Header = React.createClass({
   componentDidMount: function () {
     document.addEventListener('click', this.documentListener)
     this.refs.nav.querySelector('[data-hook="nav-block:menu"]').addEventListener('click', this.onNavBlockClick)
-    this.refs.nav.querySelector('[data-hook="nav-block:login"]').addEventListener('click', this.onNavBlockClick)
+    // this.refs.nav.querySelector('[data-hook="nav-block:login"]').addEventListener('click', this.onNavBlockClick)
   },
 
   componentWillUnmount: function () {
     document.removeEventListener('click', this.documentListener)
     this.refs.nav.querySelector('[data-hook="nav-block:menu"]').removeEventListener('click', this.onNavBlockClick)
-    this.refs.nav.querySelector('[data-hook="nav-block:login"]').removeEventListener('click', this.onNavBlockClick)
+    // this.refs.nav.querySelector('[data-hook="nav-block:login"]').removeEventListener('click', this.onNavBlockClick)
   },
 
   render: function () {

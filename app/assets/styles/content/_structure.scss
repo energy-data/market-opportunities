@@ -132,10 +132,10 @@
 .credits {
   @include col(12/12);
   @include media(small-up) {
-    @include col(6/12);
+    @include col(4/12);
   }
 
-  &--internal {
+  &--internal, &.github-link {
     padding-bottom: $global-spacing * 2;
 
     @include media(small-up) {
@@ -147,6 +147,10 @@
     @include media(small-up) {
       text-align: right;
     }
+  }
+  &.github-link {
+    text-align: center;
+    font-size: 1.75rem;
   }
 }
 
