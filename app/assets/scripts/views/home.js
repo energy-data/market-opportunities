@@ -58,7 +58,7 @@ const Home = React.createClass({
                         <ul className='features-list'>
                           <li>Quickly generate a high-level view of the off-grid market opportunity</li>
                           <li>Access underlying open data from energydata.info and leverage the tool with your own data</li>
-                          <li>On-the-fly access, export results</li>
+                          <li>This tool is developed in the open. Contribute to the tool or data on <Link to='http://github.com/energy-data/market-opportunities'>Github</Link></li>
                         </ul>
                       </div>
                     </div>
