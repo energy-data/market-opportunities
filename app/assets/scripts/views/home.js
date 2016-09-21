@@ -48,17 +48,23 @@ const Home = React.createClass({
                     </div>
                   </div>
                 </section>
-                <section className='fold fold--primary fold--copy-left' id='what-fold'>
+                <section className='fold fold--primary fold--copy-center' id='what-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
                         <h1 className='fold__title'>What this tool offers</h1>
                       </header>
                       <div className='fold__body prose prose--responsive'>
-                        <ul className='features-list'>
-                          <li>Quickly generate a high-level view of the off-grid market opportunity</li>
-                          <li>Access underlying open data from energydata.info and leverage the tool with your own data</li>
-                          <li>This tool is developed in the open. Contribute to the tool or data on <Link to='http://github.com/energy-data/market-opportunities'>Github</Link></li>
+                        <ul className='highlight-list'>
+                          <li className='highlight-list__item-wrapper'>
+                            <div className='highlight-list__item h-view'>Quickly generate a high-level view of the off-grid market opportunity.</div>
+                          </li>
+                          <li className='highlight-list__item-wrapper'>
+                            <div className='highlight-list__item h-access'>Access underlying open data from energydata.info and leverage the tool with your own data.</div>
+                          </li>
+                          <li className='highlight-list__item-wrapper'>
+                            <div className='highlight-list__item h-contribute'>This tool is developed in the open. Contribute to the tool or data on <Link to='http://github.com/energy-data/market-opportunities'>Github</Link>.</div>
+                          </li>
                         </ul>
                       </div>
                     </div>

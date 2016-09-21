@@ -43,6 +43,67 @@
 }
 
 
+/* Highlight list
+   ========================================================================== */
+
+.highlight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.highlight-list__item-wrapper {
+  @include col(12/12);
+  margin-bottom: $global-spacing * 2;
+
+  @include media(small-up) {
+    @include col(4/12);
+    margin-bottom: 0;
+  }
+}
+
+.highlight-list__item {
+  position: relative;
+  text-align: center;
+
+  &::before {
+    @extend %collecticon-sm-tick;
+    display: block;
+    display: block;
+    margin: 0 auto $global-spacing;
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    border-radius: $full-border-radius;
+    background: $secondary-color;
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    line-height: 6rem !important;
+    box-shadow: 0 0 0 8px rgba($base-color, 0.08);
+
+    @include media(small-up) {
+      font-size: 4rem;
+      width: 8rem;
+      height: 8rem;
+      line-height: 8rem !important;
+    }
+  }
+
+  &.h-view::before {
+    @extend %collecticon-map;
+  }
+
+  &.h-access::before {
+    @extend %collecticon-page-lock-open;
+  }
+
+  &.h-contribute::before {
+    @extend %collecticon-github;
+  }
+}
+
+
 /* Features list
    ========================================================================== */
 
