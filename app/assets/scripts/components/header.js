@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from './login'
+// import Login from './login'
 import c from 'classnames'
 import { Link, IndexLink } from 'react-router'
 
@@ -81,9 +81,9 @@ const Header = React.createClass({
                 </ul>
               </div>
             </div>
-            <Login
+            { /* <Login
             isOpen={this.state.openItem === 'login'}
-            onLoginToggle={this.onLoginToggleClick} />
+            onLoginToggle={this.onLoginToggleClick} /> */ }
           </nav>
         </div>
       </header>
