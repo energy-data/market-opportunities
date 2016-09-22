@@ -12,11 +12,9 @@ import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
 import Popup from './popup'
-import { mapStyle, intersectPaint, roadLayers, popLayer,
-  controlPanelWidth } from '../constants'
-import { inFirstArrayNotSecond, indicatorFilterToMapFilter, intersectLayers,
-  createDataPaintObject, createOutlinePaintObject,
-  createTempPaintStyle } from '../utils'
+import { mapStyle, intersectPaint, roadLayers, popLayer } from '../constants'
+import { indicatorFilterToMapFilter, intersectLayers,
+  createDataPaintObject, createTempPaintStyle } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers,
   startLoading, stopLoading, updateLayerError, toggleLayerVisibility,
   startEditingLayer } from '../actions'
@@ -68,16 +66,8 @@ export const Map = React.createClass({
     const newVisibleLayers = nextProps.layers.indicators
       .filter(layer => layer.visible && !layer.editing && layer.geojson)
 
-    // update visible layer outlines on the map
-    // new layers that weren't in the old get added
-    inFirstArrayNotSecond(newVisibleLayers, oldVisibleLayers, a => a.id)
-      .forEach(layer => this._addLayerOutline(layer))
-    // old layers that aren't in the new get removed
-    inFirstArrayNotSecond(oldVisibleLayers, newVisibleLayers, a => a.id)
-      .forEach(layer => this._removeLayerOutline(layer))
-
     // new layers that were also in old, check for changed geojson and update
-    // outlines and intersect accordingly
+    // intersect accordingly
     const changedGeo = newVisibleLayers.filter(layer => {
       return oldVisibleLayers.map(a => a.id).indexOf(layer.id) > -1
     }).filter(layer => {
@@ -86,7 +76,6 @@ export const Map = React.createClass({
     })
     if (changedGeo.length) {
       this._updateIntersectedArea(newVisibleLayers)
-      changedGeo.forEach(layer => this._updateLayerOutline(layer))
     }
 
     // we only show one layer data for the singular editing layer
@@ -143,23 +132,22 @@ export const Map = React.createClass({
 
     // if we have a newly selected country, zoom to it
     if (nextProps.country !== this.props.country) {
-      this._map.fitBounds(
-        countries[nextProps.country].bbox,
-        { padding: 30, offset: [controlPanelWidth / 2, 0] }
+      this._map.fitBounds(countries[nextProps.country].bbox, { padding: 50 }
       )
     }
 
-    // if we cross the "2 visible layer outlines" threshold, add/remove the
+    // if we cross the "1 visible layer" threshold, add/remove the
     // intersect accordingly
-    // if we change number of visible layer outlines, update the intersect
-    // this assumes we can't swap visible layer outlines without first
+    // if we change number of visible layers, update the intersect
+    // this assumes we can't swap visible layer without first
     // adding/removing
-    if (newVisibleLayers.length >= 2 && oldVisibleLayers.length < 2) {
+    const LRFI = 1 // (layersRequiredForIntersect)
+    if (newVisibleLayers.length >= LRFI && oldVisibleLayers.length < LRFI) {
       this._addIntersectedArea(newVisibleLayers)
-    } else if (newVisibleLayers.length < 2 && oldVisibleLayers.length >= 2) {
+    } else if (newVisibleLayers.length < LRFI && oldVisibleLayers.length >= LRFI) {
       this._removeIntersectedArea()
     } else if ((newVisibleLayers.length !== oldVisibleLayers.length) &&
-      newVisibleLayers.length >= 2 && !nextProps.editLayer) {
+      newVisibleLayers.length >= LRFI && !nextProps.editLayer) {
       this._updateIntersectedArea(newVisibleLayers)
     }
 
@@ -226,32 +214,6 @@ export const Map = React.createClass({
 
   render: function () {
     return <div id='map' className='map'></div>
-  },
-
-  _addLayerOutline: function (layer) {
-    this._map.addSource(`${String(layer.id)}-outline`, {
-      type: 'geojson',
-      data: layer.geojson
-    })
-    this._map.addLayer({
-      'id': `${String(layer.id)}-outline`,
-      'type': 'line',
-      'source': `${String(layer.id)}-outline`,
-      'interactive': true,
-      'paint': createOutlinePaintObject(layer)
-    }, 'waterway-label')
-  },
-
-  _removeLayerOutline: function (layer) {
-    const map = this._map
-    if (map.getSource(`${String(layer.id)}-outline`)) {
-      map.removeSource(`${String(layer.id)}-outline`)
-      map.removeLayer(`${String(layer.id)}-outline`)
-    }
-  },
-
-  _updateLayerOutline: function (layer) {
-    this._map.getSource(`${String(layer.id)}-outline`).setData(layer.geojson)
   },
 
   _addLayerData: function (layer) {

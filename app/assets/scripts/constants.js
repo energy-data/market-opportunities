@@ -1,5 +1,3 @@
-export const controlPanelWidth = 320
-
 export const popLayer = {
   id: '0a8a56d1-4456-405d-b797-019432173e76',
   tilejson: 'https://test-offgrid-mvt.s3.amazonaws.com/tiles/0a8a56d1-4456-405d-b797-019432173e76-1740e55a-2054-4941-88a7-325f993d7f47/data.tilejson'
@@ -30,7 +28,7 @@ export const intersectPaint = {
 // chroma accepts an array as a constructor
 // colors
 // liteblue '#8fcef9' (143, 206, 249)
-// blue '#09749e'     (9, 116, 158) used
+// blue '#09749e'     (9, 116, 158)
 // litegreen '#bde39a'(189, 227, 154) used
 // green '#2a904e'    (42, 144, 78)
 // pink '#fcab90'     (252, 171, 144)
@@ -54,7 +52,7 @@ export const presetLayerColors = {
   'solar-potential-ghi': [245, 134, 26],
   'education-facilities': [127, 58, 149],
   'electricity-grid-ssa': [246, 194, 23],
-  'proximity-to-road': [9, 116, 158],
+  'proximity-to-road': [143, 206, 249],
   'distance-to-grid': [189, 227, 154]
 }
 

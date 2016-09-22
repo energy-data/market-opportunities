@@ -7,7 +7,7 @@
   padding: 0.5rem 0;
 
   @include media(medium-up) {
-    padding: 1.5rem 0;
+    padding: 1.25rem 0;
   }
 }
 
@@ -229,7 +229,7 @@
     padding: ($global-spacing / 4) 0;
 
     &::before {
-      top: -1.5rem;
+      top: -1.25rem;
       height: 4px;
       width: 100%;
     }

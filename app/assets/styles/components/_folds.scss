@@ -25,9 +25,6 @@
     padding: ($global-spacing * 4) 0;
   }
 
-  @include media(xlarge-up) {
-    padding: ($global-spacing * 5) 0;
-  }
 }
 
 .fold__header {
@@ -39,7 +36,7 @@
 }
 
 .fold__title {
-  @include heading(1.25rem, xlarge-up);
+  @include heading(1.25rem, large-up);
 }
 
 .fold__header,
@@ -143,6 +140,14 @@
 .fold--secondary {
   @extend .antialiased;
   color: #fff;
+
+  a {
+    background: rgba(#fff, 0.16);
+    color: inherit;
+    padding: 0 ($global-spacing / 4);
+    border-radius: $base-border-radius;
+    display: inline-block;
+  }
 }
 
 .fold--base {

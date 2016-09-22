@@ -24,8 +24,14 @@ test('map test', t => {
 
   // mock mount
   const instance = component.instance()
-  instance._hideRoads = () => {}
   t.notThrows(() => instance.componentDidMount())
+
+  // certain methods become no-ops or spies
+  instance._hideRoads = () => {}
+  instance._addLayerData = sinon.spy()
+  instance._removeLayerData = sinon.spy()
+  instance._addIntersectedArea = sinon.spy()
+  instance._removeIntersectedArea = sinon.spy()
 
   // map component can receive new props (more or fewer layers)
   // call _addLayer/._removeLayer without incident
@@ -34,16 +40,11 @@ test('map test', t => {
   t.notThrows(() => component.setProps({layers: initial}))
 
   // should also verify it's actually calling the correct functions
-  instance._addLayerOutline = sinon.spy()
-  instance._removeLayerOutline = sinon.spy()
-  component.setProps({layers: oneVisible})
-  t.truthy(instance._addLayerOutline.calledOnce)
-  component.setProps({layers: initial})
-  t.truthy(instance._removeLayerOutline.calledOnce)
+  t.truthy(instance._addIntersectedArea.calledOnce)
+  t.truthy(instance._removeIntersectedArea.calledOnce)
 
   // add an edit layer, check the data addition/removal
-  instance._addLayerData = sinon.spy()
-  instance._removeLayerData = sinon.spy()
+
   // // the mockbox map needs another method
   instance._map.setFilter = () => {}
 

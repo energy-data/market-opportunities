@@ -5,20 +5,18 @@ const PanelTitle = React.createClass({
 
   propTypes: {
     title: React.PropTypes.string,
-    subtitle: React.PropTypes.string,
     visible: React.PropTypes.string,
     updateVisibleLayers: React.PropTypes.func,
     openSelection: React.PropTypes.func
   },
 
   render: function () {
-    const { title, subtitle, visible, openSelection } = this.props
+    const { title, visible, openSelection } = this.props
 
     return (
       <header className='panel__header'>
         <div className='panel__headline'>
           <h1 className='panel__title'>{title}</h1>
-          <div className='panel__subtitle'>{subtitle}</div>
         </div>
         <div className='panel__meta-actions'>
           <button onClick={openSelection} className='panel__button-edit' title='Change country and scenario'><span>Edit</span></button>

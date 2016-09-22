@@ -2,6 +2,7 @@ import React from 'react'
 import c from 'classnames'
 
 import { mapStyle } from '../constants'
+import { numberWithCommas } from '../utils'
 
 const Country = React.createClass({
 
@@ -40,7 +41,7 @@ const Country = React.createClass({
                 <dt>Area</dt>
                 <dd>{info.area}</dd>
                 <dt>Population</dt>
-                <dd>{info.population}</dd>
+                <dd>{numberWithCommas(info.population)}</dd>
               </dl>
             </div>
           </a>

@@ -9,7 +9,6 @@ import { countries } from '../../data/countries'
 import PanelTitle from './panel-title'
 import PanelIndicatorList from './panel-indicator-list'
 import PanelBaseLayerList from './panel-base-layer-list'
-import PanelFooter from './panel-footer'
 
 export const ControlPanel = React.createClass({
 
@@ -18,9 +17,7 @@ export const ControlPanel = React.createClass({
     tempFilter: React.PropTypes.object,
     groups: React.PropTypes.object,
     selection: React.PropTypes.object,
-    prize: React.PropTypes.object,
-    dispatch: React.PropTypes.func,
-    getMapReference: React.PropTypes.func
+    dispatch: React.PropTypes.func
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -32,7 +29,7 @@ export const ControlPanel = React.createClass({
   },
 
   render: function () {
-    const { layers, groups, selection, prize, getMapReference } = this.props
+    const { layers, groups, selection } = this.props
 
     const PanelLayerList = (layers.visible === 'indicators')
     ? <PanelIndicatorList
@@ -51,21 +48,15 @@ export const ControlPanel = React.createClass({
     />
 
     return (
-      <section className='panel' id='control-panel'>
+      <section className='panel panel--primary' id='control-panel'>
         <PanelTitle
           title={(countries[selection.country] || {}).name}
-          subtitle={selection.scenario}
           updateVisibleLayers={this._updateVisibleLayers}
           visible={layers.visible}
           openSelection={this._openSelection}
         />
         { PanelLayerList }
-        <PanelFooter
-          geojson={layers.intersect}
-          getMapReference={getMapReference}
-          prize={prize}
-          country={countries[selection.country]}
-        />
+        <footer className='panel__footer'></footer>
       </section>
     )
   },

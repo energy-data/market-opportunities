@@ -1,3 +1,6 @@
+import { LOCATION_CHANGE } from 'react-router-redux'
+import _ from 'lodash'
+
 import { UPDATE_VISIBLE_LAYERS, START_EDITING_LAYER, STOP_EDITING_LAYER,
   TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER,
   START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS,
@@ -10,12 +13,7 @@ export const initial = {
   base: baseLayers,
   visible: 'indicators',
   status: 'loading',
-  intersect: null,
-  population: null,
-  tier1pop: null,
-  tier2pop: null,
-  tier1price: 10,
-  tier2price: 5
+  intersect: null
 }
 
 export default function layers (state = initial, action) {
@@ -99,6 +97,15 @@ export default function layers (state = initial, action) {
       return Object.assign({}, state, { indicators: newIndicatorsError })
     case SET_MAP_INTERSECT:
       return Object.assign({}, state, { intersect: action.data })
+    case LOCATION_CHANGE:
+      const newResetIndicators = state.indicators.map(layer => {
+        return Object.assign({}, _.omit(layer, ['editing', 'visible', 'geojson']), {})
+      })
+      return Object.assign({}, state, {
+        intersect: null,
+        base: baseLayers,
+        indicators: newResetIndicators
+      })
     case LAYERS_TO_DEFAULT:
       return initial
     default:
