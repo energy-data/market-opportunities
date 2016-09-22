@@ -179,6 +179,8 @@
 .layout {
   &__header {
     @extend .antialiased;
+    position: relative;
+    text-align: center;
     background-color: $primary-color;
     background-image: url('../graphics/layout/hero-illu-02a.svg');
     background-repeat: no-repeat;
@@ -193,6 +195,8 @@
     }
 
     > .inner {
+      position: relative;
+      z-index: 2;
       @extend .row, .row--centered;
     }
 
@@ -226,7 +230,7 @@
     }
 
     @include media(large-up) {
-      @include col(8/12);
+      @include col(8/12, $offset: 2/12);
     }
   }
 

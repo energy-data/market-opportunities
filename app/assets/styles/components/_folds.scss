@@ -140,6 +140,14 @@
 .fold--secondary {
   @extend .antialiased;
   color: #fff;
+
+  a {
+    background: rgba(#fff, 0.16);
+    color: inherit;
+    padding: 0 ($global-spacing / 4);
+    border-radius: $base-border-radius;
+    display: inline-block;
+  }
 }
 
 .fold--base {

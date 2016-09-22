@@ -45,8 +45,9 @@ const About = React.createClass({
                     </ol>
                     <hr />
                     <h2 id='disclaimer'>Disclaimer</h2>
-                    <p>IFC is promoting the use of this tool for information purposes. The tool is reliant primarily on data, and additional data provided by the user, and as such IFC does not assure its accuracy. The information is presented in good faith, for informational purposes. The resulting interpretations, opinions and conclusions from the tool do not necessarily reflect the opinions of IFC or the World Bank, or the governments they represent.</p>
-                    <p>This tool does not intend to serve as an exhaustive and complete assessment of the market potential.  The tool should not be used as the sole foundation for commercial decisions.  Users should always consult their accountants, auditors, financial specialists and other experts regarding all financial issues, investment decisions and for the identification and assessment of market opportunities.</p>
+                    <p>This tool is not intended to provide an exhaustive or complete assessment of the off-grid market potential. Rather, it is intended for informational purposes only.</p>
+                    <p>The tool relies primarily on open data, and additional data provided by users. As such, IFC does not guarantee the accuracy of the data but, rather, presents it in good faith. Any resulting interpretations, opinions and conclusions from the tool do not necessarily reflect the opinions of IFC or the World Bank Group, or the parties that they represent.</p>
+                    <p>It is not recommended that any analyses resulting from the use of the tool serve as the sole basis of either commercial or policy decision-making. Rather, users are encouraged to consult relevant experts to further elaborate or confirm any initial observations resulting from the use of this tool.</p>
                   </div>
                 </div>
               </div>
