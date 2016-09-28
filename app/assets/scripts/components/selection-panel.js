@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import area from 'turf-area'
+import ScrollArea from 'react-scrollbar'
 
 import { countries } from '../../data/countries'
 import { shortenNumber, numberWithCommas } from '../utils'
@@ -34,7 +35,7 @@ export const SelectionPanel = React.createClass({
               <p className='panel__subtitle'>Total area: {numberWithCommas(Math.round(area(intersect) / 1000000))} Km2</p>
             </div>
           </header>
-          <div className='panel__body'>
+          <ScrollArea className='panel__body'>
             <dl className='selection-details'>
               <dt>Population</dt>
               <dd>{shortenNumber(population, 2)}</dd>
@@ -63,7 +64,7 @@ export const SelectionPanel = React.createClass({
                 </div>
               </form>
             </section>
-          </div>
+          </ScrollArea>
           <SelectionFooter
             geojson={layers.intersect}
             getMapReference={getMapReference}
