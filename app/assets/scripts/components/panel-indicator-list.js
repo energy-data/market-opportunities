@@ -1,4 +1,5 @@
 import React from 'react'
+import ScrollArea from 'react-scrollbar'
 
 import Group from './group'
 
@@ -27,7 +28,7 @@ const PanelIndicatorList = React.createClass({
     })
 
     return (
-      <div className='panel__body'>
+      <ScrollArea className='panel__body'>
         <div className='panel__body-inner'>
           {Object.keys(groups).map(key => {
             return <Group
@@ -44,7 +45,7 @@ const PanelIndicatorList = React.createClass({
               />
           })}
         </div>
-      </div>
+      </ScrollArea>
     )
   }
 })
