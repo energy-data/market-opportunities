@@ -18,7 +18,10 @@ test('map test', t => {
   const onCanvasReady = sinon.spy()
   const testLayer = mockLayers[2]
   const zeroVisible = layers(initial, setLayers([testLayer]))
-  const component = shallow(<Map layers={zeroVisible} onCanvasReady={onCanvasReady}/>)
+  const component = shallow(<Map
+    layers={zeroVisible}
+    onCanvasReady={onCanvasReady}
+  />)
 
   t.truthy(component.hasClass(classes.nodot['map']))
 
@@ -28,6 +31,9 @@ test('map test', t => {
 
   // certain methods become no-ops or spies
   instance._hideRoads = () => {}
+  instance._enableZoom = () => {}
+  instance._disableZoom = () => {}
+  instance._conditionalFitBounds = () => {}
   instance._addLayerData = sinon.spy()
   instance._removeLayerData = sinon.spy()
   instance._addIntersectedArea = sinon.spy()

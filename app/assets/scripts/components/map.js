@@ -7,6 +7,9 @@ import union from 'turf-union'
 import buffer from 'turf-buffer'
 import intersect from 'turf-intersect'
 import area from 'turf-area'
+import bbox from 'turf-bbox-polygon'
+import inside from 'turf-inside'
+import point from 'turf-point'
 import flatten from 'geojson-flatten'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
@@ -80,6 +83,7 @@ export const Map = React.createClass({
 
     // we only show one layer data for the singular editing layer
     if (this.props.editLayer && !nextProps.editLayer) {
+      this._enableZoom()
       const layerToRemove = this.props.editLayer
       // NOTE: to ensure that we only create a new layer GeoJSON when the user
       // has saved their selection, we check the temp filter against the filter
@@ -118,7 +122,9 @@ export const Map = React.createClass({
         this._removeLayerData(layerToRemove.id)
       }
     } else if (!this.props.editLayer && nextProps.editLayer) {
+      this._disableZoom()
       this._addLayerData(nextProps.editLayer)
+      this._conditionalFitBounds(nextProps)
     }
 
     // if we have an editing layer, make updates for new filter options
@@ -132,8 +138,7 @@ export const Map = React.createClass({
 
     // if we have a newly selected country, zoom to it
     if (nextProps.country !== this.props.country) {
-      this._map.fitBounds(countries[nextProps.country].bbox, { padding: 50 }
-      )
+      this._map.fitBounds(countries[nextProps.country].bbox, { padding: 50 })
     }
 
     // if we cross the "1 visible layer" threshold, add/remove the
@@ -439,6 +444,32 @@ export const Map = React.createClass({
       }, 0)
     this.props.dispatch(stopLoading())
     this.props.dispatch(setPopulation(population))
+  },
+
+  _enableZoom: function () {
+    this._map.boxZoom.enable()
+    this._map.scrollZoom.enable()
+    this._map.keyboard.enable()
+    this._map.touchZoomRotate.enable()
+    this._map.doubleClickZoom.enable()
+  },
+
+  _disableZoom: function () {
+    this._map.boxZoom.disable()
+    this._map.scrollZoom.disable()
+    this._map.keyboard.disable()
+    this._map.touchZoomRotate.disable()
+    this._map.doubleClickZoom.disable()
+  },
+
+  _conditionalFitBounds: function (nextProps) {
+    // on edit start, ensure we are at country level
+    const countryBbox = countries[nextProps.country].bbox
+    const mapBoundsBbox = bbox(_.flatten(this._map.getBounds().toArray()))
+    if (!(inside(point(countryBbox.slice(0, 2)), mapBoundsBbox) &&
+        inside(point(countryBbox.slice(2, 4)), mapBoundsBbox))) {
+      this._map.fitBounds(countryBbox, { padding: 50 })
+    }
   }
 })
 /* istanbul ignore next */
