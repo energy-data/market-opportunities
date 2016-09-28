@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import area from 'turf-area'
-import ScrollArea from 'react-scrollbar'
+import ScrollArea from 'react-scrollbar/dist/no-css'
 
 import { countries } from '../../data/countries'
 import { shortenNumber, numberWithCommas } from '../utils'
