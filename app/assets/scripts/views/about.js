@@ -30,7 +30,7 @@ const About = React.createClass({
                   <div className='layout__headline'>
                     <h1 className='layout__title'>About</h1>
                     <div className='layout__introduction'>
-                      <p>[...]</p>
+                      <p>Learn more about the Offgrid Market Opportunity Tool</p>
                     </div>
                   </div>
                 </div>

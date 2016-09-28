@@ -21,7 +21,7 @@ const Home = React.createClass({
                   <div className='layout__headline'>
                     <h1 className='layout__title'>Discover Off-Grid Energy Market Opportunities</h1>
                     <div className='layout__introduction'>
-                      <p>[INSERT ONE SENTENCE TEASER]</p>
+                      <p>Analyze open data to close the energy access gap</p>
                       <p><Link to='/explore' title='Visit Explore page' className='cta-button-explore'><span>Start exploring</span></Link></p>
                     </div>
                   </div>
