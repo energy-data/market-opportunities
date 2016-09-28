@@ -21,7 +21,7 @@ const Home = React.createClass({
                   <div className='layout__headline'>
                     <h1 className='layout__title'>Discover Off-Grid Energy Market Opportunities</h1>
                     <div className='layout__introduction'>
-                      <p>[INSERT ONE SENTENCE TEASER]</p>
+                      <p>Analyze open data to close the energy access gap</p>
                       <p><Link to='/explore' title='Visit Explore page' className='cta-button-explore'><span>Start exploring</span></Link></p>
                     </div>
                   </div>
@@ -35,7 +35,7 @@ const Home = React.createClass({
                         <h1 className='fold__title'>Why this tool</h1>
                       </header>
                       <div className='fold__body prose prose--responsive'>
-                        <p>1.1. billion people around the world still lack access to electricity. Off-grid technologies and approaches are emerging as part of the solution to close the energy access gap, but lack of information on the nature of the market remains a major constraint to serving the energy poor. IFC and the World Bank have developed this Off-Grid Market Opportunity Tool with a view to helping to address this issue.</p>
+                        <p>Over one billion people around the world still lack access to electricity. Off-grid technologies and approaches are emerging as part of the solution to close the energy access gap, but lack of information on the nature of the market remains a major constraint to serving the energy poor. IFC and the World Bank have developed this Off-Grid Market Opportunity Tool with a view to helping to address this issue.</p>
                         <p><Link to='/about' title='Visit About page' className='cta-button-learn'><span>About the tool</span></Link></p>
                       </div>
                     </div>
@@ -60,10 +60,10 @@ const Home = React.createClass({
                             <div className='highlight-list__item h-view'>Quickly generate a high-level view of the off-grid market opportunity.</div>
                           </li>
                           <li className='highlight-list__item-wrapper'>
-                            <div className='highlight-list__item h-access'>Access underlying open data from energydata.info and leverage the tool with your own data.</div>
+                            <div className='highlight-list__item h-access'>Access underlying open data from <a href='https://energydata.info' target='_blank'>energydata.info</a> and leverage the tool with your own data.</div>
                           </li>
                           <li className='highlight-list__item-wrapper'>
-                            <div className='highlight-list__item h-contribute'>This tool is developed in the open. Contribute to the tool or data on <Link to='http://github.com/energy-data/market-opportunities'>Github</Link>.</div>
+                            <div className='highlight-list__item h-contribute'>This tool is developed in the open. Contribute to the tool or data on <a href='http://github.com/energy-data/market-opportunities' target='_blank'>Github</a>.</div>
                           </li>
                         </ul>
                       </div>

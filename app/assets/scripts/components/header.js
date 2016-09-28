@@ -77,7 +77,7 @@ const Header = React.createClass({
                   <li><IndexLink to='/' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>Home</span></IndexLink></li>
                   <li><Link to='/explore' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>Explore</span></Link></li>
                   <li><Link to='/about' title='Visit page' className='browse-menu-item' activeClassName='browse-menu-item--active'><span>About</span></Link></li>
-                  <li><a href='#' title='Visit page' className='browse-menu-item browse-menu-item--external'><span>energydata.info</span></a></li>
+                  <li><a href='https://energydata.info' title='Visit page' className='browse-menu-item browse-menu-item--external' target='_blank'><span>energydata.info</span></a></li>
                 </ul>
               </div>
             </div>

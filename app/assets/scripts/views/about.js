@@ -1,11 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import Header from '../components/header'
 import Footer from '../components/footer'
 
 const About = React.createClass({
 
-  propTypes: {},
+  propTypes: {
+    hash: React.PropTypes.string
+  },
+
+  componentDidMount: function () {
+    if (this.props.hash) {
+      setTimeout(() => {
+        window.scrollTo(0, document.querySelector(this.props.hash).getBoundingClientRect().top)
+      }, 20)
+    }
+  },
 
   render: function () {
     return (
@@ -19,7 +30,7 @@ const About = React.createClass({
                   <div className='layout__headline'>
                     <h1 className='layout__title'>About</h1>
                     <div className='layout__introduction'>
-                      <p>[...]</p>
+                      <p>Learn more about the Offgrid Market Opportunity Tool</p>
                     </div>
                   </div>
                 </div>
@@ -27,7 +38,7 @@ const About = React.createClass({
               <div className='layout__body'>
                 <div className='inner'>
                   <div className='layout__prose-content prose prose--responsive'>
-                    <p>1.1. billion people still lack access to electricity across the world. Off-grid technologies and approaches are emerging as part of the solutions to serve the energy poor, but lack of data and information on the market potential remains a major constraint and impediment. As a result of these issues, IFC and the World Bank have developed this Off-Grid Market Opportunity Tool.</p>
+                    <p>Over one billion people still lack access to electricity across the world. Off-grid technologies and approaches are emerging as part of the solutions to serve the energy poor, but lack of data and information on the market potential remains a major constraint and impediment. As a result of these issues, IFC and the World Bank have developed this Off-Grid Market Opportunity Tool.</p>
                     <h2>How this tool can help</h2>
                     <ul>
                       <li>Private Sector - Narrow down potential areas of interest in new markets for off-grid companies</li>
@@ -60,4 +71,10 @@ const About = React.createClass({
   }
 })
 
-export default About
+function mapStateToProps (state) {
+  return {
+    hash: state.routing.locationBeforeTransitions && state.routing.locationBeforeTransitions.hash
+  }
+}
+
+export default connect(mapStateToProps)(About)
