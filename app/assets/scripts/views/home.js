@@ -63,7 +63,7 @@ const Home = React.createClass({
                             <div className='highlight-list__item h-access'>Access underlying open data from energydata.info and leverage the tool with your own data.</div>
                           </li>
                           <li className='highlight-list__item-wrapper'>
-                            <div className='highlight-list__item h-contribute'>This tool is developed in the open. Contribute to the tool or data on <Link to='http://github.com/energy-data/market-opportunities'>Github</Link>.</div>
+                            <div className='highlight-list__item h-contribute'>This tool is developed in the open. Contribute to the tool or data on <a href='http://github.com/energy-data/market-opportunities' target='_blank'>Github</a>.</div>
                           </li>
                         </ul>
                       </div>
