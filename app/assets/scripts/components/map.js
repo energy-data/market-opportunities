@@ -86,16 +86,16 @@ export const Map = React.createClass({
       this._enableZoom()
       const layerToRemove = this.props.editLayer
       // NOTE: to ensure that we only create a new layer GeoJSON when the user
-      // has saved their selection, we check the temp filter against the filter
-      // in the new version of the editLayer (it was editLayer but now isn't
-      // editing)
+      // has updated their selection, we check the temp filter against the
+      // filter in the new version of the editLayer (it was editLayer but now
+      // isn't editing)
       // we also create a geojson using the default selection if one doesn't
-      // exist EVEN IF the user cancels (we can't distinguish)
+      // exist and the user has saved at least once
       const newVersionOfLayerToRemove = nextProps.layers.indicators
         .find(layer => layer.id === layerToRemove.id)
       if (this.props.tempFilter &&
         (!_.isEqual(this.props.tempFilter.temp, newVersionOfLayerToRemove.filter) ||
-          !newVersionOfLayerToRemove.geojson)) {
+          (!newVersionOfLayerToRemove.geojson && newVersionOfLayerToRemove.savedOnce))) {
         this.props.dispatch(startLoading())
         setTimeout(() => {
           try {

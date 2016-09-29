@@ -23,7 +23,7 @@ const CheckboxGroup = React.createClass({
           value={value}
           checked={selected.indexOf(value) > -1}
         />
-        <span className='form__option__text'>{value === 'residential' ? '5km' : value}</span>
+        <span className='form__option__text'>{value}</span>
         <span className='form__option__ui'></span>
       </label>
     )

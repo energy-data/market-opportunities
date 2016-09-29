@@ -40,11 +40,4 @@ test('indicator test', t => {
   component.find(classes['indicator save']).simulate('click')
   t.truthy(saveSpy.calledOnce)
   t.truthy(saveSpy.calledWith(undefined, mockLayers[2].id))
-
-  // NOTE: this is currently disabled but we can still simulate a click
-  // clicking edit after we are already editing should cancel
-  component.setProps({layer: mockLayers[1]})
-  component.find(classes['indicator edit']).simulate('click')
-  t.truthy(cancelSpy.calledTwice)
-  t.truthy(cancelSpy.calledWith(undefined, mockLayers[1].id))
 })

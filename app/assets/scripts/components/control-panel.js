@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { updateVisibleLayers, startEditingLayer, stopEditingLayer,
   toggleLayerVisibility, updateLayerFilter, updateTempFilter,
-  toggleOpenGroup, updateStep } from '../actions'
+  toggleOpenGroup, updateStep, updatedSavedOnce } from '../actions'
 import { countries } from '../../data/countries'
 
 import PanelTitle from './panel-title'
@@ -78,13 +78,21 @@ export const ControlPanel = React.createClass({
     const { dispatch, layers } = this.props
     const layer = layers.indicators.find(l => l.id === id)
     if (e) e.preventDefault()
-    dispatch(startEditingLayer(id))
-    // save temp filter
-    dispatch(updateTempFilter(layer.filter))
+    // cancel any currently editing layers
+    layers.indicators.filter(l => l.editing).forEach(layer => {
+      this._cancelEdit(e, layer.id)
+    })
+    // let the map "think about that for a bit" before adding a new editing layer
+    setTimeout(() => {
+      dispatch(startEditingLayer(id))
+      // save temp filter
+      dispatch(updateTempFilter(layer.filter))
+    }, 200)
   },
 
   _saveEdit: function (e, id) {
     e.preventDefault()
+    this.props.dispatch(updatedSavedOnce(id))
     this.props.dispatch(stopEditingLayer(id))
   },
 

@@ -32,6 +32,7 @@ export const SET_MARKET_CAPTURE_RATE = 'SET_MARKET_CAPTURE_RATE'
 export const START_LOADING = 'START_LOADING'
 export const STOP_LOADING = 'STOP_LOADING'
 export const UPDATE_LAYER_ERROR = 'UPDATE_LAYER_ERROR'
+export const UPDATE_SAVED_ONCE = 'UPDATE_SAVED_ONCE'
 
 /*
  * bare action creators
@@ -213,4 +214,12 @@ export function stopLoading () {
 
 export function updateLayerError (id, error) {
   return { type: UPDATE_LAYER_ERROR, data: { id, error } }
+}
+
+/*
+ * indicate that a layer has been saved once
+ */
+
+export function updatedSavedOnce (id) {
+  return { type: UPDATE_SAVED_ONCE, data: id }
 }

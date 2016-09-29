@@ -52,21 +52,20 @@ const Indicator = React.createClass({
         </div>
         break
       case 'categorical':
-        if (datasetName === 'distance-to-grid') {
-          Editor = <RadioGroup
-            values={options.value.values}
-            selected={filter.values}
-            layerId={id}
-            updateLayerFilter={updateLayerFilter}
-          />
-        } else {
-          Editor = <CheckboxGroup
-            values={options.value.values}
-            selected={filter.values}
-            layerId={id}
-            updateLayerFilter={updateLayerFilter}
-          />
-        }
+        Editor = <CheckboxGroup
+          values={options.value.values}
+          selected={filter.values}
+          layerId={id}
+          updateLayerFilter={updateLayerFilter}
+        />
+        break
+      case 'categorical-unique':
+        Editor = <RadioGroup
+          values={options.value.values}
+          selected={filter.values}
+          layerId={id}
+          updateLayerFilter={updateLayerFilter}
+        />
         break
       case 'buffer':
         Editor = <div className='form__group'><div className='form__slider'><Nouislider
@@ -95,7 +94,7 @@ const Indicator = React.createClass({
             <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
             <div className='layer__headline'>
               <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
-              <p className='layer__summary'>{(datasetName !== 'proximity-to-road' ? (filterSummary(options, filter) + (id === popLayer.id ? '  ppl/km2' : '')) : '5km')}</p>
+              <p className='layer__summary'>{filterSummary(options, filter) + (id === popLayer.id ? '  ppl/km2' : '')}</p>
             </div>
             <div className='layer__actions'>
               <button type='button' onClick={this._handleEdit} className={c('button-edit-layer', { disabled: !visible || editing })} title='Edit layer settings'><span>Edit</span></button>
@@ -151,15 +150,10 @@ const Indicator = React.createClass({
   },
 
   _handleEdit: function (e) {
-    const { editing, id } = this.props.layer
+    const { id } = this.props.layer
     // NOTE: this is currently disabled when editing
-    // TODO: should clicking edit again save or cancel?
-    const { startEditing, cancelEdit } = this.props
-    if (!editing) {
-      startEditing(e, id)
-    } else {
-      cancelEdit(e, id)
-    }
+    const { startEditing } = this.props
+    startEditing(e, id)
   },
 
   _handleCancel: function (e) {
