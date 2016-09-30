@@ -5,7 +5,7 @@ import { UPDATE_VISIBLE_LAYERS, START_EDITING_LAYER, STOP_EDITING_LAYER,
   TOGGLE_LAYER_VISIBILITY, LAYERS_TO_DEFAULT, UPDATE_LAYER_FILTER,
   START_FETCHING_LAYERS, ERROR_FETCHING_LAYERS, SET_LAYERS,
   UPDATE_LAYER_GEOJSON, SET_MAP_INTERSECT, START_LOADING,
-  STOP_LOADING, UPDATE_LAYER_ERROR } from '../actions'
+  STOP_LOADING, UPDATE_LAYER_ERROR, UPDATE_SAVED_ONCE } from '../actions'
 import { baseLayers } from '../constants'
 
 export const initial = {
@@ -29,10 +29,10 @@ export default function layers (state = initial, action) {
       // initialize `filter` from `options.value` for each layer
       var layers = action.layers.map(layer => {
         var filter = JSON.parse(JSON.stringify(layer.options.value))
-        if (layer.datasetName === 'distance-to-grid') {
+        if (layer.options.value.type === 'categorical-unique') {
           filter.values = []
         }
-        return Object.assign({}, layer, { filter })
+        return Object.assign({}, layer, { filter, savedOnce: false })
       })
       return Object.assign({}, state, {
         status: 'success',
@@ -45,7 +45,7 @@ export default function layers (state = initial, action) {
         if (layer.id === action.data) {
           return Object.assign({}, layer, { editing: true })
         } else {
-          return Object.assign({}, layer, { editing: false })
+          return layer
         }
       })
       return Object.assign({}, state, { indicators: newIndicatorsStartEdit })
@@ -106,6 +106,15 @@ export default function layers (state = initial, action) {
         base: baseLayers,
         indicators: newResetIndicators
       })
+    case UPDATE_SAVED_ONCE:
+      const newIndicatorsSaved = state.indicators.map(layer => {
+        if (layer.id === action.data) {
+          return Object.assign({}, layer, { savedOnce: true })
+        } else {
+          return layer
+        }
+      })
+      return Object.assign({}, state, { indicators: newIndicatorsSaved })
     case LAYERS_TO_DEFAULT:
       return initial
     default:

@@ -5,6 +5,7 @@ export const layerValidator = function (options) {
   validationResults.push(primaryValidator(options))
   switch (options.value.type) {
     case 'categorical':
+    case 'categorical-unique':
       validationResults.push(valuesValidator(options.value))
       validationResults.push(propertyValidator(options.value))
       break
@@ -21,7 +22,7 @@ export const layerValidator = function (options) {
 }
 
 const primaryValidator = Models.create({
-  'value.type': Models.validators().of(['range', 'categorical', 'buffer']),
+  'value.type': Models.validators().of(['range', 'categorical', 'categorical-unique', 'buffer']),
   'geometry.type': Models.validators().of(['fill', 'line', 'circle']),
   // optional parameters
   'value.range': Models.validators(true).array().len(2),

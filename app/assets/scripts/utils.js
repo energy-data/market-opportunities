@@ -66,6 +66,7 @@ export function indicatorFilterToMapFilter (filterObject, iso) {
         ['==', 'iso', iso]
       ]
     case 'categorical':
+    case 'categorical-unique':
       return ['all',
         ['in', filterObject.property].concat(filterObject.values),
         ['==', 'iso', iso]
@@ -126,7 +127,7 @@ export function createDataPaintObject (layer) {
         })
       }
     }
-  } else if (layer.options.value.type === 'categorical' || layer.options.value.type === 'buffer') {
+  } else if (['buffer', 'categorical', 'categorical-unique'].indexOf(layer.options.value.type) > -1) {
     return {
       'fill-color': baseColor
     }
@@ -399,7 +400,8 @@ export function filterSummary (options, filter) {
     case 'range':
       return filter.range.map(formatter).join(' - ')
     case 'categorical':
-      return filter.values.join(', ')
+    case 'categorical-unique':
+      return filter.values.join(', ') || 'No options selected'
     case 'buffer':
       return `${formatter(filter.value)} km buffer`
     default:
