@@ -1,20 +1,20 @@
 {
-  "name": "ifc-demand-tool",
-  "version": "0.1.0",
+  "name": "market-opportunities",
+  "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/developmentseed/ifc-demand-tool.git"
+    "url": "https://github.com/energydata/market-opportunities.git"
   },
   "author": {
     "name": "Development Seed",
     "url": "https://developmentseed.org"
   },
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/developmentseed/ifc-demand-tool/issues"
+    "url": "https://github.com/energydata/market-opportunities/issues"
   },
-  "homepage": "https://github.com/developmentseed/ifc-demand-tool",
+  "homepage": "https://github.com/energydata/market-opportunities",
   "scripts": {
     "postinstall": "[ -f app/assets/scripts/config/local.js ] || echo 'module.exports = {}' > app/assets/scripts/config/local.js",
     "serve": "gulp collecticons && gulp serve",

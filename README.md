@@ -1,7 +1,5 @@
-# IFC Demand Tool
-
-## Overview
-
+# Offgrid Market Opportunities tool
+Identify market opportunities for off-grid energy services in Sub-Saharan Africa.
 
 ## Development environment
 To set up the development environment for this website, you'll need to install the following on your system:
