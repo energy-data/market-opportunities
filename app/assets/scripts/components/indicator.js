@@ -141,8 +141,11 @@ const Indicator = React.createClass({
 
   _handleOnOff: function () {
     const { layer } = this.props
+    // while editing, this should be akin to cancel
+    if (layer.editing) {
+      this._handleCancel(null)
     // if we don't have a geojson yet and are turning on, start editing
-    if (!layer.geojson && !layer.visibility) {
+    } else if (!layer.geojson && !layer.visibility) {
       this._handleEdit(null, layer.id)
     } else {
       this.props.toggleLayerVisibility(layer.id)
