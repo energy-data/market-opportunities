@@ -8,6 +8,7 @@ const PanelIndicatorList = React.createClass({
   propTypes: {
     layers: React.PropTypes.array.isRequired,
     openGroups: React.PropTypes.array,
+    country: React.PropTypes.string,
     startEditing: React.PropTypes.func,
     saveEdit: React.PropTypes.func,
     cancelEdit: React.PropTypes.func,
@@ -17,11 +18,14 @@ const PanelIndicatorList = React.createClass({
   },
 
   render: function () {
-    const { layers, openGroups } = this.props
-
+    const { layers, openGroups, country } = this.props
     const groups = {}
     // group the layers
-    layers.forEach((layer, i) => {
+    layers.filter(layer => {
+      // if layers have a country option, filter by that
+      return !layer.options.hasOwnProperty('countries') ||
+        layer.options.countries.indexOf(country.toLowerCase()) > -1
+    }).forEach(layer => {
       groups[layer.group]
       ? groups[layer.group].push(layer)
       : groups[layer.group] = [layer]

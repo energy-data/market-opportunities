@@ -43,7 +43,8 @@ module.exports = {
         },
         'geometry': {
           'type': 'fill'
-        }
+        },
+        'countries': ['nga']
       },
       'filter': {
         'property': 'test',

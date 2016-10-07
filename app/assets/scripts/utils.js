@@ -209,6 +209,11 @@ export function downloadMapPDF (props) {
   const gutter = 28
   const margin = 40
 
+  // Limit map height to 344px. Which is roughly 16:9 with a 612 pageWidth
+  const mapHeight = pageWidth * aspectRatio > 344 ? 344 : pageWidth * aspectRatio
+  const mapWidth = mapHeight / aspectRatio
+  const mapMargin = mapWidth === pageWidth ? 0 : (pageWidth - mapWidth) / 2
+
   // Title
   doc.fontSize(20)
   doc.fillColor(baseFontColor)
@@ -239,20 +244,25 @@ export function downloadMapPDF (props) {
       align: 'right'
     })
 
+  // Map Body Base
+  doc.rect(0, 96, pageWidth, mapHeight)
+     .fillColor('#E1E1E1')
+     .fill()
+
   // Map
-  doc.image(dataURL, 0, 96, { width: pageWidth })
+  doc.image(dataURL, mapMargin, 96, {fit: [pageWidth, mapHeight]})
 
   // Map outline
   doc.rect(0, 96, pageWidth, 1)
      .fillColor('#192F35', 0.08)
      .fill()
 
-  doc.rect(0, 96 + pageWidth * aspectRatio - 1, pageWidth, 1)
+  doc.rect(0, 96 + mapHeight - 1, pageWidth, 1)
      .fillColor('#192F35', 0.08)
      .fill()
 
   // Secondary Body Base
-  doc.rect(0, 96 + pageWidth * aspectRatio, pageWidth, pageHeight - (96 + pageWidth * aspectRatio) - margin * 2)
+  doc.rect(0, 96 + mapHeight, pageWidth, pageHeight - (96 + mapHeight) - margin * 2)
      .fill('#f6f7f7')
 
   doc.rect(0, pageHeight - margin * 2 - 1, pageWidth, 1)
@@ -263,16 +273,16 @@ export function downloadMapPDF (props) {
   doc.fontSize(12)
   doc.fillColor(baseFontColor)
     .font(MSSemiBold)
-    .text('Selected Indicators', margin, 96 + pageWidth * aspectRatio + 20)
+    .text('Selected Indicators', margin, 96 + mapHeight + 20)
 
-  doc.rect(margin, 96 + pageWidth * aspectRatio + 38, 28, 2)
+  doc.rect(margin, 96 + mapHeight + 38, 28, 2)
      .fill(primaryColor)
 
   const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat ante sagittis lacus vulputate suscipit. Donec sodales elementum blandit. Integer vel lectus id sapien euismod faucibus.'
   doc.fontSize(8)
   doc.fillColor(baseFontColor)
     .font(MSLight)
-    .text(lorem, margin, 96 + pageWidth * aspectRatio + 52, {
+    .text(lorem, margin, 96 + mapHeight + 52, {
       width: column,
       align: 'left'
     })
@@ -281,16 +291,16 @@ export function downloadMapPDF (props) {
   doc.fontSize(12)
   doc.fillColor(baseFontColor)
     .font(MSSemiBold)
-    .text('Analysis', margin + column + gutter, 96 + pageWidth * aspectRatio + 20)
+    .text('Analysis', margin + column + gutter, 96 + mapHeight + 20)
 
-  doc.rect(margin + column + gutter, 96 + pageWidth * aspectRatio + 38, 28, 2)
+  doc.rect(margin + column + gutter, 96 + mapHeight + 38, 28, 2)
      .fill(primaryColor)
 
   const loremTwo = 'Donec sodales elementum blandit. Integer vel lectus id sapien euismod faucibus.'
   doc.fontSize(8)
   doc.fillColor(baseFontColor)
     .font(MSLight)
-    .text(loremTwo, margin + column + gutter, 96 + pageWidth * aspectRatio + 52, {
+    .text(loremTwo, margin + column + gutter, 96 + mapHeight + 52, {
       width: column,
       align: 'left'
     })
@@ -298,24 +308,24 @@ export function downloadMapPDF (props) {
   // Indicators
   const indicators = props.layers.indicators.filter(a => a.visible)
   indicators.forEach((layer, index) => {
-    doc.circle(margin + 3, 96 + pageWidth * aspectRatio + 112 + 3 + (index * 24), 3)
+    doc.circle(margin + 3, 96 + mapHeight + 112 + 3 + (index * 24), 3)
        .fill(getLayerColor(layer.datasetName))
 
     doc.fontSize(8)
     doc.fillColor(secondaryFontColor)
        .font(MSLight)
-       .text(prettifyString(layer.datasetName).toUpperCase(), margin + 10, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24))
+       .text(prettifyString(layer.datasetName).toUpperCase(), margin + 10, 96 + mapHeight + 112 - 2 + (index * 24))
 
     doc.fontSize(8)
     doc.fillColor(baseFontColor)
        .font(MSSemiBold)
-       .text((filterSummary(layer.options, layer.filter) + (layer.id === popLayer.id ? '  ppl/km2' : '')), margin, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24), {
+       .text((filterSummary(layer.options, layer.filter) + (layer.id === popLayer.id ? '  ppl/km2' : '')), margin, 96 + mapHeight + 112 - 2 + (index * 24), {
          width: column,
          align: 'right'
        })
 
     if (index !== indicators.length - 1) {
-      doc.rect(margin, 96 + pageWidth * aspectRatio + 126 + (index * 24), column, 1)
+      doc.rect(margin, 96 + mapHeight + 126 + (index * 24), column, 1)
          .fillColor('#192F35', 0.08)
          .fill()
     }
@@ -336,18 +346,18 @@ export function downloadMapPDF (props) {
     doc.fontSize(8)
     doc.fillColor(secondaryFontColor)
        .font(MSLight)
-       .text(output.name.toUpperCase(), margin + column + gutter, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24))
+       .text(output.name.toUpperCase(), margin + column + gutter, 96 + mapHeight + 112 - 2 + (index * 24))
 
     doc.fontSize(8)
     doc.fillColor(baseFontColor)
        .font(MSSemiBold)
-       .text(output.value, pageWidth - column - margin, 96 + pageWidth * aspectRatio + 112 - 2 + (index * 24), {
+       .text(output.value, pageWidth - column - margin, 96 + mapHeight + 112 - 2 + (index * 24), {
          width: column,
          align: 'right'
        })
 
     if (index !== outputs.length - 1) {
-      doc.rect(margin + column + gutter, 96 + pageWidth * aspectRatio + 126 + (index * 24), column, 1)
+      doc.rect(margin + column + gutter, 96 + mapHeight + 126 + (index * 24), column, 1)
          .fillColor('#192F35', 0.08)
          .fill()
     }

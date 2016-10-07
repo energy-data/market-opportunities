@@ -32,5 +32,23 @@ module.exports.badLayerOptions = [
     'geometry': {
       'type': 'not a geometry type'
     }
+  },
+  {
+    'value': {
+      'property': 'test',
+      'type': 'categorical',
+      'values': [
+        'a',
+        'b',
+        'c'
+      ],
+      'format': 'percentage',
+      'range': [0, 1],
+      'stops': [0, 0.2, 0.4, 0.6, 0.8, 1]
+    },
+    'geometry': {
+      'type': 'fill'
+    },
+    'countries': 'string instead of array'
   }
 ]
