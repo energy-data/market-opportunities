@@ -28,7 +28,8 @@ const primaryValidator = Models.create({
   'value.range': Models.validators(true).array().len(2),
   'value.property': Models.validators(true).string(),
   'value.stops': Models.validators(true).array(),
-  'value.format': Models.validators(true).string()
+  'value.format': Models.validators(true).string(),
+  'value.countries': Models.validators(true).array()
 })
 
 const rangeValidator = Models.create({
