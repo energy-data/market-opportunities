@@ -39,7 +39,8 @@ module.exports = {
           ],
           'format': 'percentage',
           'range': [0, 1],
-          'stops': [0, 0.2, 0.4, 0.6, 0.8, 1]
+          'stops': [0, 0.2, 0.4, 0.6, 0.8, 1],
+          'countries': ['nga']
         },
         'geometry': {
           'type': 'fill'
