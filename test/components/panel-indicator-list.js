@@ -10,6 +10,7 @@ test('panel indicator list test', t => {
   const component = shallow(<PanelIndicatorList
     layers={mockLayers}
     openGroups={[]}
+    country='nga'
   />)
   const listElements = component.find(classes['layer list wrapper']).children()
 
