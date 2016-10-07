@@ -35,6 +35,7 @@ export const ControlPanel = React.createClass({
     ? <PanelIndicatorList
       layers={layers[layers.visible]}
       openGroups={groups.open}
+      country={selection.country}
       startEditing={this._startEditing}
       saveEdit={this._saveEdit}
       cancelEdit={this._cancelEdit}
