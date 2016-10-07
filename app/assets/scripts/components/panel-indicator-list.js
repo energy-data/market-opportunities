@@ -23,8 +23,8 @@ const PanelIndicatorList = React.createClass({
     // group the layers
     layers.filter(layer => {
       // if layers have a country option, filter by that
-      return !layer.options.value.hasOwnProperty('countries') ||
-        layer.options.value.countries.indexOf(country.toLowerCase()) > -1
+      return !layer.options.hasOwnProperty('countries') ||
+        layer.options.countries.indexOf(country.toLowerCase()) > -1
     }).forEach(layer => {
       groups[layer.group]
       ? groups[layer.group].push(layer)

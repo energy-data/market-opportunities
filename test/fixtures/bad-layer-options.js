@@ -44,11 +44,11 @@ module.exports.badLayerOptions = [
       ],
       'format': 'percentage',
       'range': [0, 1],
-      'stops': [0, 0.2, 0.4, 0.6, 0.8, 1],
-      'countries': 'string instead of array'
+      'stops': [0, 0.2, 0.4, 0.6, 0.8, 1]
     },
     'geometry': {
       'type': 'fill'
-    }
+    },
+    'countries': 'string instead of array'
   }
 ]

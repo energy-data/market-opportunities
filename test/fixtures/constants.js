@@ -39,12 +39,12 @@ module.exports = {
           ],
           'format': 'percentage',
           'range': [0, 1],
-          'stops': [0, 0.2, 0.4, 0.6, 0.8, 1],
-          'countries': ['nga']
+          'stops': [0, 0.2, 0.4, 0.6, 0.8, 1]
         },
         'geometry': {
           'type': 'fill'
-        }
+        },
+        'countries': ['nga']
       },
       'filter': {
         'property': 'test',

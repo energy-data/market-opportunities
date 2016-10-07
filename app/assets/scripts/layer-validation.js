@@ -19,7 +19,7 @@ export const layerValidator = function (options) {
       break
   }
   if (options.value.hasOwnProperty('countries')) {
-    validationResults.push(countriesValidator(options.value))
+    validationResults.push(countriesValidator(options))
   }
   return validationResults.filter(result => result.length)
 }
@@ -32,7 +32,7 @@ const primaryValidator = Models.create({
   'value.property': Models.validators(true).string(),
   'value.stops': Models.validators(true).array(),
   'value.format': Models.validators(true).string(),
-  'value.countries': Models.validators(true).array()
+  'countries': Models.validators(true).array()
 })
 
 const rangeValidator = Models.create({
