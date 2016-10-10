@@ -11,6 +11,7 @@ import bb from 'turf-bbox'
 import bbox from 'turf-bbox-polygon'
 import inside from 'turf-inside'
 import point from 'turf-point'
+import normalize from 'geojson-normalize'
 import flatten from 'geojson-flatten'
 import rbush from 'rbush'
 import mapboxgl from 'mapbox-gl'
@@ -104,23 +105,23 @@ export const Map = React.createClass({
           (!newVersionOfLayerToRemove.geojson && newVersionOfLayerToRemove.savedOnce))) {
         this.props.dispatch(startLoading())
         setTimeout(() => {
-          try {
+          // try {
             this._createLayerGeoJSON(layerToRemove)
             this._removeLayerData(layerToRemove.id)
-          } catch (e) {
-            console.warn(e)
-            this.props.dispatch(updateLayerError(layerToRemove.id,
-              'there was a problem calculating this layer, please try again with new filters'))
-            setTimeout(() => {
-              this.props.dispatch(updateLayerError(layerToRemove.id, ''))
-            }, 10000)
-            // if there was an error, remove the data, re-add it to initialize
-            // properly, toggle the visiblity (to off) and stop the loading
-            this._removeLayerData(layerToRemove.id)
-            this.props.dispatch(startEditingLayer(layerToRemove.id))
-            this.props.dispatch(toggleLayerVisibility(layerToRemove.id))
-            this.props.dispatch(stopLoading())
-          }
+          // } catch (e) {
+          //   console.warn(e)
+          //   this.props.dispatch(updateLayerError(layerToRemove.id,
+          //     'there was a problem calculating this layer, please try again with new filters'))
+          //   setTimeout(() => {
+          //     this.props.dispatch(updateLayerError(layerToRemove.id, ''))
+          //   }, 10000)
+          //   // if there was an error, remove the data, re-add it to initialize
+          //   // properly, toggle the visiblity (to off) and stop the loading
+          //   this._removeLayerData(layerToRemove.id)
+          //   this.props.dispatch(startEditingLayer(layerToRemove.id))
+          //   this.props.dispatch(toggleLayerVisibility(layerToRemove.id))
+          //   this.props.dispatch(stopLoading())
+          // }
         // NOTE: this amount of time is required to not interrupt the css
         // transition on the loading indicator
         }, 300)
@@ -348,13 +349,20 @@ export const Map = React.createClass({
     const queryOptions = (layer.options.geometry.type === 'fill')
     ? { sourceLayer: 'data_layer', filter: indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase()) }
     : {}
-    const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, queryOptions)
+    const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, queryOptions).map(a => {
+      return buffer(a, 0)
+    })
     if (features.length) {
-      const geo = features.map(a => {
-        return buffer(a, 0)
-      }).reduce((a, b) => {
-        return union(a, b)
-      })
+      let geo
+      if (layer.options.value.type === 'buffer') {
+        // to prevent later double counting, we union buffered layers
+        geo = features.reduce((a, b) => {
+          return union(a, b)
+        })
+      } else {
+        // other layers become feature collections
+        geo = fc(_.flatten(features.map(f => flatten(f))))
+      }
       this.props.dispatch(stopLoading())
       this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
     } else {
@@ -419,16 +427,10 @@ export const Map = React.createClass({
   },
 
   _calculateIntersectedPopulation: function (props) {
-    const population = props.layers.intersect.geometry.coordinates.reduce((a, b) => {
-      const dFeature = {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          coordinates: b,
-          type: 'Polygon'
-        }
-      }
-      const [minX, minY, maxX, maxY] = bb(dFeature)
+    // we can calculate this faster if we flatten then rbush
+    const flattenedIntersection = normalize(flatten(props.layers.intersect))
+    const population = flattenedIntersection.features.reduce((a, b) => {
+      const [minX, minY, maxX, maxY] = bb(b)
       const geoFiltered = this._tree.search({minX, minY, maxX, maxY})
       let flattenedFeatures = []
       geoFiltered.filter(f => f.geometry.type === 'MultiPolygon').forEach(multi => {
@@ -439,7 +441,7 @@ export const Map = React.createClass({
         .filter(f => f.geometry.type === 'Polygon')
         .concat(flattenedFeatures)
         .reduce((c, d) => {
-          const clip = intersect(dFeature, {
+          const clip = intersect(b, {
             type: 'Feature',
             properties: {},
             geometry: d.geometry
