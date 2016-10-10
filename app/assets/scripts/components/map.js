@@ -105,23 +105,23 @@ export const Map = React.createClass({
           (!newVersionOfLayerToRemove.geojson && newVersionOfLayerToRemove.savedOnce))) {
         this.props.dispatch(startLoading())
         setTimeout(() => {
-          // try {
+          try {
             this._createLayerGeoJSON(layerToRemove)
             this._removeLayerData(layerToRemove.id)
-          // } catch (e) {
-          //   console.warn(e)
-          //   this.props.dispatch(updateLayerError(layerToRemove.id,
-          //     'there was a problem calculating this layer, please try again with new filters'))
-          //   setTimeout(() => {
-          //     this.props.dispatch(updateLayerError(layerToRemove.id, ''))
-          //   }, 10000)
-          //   // if there was an error, remove the data, re-add it to initialize
-          //   // properly, toggle the visiblity (to off) and stop the loading
-          //   this._removeLayerData(layerToRemove.id)
-          //   this.props.dispatch(startEditingLayer(layerToRemove.id))
-          //   this.props.dispatch(toggleLayerVisibility(layerToRemove.id))
-          //   this.props.dispatch(stopLoading())
-          // }
+          } catch (e) {
+            console.warn(e)
+            this.props.dispatch(updateLayerError(layerToRemove.id,
+              'there was a problem calculating this layer, please try again with new filters'))
+            setTimeout(() => {
+              this.props.dispatch(updateLayerError(layerToRemove.id, ''))
+            }, 10000)
+            // if there was an error, remove the data, re-add it to initialize
+            // properly, toggle the visiblity (to off) and stop the loading
+            this._removeLayerData(layerToRemove.id)
+            this.props.dispatch(startEditingLayer(layerToRemove.id))
+            this.props.dispatch(toggleLayerVisibility(layerToRemove.id))
+            this.props.dispatch(stopLoading())
+          }
         // NOTE: this amount of time is required to not interrupt the css
         // transition on the loading indicator
         }, 300)
@@ -150,7 +150,16 @@ export const Map = React.createClass({
 
     // when going from selection view to map, populate the population rbush
     if (nextProps.step === 'map' && this.props.step === 'country') {
-      this._populateRbush(nextProps)
+      if (this._map.getSource('pop').loaded()) {
+        this._populateRbush(nextProps)
+      } else {
+        this._map.on('render', () => {
+          if (this._map.getSource('pop').loaded()) {
+            this._map.off('render')
+            this._populateRbush(nextProps)
+          }
+        })
+      }
     }
 
     // if we cross the "1 visible layer" threshold, add/remove the
@@ -187,13 +196,12 @@ export const Map = React.createClass({
       nextProps.layers.intersect && !nextProps.editLayer) {
       this.props.dispatch(startLoading())
       setTimeout(() => {
-        this._calculateIntersectedPopulation(nextProps)
-        // try {
-        //   this._calculateIntersectedPopulation(nextProps)
-        // } catch (e) {
-        //   console.warn(e)
-        //   this.props.dispatch(stopLoading())
-        // }
+        try {
+          this._calculateIntersectedPopulation(nextProps)
+        } catch (e) {
+          console.warn(e)
+          this.props.dispatch(stopLoading())
+        }
       // NOTE: this amount of time is required to not interrupt the css
       // transition on the loading indicator
       }, 300)
