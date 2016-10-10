@@ -7,6 +7,9 @@ import chroma from 'chroma-js'
 import intersect from 'turf-intersect'
 import buffer from 'turf-buffer'
 import area from 'turf-area'
+import fc from 'turf-featurecollection'
+import normalize from 'geojson-normalize'
+import _ from 'lodash'
 import { saveAs } from 'file-saver'
 import PDFDocument from 'pdfkit'
 import blobStream from 'blob-stream'
@@ -174,7 +177,18 @@ export function getLayerColor (datasetName) {
 
 export function intersectLayers (layers) {
   try {
-    return layers.map(layer => layer.geojson).reduce((a, b) => buffer(intersect(a, b), 0))
+    return layers.map(layer => layer.geojson).reduce((a, b) => {
+      const features = _.flatten(normalize(a).features.map(featA => {
+        return normalize(b).features.map(featB => {
+          const int = intersect(featA, featB)
+          return (int)
+          ? buffer(int, 0)
+          : null
+        })
+      })).filter(a => a)
+      // test for features with empty coordinate arrays
+      return fc(features.filter(f => f.geometry.coordinates[0][0]))
+    })
   } catch (e) {
     console.warn(e)
     return null
