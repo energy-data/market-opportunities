@@ -126,12 +126,7 @@ const Indicator = React.createClass({
             { Error }
             <section className='layer-block layer-info'>
               <h2 className='layer-block__title layer-info__title'>Info</h2>
-              <dl className='layer-info__details'>
-                <dt>Description</dt>
-                <dd>{description}</dd>
-                <dt>Source URL</dt>
-                <dd><a href={url.resolve(config.dataHubURL, '/dataset/' + datasetName)} title='Visit data source URL' className='url'>{url.resolve(config.dataHubURL, '/dataset/' + datasetName)}</a></dd>
-              </dl>
+              <p className='layer-info__details'>{description} - <a href={url.resolve(config.dataHubURL, '/dataset/' + datasetName)} title='Visit data source URL' className='url'>view the source data</a></p>
             </section>
           </div>
         </article>
