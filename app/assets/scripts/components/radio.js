@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CheckboxGroup = React.createClass({
+const Radio = React.createClass({
 
   propTypes: {
     layerId: React.PropTypes.string,
@@ -10,14 +10,14 @@ const CheckboxGroup = React.createClass({
   },
 
   render: function () {
-    const { value, selected } = this.props
+    const { value, selected, layerId } = this.props
     return (
-      <label key={value} htmlFor={value} className='form__option form__option--custom-radio'>
+      <label key={value} htmlFor={value + layerId} className='form__option form__option--custom-radio'>
         <input
           onChange={this._handleChange}
           type='radio'
-          name={value}
-          id={value}
+          name={value + layerId}
+          id={value + layerId}
           value={value}
           checked={selected.indexOf(value) > -1}
         />
@@ -33,4 +33,4 @@ const CheckboxGroup = React.createClass({
   }
 })
 
-export default CheckboxGroup
+export default Radio
