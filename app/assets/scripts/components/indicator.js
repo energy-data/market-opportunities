@@ -23,7 +23,7 @@ const Indicator = React.createClass({
   },
 
   render: function () {
-    const { id, datasetName, description, editing, options, filter, visible, error } = this.props.layer
+    const { id, name, description, datasetID, editing, options, filter, visible, error } = this.props.layer
     const { updateLayerFilter } = this.props
 
     let Editor
@@ -41,7 +41,7 @@ const Indicator = React.createClass({
             />
             <div className='legend'>
             {options.value.stops.slice(0, -1).map((stop, j) => {
-              const baseColor = getLayerColor(datasetName)
+              const baseColor = getLayerColor(name)
               return <div className='legend-swath' key={stop} style={{
                 backgroundColor: chroma(baseColor).darken(j - Math.floor(options.value.stops.length / 2)).hex(),
                 width: `${(100 / (options.value.stops.length - 1)).toFixed(2)}%`
@@ -91,9 +91,9 @@ const Indicator = React.createClass({
       <li className='layer-list__layer-wrapper'>
         <article className={c('layer', {'layer--expanded': editing})}>
           <header className='layer__header'>
-            <span className='layer__legend-color' style={{background: getLayerColor(datasetName)}}></span>
+            <span className='layer__legend-color' style={{background: getLayerColor(name)}}></span>
             <div className='layer__headline'>
-              <h1 className='layer__title'>{prettifyString(datasetName)}</h1>
+              <h1 className='layer__title'>{prettifyString(name)}</h1>
               <p className='layer__summary'>{filterSummary(options, filter) + (id === popLayer.id ? '  ppl/km2' : '')}</p>
             </div>
             <div className='layer__actions'>
@@ -126,7 +126,7 @@ const Indicator = React.createClass({
             { Error }
             <section className='layer-block layer-info'>
               <h2 className='layer-block__title layer-info__title'>Info</h2>
-              <p className='layer-info__details'>{description} - <a href={url.resolve(config.dataHubURL, '/dataset/' + datasetName)} title='Visit data source URL' className='url'>view the source data</a></p>
+              <p className='layer-info__details'>{description} - <a href={url.resolve(config.dataHubURL, '/dataset/' + datasetID)} title='Visit data source URL' className='url' target="_blank">view the source data</a></p>
             </section>
           </div>
         </article>
