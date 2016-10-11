@@ -117,7 +117,7 @@ export function stopsToNoUiSliderRange (stops) {
 }
 
 export function createDataPaintObject (layer) {
-  const baseColor = getLayerColor(layer.datasetName)
+  const baseColor = getLayerColor(layer.name)
   if (layer.options.value.type === 'range') {
     return {
       'fill-color': {
@@ -138,7 +138,7 @@ export function createDataPaintObject (layer) {
 
 export function createOutlinePaintObject (layer) {
   return {
-    'line-color': getLayerColor(layer.datasetName),
+    'line-color': getLayerColor(layer.name),
     'line-width': 1,
     'line-opacity': 1
   }
@@ -148,12 +148,12 @@ export function createTempPaintStyle (layer) {
   switch (layer.options.geometry.type) {
     case 'line':
       return {
-        'line-color': getLayerColor(layer.datasetName),
+        'line-color': getLayerColor(layer.name),
         'line-opacity': 1
       }
     case 'circle':
       return {
-        'circle-color': getLayerColor(layer.datasetName),
+        'circle-color': getLayerColor(layer.name),
         'circle-opacity': 1
       }
     default:
@@ -161,12 +161,12 @@ export function createTempPaintStyle (layer) {
   }
 }
 
-export function getLayerColor (datasetName) {
+export function getLayerColor (name) {
   let returnColor
-  if (presetLayerColors.hasOwnProperty(datasetName)) {
-    returnColor = presetLayerColors[datasetName]
+  if (presetLayerColors.hasOwnProperty(name)) {
+    returnColor = presetLayerColors[name]
   } else {
-    returnColor = tocolor(datasetName)
+    returnColor = tocolor(name)
       .replace('rgba(', '').split(',').map(a => Number(a)).filter(Boolean)
   }
   return chroma(returnColor).hex()
@@ -309,12 +309,12 @@ export function downloadMapPDF (props) {
   const indicators = props.layers.indicators.filter(a => a.visible)
   indicators.forEach((layer, index) => {
     doc.circle(margin + 3, 96 + mapHeight + 112 + 3 + (index * 24), 3)
-       .fill(getLayerColor(layer.datasetName))
+       .fill(getLayerColor(layer.name))
 
     doc.fontSize(8)
     doc.fillColor(secondaryFontColor)
        .font(MSLight)
-       .text(prettifyString(layer.datasetName).toUpperCase(), margin + 10, 96 + mapHeight + 112 - 2 + (index * 24))
+       .text(prettifyString(layer.name).toUpperCase(), margin + 10, 96 + mapHeight + 112 - 2 + (index * 24))
 
     doc.fontSize(8)
     doc.fillColor(baseFontColor)
