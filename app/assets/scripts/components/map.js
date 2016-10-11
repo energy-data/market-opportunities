@@ -7,10 +7,13 @@ import union from 'turf-union'
 import buffer from 'turf-buffer'
 import intersect from 'turf-intersect'
 import area from 'turf-area'
+import bb from 'turf-bbox'
 import bbox from 'turf-bbox-polygon'
 import inside from 'turf-inside'
 import point from 'turf-point'
+import normalize from 'geojson-normalize'
 import flatten from 'geojson-flatten'
+import rbush from 'rbush'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
 
@@ -30,6 +33,7 @@ export const Map = React.createClass({
     editLayer: React.PropTypes.object,
     country: React.PropTypes.string,
     tempFilter: React.PropTypes.object,
+    step: React.PropTypes.string,
     dispatch: React.PropTypes.func,
     onCanvasReady: React.PropTypes.func
   },
@@ -61,6 +65,8 @@ export const Map = React.createClass({
       }, 'landuse')
       this._hideRoads()
     })
+    // Global rtree for doing fast intersections
+    this._tree = rbush()
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -139,6 +145,20 @@ export const Map = React.createClass({
     // if we have a newly selected country, zoom to it
     if (nextProps.country !== this.props.country) {
       this._map.fitBounds(countries[nextProps.country].bbox, { padding: 50 })
+    }
+
+    // when going from selection view to map, populate the population rbush
+    if (nextProps.step === 'map' && this.props.step === 'country') {
+      if (this._map.getSource('pop').loaded()) {
+        this._populateRbush(nextProps)
+      } else {
+        this._map.on('render', () => {
+          if (this._map.getSource('pop').loaded()) {
+            this._map.off('render')
+            this._populateRbush(nextProps)
+          }
+        })
+      }
     }
 
     // if we cross the "1 visible layer" threshold, add/remove the
@@ -336,13 +356,20 @@ export const Map = React.createClass({
     const queryOptions = (layer.options.geometry.type === 'fill')
     ? { sourceLayer: 'data_layer', filter: indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase()) }
     : {}
-    const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, queryOptions)
+    const features = this._map.querySourceFeatures(`${String(layer.id)}-data`, queryOptions).map(a => {
+      return buffer(a, 0)
+    })
     if (features.length) {
-      const geo = features.map(a => {
-        return buffer(a, 0)
-      }).reduce((a, b) => {
-        return union(a, b)
-      })
+      let geo
+      if (layer.options.value.type === 'buffer') {
+        // to prevent later double counting, we union buffered layers
+        geo = features.reduce((a, b) => {
+          return union(a, b)
+        })
+      } else {
+        // other layers become feature collections
+        geo = fc(_.flatten(features.map(f => flatten(f))))
+      }
       this.props.dispatch(stopLoading())
       this.props.dispatch(updateLayerGeoJSON(layer.id, geo))
     } else {
@@ -407,41 +434,33 @@ export const Map = React.createClass({
   },
 
   _calculateIntersectedPopulation: function (props) {
-    const popFeatures = this._map.querySourceFeatures('pop', {
-      sourceLayer: 'data_layer',
-      filter: ['==', 'iso', props.country.toLowerCase()]
-    })
-    let flattenedFeatures = []
-    popFeatures.filter(a => a.geometry.type === 'MultiPolygon').forEach(multi => {
-      const flattened = flatten(multi)
-      flattenedFeatures = flattenedFeatures.concat(flattened)
-    })
-    const population = popFeatures
-      .filter(a => a.geometry.type === 'Polygon')
-      .concat(flattenedFeatures)
-      .reduce((a, b) => {
-        const subPopulation = props.layers.intersect.geometry.coordinates.reduce((c, d) => {
-          let dFeature = {
+    // we can calculate this faster if we flatten then rbush
+    const flattenedIntersection = normalize(flatten(props.layers.intersect))
+    const population = flattenedIntersection.features.reduce((a, b) => {
+      const [minX, minY, maxX, maxY] = bb(b)
+      const geoFiltered = this._tree.search({minX, minY, maxX, maxY})
+      let flattenedFeatures = []
+      geoFiltered.filter(f => f.geometry.type === 'MultiPolygon').forEach(multi => {
+        const flattened = flatten(Object.assign(multi, { type: 'Feature' }))
+        flattenedFeatures = flattenedFeatures.concat(flattened)
+      })
+      const subPopulation = geoFiltered
+        .filter(f => f.geometry.type === 'Polygon')
+        .concat(flattenedFeatures)
+        .reduce((c, d) => {
+          const clip = intersect(b, {
             type: 'Feature',
             properties: {},
-            geometry: {
-              coordinates: d,
-              type: 'Polygon'
-            }
-          }
-          let clip = intersect(dFeature, {
-            type: 'Feature',
-            properties: {},
-            geometry: b.geometry
+            geometry: d.geometry
           })
           if (clip) {
-            return c + area(clip) * b.properties.avg
+            return c + area(clip) * d.properties.avg
           } else {
             return c
           }
         }, 0)
-        return a + subPopulation
-      }, 0)
+      return a + subPopulation
+    }, 0)
     this.props.dispatch(stopLoading())
     this.props.dispatch(setPopulation(population))
   },
@@ -470,6 +489,23 @@ export const Map = React.createClass({
         inside(point(countryBbox.slice(2, 4)), mapBoundsBbox))) {
       this._map.fitBounds(countryBbox, { padding: 50 })
     }
+  },
+
+  _populateRbush: function (nextProps) {
+    // populate rbush with country population data
+    this._tree.clear()
+    const popFeatures = this._map.querySourceFeatures('pop', {
+      sourceLayer: 'data_layer',
+      filter: ['==', 'iso', nextProps.country.toLowerCase()]
+    })
+    const bbs = popFeatures.map(f => {
+      const [minX, minY, maxX, maxY] = bb(f)
+      return Object.assign({}, { minX, minY, maxX, maxY }, {
+        geometry: f.geometry,
+        properties: f.properties
+      })
+    })
+    this._tree.load(bbs)
   }
 })
 /* istanbul ignore next */
@@ -478,6 +514,7 @@ function mapStateToProps (state) {
     layers: state.layers,
     editLayer: state.layers.indicators.find(layer => layer.editing),
     country: state.selection.country,
+    step: state.selection.step,
     tempFilter: state.tempFilter
   }
 }

@@ -18,7 +18,8 @@ const metadataKeys = [
   'source',
   'url',
   'tilejson',
-  'datasetName'
+  'datasetName',
+  'datasetNotes'
 ]
 
 export default function fetchLayers () { return fetchLayersThunk }
@@ -87,6 +88,7 @@ function fetchLayersThunk (dispatch, getState) {
         dataset.resources.slice(0, 1).forEach(function (resource) {
           resource.extras = (resource.extras || []).concat(dataset.extras)
           resource.source = dataset.url
+          resource.datasetNotes = dataset.notes
           resource.datasetName = dataset.name
           // use dataset-wide metadata as defaults
           defaultsDeep(resource, pick(dataset, metadataKeys))
