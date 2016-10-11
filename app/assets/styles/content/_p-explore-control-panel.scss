@@ -432,10 +432,11 @@
 
 .layer-info__details {
   @extend .clearfix;
+  font-size: 0.75rem;
+  line-height: 1rem;
+
   dt, dd {
     float: left;
-    font-size: 0.75rem;
-    line-height: 1rem;
     padding-bottom: $global-spacing / 4;
   }
 
@@ -455,11 +456,5 @@
 
   a, a:visited {
     color: tint($primary-color, 48%);
-  }
-
-  .url {
-    @extend .truncated;
-    display: block;
-    width: 100%;
   }
 }
