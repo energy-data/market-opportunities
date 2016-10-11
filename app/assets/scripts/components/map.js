@@ -47,7 +47,6 @@ export const Map = React.createClass({
     this.props.onCanvasReady(map)
     map.on('click', this._handleMapClick)
     // always keep population data handy
-    window.mapGL = map
     map.on('load', () => {
       map.addSource('pop', {
         type: 'vector',
