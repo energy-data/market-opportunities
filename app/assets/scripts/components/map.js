@@ -15,7 +15,7 @@ import normalize from 'geojson-normalize'
 import flatten from 'geojson-flatten'
 import rbush from 'rbush'
 import mapboxgl from 'mapbox-gl'
-mapboxgl.accessToken = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
+mapboxgl.accessToken = 'pk.eyJ1IjoiZW5lcmd5ZGF0YSIsImEiOiJjaXU3Nmp3d2owajVuMnBsaGQ4NzF5dnlzIn0.ZdwXwwGt-7qdbHc2eM-HNQ'
 
 import Popup from './popup'
 import { mapStyle, intersectPaint, roadLayers, popLayer } from '../constants'
