@@ -17,7 +17,7 @@ export const scenarios = [
   { title: 'Scenario 4', thumbnail: 'http://placehold.it/768x384' }
 ]
 
-export const mapStyle = 'mapbox://styles/devseed/cip5i5wgd000rb8m9pce23cnk'
+export const mapStyle = 'mapbox://styles/energydata/ciu76ulr100gq2io4hr0p2u3c'
 
 export const intersectPaint = {
   'fill-pattern': 'selectionfill',

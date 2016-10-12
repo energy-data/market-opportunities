@@ -15,7 +15,7 @@ const Country = React.createClass({
 
   render: function () {
     const { info, selected } = this.props
-    const token = 'pk.eyJ1IjoiZGV2c2VlZCIsImEiOiJnUi1mbkVvIn0.018aLhX0Mb0tdtaT2QNe2Q'
+    const token = 'pk.eyJ1IjoiZW5lcmd5ZGF0YSIsImEiOiJjaXU3Nmp3d2owajVuMnBsaGQ4NzF5dnlzIn0.ZdwXwwGt-7qdbHc2eM-HNQ'
     const center = [(info.bbox[0] + info.bbox[2]) / 2, (info.bbox[1] + info.bbox[3]) / 2]
     const mapSrc = 'https://api.mapbox.com/styles/v1/' +
     `${mapStyle.replace('mapbox://styles/', '')}` +
