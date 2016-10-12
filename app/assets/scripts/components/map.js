@@ -149,11 +149,11 @@ export const Map = React.createClass({
 
     // when going from selection view to map, populate the population rbush
     if (nextProps.step === 'map' && this.props.step === 'country') {
-      if (this._map.getSource('pop').loaded()) {
+      if (this._map.getSource('pop') && this._map.getSource('pop').loaded()) {
         this._populateRbush(nextProps)
       } else {
         this._map.on('render', () => {
-          if (this._map.getSource('pop').loaded()) {
+          if (this._map.getSource('pop') && this._map.getSource('pop').loaded()) {
             this._map.off('render')
             this._populateRbush(nextProps)
           }
@@ -266,7 +266,7 @@ export const Map = React.createClass({
       })
       // listen for the source being loaded, then calculate the data layer
       this._map.on('render', () => {
-        if (this._map.getSource(sourceName).loaded()) {
+        if (this._map.getSource(sourceName) && this._map.getSource(sourceName).loaded()) {
           this._map.off('render')
           const features = this._map.querySourceFeatures(sourceName, {
             sourceLayer: 'data_layer',
@@ -417,7 +417,9 @@ export const Map = React.createClass({
         indicatorFilterToMapFilter(props.editLayer.filter, props.country.toLowerCase()))
     } else {
       const sourceName = `${String(props.editLayer.id)}-source`
-      if (this._map.getSource(sourceName).loaded()) {
+      if (this._map.getSource(sourceName) && this._map.getSource(sourceName).loaded() &&
+          this._map.getSource(sourceName.replace('source', 'data')) &&
+          this._map.getSource(sourceName.replace('source', 'data')).loaded()) {
         this._map.off('render')
         const features = this._map.querySourceFeatures(sourceName, {
           sourceLayer: 'data_layer',
@@ -435,7 +437,9 @@ export const Map = React.createClass({
 
   _calculateIntersectedPopulation: function (props) {
     // we can calculate this faster if we flatten then rbush
-    const flattenedIntersection = normalize(flatten(props.layers.intersect))
+    const flattenedIntersection = (props.layers.intersect.type === 'MultiPolygon')
+    ? fc(flatten(props.layers.intersect))
+    : normalize(props.layers.intersect)
     const population = flattenedIntersection.features.reduce((a, b) => {
       const [minX, minY, maxX, maxY] = bb(b)
       const geoFiltered = this._tree.search({minX, minY, maxX, maxY})
