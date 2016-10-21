@@ -30,7 +30,7 @@ const About = React.createClass({
                   <div className='layout__headline'>
                     <h1 className='layout__title'>About</h1>
                     <div className='layout__introduction'>
-                      <p>Learn more about the Offgrid Market Opportunity Tool</p>
+                      <p>The Offgrid Market Opportunity Tool has been developed by the IFC.</p>
                     </div>
                   </div>
                 </div>
@@ -38,27 +38,15 @@ const About = React.createClass({
               <div className='layout__body'>
                 <div className='inner'>
                   <div className='layout__prose-content prose prose--responsive'>
-                    <p>Over one billion people still lack access to electricity across the world. Off-grid technologies and approaches are emerging as part of the solutions to serve the energy poor, but lack of data and information on the market potential remains a major constraint and impediment. As a result of these issues, IFC and the World Bank have developed this Off-Grid Market Opportunity Tool.</p>
-                    <h2>How this tool can help</h2>
-                    <ul>
-                      <li>Private Sector - Narrow down potential areas of interest in new markets for off-grid companies</li>
-                      <li>Government - Explore the potential role off-grid solutions could play in broader energy access strategies</li>
-                      <li>Academia / Civil Society – Participate, contribute, inform global dialogue and local efforts on energy access</li>
-                    </ul>
-                    <hr />
-                    <h2>How to use the tool</h2>
-                    <ol>
-                      <li>Select a country</li>
-                      <li>Adjust data parameters based on specific business models and technologies</li>
-                      <li>Switch base layers for enhanced visualization</li>
-                      <li>Quickly estimate market potential based on market share and estimated revenue</li>
-                      <li>Add your own complementary data to further refine results</li>
-                    </ol>
-                    <hr />
-                    <h2 id='disclaimer'>Disclaimer</h2>
-                    <p>This tool is not intended to provide an exhaustive or complete assessment of the off-grid market potential. Rather, it is intended for informational purposes only.</p>
+                    <h2>IFC</h2>
+                    <p>The International Finance Corporation, a member of the World Bank Group, is the largest global development institution focused exclusively on the private sector in developing countries.</p>
+                    <p>IFC utilizes and leverages dedicated products and services—as well as products and services of other institutions in the World Bank Group—to provide development solutions customized to meet clients’ needs. IFC applies its financial resources, technical expertise, global experience, and innovative thinking to help partners overcome financial, operational, and political challenges.</p>
+                    <h2>Disclaimer</h2>
+                    <p>This tool is not intended to provide an exhaustive assessment of the off-grid market potential. Rather, it is intended for informational purposes only.</p>
                     <p>The tool relies primarily on open data, and additional data provided by users. As such, IFC does not guarantee the accuracy of the data but, rather, presents it in good faith. Any resulting interpretations, opinions and conclusions from the tool do not necessarily reflect the opinions of IFC or the World Bank Group, or the parties that they represent.</p>
-                    <p>It is not recommended that any analyses resulting from the use of the tool serve as the sole basis of either commercial or policy decision-making. Rather, users are encouraged to consult relevant experts to further elaborate or confirm any initial observations resulting from the use of this tool.</p>
+                    <p>It is not recommended that any analyses resulting from the use of the tool serve as the sole basis for either commercial or policy decision-making. Rather, users are encouraged to consult relevant experts to further elaborate or confirm any initial observations resulting from the use of this tool.</p>
+                    <h2>Contact</h2>
+                    <p>For questions and comments about this tool, please contact <a href="mailto:energydata@worldbankgroup.org">our team</a>.</p>
                   </div>
                 </div>
               </div>
