@@ -39,7 +39,7 @@ const About = React.createClass({
                 </div>
               </header>
               <div className='layout__body'>
-                <section className='fold fold--copy-left' id='how1-fold'>
+                <section className='fold fold--copy-left fold--copy-vmiddle' id='how1-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
@@ -58,7 +58,7 @@ const About = React.createClass({
                     </div>
                   </div>
                 </section>
-                <section className='fold fold--copy-right' id='how2-fold'>
+                <section className='fold fold--copy-right fold--copy-vmiddle' id='how2-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
@@ -77,7 +77,7 @@ const About = React.createClass({
                     </div>
                   </div>
                 </section>
-                <section className='fold fold--copy-left' id='how3-fold'>
+                <section className='fold fold--copy-left fold--copy-vmiddle' id='how3-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
@@ -97,7 +97,7 @@ const About = React.createClass({
                     </div>
                   </div>
                 </section>
-                <section className='fold fold--copy-right' id='how4-fold'>
+                <section className='fold fold--copy-right fold--copy-vmiddle' id='how4-fold'>
                   <div className='inner'>
                     <div className='fold__copy'>
                       <header className='fold__header'>
