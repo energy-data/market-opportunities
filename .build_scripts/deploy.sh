@@ -3,6 +3,7 @@ set -e # halt script on error
 
 echo "Get ready, we're pushing to gh-pages!"
 cd dist
+cp ../CNAME ./
 git init
 git config user.name "Travis-CI"
 git config user.email "travis@somewhere.com"
