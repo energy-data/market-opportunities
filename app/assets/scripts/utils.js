@@ -234,12 +234,6 @@ export function downloadMapPDF (props) {
     .font(MSSemiBold)
     .text(countries[props.country].name, margin, margin)
 
-  // Subtitle
-  doc.fontSize(8)
-  doc.fillColor(secondaryFontColor)
-    .font(MSSemiBold)
-    .text('SELECTED AREA LOREM IPSUM', margin, margin + 24)
-
   // Right Title
   doc.fontSize(12)
   doc.fillColor(baseFontColor)
@@ -253,9 +247,10 @@ export function downloadMapPDF (props) {
   doc.fontSize(8)
   doc.fillColor(secondaryFontColor)
     .font(MSSemiBold)
-    .text('POWERED BY ENERGY PLATFORM', pageWidth - column - margin, margin + 16, {
+    .text('POWERED BY ENERGYDATA.INFO', pageWidth - column - margin, margin + 16, {
       width: column,
-      align: 'right'
+      align: 'right',
+      link: 'https://energydata.info'
     })
 
   // Map Body Base
@@ -287,12 +282,12 @@ export function downloadMapPDF (props) {
   doc.fontSize(12)
   doc.fillColor(baseFontColor)
     .font(MSSemiBold)
-    .text('Selected Indicators', margin, 96 + mapHeight + 20)
+    .text('Selected Parameters', margin, 96 + mapHeight + 20)
 
   doc.rect(margin, 96 + mapHeight + 38, 28, 2)
      .fill(primaryColor)
 
-  const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus volutpat ante sagittis lacus vulputate suscipit. Donec sodales elementum blandit. Integer vel lectus id sapien euismod faucibus.'
+  const lorem = 'The map above presents areas that combine the user select parameters presented below.'
   doc.fontSize(8)
   doc.fillColor(baseFontColor)
     .font(MSLight)
@@ -305,12 +300,12 @@ export function downloadMapPDF (props) {
   doc.fontSize(12)
   doc.fillColor(baseFontColor)
     .font(MSSemiBold)
-    .text('Analysis', margin + column + gutter, 96 + mapHeight + 20)
+    .text('Results', margin + column + gutter, 96 + mapHeight + 20)
 
   doc.rect(margin + column + gutter, 96 + mapHeight + 38, 28, 2)
      .fill(primaryColor)
 
-  const loremTwo = 'Donec sodales elementum blandit. Integer vel lectus id sapien euismod faucibus.'
+  const loremTwo = 'The following values and the revenue estimate have been generated based on the selected parameters. The market captured and revenue per household were determined by the user.'
   doc.fontSize(8)
   doc.fillColor(baseFontColor)
     .font(MSLight)
@@ -353,8 +348,8 @@ export function downloadMapPDF (props) {
     { name: 'Population', value: shortenNumber(Math.round(population), 2) },
     { name: 'Households', value: shortenNumber(hhCount, 2) },
     { name: 'Market Captured', value: Math.round(marketCapture * 100) + '%' },
-    { name: 'Avg. revenue per HH', value: '$' + revenuePerHousehold },
-    { name: 'Size of the Prize', value: shortenNumber(hhCount * revenuePerHousehold * marketCapture, 2) }
+    { name: 'Avg. revenue per household', value: '$' + revenuePerHousehold },
+    { name: 'Revenue estimate', value: shortenNumber(hhCount * revenuePerHousehold * marketCapture, 2) }
   ]
   outputs.forEach((output, index) => {
     doc.fontSize(8)

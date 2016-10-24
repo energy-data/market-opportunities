@@ -25,6 +25,7 @@ import App from './views/app'
 import Explore from './views/explore'
 import Home from './views/home'
 import About from './views/about'
+import Howto from './views/howto'
 
 // Initial data load
 import fetchLayers from './fetch-layers'
@@ -49,6 +50,7 @@ ReactDOM.render(
       <Route path='/' component={App}>
         <Route path='explore' component={Explore} />
         <Route path='about' component={About} />
+        <Route path='howto' component={Howto} />
         <IndexRoute component={Home} />
       </Route>
     </Router>

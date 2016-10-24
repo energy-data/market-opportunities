@@ -268,23 +268,26 @@ export const Map = React.createClass({
       this._map.on('render', () => {
         if (this._map.getSource(sourceName) && this._map.getSource(sourceName).loaded()) {
           this._map.off('render')
-          const features = this._map.querySourceFeatures(sourceName, {
-            sourceLayer: 'data_layer',
-            filter: indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase())
-          })
-          const buffered = buffer(fc(features), layer.filter.value.toFixed(0), 'kilometers')
-          this._map.addSource(`${String(layer.id)}-data`, {
-            type: 'geojson',
-            data: buffered
-          })
-          this._map.addLayer({
-            'id': `${String(layer.id)}-data`,
-            'type': 'fill',
-            'source': `${String(layer.id)}-data`,
-            'interactive': true,
-            'maxzoom': 18,
-            'paint': createDataPaintObject(layer)
-          }, 'waterway-label')
+          // also ensure we haven't already added the data source
+          if (!this._map.getSource(`${String(layer.id)}-data`)) {
+            const features = this._map.querySourceFeatures(sourceName, {
+              sourceLayer: 'data_layer',
+              filter: indicatorFilterToMapFilter(layer.filter, this.props.country.toLowerCase())
+            })
+            const buffered = buffer(fc(features), layer.filter.value.toFixed(0), 'kilometers')
+            this._map.addSource(`${String(layer.id)}-data`, {
+              type: 'geojson',
+              data: buffered
+            })
+            this._map.addLayer({
+              'id': `${String(layer.id)}-data`,
+              'type': 'fill',
+              'source': `${String(layer.id)}-data`,
+              'interactive': true,
+              'maxzoom': 18,
+              'paint': createDataPaintObject(layer)
+            }, 'waterway-label')
+          }
         }
       })
       // force source loading with temp layer
