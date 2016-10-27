@@ -8,5 +8,5 @@ module.exports = {
   APIBaseURL: 'https://energydata.info/',
   dataHubURL: 'https://energydata.info/',
   dataHubOrganization: 'offgrid-market-opportunities',
-  basePath: '/market-opportunities/'
+  basePath: '/'
 }
