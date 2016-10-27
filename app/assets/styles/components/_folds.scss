@@ -138,9 +138,11 @@
 
 .fold--copy-vmiddle {
   > .inner {
-    @include display(flex);
-    @include align-items(center);
-    @include justify-content(center);
+    @include media(medium-up) {
+      @include display(flex);
+      @include align-items(center);
+      @include justify-content(center);
+    }
   }
 }
 
