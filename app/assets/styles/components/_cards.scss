@@ -123,9 +123,9 @@ a.card__contents {
   position: relative;
   overflow: hidden;
   background: tint($base-color, 96%);
-  margin: $global-spacing / 4;
+  margin: ($global-spacing / 4) ($global-spacing / 4) $global-spacing ($global-spacing / 4);
   border-radius: $base-border-radius;
-  min-height: 4rem;
+  min-height: 5rem;
 
   &::before {
     position: absolute;

@@ -8,14 +8,7 @@ export const baseLayers = [
   { id: 'mb-road-layers', name: 'Roads', group: 'a', type: 'base' }
 ]
 
-export const highlightedCountries = [ 'TZA', 'ZMB', 'NGA' ]
-
-export const scenarios = [
-  { title: 'Scenario 1', thumbnail: 'http://placehold.it/768x384' },
-  { title: 'Scenario 2', thumbnail: 'http://placehold.it/768x384' },
-  { title: 'Scenario 3', thumbnail: 'http://placehold.it/768x384' },
-  { title: 'Scenario 4', thumbnail: 'http://placehold.it/768x384' }
-]
+export const includedCountries = [ 'AGO', 'BDI', 'BEN', 'BFA', 'BWA', 'CAF', 'CIV', 'CMR', 'COD', 'COG', 'COM', 'CPV', 'ERI', 'ETH', 'GAB', 'GHA', 'GIN', 'GMB', 'GNB', 'GNQ', 'KEN', 'LBR', 'LSO', 'MDG', 'MLI', 'MOZ', 'MRT', 'MUS', 'MWI', 'NAM', 'NER', 'NGA', 'RWA', 'SDN', 'SEN', 'SLE', 'SOM', 'SSD', 'STP', 'SWZ', 'SYC', 'TCD', 'TGO', 'TZA', 'UGA', 'ZAF', 'ZMB', 'ZWE' ]
 
 export const mapStyle = 'mapbox://styles/energydata/ciu76ulr100gq2io4hr0p2u3c'
 
