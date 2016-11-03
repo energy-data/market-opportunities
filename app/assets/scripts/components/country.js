@@ -19,14 +19,14 @@ const Country = React.createClass({
     const mapSrc = 'https://api.mapbox.com/styles/v1/' +
     `${mapStyle.replace('mapbox://styles/', '')}` +
     '/static/' +
-    `${center[0]},${center[1]},4,0,0/768x384?access_token=${token}&logo=false&attribution=false`
+    `${center[0]},${center[1]},4,0,0/768x256?access_token=${token}&logo=false&attribution=false`
     return (
       <li className='options-list__item'>
         <article className={c('card', 'card--country', {'card--active': selected})}>
           <a href='#' className='card__contents' title='Select option' onClick={(e) => this.props.updateSelectedCountry(e, this.props.id)}>
             <figure className='card__media'>
               <div className='card__thumbnail'>
-                <img alt='Card thumb' width='768' height='384' src={mapSrc} />
+                <img alt='Card thumb' width='768' height='256' src={mapSrc} />
               </div>
               <div className='card--country__flag'>
                 <img alt='Card flag' width='640' height='480' src={`assets/graphics/content/flags/4x3/${info.iso_a2.toLowerCase()}.svg`} />
@@ -35,14 +35,6 @@ const Country = React.createClass({
             <header className='card__header'>
               <h1 className='card__title'>{info.name}</h1>
             </header>
-            <div className='card__body'>
-              <dl className='card--country__details'>
-                <dt>Area</dt>
-                <dd>{info.area}</dd>
-                <dt>Population</dt>
-                <dd>{info.population}</dd>
-              </dl>
-            </div>
           </a>
         </article>
       </li>
