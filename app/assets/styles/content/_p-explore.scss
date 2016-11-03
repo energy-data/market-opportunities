@@ -3,8 +3,11 @@
    ========================================================================== */
 
 .page--explore {
-  .page__footer,
   .layout__header {
+    @extend .visually-hidden;
+  }
+
+  .page__footer {
     @extend .visually-hidden;
   }
 
