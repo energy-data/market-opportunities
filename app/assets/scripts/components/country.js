@@ -41,7 +41,7 @@ const Country = React.createClass({
                 <dt>Area</dt>
                 <dd>{info.area}</dd>
                 <dt>Population</dt>
-                <dd>{numberWithCommas(info.population)}</dd>
+                <dd>{info.population}</dd>
               </dl>
             </div>
           </a>
