@@ -2164,7 +2164,7 @@ export const countries = {
       7.45234375000004,
       1.699121093750037
     ],
-    "name": "So Tom and Principe",
+    "name": "São Tomé and Principe",
     "iso_a2": "ST",
     "avg_hh_size": 5
   },

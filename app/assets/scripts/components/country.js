@@ -2,7 +2,6 @@ import React from 'react'
 import c from 'classnames'
 
 import { mapStyle } from '../constants'
-import { numberWithCommas } from '../utils'
 
 const Country = React.createClass({
 
@@ -24,7 +23,7 @@ const Country = React.createClass({
     return (
       <li className='options-list__item'>
         <article className={c('card', 'card--country', {'card--active': selected})}>
-          <a href='#' className='card__contents' title='Select option' onClick={this._updateSelectedCountry}>
+          <a href='#' className='card__contents' title='Select option' onClick={(e) => this.props.updateSelectedCountry(e, this.props.id)}>
             <figure className='card__media'>
               <div className='card__thumbnail'>
                 <img alt='Card thumb' width='768' height='384' src={mapSrc} />
@@ -48,10 +47,6 @@ const Country = React.createClass({
         </article>
       </li>
     )
-  },
-
-  _updateSelectedCountry: function (e) {
-    this.props.updateSelectedCountry(e, this.props.id)
   }
 })
 

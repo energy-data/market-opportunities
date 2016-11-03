@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import c from 'classnames'
 
 import { updateStep, updateSelectedCountry } from '../actions'
 import { includedCountries } from '../constants'
@@ -26,10 +25,6 @@ export const MultiStep = React.createClass({
                 <div className='inner'>
                   <div className='step-view__headline'>
                     <h2 className='step-view__title'>Choose a Country</h2>
-                  </div>
-                  <div className='step-view__meta-actions'>
-                    <button onClick={this._handleCancel} className={c('button-cancel-step', {disabled: !selection.country})} type='button'><span>Cancel</span></button>
-                    <button onClick={this._handleNext} className={c('button-save-step', {disabled: !selection.country})} type='button'><span>Save</span></button>
                   </div>
                 </div>
               </header>
@@ -58,17 +53,10 @@ export const MultiStep = React.createClass({
     }
   },
 
-  _handleNext: function () {
-    this.props.dispatch(updateStep('map'))
-  },
-
-  _handleCancel: function () {
-    this.props.dispatch(updateStep('map'))
-  },
-
   _updateSelectedCountry: function (e, country) {
     e.preventDefault()
     this.props.dispatch(updateSelectedCountry(country))
+    this.props.dispatch(updateStep('map'))
   }
 })
 
