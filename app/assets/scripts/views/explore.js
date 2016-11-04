@@ -33,7 +33,7 @@ const Explore = React.createClass({
               <header className='layout__header'>
                 <div className='inner'>
                   <div className='layout__headline'>
-                    <h1 className='layout__title'>Explore</h1>
+                    <h1 className='layout__title'>Choose a country</h1>
                   </div>
                 </div>
               </header>
