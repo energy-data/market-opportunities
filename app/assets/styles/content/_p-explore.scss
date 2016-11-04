@@ -3,10 +3,15 @@
    ========================================================================== */
 
 .page--explore {
-  .layout__header {
-    @extend .visually-hidden;
+  .layout__body {
+    > .inner {
+      max-width: none;
+    }
   }
+}
 
+.page--app {
+  .layout__header,
   .page__footer {
     @extend .visually-hidden;
   }

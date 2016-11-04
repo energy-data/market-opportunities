@@ -11,6 +11,11 @@
   z-index: 80;
   width: 18rem;
   max-height: calc(100% - #{$global-spacing * 2}); // once max-height is reached, the body becomes scrollable
+  display: none;
+
+  .page--app & {
+    display: block;
+  }
 
   .panel__header {
     @include flex(0 0 auto);
