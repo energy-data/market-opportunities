@@ -44,7 +44,6 @@ export const Map = React.createClass({
       style: mapStyle,
       preserveDrawingBuffer: true
     })
-    window.map = map
     this.props.onCanvasReady(map)
     map.on('click', this._handleMapClick)
     // always keep population data handy
