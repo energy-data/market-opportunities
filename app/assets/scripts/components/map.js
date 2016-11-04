@@ -44,6 +44,7 @@ export const Map = React.createClass({
       style: mapStyle,
       preserveDrawingBuffer: true
     })
+    window.map = map
     this.props.onCanvasReady(map)
     map.on('click', this._handleMapClick)
     // always keep population data handy
@@ -145,6 +146,14 @@ export const Map = React.createClass({
     // if we have a newly selected country, zoom to it
     if (nextProps.country !== this.props.country) {
       this._map.fitBounds(countries[nextProps.country].bbox, { padding: 50 })
+    }
+
+    // The map is initialized in a hidden container and in doing so it doesn't
+    // assume the full viewport size.
+    // When moving from the country selection step we force a map redraw to
+    // fix this.
+    if (this.props.step !== nextProps.step && this.props.step === 'country') {
+      this._map.resize()
     }
 
     // when going from selection view to map, populate the population rbush

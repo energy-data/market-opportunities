@@ -1,21 +1,31 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import classnames from 'classnames'
 
 import Header from '../components/header'
 import Footer from '../components/footer'
 import Map from '../components/map'
 import ControlPanel from '../components/control-panel'
 import SelectionPanel from '../components/selection-panel'
-import MultiStep from '../components/multi-step'
+import CountrySelection from '../components/country-selection'
 import Nocando from '../components/nocando'
 import Loading from '../components/loading'
 
 const Explore = React.createClass({
 
-  propTypes: {},
+  propTypes: {
+    selection: React.PropTypes.object
+  },
 
   render: function () {
+    let klass = classnames(
+      'page',
+      'page--explore',
+      {'page--app': this.props.selection.step !== 'country'}
+    )
+
     return (
-      <div className='page page--explore'>
+      <div className={klass}>
         <Header />
         <main className='page__body' role='main'>
           <div className='inner'>
@@ -23,13 +33,13 @@ const Explore = React.createClass({
               <header className='layout__header'>
                 <div className='inner'>
                   <div className='layout__headline'>
-                    <h1 className='layout__title'>Explore the data</h1>
+                    <h1 className='layout__title'>Explore</h1>
                   </div>
                 </div>
               </header>
               <div className='layout__body'>
                 <div className='inner'>
-                  <MultiStep />
+                  <CountrySelection />
                   <ControlPanel />
                   <Map onCanvasReady={this._updateMapReference} />
                   <SelectionPanel getMapReference={this._getMapReference} />
@@ -54,4 +64,11 @@ const Explore = React.createClass({
   }
 })
 
-export default Explore
+/* istanbul ignore next */
+function mapStateToProps (state) {
+  return {
+    selection: state.selection
+  }
+}
+
+export default connect(mapStateToProps)(Explore)
