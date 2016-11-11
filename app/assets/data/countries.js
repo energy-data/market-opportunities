@@ -468,7 +468,7 @@ export const countries = {
       -2.505859375000028,
       10.724072265625054
     ],
-    "name": "Cte d'Ivoire",
+    "name": "Côte d'Ivoire",
     "iso_a2": "CI",
     "avg_hh_size": 5
   },
@@ -798,7 +798,7 @@ export const countries = {
       -6.406054687499932,
       62.35566406250001
     ],
-    "name": "Faeroe Is.",
+    "name": "Faroe Islands",
     "iso_a2": "FO",
     "avg_hh_size": 5
   },
@@ -908,7 +908,7 @@ export const countries = {
       11.335351562500023,
       3.758300781249972
     ],
-    "name": "Eq. Guinea",
+    "name": "Equitorial Guinea",
     "iso_a2": "GQ",
     "avg_hh_size": 5
   },
@@ -1293,7 +1293,7 @@ export const countries = {
       107.653125,
       22.495263671874966
     ],
-    "name": "Lao PDR",
+    "name": "Laos",
     "iso_a2": "LA",
     "avg_hh_size": 5
   },
@@ -1425,7 +1425,7 @@ export const countries = {
       -63.009423828124994,
       18.11533203124999
     ],
-    "name": "St-Martin",
+    "name": "St. Martin",
     "iso_a2": "MF",
     "avg_hh_size": 5
   },
@@ -1999,7 +1999,7 @@ export const countries = {
       -8.68212890625,
       27.656445312499997
     ],
-    "name": "W. Sahara",
+    "name": "Western Sahara",
     "iso_a2": "EH",
     "avg_hh_size": 5
   },
@@ -2032,7 +2032,7 @@ export const countries = {
       35.26835937500002,
       12.223095703124997
     ],
-    "name": "S. Sudan",
+    "name": "South Sudan",
     "iso_a2": "SS",
     "avg_hh_size": 5
   },

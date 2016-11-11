@@ -147,6 +147,14 @@ export const Map = React.createClass({
       this._map.fitBounds(countries[nextProps.country].bbox, { padding: 50 })
     }
 
+    // The map is initialized in a hidden container and in doing so it doesn't
+    // assume the full viewport size.
+    // When moving from the country selection step we force a map redraw to
+    // fix this.
+    if (this.props.step !== nextProps.step && this.props.step === 'country') {
+      this._map.resize()
+    }
+
     // when going from selection view to map, populate the population rbush
     if (nextProps.step === 'map' && this.props.step === 'country') {
       if (this._map.getSource('pop') && this._map.getSource('pop').loaded()) {
