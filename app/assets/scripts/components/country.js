@@ -23,7 +23,7 @@ const Country = React.createClass({
     return (
       <li className='options-list__item'>
         <article className={c('card', 'card--country', {'card--active': selected})}>
-          <a href='#' className='card__contents' title='Select option' onClick={(e) => this.props.updateSelectedCountry(e, this.props.id)}>
+          <a href='#' className='card__contents' title='Select country' onClick={(e) => this.props.updateSelectedCountry(e, this.props.id)}>
             <figure className='card__media'>
               <div className='card__thumbnail'>
                 <img alt='Card thumb' width='768' height='256' src={mapSrc} />

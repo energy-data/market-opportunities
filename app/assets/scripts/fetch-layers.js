@@ -55,8 +55,8 @@ function fetchLayersThunk (dispatch, getState) {
         console.warn('Could not parse options for indicator ' + indicator.name, resource)
         return null
       }
-      indicator.type = tags.find(kv => kv.key === 'demand-tool-type').value
-      indicator.group = tags.find(kv => kv.key === 'demand-tool-group').value
+      indicator.type = tags.find(kv => /demand-tool-type/.test(kv.key)).value
+      indicator.group = tags.find(kv => /demand-tool-group/.test(kv.key)).value
       return indicator
     })
     .filter(Boolean)
