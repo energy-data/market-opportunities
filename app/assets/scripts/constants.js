@@ -72,3 +72,5 @@ export const roadLayers = [
   'road-service-link-track',
   'road-street_limited'
 ]
+
+export const populationApi = 'https://africa-pop.herokuapp.com/'

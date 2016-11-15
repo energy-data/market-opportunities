@@ -5,26 +5,23 @@ import _ from 'lodash'
 import fc from 'turf-featurecollection'
 import union from 'turf-union'
 import buffer from 'turf-buffer'
-import intersect from 'turf-intersect'
-import area from 'turf-area'
-import bb from 'turf-bbox'
 import bbox from 'turf-bbox-polygon'
 import inside from 'turf-inside'
 import point from 'turf-point'
-import normalize from 'geojson-normalize'
 import flatten from 'geojson-flatten'
-import rbush from 'rbush'
 import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5lcmd5ZGF0YSIsImEiOiJjaXU3Nmp3d2owajVuMnBsaGQ4NzF5dnlzIn0.ZdwXwwGt-7qdbHc2eM-HNQ'
 
 import Popup from './popup'
-import { mapStyle, intersectPaint, roadLayers, popLayer } from '../constants'
+import { mapStyle, intersectPaint, roadLayers, populationApi } from '../constants'
 import { indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createTempPaintStyle } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers,
   startLoading, stopLoading, updateLayerError, toggleLayerVisibility,
   startEditingLayer } from '../actions'
 import { countries } from '../../data/countries'
+
+import { postForm } from '../ajax'
 
 export const Map = React.createClass({
 
@@ -46,27 +43,10 @@ export const Map = React.createClass({
     })
     this.props.onCanvasReady(map)
     map.on('click', this._handleMapClick)
-    // always keep population data handy
+
     map.on('load', () => {
-      map.addSource('pop', {
-        type: 'vector',
-        url: popLayer.tilejson
-      })
-      this._map.addLayer({
-        'id': 'hidden-pop',
-        'type': 'fill',
-        'source': 'pop',
-        'source-layer': 'data_layer',
-        'interactive': true,
-        'maxzoom': 18,
-        'paint': {
-          'fill-opacity': 0.01
-        }
-      }, 'landuse')
       this._hideRoads()
     })
-    // Global rtree for doing fast intersections
-    this._tree = rbush()
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -153,20 +133,6 @@ export const Map = React.createClass({
     // fix this.
     if (this.props.step !== nextProps.step && this.props.step === 'country') {
       this._map.resize()
-    }
-
-    // when going from selection view to map, populate the population rbush
-    if (nextProps.step === 'map' && this.props.step === 'country') {
-      if (this._map.getSource('pop') && this._map.getSource('pop').loaded()) {
-        this._populateRbush(nextProps)
-      } else {
-        this._map.on('render', () => {
-          if (this._map.getSource('pop') && this._map.getSource('pop').loaded()) {
-            this._map.off('render')
-            this._populateRbush(nextProps)
-          }
-        })
-      }
     }
 
     // if we cross the "1 visible layer" threshold, add/remove the
@@ -447,37 +413,17 @@ export const Map = React.createClass({
   },
 
   _calculateIntersectedPopulation: function (props) {
-    // we can calculate this faster if we flatten then rbush
-    const flattenedIntersection = (props.layers.intersect.type === 'MultiPolygon')
-    ? fc(flatten(props.layers.intersect))
-    : normalize(props.layers.intersect)
-    const population = flattenedIntersection.features.reduce((a, b) => {
-      const [minX, minY, maxX, maxY] = bb(b)
-      const geoFiltered = this._tree.search({minX, minY, maxX, maxY})
-      let flattenedFeatures = []
-      geoFiltered.filter(f => f.geometry.type === 'MultiPolygon').forEach(multi => {
-        const flattened = flatten(Object.assign(multi, { type: 'Feature' }))
-        flattenedFeatures = flattenedFeatures.concat(flattened)
-      })
-      const subPopulation = geoFiltered
-        .filter(f => f.geometry.type === 'Polygon')
-        .concat(flattenedFeatures)
-        .reduce((c, d) => {
-          const clip = intersect(b, {
-            type: 'Feature',
-            properties: {},
-            geometry: d.geometry
-          })
-          if (clip) {
-            return c + area(clip) * d.properties.avg
-          } else {
-            return c
-          }
-        }, 0)
-      return a + subPopulation
-    }, 0)
-    this.props.dispatch(stopLoading())
-    this.props.dispatch(setPopulation(population))
+    postForm({
+      url: populationApi,
+      body: JSON.stringify(props.layers.intersect),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }, (err, body) => {
+      if (err) throw err
+      this.props.dispatch(stopLoading())
+      this.props.dispatch(setPopulation(body))
+    })
   },
 
   _enableZoom: function () {
@@ -504,23 +450,6 @@ export const Map = React.createClass({
         inside(point(countryBbox.slice(2, 4)), mapBoundsBbox))) {
       this._map.fitBounds(countryBbox, { padding: 50 })
     }
-  },
-
-  _populateRbush: function (nextProps) {
-    // populate rbush with country population data
-    this._tree.clear()
-    const popFeatures = this._map.querySourceFeatures('pop', {
-      sourceLayer: 'data_layer',
-      filter: ['==', 'iso', nextProps.country.toLowerCase()]
-    })
-    const bbs = popFeatures.map(f => {
-      const [minX, minY, maxX, maxY] = bb(f)
-      return Object.assign({}, { minX, minY, maxX, maxY }, {
-        geometry: f.geometry,
-        properties: f.properties
-      })
-    })
-    this._tree.load(bbs)
   }
 })
 /* istanbul ignore next */
