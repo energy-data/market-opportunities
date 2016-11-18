@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import area from 'turf-area'
 import ScrollArea from 'react-scrollbar/dist/no-css'
 
+import { populationApi } from '../constants'
+import { postForm } from '../ajax'
 import { countries } from '../../data/countries'
 import { shortenNumber, numberWithCommas } from '../utils'
-import { setMarketCaptureRate, setRevenuePerHousehold } from '../actions'
+import { setMarketCaptureRate, setRevenuePerHousehold,
+  setPopulation, stopLoading } from '../actions'
 
 import SelectionFooter from './selection-footer'
 
@@ -36,6 +39,9 @@ export const SelectionPanel = React.createClass({
             </div>
           </header>
           <ScrollArea className='panel__body'>
+            <section className='revenue-trigger'>
+              <button className='button button--secondary' onClick={this._calculateIntersectedPopulation}>Calculate Population</button>
+            </section>
             <dl className='selection-details'>
               <dt>Population</dt>
               <dd>{shortenNumber(population, 2)}</dd>
@@ -106,6 +112,20 @@ export const SelectionPanel = React.createClass({
   _setRevenuePerHousehold: function (e) {
     const value = Math.max(Number(e.target.value), 0)
     this.props.dispatch(setRevenuePerHousehold(value))
+  },
+
+  _calculateIntersectedPopulation: function () {
+    postForm({
+      url: populationApi,
+      body: JSON.stringify(this.props.layers.intersect),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }, (err, body) => {
+      if (err) throw err
+      this.props.dispatch(stopLoading())
+      this.props.dispatch(setPopulation(body))
+    })
   }
 })
 

@@ -13,15 +13,13 @@ import mapboxgl from 'mapbox-gl'
 mapboxgl.accessToken = 'pk.eyJ1IjoiZW5lcmd5ZGF0YSIsImEiOiJjaXU3Nmp3d2owajVuMnBsaGQ4NzF5dnlzIn0.ZdwXwwGt-7qdbHc2eM-HNQ'
 
 import Popup from './popup'
-import { mapStyle, intersectPaint, roadLayers, populationApi } from '../constants'
+import { mapStyle, intersectPaint, roadLayers } from '../constants'
 import { indicatorFilterToMapFilter, intersectLayers,
   createDataPaintObject, createTempPaintStyle } from '../utils'
 import { updateLayerGeoJSON, setMapIntersect, setPopulation, setLayers,
   startLoading, stopLoading, updateLayerError, toggleLayerVisibility,
   startEditingLayer } from '../actions'
 import { countries } from '../../data/countries'
-
-import { postForm } from '../ajax'
 
 export const Map = React.createClass({
 
@@ -162,22 +160,6 @@ export const Map = React.createClass({
       this._hideRoads()
     } else if (!oldRoadVisibility && newRoadVisibility) {
       this._showRoads()
-    }
-
-    // if we have a new intersected area, let's calculate the intersected population
-    if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect) &&
-      nextProps.layers.intersect && !nextProps.editLayer) {
-      this.props.dispatch(startLoading())
-      setTimeout(() => {
-        try {
-          this._calculateIntersectedPopulation(nextProps)
-        } catch (e) {
-          console.warn(e)
-          this.props.dispatch(stopLoading())
-        }
-      // NOTE: this amount of time is required to not interrupt the css
-      // transition on the loading indicator
-      }, 300)
     }
 
     // if we have a new country and it isn't our first, reset our layers
@@ -410,20 +392,6 @@ export const Map = React.createClass({
         })
       }
     }
-  },
-
-  _calculateIntersectedPopulation: function (props) {
-    postForm({
-      url: populationApi,
-      body: JSON.stringify(props.layers.intersect),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }, (err, body) => {
-      if (err) throw err
-      this.props.dispatch(stopLoading())
-      this.props.dispatch(setPopulation(body))
-    })
   },
 
   _enableZoom: function () {
