@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import area from 'turf-area'
 import ScrollArea from 'react-scrollbar/dist/no-css'
 
+import { populationApi } from '../constants'
+import { postForm } from '../ajax'
 import { countries } from '../../data/countries'
 import { shortenNumber, numberWithCommas } from '../utils'
-import { setMarketCaptureRate, setRevenuePerHousehold } from '../actions'
+import { setMarketCaptureRate, setRevenuePerHousehold,
+  setPopulation, startLoading, stopLoading } from '../actions'
 
 import SelectionFooter from './selection-footer'
 
@@ -26,7 +29,7 @@ export const SelectionPanel = React.createClass({
     const { population, revenuePerHousehold, marketCapture, country, intersect,
       layers, getMapReference } = this.props
     if (intersect) {
-      const hhCount = population / countries[country].avg_hh_size
+      const hhCount = population === '-' ? '-' : population / countries[country].avg_hh_size
       return (
         <section className='panel panel--secondary' id='selection-panel'>
           <header className='panel__header'>
@@ -36,13 +39,16 @@ export const SelectionPanel = React.createClass({
             </div>
           </header>
           <ScrollArea className='panel__body'>
+            <section className='revenue-trigger'>
+              <button className='button button--secondary' onClick={this._calculateIntersectedPopulation}>Calculate Population</button>
+            </section>
             <dl className='selection-details'>
               <dt>Population</dt>
               <dd>{shortenNumber(population, 2)}</dd>
               <dt>Households</dt>
               <dd>{shortenNumber(hhCount, 2)}</dd>
               <dt>Potential Revenue</dt>
-              <dd><strong>{shortenNumber(hhCount * revenuePerHousehold * marketCapture, 2)}</strong></dd>
+              <dd><strong>{shortenNumber(hhCount === '-' ? '-' : hhCount * revenuePerHousehold * marketCapture, 2)}</strong></dd>
             </dl>
 
             <section className='revenue-calculator'>
@@ -106,6 +112,21 @@ export const SelectionPanel = React.createClass({
   _setRevenuePerHousehold: function (e) {
     const value = Math.max(Number(e.target.value), 0)
     this.props.dispatch(setRevenuePerHousehold(value))
+  },
+
+  _calculateIntersectedPopulation: function () {
+    this.props.dispatch(startLoading())
+    postForm({
+      url: populationApi,
+      body: JSON.stringify(this.props.layers.intersect),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }, (err, body) => {
+      if (err) throw err
+      this.props.dispatch(stopLoading())
+      this.props.dispatch(setPopulation(body))
+    })
   }
 })
 
