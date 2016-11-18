@@ -162,6 +162,12 @@ export const Map = React.createClass({
       this._showRoads()
     }
 
+    // if we have a new intersected area, zero out the intersected population
+    if (!_.isEqual(nextProps.layers.intersect, this.props.layers.intersect) &&
+      nextProps.layers.intersect && !nextProps.editLayer) {
+      this.props.dispatch(setPopulation('-'))
+    }
+
     // if we have a new country and it isn't our first, reset our layers
     if (this.props.country && nextProps.country && this.props.country !== nextProps.country) {
       this.props.dispatch(setLayers(nextProps.layers.indicators.map(layer => {
