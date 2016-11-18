@@ -4,7 +4,7 @@ import { SET_POPULATION, SET_REVENUE_PER_HOUSEHOLD, SET_MARKET_CAPTURE_RATE,
   PRIZE_TO_DEFAULT } from '../actions'
 
 export const initial = {
-  population: null,
+  population: '-',
   revenuePerHousehold: 10,
   marketCapture: 0.5
 }
