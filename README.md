@@ -26,7 +26,6 @@ We're using [standard](https://github.com/feross/standard) for linting.
 
 - `npm run lint` - will run linter and warn of any errors.
 
-
 ### Other commands
 
 - `npm run collections` - create icon font
