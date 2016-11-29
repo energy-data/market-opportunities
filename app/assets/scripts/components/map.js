@@ -37,7 +37,8 @@ export const Map = React.createClass({
     const map = this._map = new mapboxgl.Map({
       container: 'map',
       style: mapStyle,
-      preserveDrawingBuffer: true
+      preserveDrawingBuffer: true,
+      attributionControl: { position: 'bottom-left' }
     })
     this.props.onCanvasReady(map)
     map.on('click', this._handleMapClick)
@@ -200,7 +201,14 @@ export const Map = React.createClass({
   },
 
   render: function () {
-    return <div id='map' className='map'></div>
+    return (
+      <div id='map' className='map'>
+        <div className='button-group--vertical map__zoom_buttons'>
+          <button className='button button--primary' onClick={this._zoomIn}>+</button>
+          <button className='button button--primary' onClick={this._zoomOut}>-</button>
+        </div>
+      </div>
+    )
   },
 
   _addLayerData: function (layer) {
@@ -398,6 +406,14 @@ export const Map = React.createClass({
         })
       }
     }
+  },
+
+  _zoomIn: function () {
+    if (!this.props.editLayer) this._map.zoomIn()
+  },
+
+  _zoomOut: function () {
+    if (!this.props.editLayer) this._map.zoomOut()
   },
 
   _enableZoom: function () {
