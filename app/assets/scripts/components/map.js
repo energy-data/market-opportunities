@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import c from 'classnames'
 import _ from 'lodash'
 import fc from 'turf-featurecollection'
 import union from 'turf-union'
@@ -204,8 +205,8 @@ export const Map = React.createClass({
     return (
       <div id='map' className='map'>
         <div className='button-group--vertical map__zoom_buttons'>
-          <button className='button button--primary' onClick={this._zoomIn}>+</button>
-          <button className='button button--primary' onClick={this._zoomOut}>-</button>
+          <button className={c('button', 'button--primary', { disabled: this.props.editLayer })} onClick={this._zoomIn}>+</button>
+          <button className={c('button', 'button--primary', { disabled: this.props.editLayer })} onClick={this._zoomOut}>-</button>
         </div>
       </div>
     )
