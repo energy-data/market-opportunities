@@ -40,14 +40,14 @@ export const SelectionPanel = React.createClass({
           </header>
           <ScrollArea className='panel__body'>
             <section className='revenue-trigger'>
-              <button className='button button--secondary' onClick={this._calculateIntersectedPopulation}>Calculate Population</button>
+              <button className='button button--secondary' onClick={this._calculateIntersectedPopulation}>Estimate Market</button>
             </section>
             <dl className='selection-details'>
               <dt>Population</dt>
               <dd>{shortenNumber(population, 2)}</dd>
               <dt>Households</dt>
               <dd>{shortenNumber(hhCount, 2)}</dd>
-              <dt>Potential Revenue</dt>
+              <dt>Potential annual revenue</dt>
               <dd><strong>{shortenNumber(hhCount === '-' ? '-' : hhCount * revenuePerHousehold * marketCapture, 2)}</strong></dd>
             </dl>
 
@@ -62,7 +62,7 @@ export const SelectionPanel = React.createClass({
                   </div>
                 </div>
                 <div className='form__group'>
-                  <label className='form__label' htmlFor='household-revenue'>Household Revenue</label>
+                  <label className='form__label' htmlFor='household-revenue'>Annual revenue per household</label>
                   <div className='form__input-group form__input-group--small'>
                     <input className='form__control form__control--small' type='number' value={revenuePerHousehold} onChange={this._setRevenuePerHousehold} name='household-revenue' id='household-revenue' />
                     <div className='form__addon'><span className='form__addon-label'>$</span></div>
