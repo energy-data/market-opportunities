@@ -40,7 +40,7 @@ export const SelectionPanel = React.createClass({
           </header>
           <ScrollArea className='panel__body'>
             <section className='revenue-trigger'>
-              <button className='button button--secondary' onClick={this._calculateIntersectedPopulation}>Estimate Market</button>
+              <button className='button button--secondary' onClick={this._calculateIntersectedPopulation}>Calculate Population</button>
             </section>
             <dl className='selection-details'>
               <dt>Population</dt>
@@ -52,7 +52,7 @@ export const SelectionPanel = React.createClass({
             </dl>
 
             <section className='revenue-calculator'>
-              <h2 className='revenue-calculator__title' data-tooltip='Adjust user inputs to update the potential revenue estimate'>Calculate</h2>
+              <h2 className='revenue-calculator__title' data-tooltip='Adjust user inputs to update the potential revenue estimate'>Estimated Market</h2>
               <form className='form'>
                 <div className='form__group'>
                   <label className='form__label' htmlFor='market-captured'>Market Captured</label>
