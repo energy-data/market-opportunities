@@ -27,6 +27,7 @@
 
   .panel__body-inner {
     padding: 0;
+
     &:empty {
       text-align: center;
       padding: $global-spacing;

@@ -345,11 +345,11 @@ export function downloadMapPDF (props) {
   const hhCount = population / countries[props.country].avg_hh_size
   const outputs = [
     { name: 'Area', value: numberWithCommas(Math.round(area(geojson) / 1000000)) + ' KM2' },
-    { name: 'Population', value: shortenNumber(Math.round(population), 2) },
-    { name: 'Households', value: shortenNumber(hhCount, 2) },
+    { name: 'Population', value: shortenNumber(Math.round(population), 2) || 'not calculated' },
+    { name: 'Households', value: shortenNumber(hhCount, 2) || 'not calculated' },
     { name: 'Market Captured', value: Math.round(marketCapture * 100) + '%' },
-    { name: 'Avg. revenue per household', value: '$' + revenuePerHousehold },
-    { name: 'Revenue estimate', value: shortenNumber(hhCount * revenuePerHousehold * marketCapture, 2) }
+    { name: 'Annual revenue per household', value: '$' + revenuePerHousehold },
+    { name: 'Annual revenue estimate', value: shortenNumber(hhCount * revenuePerHousehold * marketCapture, 2) || 'not calculated' }
   ]
   outputs.forEach((output, index) => {
     doc.fontSize(8)
