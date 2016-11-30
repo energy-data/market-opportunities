@@ -47,12 +47,12 @@ export const SelectionPanel = React.createClass({
               <dd>{shortenNumber(population, 2)}</dd>
               <dt>Households</dt>
               <dd>{shortenNumber(hhCount, 2)}</dd>
-              <dt>Potential Revenue</dt>
+              <dt>Potential annual revenue</dt>
               <dd><strong>{shortenNumber(hhCount === '-' ? '-' : hhCount * revenuePerHousehold * marketCapture, 2)}</strong></dd>
             </dl>
 
             <section className='revenue-calculator'>
-              <h2 className='revenue-calculator__title' data-tooltip='Adjust user inputs to update the potential revenue estimate'>Calculate</h2>
+              <h2 className='revenue-calculator__title' data-tooltip='Adjust user inputs to update the potential revenue estimate'>Estimated Market</h2>
               <form className='form'>
                 <div className='form__group'>
                   <label className='form__label' htmlFor='market-captured'>Market Captured</label>
@@ -62,7 +62,7 @@ export const SelectionPanel = React.createClass({
                   </div>
                 </div>
                 <div className='form__group'>
-                  <label className='form__label' htmlFor='household-revenue'>Household Revenue</label>
+                  <label className='form__label' htmlFor='household-revenue'>Annual revenue per household</label>
                   <div className='form__input-group form__input-group--small'>
                     <input className='form__control form__control--small' type='number' value={revenuePerHousehold} onChange={this._setRevenuePerHousehold} name='household-revenue' id='household-revenue' />
                     <div className='form__addon'><span className='form__addon-label'>$</span></div>
