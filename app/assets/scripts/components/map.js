@@ -204,9 +204,9 @@ export const Map = React.createClass({
   render: function () {
     return (
       <div id='map' className='map'>
-        <div className='button-group--vertical map__zoom_buttons'>
-          <button className={c('button', 'button--primary', { disabled: this.props.editLayer })} onClick={this._zoomIn}>+</button>
-          <button className={c('button', 'button--primary', { disabled: this.props.editLayer })} onClick={this._zoomOut}>-</button>
+        <div className={c('button-group button-group--vertical map__zoom-controls', { disabled: this.props.editLayer })}>
+          <button className='button-zoom-in' onClick={this._zoomIn}>+</button>
+          <button className='button-zoom-out' onClick={this._zoomOut}>-</button>
         </div>
       </div>
     )
