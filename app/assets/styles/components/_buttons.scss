@@ -170,9 +170,11 @@
   &::after {
     margin: 0;
   }
+  
   > *:not([class^="oam-ds-icon-"]):not([class*=" oam-ds-icon-"]):not([class^="collecticons-"]):not([class*=" collecticons-"]) {
     @extend .visually-hidden;
   }
+
   :not(.button-group) & {
     padding-left: 0;
     padding-right: 0;
@@ -188,6 +190,7 @@
   position: relative;
   display: inline-block;
   vertical-align: middle;
+
   > .button {
     display: block;
     position: relative;
@@ -201,17 +204,21 @@
   > .button {
     float: left;
   }
+
   > .button:first-child:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+
   > .button:last-child:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+
   > .button:not(:first-child):not(:last-child) {
     border-radius: 0;
   }
+
   > .button + .button {
     margin-left: -1px;
   }
@@ -224,21 +231,26 @@
     clear: both;
     width: 100%;
     border-radius: $base-border-radius;
+
     &:hover {
       z-index: 2;
     }
   }
+
   > .button:first-child:not(:last-child) {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
+
   > .button:last-child:not(:first-child) {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+
   > .button:not(:first-child):not(:last-child) {
     border-radius: 0;
   }
+
   > .button + .button {
     margin-top: -1px;
   }

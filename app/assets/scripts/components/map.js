@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
+import c from 'classnames'
 import _ from 'lodash'
 import fc from 'turf-featurecollection'
 import union from 'turf-union'
@@ -37,7 +38,8 @@ export const Map = React.createClass({
     const map = this._map = new mapboxgl.Map({
       container: 'map',
       style: mapStyle,
-      preserveDrawingBuffer: true
+      preserveDrawingBuffer: true,
+      attributionControl: { position: 'bottom-left' }
     })
     this.props.onCanvasReady(map)
     map.on('click', this._handleMapClick)
@@ -200,7 +202,14 @@ export const Map = React.createClass({
   },
 
   render: function () {
-    return <div id='map' className='map'></div>
+    return (
+      <div id='map' className='map'>
+        <div className={c('button-group button-group--vertical map__zoom-controls', { disabled: this.props.editLayer })}>
+          <button className='button-zoom-in' onClick={this._zoomIn}>+</button>
+          <button className='button-zoom-out' onClick={this._zoomOut}>-</button>
+        </div>
+      </div>
+    )
   },
 
   _addLayerData: function (layer) {
@@ -398,6 +407,14 @@ export const Map = React.createClass({
         })
       }
     }
+  },
+
+  _zoomIn: function () {
+    if (!this.props.editLayer) this._map.zoomIn()
+  },
+
+  _zoomOut: function () {
+    if (!this.props.editLayer) this._map.zoomOut()
   },
 
   _enableZoom: function () {
