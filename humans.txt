@@ -1,0 +1,6 @@
+/* SITE */
+
+Last update: 2016/06/01
+Standards: HTML5, CSS3, RWD
+Components: Collecticons, Jeet
+Software: Sublime Text, Adobe Illustrator CC, GitHub (Mac)
